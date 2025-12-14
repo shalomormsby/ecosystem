@@ -1,6 +1,6 @@
-# Shalom Ecosystem
+# Ecosystem
 
-One mind, many expressions. A unified design system powering multiple products.
+An open and evolving ecosystem that’s transparent by design. Includes a design system, sandbox, apps, and portfolio.
 
 **Status:** Active Development
 **License:** MIT
