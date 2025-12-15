@@ -4,18 +4,14 @@
     "main": "./dist/index.js",
     "types": "./dist/index.d.ts",
     "exports": {
-        ".": {
-            "types": "./dist/index.d.ts",
-            "import": "./dist/index.js",
-            "require": "./dist/index.js"
-        },
+        ".": "./src/index.ts",
         "./tokens": "./tokens/index.ts",
         "./atoms": "./atoms/index.ts",
         "./features/customizer": "./features/customizer/index.ts"
     },
     "scripts": {
-        "build": "tsup src/index.ts --format esm,cjs --dts",
-        "dev": "tsup src/index.ts --format esm,cjs --dts --watch"
+        "build": "tsup src/index.ts --format esm,cjs --dts --external react --external react-dom --external framer-motion",
+        "dev": "tsup src/index.ts --format esm,cjs --dts --watch --external react --external react-dom --external framer-motion"
     },
     "devDependencies": {
         "@types/react": "^19.2.7",

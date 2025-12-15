@@ -17,4 +17,7 @@ An open and evolving ecosystem that’s transparent by design. Includes a design
 - **Config** - Shared build configurations
 - **Utils** - Shared utilities
 
+## Documentation
+- [MCP Server Setup Guide](docs/mcp-setup.md) - Configure MCP servers (Figma, etc.) for Claude Code
+
 Built with Next.js 15, TypeScript, Tailwind CSS, and Framer Motion.
