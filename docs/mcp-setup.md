@@ -126,7 +126,7 @@ The Figma MCP Server brings Figma designs directly into your Claude Code workflo
 - OAuth authentication can be unreliable
 - May show "needs authentication" without clear auth flow
 - Tools don't always load after authentication without restart
-- As of Dec 2024, this has significant UX issues
+- As of Dec 2025, this has significant UX issues (Shalom spent a lot of time working in vain to get the Remote MCP server to work, and was blocked at the "needs-auth", despite successfully granting permission via the Figma auth webpage.)
 
 **Setup Steps:**
 
@@ -155,7 +155,7 @@ The Figma MCP Server brings Figma designs directly into your Claude Code workflo
 4. **Known Issue: No Clear Auth Button**
    - The UI may not show an "Authenticate" button
    - Clicking on the server name might not trigger OAuth
-   - This is a known bug as of Dec 2024
+   - This is a known bug as of Dec 2025
 
 5. **If Authentication Succeeds**
    - Restart VS Code completely
