@@ -1,23 +1,49 @@
 # MCP Server Setup Guide
 
-This guide documents how to set up and configure Model Context Protocol (MCP) servers for use with Claude Code in this ecosystem.
+This guide documents how to set up and configure Model Context Protocol (MCP) servers for use with AI coding assistants in this ecosystem.
+
+## Platform Support
+
+This guide currently covers:
+
+- ✅ **Claude Code in VS Code** - Fully documented with troubleshooting
+- 🚧 **Gemini in Antigravity** - Coming soon (instructions will be added when needed)
+- 🚧 **Other LLM + IDE combinations** - Will be added as we integrate them
+
+> **Note:** The detailed instructions below are specific to **Claude Code running in VS Code**. If you're using a different LLM or IDE, the setup process may differ. Contributions for other platforms are welcome!
 
 ## Table of Contents
 
 - [What is MCP?](#what-is-mcp)
-- [General Setup Process](#general-setup-process)
-- [Figma MCP Server](#figma-mcp-server)
+- [Platform-Specific Setup](#platform-specific-setup)
+  - [Claude Code in VS Code](#claude-code-in-vs-code)
+- [MCP Servers](#mcp-servers)
+  - [Figma MCP Server](#figma-mcp-server)
 - [Troubleshooting](#troubleshooting)
 
 ---
 
 ## What is MCP?
 
-Model Context Protocol (MCP) is a standard that allows Claude Code to connect to external tools and services. MCP servers provide specialized capabilities like reading Figma designs, accessing databases, or integrating with APIs.
+Model Context Protocol (MCP) is an open standard that allows AI assistants to connect to external tools and services. MCP servers provide specialized capabilities like reading Figma designs, accessing databases, querying APIs, or integrating with third-party platforms.
 
-## General Setup Process
+**Key benefits:**
+- Extends AI capabilities beyond code generation
+- Standardized protocol across different AI tools
+- Can connect to design tools, data sources, and services
+- Reusable across multiple AI assistants (in theory)
 
-### 1. Add MCP Server via CLI
+---
+
+## Platform-Specific Setup
+
+### Claude Code in VS Code
+
+The following instructions are for setting up MCP servers with **Claude Code running in VS Code**.
+
+#### General Setup Process
+
+##### 1. Add MCP Server via CLI
 
 Use the `claude mcp add` command to register an MCP server:
 
@@ -30,7 +56,7 @@ claude mcp add --transport <type> <server-name> <url>
 - `sse` - Server-Sent Events
 - `stdio` - Standard I/O (for local processes)
 
-### 2. Verify Installation
+##### 2. Verify Installation
 
 Check that the server is configured:
 
@@ -40,26 +66,44 @@ claude mcp list
 
 This will show all configured MCP servers and their connection status.
 
-### 3. Restart Claude Code/VS Code
+##### 3. Restart Claude Code/VS Code
 
 After adding an MCP server, you typically need to restart VS Code completely (not just Claude Code) for the tools to become available.
 
-### 4. Test Connection
+##### 4. Test Connection
 
 Use the `/mcp` command in Claude Code to check server status and manage connections.
 
 ---
 
-## Figma MCP Server
+### Gemini in Antigravity
 
-The Figma MCP Server brings Figma designs directly into your Claude Code workflow, allowing AI agents to read design information, tokens, and component details.
+> 🚧 **Coming Soon:** Instructions for setting up MCP servers with Gemini in Antigravity will be added here when we integrate this combination.
 
-### Two Setup Options
+If you're working on this integration, please document:
+- Installation and configuration steps
+- How to add and verify MCP servers
+- Platform-specific quirks or limitations
+- Troubleshooting guidance
+
+---
+
+## MCP Servers
+
+The following sections document specific MCP servers and how to set them up across different platforms.
+
+### Figma MCP Server
+
+The Figma MCP Server brings Figma designs directly into your AI coding workflow, allowing AI agents to read design information, tokens, and component details.
+
+#### For Claude Code in VS Code
+
+##### Two Setup Options
 
 1. **Desktop MCP Server** (Recommended) - Runs locally through Figma desktop app, selection-based
 2. **Remote MCP Server** - Connects to Figma's hosted endpoint, link-based (requires OAuth)
 
-### Option 1: Desktop MCP Server (Recommended)
+###### Option 1: Desktop MCP Server (Recommended)
 
 **Why use this:**
 - No authentication complexity
@@ -115,7 +159,7 @@ The Figma MCP Server brings Figma designs directly into your Claude Code workflo
 
 ---
 
-### Option 2: Remote MCP Server (Link-Based)
+###### Option 2: Remote MCP Server (Link-Based)
 
 **Why use this:**
 - No desktop app required
@@ -167,7 +211,21 @@ After multiple attempts, we were unable to get the remote server working reliabl
 
 ---
 
+#### For Gemini in Antigravity
+
+> 🚧 **Coming Soon:** Figma MCP setup instructions for Gemini in Antigravity will be added here when needed.
+
+---
+
+#### For Other Platforms
+
+> 🚧 **Coming Soon:** If you're using Figma MCP with another LLM or IDE combination, please document your setup process here!
+
+---
+
 ## Troubleshooting
+
+> **Note:** The troubleshooting guidance below is specific to **Claude Code in VS Code**. Other platforms may have different error messages and solutions.
 
 ### Server Shows "Needs Authentication"
 
@@ -314,33 +372,47 @@ Shows:
 
 When adding other MCP servers to this ecosystem, follow the same pattern:
 
-1. Document the server in a new section in this file
-2. Include setup steps, troubleshooting, and usage examples
-3. Note any known issues or limitations
-4. Add verification steps
+1. Document the server in a new section under "MCP Servers"
+2. Include setup steps for each platform (Claude Code, Gemini, etc.)
+3. Include troubleshooting and usage examples
+4. Note any known issues or platform-specific limitations
+5. Add verification steps for each platform
 
 **Template for new MCP server section:**
 
 ```markdown
-## [Server Name] MCP Server
+### [Server Name] MCP Server
 
-### Purpose
-What this server provides...
+Brief description of what this server provides...
 
-### Prerequisites
+#### For Claude Code in VS Code
+
+**Prerequisites:**
 - Required tools/accounts
 - Version requirements
 
-### Setup Steps
+**Setup Steps:**
 1. Step-by-step instructions
 2. With actual commands
 3. And verification steps
 
-### Usage
+**Usage:**
 How to use once set up...
 
-### Troubleshooting
+**Troubleshooting:**
 Common issues and solutions...
+
+---
+
+#### For Gemini in Antigravity
+
+> 🚧 **Coming Soon:** Setup instructions for Gemini will be added here.
+
+---
+
+#### For Other Platforms
+
+> 🚧 **Coming Soon:** If you're using this MCP server with another platform, document it here!
 ```
 
 ---
@@ -355,4 +427,6 @@ Common issues and solutions...
 ---
 
 **Last Updated:** 2025-12-15
-**Tested With:** Claude Code v0.x, Figma Desktop (latest), macOS
+**Primary Platform:** Claude Code in VS Code on macOS
+**Tested With:** Claude Code v0.x, Figma Desktop MCP Server (latest)
+**Multi-Platform Support:** Ready for Gemini in Antigravity and other LLM combinations

@@ -18,6 +18,6 @@ An open and evolving ecosystem that’s transparent by design. Includes a design
 - **Utils** - Shared utilities
 
 ## Documentation
-- [MCP Server Setup Guide](docs/mcp-setup.md) - Configure MCP servers (Figma, etc.) for Claude Code
+- [MCP Server Setup Guide](docs/mcp-setup.md) - Configure MCP servers (Figma, etc.) for AI coding assistants (Claude Code, Gemini, etc.)
 
 Built with Next.js 15, TypeScript, Tailwind CSS, and Framer Motion.
