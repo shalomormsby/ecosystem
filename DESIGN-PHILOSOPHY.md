@@ -22,10 +22,10 @@ Everything in this ecosystem serves this North Star. The following principles sh
 
 ## Four Principles (How to Think, Not What to Build)
 
-Each principle is a pathway to lovability. They work together, and when they tension against each other, the tiebreaker is always: **what serves the human?** Specifically: what would delight them, create joy, and/or expand their degrees of freedom? [When in doubt, ask.]
+Each principle is a pathway to lovability. They work together, and when they tension against each other, the tiebreaker is always: **what serves the human?** Specifically: what would delight them, create joy, and/or expand their degrees of freedom?
 
 ### 1. Emotionally Resonant
-**Touch hearts (don't just solve problems).** Every interaction should feel like it was made by someone who genuinely cares (because caring is a fundamental requirement).
+**Touch hearts (don't just solve problems).** Every interaction should feel like it was made by someone who genuinely cares.
 
 **Why:** Usability gets you to "doesn't frustrate." Emotional resonance gets you to "I want to tell someone about this."
 
@@ -39,7 +39,7 @@ Each principle is a pathway to lovability. They work together, and when they ten
 **In practice:** Motion controls. Theme preferences. Typography options. Transparent analysis reasoning. Nothing forced. Everything explained. Accessibility isn't accommodation; it's first-class design.
 
 ### 3. Transparent by Design
-**Show the receipts.** Not just the polished result. Also the messy middle. The AI collaboration. The decision rationale. The constraints that shaped the outcome. The questions, uncertainties, doubts (and the reasoning behind the tie-breaking logic).
+**Show the receipts.** Not just the polished result. Also the messy middle. The AI collaboration. The decision rationale. The constraints that shaped the outcome. The questions, uncertainties, doubts, and the reasoning that resolved them.
 
 **Why:** Transparency builds trust. Trust opens a path to the heart.
 
@@ -58,20 +58,24 @@ Each principle is a pathway to lovability. They work together, and when they ten
 
 These are tactical tests, practical checkpoints to verify you're honoring the principles. When you're unsure if a decision is right, run it against these:
 
-1. **Accessibility is not optional**  
-   Motion = 0 must work perfectly, ensuring that the needs of motion-sensitive viewers are respected. High contrast modes must be first-class, ensuring that colorblind or visually-impaired visitors can view the interface. Users who need accommodations get top-notch experiences, not degraded ones.
+### Quality Standards
 
-2. **Open source from day one**  
-   MIT License. No exceptions. The code is part of the offering.
+1. **Accessibility is not optional**
+    Motion = 0 must work perfectly. High contrast modes must be first-class. Users who need accommodations get top-notch experiences, not degraded ones.
+    
+2. **No vaporware**
+    If a feature is mentioned, it must function. Honesty over hype. Always.
+    
+### Transparency Practices
 
-3. **No vaporware**  
-   If a feature is mentioned, it must function. Honesty over hype. Always.
-
-4. **Human warmth over technical flex**  
-   Every experience should feel like it was made by someone who cares about people, not someone showing off. Confident and humble, never arrogant.
-
-5. **Show your work**  
-   Document decisions. Explain reasoning. Make collaboration visible. Transparency builds trust.
+1. **Open source from day one**
+    MIT License. No exceptions. The code is part of the offering.
+    
+2. **Show your work**
+    Document decisions. Explain reasoning. Make collaboration visible. Transparency builds trust.
+    
+3. **Human warmth over technical flex**
+    Every experience should feel like it was made by someone who cares about people, not someone showing off. Confident and humble, never arrogant.
 
 ---
 
@@ -128,25 +132,20 @@ The heart of the ecosystem. Shared components, tokens, and the three flagship fe
 
 ## How to Make Decisions
 
-**When you're unsure, ask:**
-1. Does this embody one of the four principles?
-2. Does this serve the human, or the system?
-3. Would this make someone feel more capable, or more confused?
-4. Can I explain *why* this matters, not just *what* it does?
-5. Am I showing my work, or hiding it?
-
-**When principles conflict, ask:**
-- What would delight the human?
-- What would create joy?
-- What would expand their degrees of freedom?
-
-The answer that best serves the human wins.
-
 **Priority order:**
 1. **Functional** — It must work
 2. **Honest** — It must be true to what it claims
 3. **Lovable** — It should delight
 4. **Perfect** — Polish comes last
+
+**When you're unsure, ask:**
+1. Does this embody one of the four principles?
+2. Does this serve the human, or the system?
+3. Would this make someone feel more capable, or more confused?
+4. Can I explain *why* this matters, not just *what* it does?
+
+**When principles conflict:**  
+What would delight the human, create joy, or expand their degrees of freedom?
 
 **Ship working over perfect. One excellent thing over three mediocre things.**
 
