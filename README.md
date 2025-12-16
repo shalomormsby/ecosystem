@@ -1,8 +1,8 @@
 # Shalom's Creative Ecosystem
 
-> **Building digital experiences that make people feel seen, capable, and empowered.**
+> **How might we make products lovable by design?**
 
-A monorepo of human-centered products unified by a shared design philosophy. This open source creative ecosystem demonstrates that software can be **transparent**, **emotionally resonant**, **user-controlled**, and **generous** by design.
+The purpose of this open source monorepo isn't just to answer this question; it's to provide a functional human-centered design philosophy that helps you build the answer for yourself. 
 
 **Status:** Active Development
 **License:** MIT
@@ -19,7 +19,7 @@ This ecosystem expresses one unified vision through multiple products:
 - **Creative Powerup** — Community platform for purpose-driven innovators *(planned)*
 - **SageOS** — Personal operating system for creative work *(future)*
 
-**The unifying element:** A shared design system that encodes human-centered principles into every component, token, and interaction.
+**The unifying element:** A shared design system that embodies human-centered principles into every component, token, and interaction.
 
 ---
 
@@ -47,9 +47,9 @@ pnpm dev --filter portfolio
 
 This ecosystem is built on four principles:
 
-1. **Transparent by Design** — Show the receipts. Users see how things work, including AI collaboration.
-2. **Emotionally Resonant** — Touch hearts, not just solve problems. Design should delight.
-3. **User Control & Freedom** — Users customize their experience. Motion intensity, themes, everything.
+1. **Emotionally Resonant** — Touch hearts, not just solve problems. Design should delight.
+2. **User Control & Freedom** — Users customize their experience. Motion intensity, themes, everything.
+3. **Transparent by Design** — Show the receipts. Users see how things work, including AI collaboration.
 4. **Generous by Design** — Open source, teachable, accessible. Code that teaches as it works.
 
 [Read the full philosophy →](DESIGN-PHILOSOPHY.md)
