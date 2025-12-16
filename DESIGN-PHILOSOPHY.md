@@ -2,7 +2,7 @@
 
 > **Philosophy is only truly meaningful when embodied**. 
 
-This ecosystem demonstrates human-centered design through *experience*, not mere description. Every component, token, and interaction encodes a principle. Every choice, from motion curves to color semantics to the Customizer itself, serves one purpose: make products lovable by design. 
+This ecosystem demonstrates human-centered design through *experience*, not mere description. Every component, token, and interaction encodes a principle. Every choice, from motion curves to color semantics to the Customizer itself, serves one purpose: to make products lovable by design. 
 
 Whether you're a human collaborator or an AI agent, your challenge is the same: apply this philosophy in code to build products that are genuinely lovable.
 
