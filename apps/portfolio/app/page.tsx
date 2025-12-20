@@ -73,12 +73,12 @@ export default function Home() {
                   → Creative Sandbox
                 </a>
                 <a
-                  href="https://loveistheway.substack.com"
+                  href="https://shalomormsby.substack.com/"
                   className="block text-foreground hover:text-primary transition-colors"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  → Love Is the Way (Substack)
+                  → Love Is the Way
                 </a>
                 <Link
                   href="/poetry"
