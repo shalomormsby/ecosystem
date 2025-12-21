@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { CustomizerPanel } from '@ecosystem/design-system/features/customizer';
 import { ThemeProvider } from '@ecosystem/design-system';
 import { allFontVariables } from '../lib/fonts';
+import GoogleAnalytics from './components/GoogleAnalytics';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -17,6 +18,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={allFontVariables} suppressHydrationWarning>
       <body className="font-sans bg-background text-foreground antialiased" suppressHydrationWarning>
+        <GoogleAnalytics />
         <ThemeProvider>
           {children}
           <CustomizerPanel />
