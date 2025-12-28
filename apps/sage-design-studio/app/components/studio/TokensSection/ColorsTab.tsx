@@ -1,12 +1,17 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Card } from '@ecosystem/design-system';
 import { useTheme } from '@ecosystem/design-system/hooks';
 
 export function ColorsTab() {
   const { theme, mode, setTheme, setMode } = useTheme();
   const [copiedColor, setCopiedColor] = useState<string | null>(null);
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   const colorTokens = [
     { name: '--color-background', description: 'Page background' },
@@ -94,9 +99,11 @@ export function ColorsTab() {
         </p>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {colorTokens.map((token) => {
-            const colorValue = getComputedStyle(document.documentElement)
-              .getPropertyValue(token.name)
-              .trim();
+            const colorValue = isMounted
+              ? getComputedStyle(document.documentElement)
+                  .getPropertyValue(token.name)
+                  .trim()
+              : '';
 
             return (
               <button
@@ -123,7 +130,7 @@ export function ColorsTab() {
 
                   {/* Value */}
                   <p className="text-xs font-mono text-[var(--color-text-muted)]">
-                    {copiedColor === token.name ? '✓ Copied!' : colorValue || 'N/A'}
+                    {copiedColor === token.name ? '✓ Copied!' : (colorValue || '...')}
                   </p>
                 </Card>
               </button>
