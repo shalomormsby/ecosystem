@@ -20,7 +20,7 @@ export function StudioHero() {
           {/* CTA */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
             <a
-              href="https://github.com/shalomormsby/ecosystem"
+              href="https://github.com/shalom-ormsby/ecosystem"
               target="_blank"
               rel="noopener noreferrer"
             >
