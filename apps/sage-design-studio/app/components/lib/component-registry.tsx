@@ -1,4 +1,4 @@
-import { Button, Card, Header } from '@ecosystem/design-system';
+import { Button, Card } from '@ecosystem/design-system';
 
 export interface PropConfig {
   type: 'select' | 'boolean' | 'text';
@@ -75,52 +75,6 @@ export const componentRegistry: Record<string, ComponentConfig> = {
             <p className="text-sm">This card has hover effects disabled.</p>
           </div>
         ),
-      },
-    ],
-  },
-
-  Header: {
-    component: Header,
-    description: 'Sticky navigation header with glass morphism on scroll. Includes responsive mobile menu with full-screen overlay.',
-    props: {
-      glassOnScroll: {
-        type: 'boolean',
-        default: true,
-        description: 'Apply glass morphism effect when scrolled',
-      },
-      sticky: {
-        type: 'boolean',
-        default: true,
-        description: 'Fixed positioning at top of viewport',
-      },
-    },
-    examples: [
-      {
-        label: 'With Navigation',
-        props: {
-          glassOnScroll: true,
-          sticky: false, // Disable sticky for preview
-          logo: (
-            <a href="/" className="font-semibold text-lg">
-              Brand
-            </a>
-          ),
-          navLinks: [
-            { label: 'Features', href: '#features' },
-            { label: 'Pricing', href: '#pricing' },
-            { label: 'About', href: '#about' },
-          ],
-          actions: (
-            <>
-              <a href="#signin" className="text-sm">
-                Sign In
-              </a>
-              <Button variant="primary" size="sm">
-                Get Started
-              </Button>
-            </>
-          ),
-        },
       },
     ],
   },
