@@ -8,7 +8,8 @@
       "outputs": [
         ".next/**",
         "dist/**"
-      ]
+      ],
+      "env": ["STUDIO_URL"]
     },
     "dev": {
       "cache": false,
