@@ -1,7 +1,7 @@
 'use client';
 
 import NextLink from 'next/link';
-import { Header, Card } from '@ecosystem/design-system/atoms';
+import { Header, Card, Link } from '@ecosystem/design-system/atoms';
 import { ecosystemNavigation } from '@/lib/navigation';
 
 export default function CaseStudiesPage() {
@@ -42,19 +42,13 @@ export default function CaseStudiesPage() {
                 </p>
                 <p className="text-base text-foreground opacity-60 pt-4">
                   In the meantime, feel free to explore the{' '}
-                  <NextLink
-                    href="/cosmograph"
-                    className="text-primary hover:underline"
-                  >
+                  <Link variant="inline" href="/cosmograph">
                     Cosmograph
-                  </NextLink>
+                  </Link>
                   {' '}or{' '}
-                  <a
-                    href="https://studio.shalomormsby.com"
-                    className="text-primary hover:underline"
-                  >
+                  <Link variant="inline" href="https://studio.shalomormsby.com">
                     Sage Design Studio
-                  </a>
+                  </Link>
                   .
                 </p>
               </div>
