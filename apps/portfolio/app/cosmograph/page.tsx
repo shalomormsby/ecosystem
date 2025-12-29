@@ -1,5 +1,5 @@
-import { NavigationFallback } from '@/components/cosmograph/NavigationFallback';
 import { getAllNodes } from '@/lib/content/parser';
+import { CosmographClient } from './CosmographClient';
 
 /**
  * Cosmograph Page
@@ -16,14 +16,8 @@ export const metadata = {
 };
 
 export default function CosmographPage() {
-  // Get all content nodes
+  // Get all content nodes (server-side)
   const nodes = getAllNodes();
 
-  return (
-    <main className="min-h-screen bg-background">
-      <div className="container mx-auto px-6 py-12">
-        <NavigationFallback nodes={nodes} />
-      </div>
-    </main>
-  );
+  return <CosmographClient nodes={nodes} />;
 }
