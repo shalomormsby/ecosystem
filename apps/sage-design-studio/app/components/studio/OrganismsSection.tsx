@@ -42,7 +42,7 @@ export function OrganismsSection() {
               </div>
               <div className="mt-4 p-3 bg-[var(--color-surface)] rounded border border-[var(--color-border)]">
                 <p className="text-xs text-[var(--color-text-muted)]">
-                  <strong>Note:</strong> In the preview above, "Pricing" has <code className="px-1 py-0.5 bg-[var(--color-background)] rounded text-[var(--color-primary)]">active: true</code> to demonstrate the active state styling (bold text + primary color underline on desktop, primary color on mobile).
+                  <strong>Note:</strong> In the preview below, "Pricing" has <code className="px-1 py-0.5 bg-[var(--color-background)] rounded text-[var(--color-primary)]">active: true</code> to demonstrate the active state styling (bold text + primary color underline on desktop, primary color on mobile).
                 </p>
               </div>
             </div>

@@ -3,12 +3,20 @@ import { useMotionPreference } from '../../hooks';
 
 export interface NavLink {
     label: string;
-    href: string;
+    href?: string;
     /**
      * Whether this link represents the current/active page
      * @default false
      */
     active?: boolean;
+    /**
+     * Nested links for dropdown menus
+     */
+    children?: Array<{
+        label: string;
+        href: string;
+        active?: boolean;
+    }>;
 }
 
 export interface HeaderProps {
@@ -60,6 +68,8 @@ export const Header = React.forwardRef<HTMLElement, HeaderProps>(
     ) => {
         const [isMenuOpen, setIsMenuOpen] = useState(false);
         const [hasScrolled, setHasScrolled] = useState(false);
+        const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+        const [expandedMobileSection, setExpandedMobileSection] = useState<string | null>(null);
         const { shouldAnimate } = useMotionPreference();
 
         // Handle scroll detection
@@ -115,31 +125,111 @@ export const Header = React.forwardRef<HTMLElement, HeaderProps>(
                             {/* Desktop Navigation */}
                             {navLinks.length > 0 && (
                                 <nav className="hidden lg:flex items-center gap-8" aria-label="Main navigation">
-                                    {navLinks.map((link) => (
-                                        <a
-                                            key={link.label}
-                                            href={link.href}
-                                            aria-current={link.active ? 'page' : undefined}
-                                            className={`
-                                                text-sm
-                                                relative
-                                                pb-1
-                                                focus-visible:outline
-                                                focus-visible:outline-2
-                                                focus-visible:outline-offset-4
-                                                focus-visible:outline-[var(--color-focus)]
-                                                rounded-sm
-                                                ${shouldAnimate ? 'transition-colors duration-200' : ''}
-                                                ${
-                                                    link.active
-                                                        ? 'text-[var(--color-text-primary)] font-medium after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-[var(--color-primary)] after:rounded-full'
-                                                        : 'text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]'
-                                                }
-                                            `}
-                                        >
-                                            {link.label}
-                                        </a>
-                                    ))}
+                                    {navLinks.map((link) => {
+                                        const hasDropdown = link.children && link.children.length > 0;
+                                        const isOpen = openDropdown === link.label;
+
+                                        if (hasDropdown) {
+                                            return (
+                                                <div
+                                                    key={link.label}
+                                                    className="relative"
+                                                    onMouseEnter={() => setOpenDropdown(link.label)}
+                                                    onMouseLeave={() => setOpenDropdown(null)}
+                                                >
+                                                    <button
+                                                        className={`
+                                                            text-sm
+                                                            relative
+                                                            pb-1
+                                                            flex items-center gap-1
+                                                            focus-visible:outline
+                                                            focus-visible:outline-2
+                                                            focus-visible:outline-offset-4
+                                                            focus-visible:outline-[var(--color-focus)]
+                                                            rounded-sm
+                                                            ${shouldAnimate ? 'transition-colors duration-200' : ''}
+                                                            ${
+                                                                link.active
+                                                                    ? 'text-[var(--color-text-primary)] font-medium after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-[var(--color-primary)] after:rounded-full'
+                                                                    : 'text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]'
+                                                            }
+                                                        `}
+                                                        aria-expanded={isOpen}
+                                                        aria-haspopup="true"
+                                                    >
+                                                        {link.label}
+                                                        <svg
+                                                            width="12"
+                                                            height="12"
+                                                            viewBox="0 0 12 12"
+                                                            fill="none"
+                                                            stroke="currentColor"
+                                                            strokeWidth="2"
+                                                            strokeLinecap="round"
+                                                            strokeLinejoin="round"
+                                                            className={`${shouldAnimate ? 'transition-transform duration-200' : ''} ${isOpen ? 'rotate-180' : ''}`}
+                                                        >
+                                                            <polyline points="2 4 6 8 10 4" />
+                                                        </svg>
+                                                    </button>
+                                                    {isOpen && (
+                                                        <div className={`
+                                                            absolute top-full left-0 mt-2 min-w-[200px]
+                                                            bg-[var(--color-surface)] border border-[var(--color-border)]
+                                                            rounded-lg shadow-lg py-2
+                                                            ${shouldAnimate ? 'animate-fade-in' : ''}
+                                                        `}>
+                                                            {link.children?.map((child) => (
+                                                                <a
+                                                                    key={child.label}
+                                                                    href={child.href}
+                                                                    className={`
+                                                                        block px-4 py-2 text-sm
+                                                                        ${shouldAnimate ? 'transition-colors duration-200' : ''}
+                                                                        ${
+                                                                            child.active
+                                                                                ? 'text-[var(--color-text-primary)] font-medium bg-[var(--color-surface)]'
+                                                                                : 'text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-background)]'
+                                                                        }
+                                                                    `}
+                                                                    aria-current={child.active ? 'page' : undefined}
+                                                                >
+                                                                    {child.label}
+                                                                </a>
+                                                            ))}
+                                                        </div>
+                                                    )}
+                                                </div>
+                                            );
+                                        }
+
+                                        return (
+                                            <a
+                                                key={link.label}
+                                                href={link.href}
+                                                aria-current={link.active ? 'page' : undefined}
+                                                className={`
+                                                    text-sm
+                                                    relative
+                                                    pb-1
+                                                    focus-visible:outline
+                                                    focus-visible:outline-2
+                                                    focus-visible:outline-offset-4
+                                                    focus-visible:outline-[var(--color-focus)]
+                                                    rounded-sm
+                                                    ${shouldAnimate ? 'transition-colors duration-200' : ''}
+                                                    ${
+                                                        link.active
+                                                            ? 'text-[var(--color-text-primary)] font-medium after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-[var(--color-primary)] after:rounded-full'
+                                                            : 'text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]'
+                                                    }
+                                                `}
+                                            >
+                                                {link.label}
+                                            </a>
+                                        );
+                                    })}
                                 </nav>
                             )}
 
@@ -220,38 +310,106 @@ export const Header = React.forwardRef<HTMLElement, HeaderProps>(
                     <div className="absolute inset-0 bg-[var(--color-background)]">
                         <div className="flex flex-col items-center justify-center h-full gap-8 px-4">
                             {/* Mobile Navigation Links */}
-                            {navLinks.map((link, index) => (
-                                <a
-                                    key={link.label}
-                                    href={link.href}
-                                    onClick={() => setIsMenuOpen(false)}
-                                    aria-current={link.active ? 'page' : undefined}
-                                    className={`
-                                        text-3xl
-                                        focus-visible:outline
-                                        focus-visible:outline-2
-                                        focus-visible:outline-offset-4
-                                        focus-visible:outline-[var(--color-focus)]
-                                        rounded-sm
-                                        ${shouldAnimate ? 'transition-all duration-200' : ''}
-                                        ${
-                                            link.active
-                                                ? 'text-[var(--color-primary)] font-semibold'
-                                                : 'text-[var(--color-text-primary)] hover:text-[var(--color-text-secondary)]'
-                                        }
-                                    `}
-                                    style={
-                                        shouldAnimate && isMenuOpen
-                                            ? {
-                                                animation: `fadeInUp 0.5s ease-out ${index * 0.1}s forwards`,
-                                                opacity: 0,
+                            {navLinks.map((link, index) => {
+                                const hasDropdown = link.children && link.children.length > 0;
+                                const isExpanded = expandedMobileSection === link.label;
+
+                                if (hasDropdown) {
+                                    return (
+                                        <div key={link.label} className="w-full max-w-xs">
+                                            <button
+                                                onClick={() => setExpandedMobileSection(isExpanded ? null : link.label)}
+                                                className={`
+                                                    text-3xl w-full text-center
+                                                    focus-visible:outline
+                                                    focus-visible:outline-2
+                                                    focus-visible:outline-offset-4
+                                                    focus-visible:outline-[var(--color-focus)]
+                                                    rounded-sm
+                                                    ${shouldAnimate ? 'transition-all duration-200' : ''}
+                                                    ${
+                                                        link.active
+                                                            ? 'text-[var(--color-primary)] font-semibold'
+                                                            : 'text-[var(--color-text-primary)] hover:text-[var(--color-text-secondary)]'
+                                                    }
+                                                `}
+                                                style={
+                                                    shouldAnimate && isMenuOpen
+                                                        ? {
+                                                            animation: `fadeInUp 0.5s ease-out ${index * 0.1}s forwards`,
+                                                            opacity: 0,
+                                                        }
+                                                        : { opacity: 1 }
+                                                }
+                                                aria-expanded={isExpanded}
+                                            >
+                                                {link.label}
+                                            </button>
+                                            {isExpanded && (
+                                                <div className="flex flex-col gap-3 mt-4">
+                                                    {link.children?.map((child) => (
+                                                        <a
+                                                            key={child.label}
+                                                            href={child.href}
+                                                            onClick={() => setIsMenuOpen(false)}
+                                                            className={`
+                                                                text-xl
+                                                                focus-visible:outline
+                                                                focus-visible:outline-2
+                                                                focus-visible:outline-offset-4
+                                                                focus-visible:outline-[var(--color-focus)]
+                                                                rounded-sm
+                                                                ${shouldAnimate ? 'transition-colors duration-200' : ''}
+                                                                ${
+                                                                    child.active
+                                                                        ? 'text-[var(--color-primary)] font-medium'
+                                                                        : 'text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]'
+                                                                }
+                                                            `}
+                                                            aria-current={child.active ? 'page' : undefined}
+                                                        >
+                                                            {child.label}
+                                                        </a>
+                                                    ))}
+                                                </div>
+                                            )}
+                                        </div>
+                                    );
+                                }
+
+                                return (
+                                    <a
+                                        key={link.label}
+                                        href={link.href}
+                                        onClick={() => setIsMenuOpen(false)}
+                                        aria-current={link.active ? 'page' : undefined}
+                                        className={`
+                                            text-3xl
+                                            focus-visible:outline
+                                            focus-visible:outline-2
+                                            focus-visible:outline-offset-4
+                                            focus-visible:outline-[var(--color-focus)]
+                                            rounded-sm
+                                            ${shouldAnimate ? 'transition-all duration-200' : ''}
+                                            ${
+                                                link.active
+                                                    ? 'text-[var(--color-primary)] font-semibold'
+                                                    : 'text-[var(--color-text-primary)] hover:text-[var(--color-text-secondary)]'
                                             }
-                                            : { opacity: 1 }
-                                    }
-                                >
-                                    {link.label}
-                                </a>
-                            ))}
+                                        `}
+                                        style={
+                                            shouldAnimate && isMenuOpen
+                                                ? {
+                                                    animation: `fadeInUp 0.5s ease-out ${index * 0.1}s forwards`,
+                                                    opacity: 0,
+                                                }
+                                                : { opacity: 1 }
+                                        }
+                                    >
+                                        {link.label}
+                                    </a>
+                                );
+                            })}
 
                             {/* Mobile Actions */}
                             {actions && (

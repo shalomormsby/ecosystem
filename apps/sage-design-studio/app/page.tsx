@@ -1,7 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { CustomizerPanel } from '@ecosystem/design-system';
+import NextLink from 'next/link';
+import { CustomizerPanel, Header } from '@ecosystem/design-system';
 import { StudioHero } from './components/studio/StudioHero';
 import { SectionNav } from './components/studio/SectionNav';
 import { OverviewSection } from './components/studio/OverviewSection';
@@ -10,6 +11,7 @@ import { ComponentsSection } from './components/studio/ComponentsSection';
 import { MoleculesSection } from './components/studio/MoleculesSection';
 import { OrganismsSection } from './components/studio/OrganismsSection';
 import { TemplatesSection } from './components/studio/TemplatesSection';
+import { ecosystemNavigation } from '../lib/navigation';
 
 type Section = 'overview' | 'tokens' | 'atoms' | 'molecules' | 'organisms' | 'templates';
 
@@ -18,6 +20,14 @@ export default function StudioPage() {
 
   return (
     <main className="min-h-screen bg-[var(--color-background)]">
+      <Header
+        logo={
+          <a href="https://www.shalomormsby.com" className="font-semibold text-lg text-[var(--color-text-primary)]">
+            Shalom Ormsby
+          </a>
+        }
+        navLinks={ecosystemNavigation}
+      />
       <StudioHero />
       <SectionNav activeSection={activeSection} onSectionChange={setActiveSection} />
 

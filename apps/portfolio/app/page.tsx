@@ -1,14 +1,23 @@
 'use client';
 
 import NextLink from 'next/link';
-import { Card, Link } from '@ecosystem/design-system/atoms';
+import { Card, Link, Header } from '@ecosystem/design-system/atoms';
+import { ecosystemNavigation } from '../lib/navigation';
 
 export default function Home() {
   return (
     <main className="min-h-screen bg-background flex flex-col">
+      <Header
+        logo={
+          <NextLink href="/" className="font-semibold text-lg text-foreground">
+            Shalom Ormsby
+          </NextLink>
+        }
+        navLinks={ecosystemNavigation}
+      />
       <div className="flex-grow">
         {/* Hero Section */}
-        <section className="pt-20 md:pt-32 pb-16 px-6">
+        <section className="pt-32 md:pt-40 pb-16 px-6">
           <div className="max-w-3xl mx-auto">
             <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-2">
               Shalom Ormsby
