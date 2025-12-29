@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState, useEffect } from 'react';
 import { useMotionPreference } from '../../hooks';
 
@@ -133,7 +135,7 @@ export const Header = React.forwardRef<HTMLElement, HeaderProps>(
                                             return (
                                                 <div
                                                     key={link.label}
-                                                    className="relative"
+                                                    className="relative group"
                                                     onMouseEnter={() => setOpenDropdown(link.label)}
                                                     onMouseLeave={() => setOpenDropdown(null)}
                                                 >
@@ -173,9 +175,11 @@ export const Header = React.forwardRef<HTMLElement, HeaderProps>(
                                                             <polyline points="2 4 6 8 10 4" />
                                                         </svg>
                                                     </button>
+                                                    {/* Invisible bridge to prevent dropdown from closing */}
+                                                    {isOpen && <div className="absolute top-full left-0 right-0 h-2" />}
                                                     {isOpen && (
                                                         <div className={`
-                                                            absolute top-full left-0 mt-2 min-w-[200px]
+                                                            absolute top-full left-0 mt-2 min-w-[200px] z-50
                                                             bg-[var(--color-surface)] border border-[var(--color-border)]
                                                             rounded-lg shadow-lg py-2
                                                             ${shouldAnimate ? 'animate-fade-in' : ''}

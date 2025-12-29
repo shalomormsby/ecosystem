@@ -31,6 +31,7 @@ export function OrganismsSection() {
               <div className="text-sm text-[var(--color-text-secondary)]">
                 <strong>Key Features:</strong>
                 <ul className="list-disc list-inside mt-2 space-y-1">
+                  <li>Dropdown menus with hover (desktop) and tap-to-expand (mobile) support</li>
                   <li>Active state indicator with underline (desktop) and primary color (mobile)</li>
                   <li>Sticky positioning with optional glass morphism effect on scroll</li>
                   <li>Responsive mobile menu with hamburger toggle</li>
@@ -42,7 +43,7 @@ export function OrganismsSection() {
               </div>
               <div className="mt-4 p-3 bg-[var(--color-surface)] rounded border border-[var(--color-border)]">
                 <p className="text-xs text-[var(--color-text-muted)]">
-                  <strong>Note:</strong> In the preview below, "Pricing" has <code className="px-1 py-0.5 bg-[var(--color-background)] rounded text-[var(--color-primary)]">active: true</code> to demonstrate the active state styling (bold text + primary color underline on desktop, primary color on mobile).
+                  <strong>Note:</strong> In the preview below, "Products" has a dropdown menu with nested items. Hover over it (desktop) or tap it (mobile) to see the dropdown. "Product B" has <code className="px-1 py-0.5 bg-[var(--color-background)] rounded text-[var(--color-primary)]">active: true</code> to demonstrate nested active states.
                 </p>
               </div>
             </div>
@@ -66,7 +67,15 @@ export function OrganismsSection() {
                 }
                 navLinks={[
                   { label: 'Features', href: '#features' },
-                  { label: 'Pricing', href: '#pricing', active: true },
+                  {
+                    label: 'Products',
+                    active: true,
+                    children: [
+                      { label: 'Product A', href: '#product-a' },
+                      { label: 'Product B', href: '#product-b', active: true },
+                      { label: 'Product C', href: '#product-c' },
+                    ]
+                  },
                   { label: 'About', href: '#about' },
                   { label: 'Contact', href: '#contact' },
                 ]}
@@ -113,7 +122,15 @@ export function OrganismsSection() {
   }
   navLinks={[
     { label: 'Features', href: '/features' },
-    { label: 'Pricing', href: '/pricing', active: true },
+    {
+      label: 'Products',
+      active: true,
+      children: [
+        { label: 'Product A', href: '/products/a' },
+        { label: 'Product B', href: '/products/b', active: true },
+        { label: 'Product C', href: '/products/c' },
+      ]
+    },
     { label: 'About', href: '/about' },
   ]}
   actions={
