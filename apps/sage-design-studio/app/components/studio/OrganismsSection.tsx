@@ -1,6 +1,7 @@
 'use client';
 
-import { Card, Button, Header } from '@ecosystem/design-system';
+import { useState } from 'react';
+import { Card, Button, Header, SecondaryNav } from '@ecosystem/design-system';
 
 export function OrganismsSection() {
   return (
@@ -148,6 +149,107 @@ export function OrganismsSection() {
           </Card>
         </div>
       </section>
+
+      {/* SecondaryNav Component */}
+      <section className="space-y-6">
+        <div>
+          <h3 className="text-2xl font-semibold mb-2 text-[var(--color-text-primary)]">
+            SecondaryNav
+          </h3>
+          <Card className="p-6">
+            <p className="text-[var(--color-text-primary)] mb-4">
+              Secondary sticky navigation designed to sit below a primary sticky header. Commonly used for section/tab navigation within a page.
+            </p>
+            <div className="space-y-4">
+              <div className="text-sm text-[var(--color-text-secondary)]">
+                <strong>Key Features:</strong>
+                <ul className="list-disc list-inside mt-2 space-y-1">
+                  <li>Sticky positioning below primary header (top-16 lg:top-20)</li>
+                  <li>Z-index coordination (z-40, below header's z-50)</li>
+                  <li>Glass morphism with backdrop blur</li>
+                  <li>Horizontal scrollable on mobile</li>
+                  <li>Active state with primary color background</li>
+                  <li>Keyboard accessible with focus indicators</li>
+                  <li>Theme-aware colors using CSS custom properties</li>
+                </ul>
+              </div>
+              <div className="mt-4 p-3 bg-[var(--color-surface)] rounded border border-[var(--color-border)]">
+                <p className="text-xs text-[var(--color-text-muted)]">
+                  <strong>Pattern:</strong> The SecondaryNav uses <code className="px-1 py-0.5 bg-[var(--color-background)] rounded text-[var(--color-primary)]">top-16 lg:top-20</code> to position exactly below the Header's height (h-16 lg:h-20), creating a seamless stacked sticky navigation pattern.
+                </p>
+              </div>
+            </div>
+          </Card>
+        </div>
+
+        {/* Live Preview */}
+        <div>
+          <h4 className="text-lg font-semibold mb-3 text-[var(--color-text-primary)]">
+            Live Preview
+          </h4>
+          <Card className="p-0 overflow-hidden">
+            <SecondaryNavDemo />
+          </Card>
+        </div>
+
+        {/* Code Example */}
+        <div>
+          <h4 className="text-lg font-semibold mb-3 text-[var(--color-text-primary)]">
+            Code Example
+          </h4>
+          <Card className="p-6 bg-[var(--color-surface)]">
+            <pre className="text-sm text-[var(--color-text-secondary)] overflow-x-auto">
+              <code>{`const [activeSection, setActiveSection] = useState('overview');
+
+const sections = [
+  { id: 'overview', label: 'Overview' },
+  { id: 'details', label: 'Details' },
+  { id: 'settings', label: 'Settings' },
+];
+
+<SecondaryNav
+  items={sections}
+  activeId={activeSection}
+  onItemChange={setActiveSection}
+/>`}</code>
+            </pre>
+          </Card>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+// Demo component for SecondaryNav
+function SecondaryNavDemo() {
+  const [activeSection, setActiveSection] = useState('overview');
+
+  const sections = [
+    { id: 'overview', label: 'Overview' },
+    { id: 'features', label: 'Features' },
+    { id: 'pricing', label: 'Pricing' },
+    { id: 'docs', label: 'Documentation' },
+    { id: 'api', label: 'API Reference' },
+  ];
+
+  return (
+    <div className="relative bg-[var(--color-background)] min-h-[300px]">
+      <div className="sticky top-0">
+        <SecondaryNav
+          items={sections}
+          activeId={activeSection}
+          onItemChange={setActiveSection}
+        />
+      </div>
+      <div className="p-8">
+        <h1 className="text-3xl font-bold text-[var(--color-text-primary)] mb-4">
+          {sections.find(s => s.id === activeSection)?.label}
+        </h1>
+        <p className="text-[var(--color-text-secondary)]">
+          This is the content for the {sections.find(s => s.id === activeSection)?.label} section.
+          In a real application, this would show different content based on the active tab.
+        </p>
+      </div>
     </div>
   );
 }

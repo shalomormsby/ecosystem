@@ -1,0 +1,104 @@
+'use client';
+
+import React from 'react';
+
+export interface SecondaryNavItem {
+    id: string;
+    label: string;
+}
+
+export interface SecondaryNavProps {
+    /**
+     * Array of navigation items
+     */
+    items: SecondaryNavItem[];
+    /**
+     * Currently active item ID
+     */
+    activeId: string;
+    /**
+     * Callback when an item is selected
+     */
+    onItemChange: (id: string) => void;
+    /**
+     * Additional className for customization
+     */
+    className?: string;
+}
+
+/**
+ * Secondary Navigation Component
+ *
+ * A sticky navigation bar designed to sit below a primary sticky header.
+ * Commonly used for section/tab navigation within a page.
+ *
+ * **Sticky Positioning Pattern**:
+ * - Uses `top-16 lg:top-20` to position below the Header (which has `h-16 lg:h-20`)
+ * - Uses `z-40` to sit below the Header (`z-50`) but above page content
+ * - Glass morphism effect with backdrop blur for visual hierarchy
+ *
+ * **Responsive Behavior**:
+ * - Horizontal scrollable on mobile
+ * - Maintains sticky position on all screen sizes
+ *
+ * **Accessibility**:
+ * - Keyboard navigable buttons
+ * - Clear focus states
+ * - ARIA-compliant navigation
+ *
+ * Usage:
+ * ```tsx
+ * const [activeSection, setActiveSection] = useState('overview');
+ * const sections = [
+ *   { id: 'overview', label: 'Overview' },
+ *   { id: 'details', label: 'Details' },
+ * ];
+ *
+ * <SecondaryNav
+ *   items={sections}
+ *   activeId={activeSection}
+ *   onItemChange={setActiveSection}
+ * />
+ * ```
+ */
+export const SecondaryNav = React.forwardRef<HTMLElement, SecondaryNavProps>(
+    ({ items, activeId, onItemChange, className = '' }, ref) => {
+        return (
+            <nav
+                ref={ref}
+                className={`
+                    sticky top-16 lg:top-20 z-40
+                    bg-[var(--color-surface)]/80 backdrop-blur-xl
+                    border-b border-[var(--color-border)]
+                    ${className}
+                `}
+                aria-label="Secondary navigation"
+            >
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="flex items-center gap-1 overflow-x-auto py-4 scrollbar-hide">
+                        {items.map((item) => (
+                            <button
+                                key={item.id}
+                                onClick={() => onItemChange(item.id)}
+                                className={`
+                                    px-4 py-2 rounded-lg text-sm font-medium transition-all whitespace-nowrap
+                                    focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus)] focus-visible:ring-offset-2
+                                    ${
+                                        activeId === item.id
+                                            ? 'bg-[var(--color-primary)] text-white'
+                                            : 'text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-surface)]'
+                                    }
+                                `}
+                                aria-current={activeId === item.id ? 'page' : undefined}
+                            >
+                                {item.label}
+                            </button>
+                        ))}
+                    </div>
+                </div>
+            </nav>
+        );
+    }
+);
+
+SecondaryNav.displayName = 'SecondaryNav';
