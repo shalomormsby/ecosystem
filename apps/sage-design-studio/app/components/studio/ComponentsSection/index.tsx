@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { TertiaryNav } from '@ecosystem/design-system';
 import { ComponentPlayground } from './ComponentPlayground';
 import { componentRegistry } from '../../lib/component-registry';
 
@@ -8,6 +9,7 @@ export function ComponentsSection() {
   const [selectedComponent, setSelectedComponent] = useState<string>('Button');
 
   const components = Object.keys(componentRegistry);
+  const componentItems = components.map(name => ({ id: name, label: name }));
 
   return (
     <div className="space-y-8">
@@ -23,25 +25,12 @@ export function ComponentsSection() {
         </p>
       </div>
 
-      {/* Component Selector */}
-      <div className="flex flex-wrap gap-2">
-        {components.map((name) => (
-          <button
-            key={name}
-            onClick={() => setSelectedComponent(name)}
-            className={`
-              px-4 py-2 rounded-lg text-sm font-medium transition-all
-              ${
-                selectedComponent === name
-                  ? 'bg-[var(--color-primary)] text-white'
-                  : 'bg-[var(--color-surface)] text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] border border-[var(--color-border)]'
-              }
-            `}
-          >
-            {name}
-          </button>
-        ))}
-      </div>
+      {/* Component Selector using TertiaryNav */}
+      <TertiaryNav
+        items={componentItems}
+        activeId={selectedComponent}
+        onItemChange={setSelectedComponent}
+      />
 
       {/* Component Playground */}
       {selectedComponent && (
