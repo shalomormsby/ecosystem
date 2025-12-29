@@ -4,6 +4,11 @@ import { useMotionPreference } from '../../hooks';
 export interface NavLink {
     label: string;
     href: string;
+    /**
+     * Whether this link represents the current/active page
+     * @default false
+     */
+    active?: boolean;
 }
 
 export interface HeaderProps {
@@ -114,16 +119,22 @@ export const Header = React.forwardRef<HTMLElement, HeaderProps>(
                                         <a
                                             key={link.label}
                                             href={link.href}
+                                            aria-current={link.active ? 'page' : undefined}
                                             className={`
-                                                text-[var(--color-text-secondary)]
-                                                hover:text-[var(--color-text-primary)]
                                                 text-sm
+                                                relative
+                                                pb-1
                                                 focus-visible:outline
                                                 focus-visible:outline-2
                                                 focus-visible:outline-offset-4
                                                 focus-visible:outline-[var(--color-focus)]
                                                 rounded-sm
                                                 ${shouldAnimate ? 'transition-colors duration-200' : ''}
+                                                ${
+                                                    link.active
+                                                        ? 'text-[var(--color-text-primary)] font-medium after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-[var(--color-primary)] after:rounded-full'
+                                                        : 'text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]'
+                                                }
                                             `}
                                         >
                                             {link.label}
@@ -214,16 +225,20 @@ export const Header = React.forwardRef<HTMLElement, HeaderProps>(
                                     key={link.label}
                                     href={link.href}
                                     onClick={() => setIsMenuOpen(false)}
+                                    aria-current={link.active ? 'page' : undefined}
                                     className={`
-                                        text-[var(--color-text-primary)]
                                         text-3xl
-                                        hover:text-[var(--color-text-secondary)]
                                         focus-visible:outline
                                         focus-visible:outline-2
                                         focus-visible:outline-offset-4
                                         focus-visible:outline-[var(--color-focus)]
                                         rounded-sm
                                         ${shouldAnimate ? 'transition-all duration-200' : ''}
+                                        ${
+                                            link.active
+                                                ? 'text-[var(--color-primary)] font-semibold'
+                                                : 'text-[var(--color-text-primary)] hover:text-[var(--color-text-secondary)]'
+                                        }
                                     `}
                                     style={
                                         shouldAnimate && isMenuOpen

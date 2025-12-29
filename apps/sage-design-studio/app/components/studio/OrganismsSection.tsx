@@ -31,13 +31,19 @@ export function OrganismsSection() {
               <div className="text-sm text-[var(--color-text-secondary)]">
                 <strong>Key Features:</strong>
                 <ul className="list-disc list-inside mt-2 space-y-1">
+                  <li>Active state indicator with underline (desktop) and primary color (mobile)</li>
                   <li>Sticky positioning with optional glass morphism effect on scroll</li>
                   <li>Responsive mobile menu with hamburger toggle</li>
                   <li>Full-screen mobile overlay navigation</li>
                   <li>Respects motion preferences (prefers-reduced-motion)</li>
-                  <li>Keyboard accessible with focus indicators</li>
+                  <li>Keyboard accessible with focus indicators and aria-current</li>
                   <li>Theme-aware colors using CSS custom properties</li>
                 </ul>
+              </div>
+              <div className="mt-4 p-3 bg-[var(--color-surface)] rounded border border-[var(--color-border)]">
+                <p className="text-xs text-[var(--color-text-muted)]">
+                  <strong>Note:</strong> In the preview above, "Pricing" has <code className="px-1 py-0.5 bg-[var(--color-background)] rounded text-[var(--color-primary)]">active: true</code> to demonstrate the active state styling (bold text + primary color underline on desktop, primary color on mobile).
+                </p>
               </div>
             </div>
           </Card>
@@ -60,7 +66,7 @@ export function OrganismsSection() {
                 }
                 navLinks={[
                   { label: 'Features', href: '#features' },
-                  { label: 'Pricing', href: '#pricing' },
+                  { label: 'Pricing', href: '#pricing', active: true },
                   { label: 'About', href: '#about' },
                   { label: 'Contact', href: '#contact' },
                 ]}
@@ -106,13 +112,13 @@ export function OrganismsSection() {
     </a>
   }
   navLinks={[
-    { label: 'Features', href: '#features' },
-    { label: 'Pricing', href: '#pricing' },
-    { label: 'About', href: '#about' },
+    { label: 'Features', href: '/features' },
+    { label: 'Pricing', href: '/pricing', active: true },
+    { label: 'About', href: '/about' },
   ]}
   actions={
     <>
-      <a href="#signin">Sign In</a>
+      <a href="/signin">Sign In</a>
       <Button variant="primary" size="sm">
         Get Started
       </Button>
