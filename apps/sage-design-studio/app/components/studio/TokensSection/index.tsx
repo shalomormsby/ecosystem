@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { TertiaryNav } from '@ecosystem/design-system';
 import { ColorsTab } from './ColorsTab';
 import { TypographyTab } from './TypographyTab';
 import { SpacingTab } from './SpacingTab';
@@ -10,11 +11,16 @@ type TokenTab = 'colors' | 'typography' | 'spacing' | 'motion';
 export function TokensSection() {
   const [activeTab, setActiveTab] = useState<TokenTab>('colors');
 
-  const tabs: { id: TokenTab; label: string; available: boolean }[] = [
-    { id: 'colors', label: 'Colors', available: true },
-    { id: 'typography', label: 'Typography', available: true },
-    { id: 'spacing', label: 'Spacing', available: true },
-    { id: 'motion', label: 'Motion', available: false },
+  // Available tabs for TertiaryNav
+  const availableTabs = [
+    { id: 'colors', label: 'Colors' },
+    { id: 'typography', label: 'Typography' },
+    { id: 'spacing', label: 'Spacing' },
+  ];
+
+  // Coming soon tabs (shown separately)
+  const comingSoonTabs = [
+    { id: 'motion', label: 'Motion' },
   ];
 
   return (
@@ -28,27 +34,21 @@ export function TokensSection() {
         </p>
       </div>
 
-      {/* Sub-tabs */}
-      <div className="flex items-center gap-2 overflow-x-auto pb-2">
-        {tabs.map((tab) => (
-          <button
+      {/* Tertiary Navigation for Token Tabs */}
+      <div className="flex items-center gap-4 flex-wrap">
+        <TertiaryNav
+          items={availableTabs}
+          activeId={activeTab}
+          onItemChange={(id) => setActiveTab(id as TokenTab)}
+        />
+        {/* Coming Soon Pills */}
+        {comingSoonTabs.map((tab) => (
+          <div
             key={tab.id}
-            onClick={() => tab.available && setActiveTab(tab.id)}
-            disabled={!tab.available}
-            className={`
-              px-4 py-2 rounded-lg text-sm font-medium transition-all whitespace-nowrap
-              ${
-                activeTab === tab.id
-                  ? 'bg-[var(--color-primary)] text-white'
-                  : tab.available
-                  ? 'text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-surface)]'
-                  : 'text-[var(--color-text-muted)] opacity-50 cursor-not-allowed'
-              }
-            `}
+            className="px-4 py-2 rounded-lg text-sm font-medium bg-[var(--color-surface)] text-[var(--color-text-muted)] opacity-50 cursor-not-allowed border border-[var(--color-border)]"
           >
-            {tab.label}
-            {!tab.available && ' (Coming Soon)'}
-          </button>
+            {tab.label} (Coming Soon)
+          </div>
         ))}
       </div>
 

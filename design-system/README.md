@@ -600,10 +600,171 @@ Apps can extend but should rarely override. If you find yourself overriding freq
 
 ---
 
+## Extending the Design System
+
+### Adding a New Typography Theme
+
+The typography system is built for extensibility. To add a new font theme:
+
+**1. Update Typography Tokens** ([tokens/typography.ts](tokens/typography.ts))
+
+```typescript
+// Add to fontFamilies
+mystique: {
+  heading: 'Playfair Display',
+  body: 'Inter',
+  mono: 'Fira Code',
+  description: 'Elegant serif headings with modern sans body',
+  usage: {
+    heading: 'Elegant headings, editorial content',
+    body: 'Clean, readable UI text',
+    mono: 'Code blocks, technical content',
+  },
+},
+
+// Add to fontLoadingConfig
+mystique: {
+  heading: { family: 'Playfair Display', weights: ['400', '600', '700'] },
+  body: { family: 'Inter', weights: ['400', '500', '600', '700'] },
+  mono: { family: 'Fira Code', weights: ['400', '500', '600', '700'] },
+},
+```
+
+**2. Update Theme Tokens** (create `tokens/mystique.ts`)
+
+Follow the pattern from `studio.ts`, `sage.ts`, or `volt.ts` to define colors, effects, and motion for your theme.
+
+**3. Load Fonts in App** (app layout)
+
+```typescript
+import { Playfair_Display, Inter, Fira_Code } from 'next/font/google';
+
+const playfair = Playfair_Display({
+  subsets: ['latin'],
+  variable: '--font-mystique-heading',
+  weight: ['400', '600', '700'],
+});
+
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-mystique-body',
+  weight: ['400', '500', '600', '700'],
+});
+```
+
+**4. Update ThemeProvider** ([providers/ThemeProvider.tsx](providers/ThemeProvider.tsx))
+
+Add font family mappings to the `fontFamilies` object (around line 23).
+
+**5. Update Customizer** ([features/customizer/CustomizerPanel.tsx](features/customizer/CustomizerPanel.tsx))
+
+Add your theme to the theme selector array (around line 75).
+
+**6. Export from Tokens**
+
+```typescript
+// tokens/index.ts
+export * from './mystique';
+
+// Update THEME_NAMES
+export const THEME_NAMES = ['studio', 'sage', 'volt', 'mystique'] as const;
+```
+
+**Complete Typography System:**
+The `typographySystem` export includes comprehensive scales, presets, and utilities:
+- Font families for all themes
+- Font size scale (xs → 9xl) with responsive values
+- Font weights, line heights, letter spacing
+- Type presets (heading-1 through heading-6, body variants, etc.)
+- Utility functions for CSS variable generation
+
+### Sticky Navigation Patterns
+
+The design system supports multi-level sticky navigation following Swiss grid principles:
+
+**When to Use Triple-Stack Navigation:**
+
+Use `TertiaryNav` when you need **three levels of navigation hierarchy**:
+1. **Primary (Header)**: Site-wide navigation
+2. **Secondary (SecondaryNav)**: Page sections (e.g., Overview | Tokens | Atoms)
+3. **Tertiary (TertiaryNav)**: Sub-sections or component selectors (e.g., Colors | Typography | Spacing)
+
+**Pattern Implementation:**
+
+```typescript
+import { Header, SecondaryNav, TertiaryNav } from '@ecosystem/design-system';
+
+// Header: top-0, z-50, h-16 lg:h-20
+<Header sticky={true} />
+
+// SecondaryNav: top-16 lg:top-20, z-40, h-16
+<SecondaryNav
+  items={sections}
+  activeId={activeSection}
+  onItemChange={setActiveSection}
+/>
+
+// TertiaryNav: top-32 lg:top-36, z-30, h-14
+<TertiaryNav
+  items={subsections}
+  activeId={activeSubsection}
+  onItemChange={setActiveSubsection}
+/>
+```
+
+**Positioning Math:**
+- Each level's `top` = sum of all previous heights
+- Header: 64px/80px (mobile/desktop)
+- SecondaryNav: 64px
+- TertiaryNav starts at: 128px/144px (64+64 / 80+64)
+
+**Visual Hierarchy:**
+- Z-index decreases: 50 → 40 → 30
+- Background opacity decreases for depth
+- Padding/text size decreases for subordination
+
+**When NOT to use triple-stack:**
+- Only 1-2 navigation levels needed
+- Mobile-first designs where screen space is limited
+- Simple pages with minimal hierarchy
+
+**Documentation Reference:**
+See the full pattern documentation in Sage Design Studio > Organisms > Triple-Stack Sticky Navigation Pattern.
+
+### Spacing System (Swiss Grid)
+
+The spacing system uses an **8px base unit** following Swiss grid principles:
+
+```typescript
+import { typographySystem } from '@ecosystem/design-system';
+
+// Spacing tokens
+xs:   4px  (0.5 units) - Icon padding, tight elements
+sm:   8px  (1 unit)    - Compact spacing
+md:   16px (2 units)   - Default spacing
+lg:   24px (3 units)   - Generous padding
+xl:   32px (4 units)   - Major component spacing
+2xl:  48px (6 units)   - Large section spacing
+3xl:  64px (8 units)   - Spacious sections
+4xl:  96px (12 units)  - Hero sections
+5xl:  128px (16 units) - Maximum whitespace
+```
+
+**Best Practices:**
+1. **Embrace negative space** - Use larger values liberally for clarity
+2. **Consistent vertical rhythm** - Same hierarchy = same spacing
+3. **Scale appropriately** - Larger elements = larger spacing
+4. **Avoid arbitrary values** - Stick to the defined scale
+
+See Tokens > Spacing in Sage Design Studio for full documentation.
+
+---
+
 ## Related Documentation
 
 - [DESIGN-PHILOSOPHY.md](/DESIGN-PHILOSOPHY.md) — The North Star (read this first)
 - [AGENTS.md](/AGENTS.md) — Technical setup and agent guidelines
+- [Component Workflow Guide](docs/COMPONENT_WORKFLOW.md) — Step-by-step component creation checklist
 
 ---
 
