@@ -302,7 +302,7 @@ export const Header = React.forwardRef<HTMLElement, HeaderProps>(
                 {/* Mobile Full-Screen Menu */}
                 <div
                     className={`
-                        fixed inset-0 z-40 lg:hidden
+                        fixed inset-0 z-[100] lg:hidden
                         ${shouldAnimate ? 'transition-all duration-300' : ''}
                         ${isMenuOpen
                             ? 'opacity-100 pointer-events-auto'
