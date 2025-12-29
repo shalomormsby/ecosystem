@@ -85,9 +85,18 @@ export function OverviewSection() {
               </thead>
               <tbody>
                 <tr className="border-b border-[var(--color-border)]">
+                  <td className="py-3 px-4 font-medium text-[var(--color-text-primary)]">Tokens</td>
+                  <td className="py-3 px-4 text-[var(--color-text-secondary)]">
+                    <strong>Subatomic Variables:</strong> Raw, reusable values that define the visual language. Not functional on their own, but consumed by all higher layers to ensure consistency.
+                  </td>
+                  <td className="py-3 px-4 text-[var(--color-text-secondary)]">
+                    Colors, Typography scales, Spacing units, Border radii, Shadow values
+                  </td>
+                </tr>
+                <tr className="border-b border-[var(--color-border)]">
                   <td className="py-3 px-4 font-medium text-[var(--color-text-primary)]">Atoms</td>
                   <td className="py-3 px-4 text-[var(--color-text-secondary)]">
-                    <strong>Elemental Independence:</strong> Elements that cannot be broken down further without losing their core identity or function.
+                    <strong>Elemental Independence:</strong> Smallest functional UI elements that consume tokens to define their appearance. Cannot be broken down further without losing core function.
                   </td>
                   <td className="py-3 px-4 text-[var(--color-text-secondary)]">
                     Buttons, Input fields, Labels, Icons, Checkboxes
