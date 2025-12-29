@@ -7,7 +7,9 @@ import { SectionNav } from './components/studio/SectionNav';
 import { OverviewSection } from './components/studio/OverviewSection';
 import { TokensSection } from './components/studio/TokensSection';
 import { ComponentsSection } from './components/studio/ComponentsSection';
-import { ComingSoonSection } from './components/studio/ComingSoonSection';
+import { MoleculesSection } from './components/studio/MoleculesSection';
+import { OrganismsSection } from './components/studio/OrganismsSection';
+import { TemplatesSection } from './components/studio/TemplatesSection';
 
 type Section = 'overview' | 'tokens' | 'atoms' | 'molecules' | 'organisms' | 'templates';
 
@@ -23,9 +25,9 @@ export default function StudioPage() {
         {activeSection === 'overview' && <OverviewSection />}
         {activeSection === 'tokens' && <TokensSection />}
         {activeSection === 'atoms' && <ComponentsSection />}
-        {activeSection === 'molecules' && <ComingSoonSection title="Molecules" />}
-        {activeSection === 'organisms' && <ComingSoonSection title="Organisms" />}
-        {activeSection === 'templates' && <ComingSoonSection title="Templates" />}
+        {activeSection === 'molecules' && <MoleculesSection />}
+        {activeSection === 'organisms' && <OrganismsSection />}
+        {activeSection === 'templates' && <TemplatesSection />}
       </div>
 
       <CustomizerPanel />

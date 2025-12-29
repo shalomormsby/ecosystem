@@ -65,6 +65,75 @@ export function OverviewSection() {
         </Card>
       </section>
 
+      {/* Atomic Design */}
+      <section>
+        <h2 className="text-3xl font-bold mb-6 text-[var(--color-text-primary)]">
+          Atomic Design Hierarchy
+        </h2>
+        <Card className="p-8">
+          <p className="text-lg text-[var(--color-text-secondary)] mb-6">
+            This design system follows atomic design principles to create a clear, scalable component architecture.
+          </p>
+          <div className="overflow-x-auto">
+            <table className="w-full border-collapse">
+              <thead>
+                <tr className="border-b border-[var(--color-border)]">
+                  <th className="text-left py-3 px-4 text-[var(--color-text-primary)] font-semibold">Category</th>
+                  <th className="text-left py-3 px-4 text-[var(--color-text-primary)] font-semibold">Logic for Inclusion</th>
+                  <th className="text-left py-3 px-4 text-[var(--color-text-primary)] font-semibold">Examples</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr className="border-b border-[var(--color-border)]">
+                  <td className="py-3 px-4 font-medium text-[var(--color-text-primary)]">Atoms</td>
+                  <td className="py-3 px-4 text-[var(--color-text-secondary)]">
+                    <strong>Elemental Independence:</strong> Elements that cannot be broken down further without losing their core identity or function.
+                  </td>
+                  <td className="py-3 px-4 text-[var(--color-text-secondary)]">
+                    Buttons, Input fields, Labels, Icons, Checkboxes
+                  </td>
+                </tr>
+                <tr className="border-b border-[var(--color-border)]">
+                  <td className="py-3 px-4 font-medium text-[var(--color-text-primary)]">Molecules</td>
+                  <td className="py-3 px-4 text-[var(--color-text-secondary)]">
+                    <strong>Functional Bonding:</strong> Simple groups of atoms bonded together to perform a single, specific task. Often highly reusable and context-agnostic.
+                  </td>
+                  <td className="py-3 px-4 text-[var(--color-text-secondary)]">
+                    Search Bar (Label + Input + Button), Form Field (Label + Input)
+                  </td>
+                </tr>
+                <tr className="border-b border-[var(--color-border)]">
+                  <td className="py-3 px-4 font-medium text-[var(--color-text-primary)]">Organisms</td>
+                  <td className="py-3 px-4 text-[var(--color-text-secondary)]">
+                    <strong>Distinct Sections:</strong> Complex compositions of molecules and/or atoms that form a discrete, functional section of an interface. Often manage state or layout for children.
+                  </td>
+                  <td className="py-3 px-4 text-[var(--color-text-secondary)]">
+                    Header, Footer, Product Grid, Navigation Sidebar
+                  </td>
+                </tr>
+                <tr className="border-b border-[var(--color-border)]">
+                  <td className="py-3 px-4 font-medium text-[var(--color-text-primary)]">Templates</td>
+                  <td className="py-3 px-4 text-[var(--color-text-secondary)]">
+                    <strong>Content Structure:</strong> Layouts that define how organisms and components fit together without specific content. They act as the "blueprint" or wireframe for a page.
+                  </td>
+                  <td className="py-3 px-4 text-[var(--color-text-secondary)]">
+                    Homepage layout, Dashboard skeleton, Product detail layout
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div className="mt-6 p-4 bg-[var(--color-surface)] rounded-lg border border-[var(--color-border)]">
+            <p className="text-sm text-[var(--color-text-secondary)]">
+              <strong>Pro-tip for 2025:</strong> If you are debating if something is a molecule or an organism,
+              use the "Layout Test." If the component's primary job is to arrange other independent components
+              (like a grid or header), it is likely an <strong>Organism</strong>. If it is a self-contained unit
+              with a singular purpose (like a search bar), it is a <strong>Molecule</strong>.
+            </p>
+          </div>
+        </Card>
+      </section>
+
       {/* Three Themes */}
       <section>
         <h2 className="text-3xl font-bold mb-6 text-[var(--color-text-primary)]">
