@@ -1,10 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import NextLink from 'next/link';
-import { Header } from '@ecosystem/design-system';
 import { ModeSwitcher } from './components/ModeSwitcher';
-import { StudioHero } from './components/studio/StudioHero';
 import { NavigationSidebar } from './components/NavigationSidebar';
 import { SearchCommandPalette } from './components/SearchCommandPalette';
 import { TableOfContents } from './components/TableOfContents';
@@ -15,7 +12,6 @@ import { MoleculesSection } from './components/studio/MoleculesSection';
 import { OrganismsSection } from './components/studio/OrganismsSection';
 import { HooksSection } from './components/studio/HooksSection';
 import { TemplatesSection } from './components/studio/TemplatesSection';
-import { ecosystemNavigation } from '../lib/navigation';
 
 type Section = 'overview' | 'tokens' | 'atoms' | 'molecules' | 'organisms' | 'hooks' | 'templates';
 
@@ -49,47 +45,9 @@ export default function StudioPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[var(--color-background)]">
-      <Header
-        logo={
-          <a href="https://www.shalomormsby.com" className="font-bold text-lg text-[var(--color-text-primary)]" style={{ fontFamily: 'var(--font-header-logo)' }}>
-            Shalom Ormsby
-          </a>
-        }
-        navLinks={ecosystemNavigation}
-      />
-      <StudioHero />
-
-      {/* Search Bar with Hamburger Menu */}
-      <div className="sticky top-0 z-40 bg-[var(--color-background)] border-b border-[var(--color-border)]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center gap-3">
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setSidebarOpen(!sidebarOpen)}
-            className="lg:hidden p-2 hover:bg-[var(--color-hover)] rounded-lg transition-colors"
-            aria-label="Toggle sidebar"
-          >
-            <svg
-              className="w-5 h-5"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M4 6h16M4 12h16M4 18h16"
-              />
-            </svg>
-          </button>
-
-          <SearchCommandPalette onNavigate={handleSearchNavigate} />
-        </div>
-      </div>
-
+    <div className="min-h-screen bg-[var(--color-background)] flex">
       {/* Sidebar + Content Layout */}
-      <div className="flex">
+      <div className="flex flex-1">
         <NavigationSidebar
           activeSection={activeSection}
           onNavigate={(section) => {
@@ -102,23 +60,49 @@ export default function StudioPage() {
         />
 
         {/* Main Content */}
-        <main className="flex-1 lg:ml-0">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-            <div className="flex gap-8">
-              {/* Content Area */}
-              <div className="flex-1 min-w-0">
-                {activeSection === 'overview' && <OverviewSection />}
-                {activeSection === 'tokens' && <TokensSection />}
-                {activeSection === 'atoms' && <ComponentsSection />}
-                {activeSection === 'molecules' && <MoleculesSection />}
-                {activeSection === 'organisms' && <OrganismsSection />}
-                {activeSection === 'hooks' && <HooksSection />}
-                {activeSection === 'templates' && <TemplatesSection />}
-              </div>
+        <main className="flex-1 min-h-screen flex flex-col">
+          {/* Top Bar with Search and Mobile Menu */}
+          <div className="sticky top-0 z-30 bg-[var(--color-background)] border-b border-[var(--color-border)]">
+            <div className="px-4 sm:px-6 lg:px-8 py-3 flex items-center gap-3">
+              {/* Mobile Menu Button */}
+              <button
+                onClick={() => setSidebarOpen(!sidebarOpen)}
+                className="lg:hidden p-2 hover:bg-[var(--color-hover)] rounded-lg transition-colors"
+                aria-label="Toggle sidebar"
+              >
+                <svg
+                  className="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4 6h16M4 12h16M4 18h16"
+                  />
+                </svg>
+              </button>
 
-              {/* Table of Contents - Placeholder for now */}
-              <TableOfContents />
+              <SearchCommandPalette onNavigate={handleSearchNavigate} />
             </div>
+          </div>
+
+          {/* Content Area */}
+          <div className="flex-1 flex">
+            <div className="flex-1 px-4 sm:px-6 lg:px-8 py-8 max-w-7xl">
+              {activeSection === 'overview' && <OverviewSection />}
+              {activeSection === 'tokens' && <TokensSection />}
+              {activeSection === 'atoms' && <ComponentsSection />}
+              {activeSection === 'molecules' && <MoleculesSection />}
+              {activeSection === 'organisms' && <OrganismsSection />}
+              {activeSection === 'hooks' && <HooksSection />}
+              {activeSection === 'templates' && <TemplatesSection />}
+            </div>
+
+            {/* Table of Contents - Placeholder for now */}
+            <TableOfContents />
           </div>
         </main>
       </div>
