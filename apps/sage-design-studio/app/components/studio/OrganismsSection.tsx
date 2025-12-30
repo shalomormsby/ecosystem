@@ -4,6 +4,14 @@ import { useState } from 'react';
 import { Card, Button, Header, SecondaryNav, TertiaryNav } from '@ecosystem/design-system';
 
 export function OrganismsSection() {
+  const [selectedOrganism, setSelectedOrganism] = useState<'Header' | 'SecondaryNav' | 'TertiaryNav'>('Header');
+
+  const organisms = [
+    { id: 'Header', label: 'Header' },
+    { id: 'SecondaryNav', label: 'SecondaryNav' },
+    { id: 'TertiaryNav', label: 'TertiaryNav' },
+  ];
+
   return (
     <div className="space-y-8">
       <div>
@@ -18,8 +26,16 @@ export function OrganismsSection() {
         </p>
       </div>
 
+      {/* Organism Selector using TertiaryNav */}
+      <TertiaryNav
+        items={organisms}
+        activeId={selectedOrganism}
+        onItemChange={(id) => setSelectedOrganism(id as 'Header' | 'SecondaryNav' | 'TertiaryNav')}
+      />
+
       {/* Header Component */}
-      <section className="space-y-6">
+      {selectedOrganism === 'Header' && (
+        <section className="space-y-6">
         <div>
           <h3 className="text-2xl font-semibold mb-2 text-[var(--color-text-primary)]">
             Header
@@ -148,10 +164,12 @@ export function OrganismsSection() {
             </pre>
           </Card>
         </div>
-      </section>
+        </section>
+      )}
 
       {/* SecondaryNav Component */}
-      <section className="space-y-6">
+      {selectedOrganism === 'SecondaryNav' && (
+        <section className="space-y-6">
         <div>
           <h3 className="text-2xl font-semibold mb-2 text-[var(--color-text-primary)]">
             SecondaryNav
@@ -215,10 +233,12 @@ const sections = [
             </pre>
           </Card>
         </div>
-      </section>
+        </section>
+      )}
 
       {/* TertiaryNav Component */}
-      <section className="space-y-6">
+      {selectedOrganism === 'TertiaryNav' && (
+        <section className="space-y-6">
         <div>
           <h3 className="text-2xl font-semibold mb-2 text-[var(--color-text-primary)]">
             TertiaryNav
@@ -273,10 +293,11 @@ const components = [
             </pre>
           </Card>
         </div>
-      </section>
+        </section>
+      )}
 
       {/* Triple-Stack Pattern */}
-      <section className="space-y-6">
+      <section className="space-y-8 mt-12 pt-8 border-t border-[var(--color-border)]">
         <div>
           <h3 className="text-2xl font-semibold mb-2 text-[var(--color-text-primary)]">
             Triple-Stack Sticky Navigation Pattern
@@ -439,8 +460,8 @@ function TripleStackDemo() {
         />
       </div>
 
-      {/* Content */}
-      <div className="p-8 space-y-6">
+      {/* Content - Add top padding to account for sticky navigation stack */}
+      <div className="pt-48 lg:pt-52 px-8 pb-8 space-y-6">
         <div>
           <h1 className="text-3xl font-bold text-[var(--color-text-primary)] mb-4">
             {activeSection.charAt(0).toUpperCase() + activeSection.slice(1)} - {activeComponent}

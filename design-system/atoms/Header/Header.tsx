@@ -50,6 +50,16 @@ export interface HeaderProps {
      */
     sticky?: boolean;
     /**
+     * Font size for desktop navigation links
+     * @default 'text-sm' (14px)
+     */
+    navLinkSize?: 'text-xs' | 'text-sm' | 'text-base' | 'text-lg';
+    /**
+     * Font family for logo and navigation
+     * @default 'var(--font-sage-body)' (Instrument Sans)
+     */
+    fontFamily?: string;
+    /**
      * Additional className for customization
      */
     className?: string;
@@ -64,6 +74,8 @@ export const Header = React.forwardRef<HTMLElement, HeaderProps>(
             glassOnScroll = true,
             scrollThreshold = 10,
             sticky = true,
+            navLinkSize = 'text-sm',
+            fontFamily = 'var(--font-sage-body)',
             className = '',
         },
         ref
@@ -119,7 +131,7 @@ export const Header = React.forwardRef<HTMLElement, HeaderProps>(
                         <div className="flex items-center justify-between h-16 lg:h-20 relative">
                             {/* Logo */}
                             {logo && (
-                                <div className="flex-shrink-0 z-10">
+                                <div className="flex-shrink-0 z-10" style={{ fontFamily }}>
                                     {logo}
                                 </div>
                             )}
@@ -141,7 +153,7 @@ export const Header = React.forwardRef<HTMLElement, HeaderProps>(
                                                 >
                                                     <button
                                                         className={`
-                                                            text-sm
+                                                            ${navLinkSize}
                                                             relative
                                                             pb-1
                                                             flex items-center gap-1
@@ -157,6 +169,7 @@ export const Header = React.forwardRef<HTMLElement, HeaderProps>(
                                                                     : 'text-[var(--color-text-secondary)] hover:text-[var(--color-primary)]'
                                                             }
                                                         `}
+                                                        style={{ fontFamily }}
                                                         aria-expanded={isOpen}
                                                         aria-haspopup="true"
                                                     >
@@ -214,7 +227,7 @@ export const Header = React.forwardRef<HTMLElement, HeaderProps>(
                                                 href={link.href}
                                                 aria-current={link.active ? 'page' : undefined}
                                                 className={`
-                                                    text-sm
+                                                    ${navLinkSize}
                                                     relative
                                                     pb-1
                                                     focus-visible:outline
@@ -229,6 +242,7 @@ export const Header = React.forwardRef<HTMLElement, HeaderProps>(
                                                             : 'text-[var(--color-text-secondary)] hover:text-[var(--color-primary)]'
                                                     }
                                                 `}
+                                                style={{ fontFamily }}
                                             >
                                                 {link.label}
                                             </a>
@@ -342,8 +356,9 @@ export const Header = React.forwardRef<HTMLElement, HeaderProps>(
                                                         ? {
                                                             animation: `fadeInUp 0.5s ease-out ${index * 0.1}s forwards`,
                                                             opacity: 0,
+                                                            fontFamily,
                                                         }
-                                                        : { opacity: 1 }
+                                                        : { opacity: 1, fontFamily }
                                                 }
                                                 aria-expanded={isExpanded}
                                             >
@@ -406,8 +421,9 @@ export const Header = React.forwardRef<HTMLElement, HeaderProps>(
                                                 ? {
                                                     animation: `fadeInUp 0.5s ease-out ${index * 0.1}s forwards`,
                                                     opacity: 0,
+                                                    fontFamily,
                                                 }
-                                                : { opacity: 1 }
+                                                : { opacity: 1, fontFamily }
                                         }
                                     >
                                         {link.label}

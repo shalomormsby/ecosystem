@@ -24,18 +24,13 @@ import { Button } from '@ecosystem/design-system';
 export function StudioHero() {
   return (
     <section className="relative overflow-hidden border-b border-[var(--color-border)]">
-      {/* Swiss Grid: 8px base unit (py-24 = 96px = 12 units, py-32 = 128px = 16 units) */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 sm:py-32">
+      {/* Swiss Grid: 8px base unit - reduced bottom padding to raise content below */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 sm:pt-32 pb-12 sm:pb-16">
         <div className="text-center max-w-4xl mx-auto">
           {/* Title: Primary hierarchy level */}
-          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-8 text-[var(--color-text-primary)] tracking-tight">
+          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-12 text-[var(--color-text-primary)] tracking-tight">
             Sage Design Studio
           </h1>
-
-          {/* Subtitle: Secondary hierarchy - generous spacing (mb-12 = 48px = 6 units) */}
-          <p className="text-xl sm:text-2xl text-[var(--color-text-secondary)] mb-12 font-light">
-            The heart of the ecosystem
-          </p>
 
           {/* CTA: Centered with generous spacing (mb-16 = 64px = 8 units) */}
           <div className="mb-16">
@@ -50,8 +45,8 @@ export function StudioHero() {
             </a>
           </div>
 
-          {/* Introduction: Tertiary hierarchy - max-width for optimal reading */}
-          <div className="max-w-2xl mx-auto">
+          {/* Introduction: Tertiary hierarchy - matches section width below */}
+          <div className="max-w-7xl mx-auto">
             <p className="text-lg text-[var(--color-text-primary)] leading-relaxed">
               Explore the design system, components, and design tokens that power the entire ecosystem.
               This is <strong>Transparent by Design</strong>—not just documentation, but a living,
