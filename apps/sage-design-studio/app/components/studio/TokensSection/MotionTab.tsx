@@ -80,6 +80,28 @@ export function MotionTab() {
         </div>
       </Card>
 
+      {/* Variable Weight Motion */}
+      <div>
+        <h3 className="text-xl font-semibold mb-4 text-[var(--color-text-primary)]">
+          Variable Weight Motion
+        </h3>
+        <Card className="p-6">
+          <p className="text-sm text-[var(--color-text-secondary)] mb-6">
+            For variable fonts (like Clash Display), use the <code>VariableWeightText</code> behavior to create a "breathing" effect that animates font weight.
+            This animation automatically centers the text to ensure symmetrical expansion and contraction, preventing layout shifts.
+          </p>
+          <div className="bg-[var(--color-background)] p-4 rounded border border-[var(--color-border)] overflow-x-auto">
+            <pre className="text-sm font-mono text-[var(--color-text-primary)]">
+              {`import { VariableWeightText } from '@ecosystem/design-system';
+
+<VariableWeightText minWeight={200} maxWeight={700}>
+  Variable Font Text
+</VariableWeightText>`}
+            </pre>
+          </div>
+        </Card>
+      </div>
+
       {/* Duration Scale */}
       <div>
         <h3 className="text-xl font-semibold mb-4 text-[var(--color-text-primary)]">
