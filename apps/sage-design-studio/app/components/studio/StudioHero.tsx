@@ -1,6 +1,6 @@
 'use client';
 
-import { Button } from '@ecosystem/design-system';
+import { Button, GitHubIcon } from '@ecosystem/design-system';
 
 /**
  * StudioHero Component
@@ -40,6 +40,7 @@ export function StudioHero() {
               rel="noopener noreferrer"
             >
               <Button variant="primary" size="lg">
+                <GitHubIcon size={20} className="mr-2" />
                 View on GitHub
               </Button>
             </a>

@@ -4,5 +4,6 @@ export { Header } from './Header/Header';
 export type { HeaderProps, NavLink } from './Header/Header';
 export { Link } from './Link/Link';
 export * from './Motion';
+export * from './Icon';
 
 
