@@ -47,16 +47,19 @@ export function MoleculesSection({ activeItemId }: MoleculesSectionProps) {
         </p>
       </div>
 
-      {/* Molecule Selector */}
-      <TertiaryNav
-        items={molecules}
-        activeId={selectedMolecule}
-        onItemChange={setSelectedMolecule}
-      />
+      {/* Sticky Tertiary Navigation for Molecule Selector */}
+      <div className="sticky top-0 z-10 bg-[var(--color-background)] pb-4 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 mb-4">
+        <TertiaryNav
+          items={molecules}
+          activeId={selectedMolecule}
+          onItemChange={setSelectedMolecule}
+        />
+      </div>
 
-      {/* Molecule Display */}
-      {currentMolecule && (
-        <section className="space-y-6">
+      {/* Molecule Display with spacing for sticky nav */}
+      <div className="mt-4">
+        {currentMolecule && (
+          <section className="space-y-6">
           <div>
             <h3 className="text-2xl font-semibold mb-2 text-[var(--color-text-primary)]">
               {selectedMolecule}
@@ -129,7 +132,8 @@ export function MoleculesSection({ activeItemId }: MoleculesSectionProps) {
             </div>
           )}
         </section>
-      )}
+        )}
+      </div>
     </div>
   );
 }

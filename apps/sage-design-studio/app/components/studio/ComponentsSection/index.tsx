@@ -40,20 +40,24 @@ export function ComponentsSection({ activeItemId }: ComponentsSectionProps) {
         </p>
       </div>
 
-      {/* Component Selector using TertiaryNav */}
-      <TertiaryNav
-        items={componentItems}
-        activeId={selectedComponent}
-        onItemChange={setSelectedComponent}
-      />
-
-      {/* Component Playground */}
-      {selectedComponent && (
-        <ComponentPlayground
-          componentName={selectedComponent}
-          config={componentRegistry[selectedComponent]}
+      {/* Sticky Tertiary Navigation for Component Selector */}
+      <div className="sticky top-0 z-10 bg-[var(--color-background)] pb-4 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 mb-4">
+        <TertiaryNav
+          items={componentItems}
+          activeId={selectedComponent}
+          onItemChange={setSelectedComponent}
         />
-      )}
+      </div>
+
+      {/* Component Playground with spacing for sticky nav */}
+      <div className="mt-4">
+        {selectedComponent && (
+          <ComponentPlayground
+            componentName={selectedComponent}
+            config={componentRegistry[selectedComponent]}
+          />
+        )}
+      </div>
     </div>
   );
 }

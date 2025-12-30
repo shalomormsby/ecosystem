@@ -132,15 +132,19 @@ export function OrganismsSection({ activeItemId }: OrganismsSectionProps) {
         </p>
       </div>
 
-      {/* Organism Selector using TertiaryNav */}
-      <TertiaryNav
-        items={organisms}
-        activeId={selectedOrganism}
-        onItemChange={(id) => setSelectedOrganism(id as OrganismType)}
-      />
+      {/* Sticky Tertiary Navigation for Organism Selector */}
+      <div className="sticky top-0 z-10 bg-[var(--color-background)] pb-4 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 mb-4">
+        <TertiaryNav
+          items={organisms}
+          activeId={selectedOrganism}
+          onItemChange={(id) => setSelectedOrganism(id as OrganismType)}
+        />
+      </div>
 
-      {/* Primary Nav Component */}
-      {selectedOrganism === 'PrimaryNav' && (
+      {/* Organism Display with spacing for sticky nav */}
+      <div className="mt-4">
+        {/* Primary Nav Component */}
+        {selectedOrganism === 'PrimaryNav' && (
         <section className="space-y-6">
         <div>
           <h3 className="text-2xl font-semibold mb-2 text-[var(--color-text-primary)]">
@@ -842,7 +846,8 @@ function MyComponent() {
           </Card>
         </div>
         </section>
-      )}
+        )}
+      </div>
     </div>
   );
 }
