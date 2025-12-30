@@ -7,6 +7,7 @@
         ".": "./src/index.ts",
         "./tokens": "./tokens/index.ts",
         "./atoms": "./atoms/index.ts",
+        "./organisms": "./organisms/index.ts",
         "./hooks": "./hooks/index.ts",
         "./features": "./features/customizer/index.ts",
         "./features/customizer": "./features/customizer/index.ts",
