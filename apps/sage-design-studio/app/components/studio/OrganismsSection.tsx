@@ -4,12 +4,12 @@ import { useState } from 'react';
 import { Card, Button, Header, SecondaryNav, TertiaryNav } from '@ecosystem/design-system';
 
 export function OrganismsSection() {
-  const [selectedOrganism, setSelectedOrganism] = useState<'Header' | 'SecondaryNav' | 'TertiaryNav'>('Header');
+  const [selectedOrganism, setSelectedOrganism] = useState<'PrimaryNav' | 'FirstStack' | 'SecondStack'>('PrimaryNav');
 
   const organisms = [
-    { id: 'Header', label: 'Header' },
-    { id: 'SecondaryNav', label: 'SecondaryNav' },
-    { id: 'TertiaryNav', label: 'TertiaryNav' },
+    { id: 'PrimaryNav', label: 'Primary Nav' },
+    { id: 'FirstStack', label: '1st Stacking Row' },
+    { id: 'SecondStack', label: '2nd Stacking Row' },
   ];
 
   return (
@@ -30,15 +30,15 @@ export function OrganismsSection() {
       <TertiaryNav
         items={organisms}
         activeId={selectedOrganism}
-        onItemChange={(id) => setSelectedOrganism(id as 'Header' | 'SecondaryNav' | 'TertiaryNav')}
+        onItemChange={(id) => setSelectedOrganism(id as 'PrimaryNav' | 'FirstStack' | 'SecondStack')}
       />
 
-      {/* Header Component */}
-      {selectedOrganism === 'Header' && (
+      {/* Primary Nav Component */}
+      {selectedOrganism === 'PrimaryNav' && (
         <section className="space-y-6">
         <div>
           <h3 className="text-2xl font-semibold mb-2 text-[var(--color-text-primary)]">
-            Header
+            Primary Nav
           </h3>
           <Card className="p-6">
             <p className="text-[var(--color-text-primary)] mb-4">
@@ -102,19 +102,41 @@ export function OrganismsSection() {
             </pre>
           </Card>
         </div>
+
+        {/* Single-Stack Behavior */}
+        <div>
+          <h4 className="text-lg font-semibold mb-3 text-[var(--color-text-primary)]">
+            Single-Stack Behavior
+          </h4>
+          <Card className="p-6">
+            <p className="text-[var(--color-text-primary)] mb-4">
+              The Primary Nav uses sticky positioning to remain at the top of the viewport during scroll.
+            </p>
+            <div className="space-y-4">
+              <div className="text-sm text-[var(--color-text-secondary)]">
+                <strong>Positioning:</strong>
+                <ul className="list-disc list-inside mt-2 space-y-1">
+                  <li><code className="px-1 py-0.5 bg-[var(--color-background)] rounded text-[var(--color-primary)]">top-0</code> - Sticks to top of viewport</li>
+                  <li><code className="px-1 py-0.5 bg-[var(--color-background)] rounded text-[var(--color-primary)]">z-50</code> - Highest layer for primary navigation</li>
+                  <li><code className="px-1 py-0.5 bg-[var(--color-background)] rounded text-[var(--color-primary)]">h-16 lg:h-20</code> - Height: 64px mobile, 80px desktop</li>
+                </ul>
+              </div>
+            </div>
+          </Card>
+        </div>
         </section>
       )}
 
-      {/* SecondaryNav Component */}
-      {selectedOrganism === 'SecondaryNav' && (
+      {/* 1st Stacking Row Component */}
+      {selectedOrganism === 'FirstStack' && (
         <section className="space-y-6">
         <div>
           <h3 className="text-2xl font-semibold mb-2 text-[var(--color-text-primary)]">
-            SecondaryNav
+            1st Stacking Row
           </h3>
           <Card className="p-6">
             <p className="text-[var(--color-text-primary)] mb-4">
-              Secondary sticky navigation designed to sit below a primary sticky header. Commonly used for section/tab navigation within a page.
+              Secondary navigation that stacks below the primary header. Creates a double-stack pattern for section/tab navigation within a page.
             </p>
             <div className="space-y-4">
               <div className="text-sm text-[var(--color-text-secondary)]">
@@ -161,19 +183,45 @@ const sections = [
             </pre>
           </Card>
         </div>
+
+        {/* 1st Stacking Row Behavior */}
+        <div>
+          <h4 className="text-lg font-semibold mb-3 text-[var(--color-text-primary)]">
+            1st Stacking Row Behavior
+          </h4>
+          <Card className="p-6">
+            <p className="text-[var(--color-text-primary)] mb-4">
+              Creates a double-stack pattern by positioning below the Primary Nav. Both levels remain sticky during scroll.
+            </p>
+            <div className="space-y-4">
+              <div className="text-sm text-[var(--color-text-secondary)]">
+                <strong>Stack Configuration:</strong>
+                <ul className="list-disc list-inside mt-2 space-y-1">
+                  <li><strong>Primary Nav:</strong> <code className="px-1 py-0.5 bg-[var(--color-background)] rounded text-[var(--color-primary)]">top-0</code>, <code className="px-1 py-0.5 bg-[var(--color-background)] rounded text-[var(--color-primary)]">z-50</code>, <code className="px-1 py-0.5 bg-[var(--color-background)] rounded text-[var(--color-primary)]">h-16 lg:h-20</code></li>
+                  <li><strong>1st Stacking Row:</strong> <code className="px-1 py-0.5 bg-[var(--color-background)] rounded text-[var(--color-primary)]">top-16 lg:top-20</code>, <code className="px-1 py-0.5 bg-[var(--color-background)] rounded text-[var(--color-primary)]">z-40</code>, <code className="px-1 py-0.5 bg-[var(--color-background)] rounded text-[var(--color-primary)]">h-16</code></li>
+                </ul>
+              </div>
+              <div className="mt-4 p-3 bg-[var(--color-surface)] rounded border border-[var(--color-border)]">
+                <p className="text-xs text-[var(--color-text-muted)]">
+                  <strong>Positioning Math:</strong> The 1st Stacking Row's <code className="px-1 py-0.5 bg-[var(--color-background)] rounded text-[var(--color-primary)]">top</code> value equals the Primary Nav's height (64px mobile, 80px desktop).
+                </p>
+              </div>
+            </div>
+          </Card>
+        </div>
         </section>
       )}
 
-      {/* TertiaryNav Component */}
-      {selectedOrganism === 'TertiaryNav' && (
+      {/* 2nd Stacking Row Component */}
+      {selectedOrganism === 'SecondStack' && (
         <section className="space-y-6">
         <div>
           <h3 className="text-2xl font-semibold mb-2 text-[var(--color-text-primary)]">
-            TertiaryNav
+            2nd Stacking Row
           </h3>
           <Card className="p-6">
             <p className="text-[var(--color-text-primary)] mb-4">
-              Tertiary sticky navigation designed to sit below SecondaryNav in a three-level sticky stack. Commonly used for component selectors or sub-section navigation.
+              Third navigation level that stacks below the 1st Stacking Row. Creates a triple-stack pattern for component selectors or sub-section navigation.
             </p>
             <div className="space-y-4">
               <div className="text-sm text-[var(--color-text-secondary)]">
@@ -221,66 +269,43 @@ const components = [
             </pre>
           </Card>
         </div>
-        </section>
-      )}
 
-      {/* Triple-Stack Pattern */}
-      <section className="space-y-8 mt-12 pt-8 border-t border-[var(--color-border)]">
+        {/* 2nd Stacking Row Behavior */}
         <div>
-          <h3 className="text-2xl font-semibold mb-2 text-[var(--color-text-primary)]">
-            Triple-Stack Sticky Navigation Pattern
-          </h3>
+          <h4 className="text-lg font-semibold mb-3 text-[var(--color-text-primary)]">
+            2nd Stacking Row Behavior
+          </h4>
           <Card className="p-6">
             <p className="text-[var(--color-text-primary)] mb-4">
-              The triple-stack pattern combines Header, SecondaryNav, and TertiaryNav to create a comprehensive navigation hierarchy. Each level sticks at a precise position to form a seamless navigation experience.
+              Creates a triple-stack pattern by positioning below both the Primary Nav and 1st Stacking Row. All three levels remain sticky during scroll.
             </p>
             <div className="space-y-4">
               <div className="text-sm text-[var(--color-text-secondary)]">
                 <strong>Stack Configuration:</strong>
                 <ul className="list-disc list-inside mt-2 space-y-1">
-                  <li><strong>Header:</strong> <code className="px-1 py-0.5 bg-[var(--color-background)] rounded text-[var(--color-primary)]">top-0</code>, <code className="px-1 py-0.5 bg-[var(--color-background)] rounded text-[var(--color-primary)]">z-50</code>, <code className="px-1 py-0.5 bg-[var(--color-background)] rounded text-[var(--color-primary)]">h-16 lg:h-20</code> (64px / 80px)</li>
-                  <li><strong>SecondaryNav:</strong> <code className="px-1 py-0.5 bg-[var(--color-background)] rounded text-[var(--color-primary)]">top-16 lg:top-20</code>, <code className="px-1 py-0.5 bg-[var(--color-background)] rounded text-[var(--color-primary)]">z-40</code>, <code className="px-1 py-0.5 bg-[var(--color-background)] rounded text-[var(--color-primary)]">h-16</code> (64px)</li>
-                  <li><strong>TertiaryNav:</strong> <code className="px-1 py-0.5 bg-[var(--color-background)] rounded text-[var(--color-primary)]">top-32 lg:top-36</code>, <code className="px-1 py-0.5 bg-[var(--color-background)] rounded text-[var(--color-primary)]">z-30</code>, <code className="px-1 py-0.5 bg-[var(--color-background)] rounded text-[var(--color-primary)]">h-14</code> (56px)</li>
+                  <li><strong>Primary Nav:</strong> <code className="px-1 py-0.5 bg-[var(--color-background)] rounded text-[var(--color-primary)]">top-0</code>, <code className="px-1 py-0.5 bg-[var(--color-background)] rounded text-[var(--color-primary)]">z-50</code>, <code className="px-1 py-0.5 bg-[var(--color-background)] rounded text-[var(--color-primary)]">h-16 lg:h-20</code></li>
+                  <li><strong>1st Stacking Row:</strong> <code className="px-1 py-0.5 bg-[var(--color-background)] rounded text-[var(--color-primary)]">top-16 lg:top-20</code>, <code className="px-1 py-0.5 bg-[var(--color-background)] rounded text-[var(--color-primary)]">z-40</code>, <code className="px-1 py-0.5 bg-[var(--color-background)] rounded text-[var(--color-primary)]">h-16</code></li>
+                  <li><strong>2nd Stacking Row:</strong> <code className="px-1 py-0.5 bg-[var(--color-background)] rounded text-[var(--color-primary)]">top-32 lg:top-36</code>, <code className="px-1 py-0.5 bg-[var(--color-background)] rounded text-[var(--color-primary)]">z-30</code>, <code className="px-1 py-0.5 bg-[var(--color-background)] rounded text-[var(--color-primary)]">h-14</code></li>
                 </ul>
               </div>
               <div className="text-sm text-[var(--color-text-secondary)]">
                 <strong>Visual Hierarchy:</strong>
                 <ul className="list-disc list-inside mt-2 space-y-1">
                   <li>Each level has decreasing z-index for proper layering</li>
-                  <li>Background opacity decreases from Header → SecondaryNav → TertiaryNav</li>
+                  <li>Background opacity decreases across layers for visual depth</li>
                   <li>Padding and text size decrease to show visual subordination</li>
-                  <li>Border-bottom on all levels for clear separation</li>
                 </ul>
               </div>
               <div className="mt-4 p-3 bg-[var(--color-surface)] rounded border border-[var(--color-border)]">
                 <p className="text-xs text-[var(--color-text-muted)]">
-                  <strong>Positioning Math:</strong> Each level's <code className="px-1 py-0.5 bg-[var(--color-background)] rounded text-[var(--color-primary)]">top</code> value equals the sum of all previous heights. For example, TertiaryNav's <code className="px-1 py-0.5 bg-[var(--color-background)] rounded text-[var(--color-primary)]">top-32</code> = Header's 64px + SecondaryNav's 64px = 128px.
+                  <strong>Positioning Math:</strong> The 2nd Stacking Row's <code className="px-1 py-0.5 bg-[var(--color-background)] rounded text-[var(--color-primary)]">top</code> value equals Primary Nav height (64/80px) + 1st Stacking Row height (64px) = 128px mobile, 144px desktop.
                 </p>
               </div>
             </div>
           </Card>
         </div>
-
-        {/* Code Example */}
-        <div>
-          <h4 className="text-lg font-semibold mb-3 text-[var(--color-text-primary)]">
-            Code Example
-          </h4>
-          <Card className="p-6 bg-[var(--color-surface)]">
-            <pre className="text-sm text-[var(--color-text-secondary)] overflow-x-auto">
-              <code>{`// Triple-stack sticky navigation
-<Header sticky={true} glassOnScroll={true} {...headerProps} />
-<SecondaryNav items={sections} activeId={activeSection} onItemChange={setActiveSection} />
-<TertiaryNav items={components} activeId={activeComponent} onItemChange={setActiveComponent} />
-
-// Positioning values:
-// Header: top-0, z-50, h-16 lg:h-20
-// SecondaryNav: top-16 lg:top-20, z-40, h-16
-// TertiaryNav: top-32 lg:top-36, z-30, h-14`}</code>
-            </pre>
-          </Card>
-        </div>
-      </section>
+        </section>
+      )}
     </div>
   );
 }
