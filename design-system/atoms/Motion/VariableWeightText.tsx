@@ -3,65 +3,89 @@
 import { motion, HTMLMotionProps } from 'framer-motion';
 import React from 'react';
 import { useCustomizer } from '../../features/customizer/store';
-import { useThemeStore } from '../../store/theme';
-import { studioTokens } from '../../tokens/studio';
-import { sageTokens } from '../../tokens/sage';
-import { voltTokens } from '../../tokens/volt';
 
-// Theme token map
-const themeTokens = {
-    studio: studioTokens,
-    sage: sageTokens,
-    volt: voltTokens,
-};
-
-interface VariableWeightTextProps extends HTMLMotionProps<'div'> {
+interface VariableWeightTextProps extends Omit<HTMLMotionProps<'div'>, 'children'> {
+    /**
+     * Minimum font weight for the animation
+     * @default 200
+     */
     minWeight?: number;
+    /**
+     * Maximum font weight for the animation
+     * @default 700
+     */
     maxWeight?: number;
+    /**
+     * Duration of one complete animation cycle (in seconds)
+     * @default 2
+     */
     duration?: number;
+    /**
+     * Motion intensity override (0-10). If not provided, uses global customizer setting.
+     */
     intensity?: number;
+    /**
+     * Font family to use. Recommended: 'Clash Display' or another variable font.
+     * @default 'Clash Display'
+     */
+    fontFamily?: string;
+    /**
+     * Text content to animate
+     */
+    children?: React.ReactNode;
 }
 
+/**
+ * VariableWeightText
+ *
+ * A motion component that creates a "breathing" effect by animating font weight.
+ * Works best with variable fonts like Clash Display that support smooth weight transitions.
+ *
+ * **Key Features:**
+ * - Animates font-weight in a continuous loop
+ * - Respects global motion intensity settings
+ * - Automatically centers text to prevent layout shifts during weight changes
+ * - Disables animation when motion intensity is 0 (accessibility)
+ *
+ * **Usage:**
+ * ```tsx
+ * <VariableWeightText minWeight={200} maxWeight={700}>
+ *   Variable Font Text
+ * </VariableWeightText>
+ * ```
+ */
 export const VariableWeightText = ({
     children,
     minWeight = 200,
     maxWeight = 700,
-    duration,
+    duration = 2,
     intensity,
+    fontFamily = 'Clash Display, sans-serif',
     className,
+    style,
     ...props
 }: VariableWeightTextProps) => {
     const { motion: motionIntensity } = useCustomizer();
-    const { theme } = useThemeStore();
 
     // Use provided intensity or global intensity
     const effectiveIntensity = intensity ?? motionIntensity;
 
-    // Get duration from theme tokens based on intensity
-    const tokens = themeTokens[theme];
-    // Default to a slower breath if not specified, scaled by intensity
-    // If intensity is high (10), duration is faster? Or generic scaling?
-    // Existing code: duration = parseFloat(tokens.motion.getDuration(effectiveIntensity)) / 1000
-    // "Breathing" usually implies a slower, rhythmic cycle. 
-    // Let's use 'slow' or 'slower' as base if no duration provided.
-    const baseDuration = duration ?? 2; // Default 2 seconds for a full breath cycle
-    const calculatedDuration = baseDuration * (10 / (effectiveIntensity || 5)); // Adjust speed based on intensity?? 
-    // Actually, let's stick to the pattern in FadeIn but adapted.
-    // The existing pattern scales duration: duration = tokens.motion.getDuration(effectiveIntensity).
-    // But that's for transitions. For a continuous loop, we might want it to respect intensity by speed or amplitude.
-    // If intensity is 0, we shouldn't animate.
+    // Scale duration based on intensity (higher intensity = faster animation)
+    const scaledDuration = effectiveIntensity > 0
+        ? duration * (5 / effectiveIntensity)
+        : duration;
 
-    // If motion is disabled (intensity 0), render static at standard weight (or max/min?)
-    // Let's render at maxWeight or normal to be legible.
+    // If motion is disabled (intensity 0), render static text at maxWeight
     if (effectiveIntensity === 0) {
         return (
             <div
                 className={className}
                 style={{
+                    fontFamily,
                     fontWeight: maxWeight,
                     textAlign: 'center',
-                    display: 'inline-block', // Ensure it respects text-align
-                    width: '100%'
+                    width: '100%',
+                    ...style,
                 }}
                 {...props as any}
             >
@@ -75,20 +99,16 @@ export const VariableWeightText = ({
             initial={{ fontWeight: minWeight }}
             animate={{ fontWeight: maxWeight }}
             transition={{
-                duration: calculatedDuration,
+                duration: scaledDuration,
                 repeat: Infinity,
                 repeatType: "reverse",
                 ease: "easeInOut"
             }}
             style={{
+                fontFamily,
                 textAlign: 'center',
-                display: 'inline-block',
-                width: '100%', // Ensure it takes width to center properly in container
-                // We might want to avoid forcing width: 100% if the user wants it inline.
-                // But "center-aligned mode" implies checking the container.
-                // Actually, if we use text-align: center, the text *inside* this div checks out.
-                // But if this div is narrow, it won't matter.
-                // Let's assume this component wraps the text and controls its own alignment.
+                width: '100%',
+                ...style,
             }}
             className={className}
             {...props}

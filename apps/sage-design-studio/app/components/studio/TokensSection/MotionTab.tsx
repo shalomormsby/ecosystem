@@ -1,9 +1,9 @@
 'use client';
 
 import { useState } from 'react';
-import { Card, Button } from '../atoms';
-import { baseTokens, motion } from './base';
-import { VariableWeightText } from '../atoms/Motion/VariableWeightText';
+import { Card, Button } from '@ecosystem/design-system';
+import { baseTokens, motion } from '@ecosystem/design-system/tokens';
+import { VariableWeightText } from '@ecosystem/design-system';
 
 /**
  * Interactive example component for motion demonstrations
@@ -43,7 +43,6 @@ function MotionExample({
 }
 
 export function MotionTab() {
-    console.log('Rendering MotionTab from design-system/tokens');
     const [selectedDuration, setSelectedDuration] = useState<keyof typeof baseTokens.duration>('normal');
     const [selectedEasing, setSelectedEasing] = useState<keyof typeof motion.easing>('default');
 
@@ -89,17 +88,37 @@ export function MotionTab() {
                 </h3>
                 <Card className="p-6">
                     <p className="text-sm text-[var(--color-text-secondary)] mb-6">
-                        For variable fonts (like Clash Display), use the <code>VariableWeightText</code> behavior to create a "breathing" effect that animates font weight.
+                        For variable fonts (like <strong>Clash Display</strong>), use the <code className="px-2 py-1 bg-[var(--color-surface)] rounded text-[var(--color-primary)]">VariableWeightText</code> component to create a "breathing" effect that animates font weight.
                         This animation automatically centers the text to ensure symmetrical expansion and contraction, preventing layout shifts.
                     </p>
+
+                    {/* Live Demo */}
+                    <div className="mb-6 p-8 bg-[var(--color-background)] rounded-lg border border-[var(--color-border)]">
+                        <VariableWeightText
+                            minWeight={200}
+                            maxWeight={700}
+                            duration={2}
+                            className="text-4xl"
+                        >
+                            Clash Display
+                        </VariableWeightText>
+                    </div>
+
+                    {/* Code Example */}
                     <div className="bg-[var(--color-background)] p-4 rounded border border-[var(--color-border)] overflow-x-auto">
                         <pre className="text-sm font-mono text-[var(--color-text-primary)]">
                             {`import { VariableWeightText } from '@ecosystem/design-system';
 
 <VariableWeightText minWeight={200} maxWeight={700}>
-  Variable Font Text
+  Clash Display
 </VariableWeightText>`}
                         </pre>
+                    </div>
+
+                    <div className="mt-4 p-3 bg-[var(--color-surface)] rounded border border-[var(--color-border)]">
+                        <p className="text-xs text-[var(--color-text-muted)]">
+                            <strong>Note:</strong> The VariableWeightText component defaults to using Clash Display, but you can override with the <code className="px-1 py-0.5 bg-[var(--color-background)] rounded text-[var(--color-primary)]">fontFamily</code> prop to use any variable font.
+                        </p>
                     </div>
                 </Card>
             </div>
