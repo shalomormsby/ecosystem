@@ -63,7 +63,7 @@ export const CustomizerPanel = () => {
                         max="10"
                         value={motion}
                         onChange={(e) => setMotion(Number(e.target.value))}
-                        className="w-full h-2 bg-neutral-200 rounded-lg appearance-none cursor-pointer accent-primary"
+                        className="w-full h-2 bg-[var(--color-surface)] rounded-lg appearance-none cursor-pointer accent-primary"
                     />
                 </div>
 
