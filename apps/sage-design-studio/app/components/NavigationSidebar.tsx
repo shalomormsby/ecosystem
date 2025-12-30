@@ -65,7 +65,7 @@ export function NavigationSidebar({
     const hasChildren = item.children && item.children.length > 0;
     const isExpanded = expandedItems.has(item.id);
     const isActive = item.id === activeItemId;
-    const indentStyle = { paddingLeft: `${12 + depth * 16}px` };
+    const indentStyle = { paddingLeft: `${6 + depth * 16}px` };
 
     return (
       <div key={item.id}>
@@ -79,8 +79,8 @@ export function NavigationSidebar({
             }
           }}
           className={`w-full flex items-center gap-2 px-3 py-2 text-sm transition-colors ${isActive
-              ? 'bg-[var(--color-primary)] text-[var(--color-primary-foreground)] font-medium'
-              : 'text-[var(--color-text-primary)] hover:bg-[var(--color-hover)]'
+            ? 'bg-[var(--color-primary)] text-[var(--color-primary-foreground)] font-medium'
+            : 'text-[var(--color-text-primary)] hover:bg-[var(--color-hover)]'
             } ${depth === 0 ? 'font-semibold' : ''}`}
           style={indentStyle}
         >
@@ -181,7 +181,7 @@ export function NavigationSidebar({
           </div>
 
           {/* Navigation */}
-          <nav className="flex-1 min-h-0 overflow-y-auto py-4 px-4">
+          <nav className="flex-1 min-h-0 overflow-y-auto py-4 px-3">
             {navigationTree.map((item) => renderItem(item))}
           </nav>
 
