@@ -172,7 +172,7 @@ const ToastItem: React.FC<ToastItemProps> = ({ toast, onClose, shouldAnimate }) 
       <p className="flex-1 text-sm font-medium">{toast.message}</p>
       <button
         onClick={onClose}
-        className="flex-shrink-0 hover:opacity-70 transition-opacity"
+        className="flex-shrink-0 text-current hover:opacity-70 transition-opacity"
         aria-label="Close notification"
       >
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
