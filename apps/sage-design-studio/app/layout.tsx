@@ -92,13 +92,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className={`
-        ${nunito.variable} ${nunitoSans.variable}
-        ${outfit.variable} ${manrope.variable}
-        ${lora.variable} ${instrumentSans.variable}
-        ${spaceGrotesk.variable} ${firaCode.variable}
-      `}>
+    <html lang="en" className={`
+      ${nunito.variable} ${nunitoSans.variable}
+      ${outfit.variable} ${manrope.variable}
+      ${lora.variable} ${instrumentSans.variable}
+      ${spaceGrotesk.variable} ${firaCode.variable}
+    `}>
+      <body>
         <ThemeProvider>
           {children}
         </ThemeProvider>

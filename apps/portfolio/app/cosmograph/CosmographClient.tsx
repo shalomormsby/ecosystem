@@ -1,7 +1,7 @@
 'use client';
 
 import NextLink from 'next/link';
-import { Header } from '@ecosystem/design-system/atoms';
+import { Header } from '@ecosystem/design-system';
 import { ecosystemNavigation } from '@/lib/navigation';
 import { NavigationFallback } from '@/components/cosmograph/NavigationFallback';
 import type { Node } from '@/lib/content/types';

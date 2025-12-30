@@ -1,7 +1,7 @@
 'use client';
 
 import NextLink from 'next/link';
-import { Header, Card, Link } from '@ecosystem/design-system/atoms';
+import { Header, Card, Link } from '@ecosystem/design-system';
 import { ecosystemNavigation } from '@/lib/navigation';
 
 export default function CaseStudiesPage() {
