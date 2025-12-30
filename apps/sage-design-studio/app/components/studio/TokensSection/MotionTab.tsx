@@ -97,8 +97,8 @@ export function MotionTab() {
                         </p>
                         <ul className="text-xs text-[var(--color-text-muted)] space-y-1">
                             <li>✓ Uses true variable font (continuous weight axis from 200-700)</li>
-                            <li>✓ GPU-accelerated with <code className="px-1 py-0.5 bg-[var(--color-surface)] rounded">will-change</code></li>
-                            <li>✓ Custom easing curve <code className="px-1 py-0.5 bg-[var(--color-surface)] rounded">[0.45, 0, 0.55, 1]</code> for ultra-smooth motion</li>
+                            <li>✓ GPU-accelerated with <code className="px-1 py-0.5 bg-[var(--color-surface)] rounded text-[var(--color-primary)]">will-change</code></li>
+                            <li>✓ Custom easing curve <code className="px-1 py-0.5 bg-[var(--color-surface)] rounded text-[var(--color-primary)]">[0.45, 0, 0.55, 1]</code> for ultra-smooth motion</li>
                             <li>✓ Font smoothing (antialiased) for crisp rendering</li>
                             <li>✓ Centered to prevent layout shifts during weight changes</li>
                         </ul>

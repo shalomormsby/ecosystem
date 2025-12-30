@@ -192,7 +192,7 @@ export function NavigationSidebar({
           <div className="px-4 py-4 space-y-3">
             {/* GitHub Link */}
             <a
-              href="https://github.com/shalomormsby/ecosystem"
+              href="https://github.com/shalom-ormsby/ecosystem/tree/main/design-system"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 px-3 py-2 text-xs bg-[var(--color-surface)] hover:bg-[var(--color-hover)] border border-[var(--color-border)] rounded-md transition-colors"

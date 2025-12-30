@@ -41,6 +41,7 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
         const variantStyles = {
             default: `
                 px-2 py-1 -mx-2 -my-1 rounded
+                text-[var(--color-text-primary)]
                 ${hoverEffect ? 'hover:bg-[var(--color-link-hover)] hover:text-[var(--color-link-hover-foreground)]' : ''}
             `,
             inline: `

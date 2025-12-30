@@ -70,7 +70,7 @@ pnpm --filter sage-design-studio dev</code>
                   <code className="text-[var(--color-text-primary)]">git checkout -b feature/component-name</code>
                 </pre>
                 <p className="text-sm text-[var(--color-text-muted)] mt-2">
-                  Use descriptive branch names: <code className="px-1.5 py-0.5 bg-[var(--color-surface)] rounded">feature/</code>, <code className="px-1.5 py-0.5 bg-[var(--color-surface)] rounded">fix/</code>, or <code className="px-1.5 py-0.5 bg-[var(--color-surface)] rounded">docs/</code>
+                  Use descriptive branch names: <code className="px-1.5 py-0.5 bg-[var(--color-surface)] rounded text-[var(--color-primary)]">feature/</code>, <code className="px-1.5 py-0.5 bg-[var(--color-surface)] rounded text-[var(--color-primary)]">fix/</code>, or <code className="px-1.5 py-0.5 bg-[var(--color-surface)] rounded text-[var(--color-primary)]">docs/</code>
                 </p>
               </div>
             </li>
@@ -167,7 +167,7 @@ pnpm --filter sage-design-studio dev</code>
               <div>
                 <span className="font-medium text-[var(--color-text-primary)]">Exports updated in index.ts</span>
                 <p className="text-sm text-[var(--color-text-secondary)] mt-1">
-                  Ensure your component is exported from <code className="px-1.5 py-0.5 bg-[var(--color-surface)] rounded">packages/design-system/src/components/index.ts</code>
+                  Ensure your component is exported from <code className="px-1.5 py-0.5 bg-[var(--color-surface)] rounded text-[var(--color-primary)]">packages/design-system/src/components/index.ts</code>
                 </p>
               </div>
             </label>
@@ -189,7 +189,7 @@ pnpm --filter sage-design-studio dev</code>
 git commit -m "feat: add NewComponent to design system"</code>
               </pre>
               <p className="text-sm text-[var(--color-text-muted)] mt-2">
-                Use conventional commit format: <code className="px-1.5 py-0.5 bg-[var(--color-surface)] rounded">feat:</code>, <code className="px-1.5 py-0.5 bg-[var(--color-surface)] rounded">fix:</code>, <code className="px-1.5 py-0.5 bg-[var(--color-surface)] rounded">docs:</code>, etc.
+                Use conventional commit format: <code className="px-1.5 py-0.5 bg-[var(--color-surface)] rounded text-[var(--color-primary)]">feat:</code>, <code className="px-1.5 py-0.5 bg-[var(--color-surface)] rounded text-[var(--color-primary)]">fix:</code>, <code className="px-1.5 py-0.5 bg-[var(--color-surface)] rounded text-[var(--color-primary)]">docs:</code>, etc.
               </p>
             </div>
 
