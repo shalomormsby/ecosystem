@@ -117,3 +117,5 @@ export const StaggerItem = ({ children, className, ...props }: HTMLMotionProps<'
     </motion.div>
   );
 };
+
+export * from './VariableWeightText';

@@ -413,7 +413,19 @@ motion.easing.spring       // Custom spring — Playful interactions
 motion.easing.linear       // linear — Progress indicators
 ```
 
-**Note:** For motion that respects user preferences, use the `useMotionPreference` hook or the built-in `<FadeIn>` and `<StaggerContainer>` components.
+### Variable Weight Motion
+
+For variable fonts (like Clash Display), use the `VariableWeightText` behavior to create a "breathing" effect that animates font weight. This animation automatically centers the text to ensure symmetrical expansion and contraction, preventing layout shifts.
+
+```typescript
+import { VariableWeightText } from '@ecosystem/design-system'
+
+<VariableWeightText minWeight={200} maxWeight={700}>
+  Variable Font Text
+</VariableWeightText>
+```
+
+**Note:** For motion that respects user preferences, use the `useMotionPreference` hook or the built-in `<FadeIn>`, `<StaggerContainer>`, and `<VariableWeightText>` components.
 
 ---
 
