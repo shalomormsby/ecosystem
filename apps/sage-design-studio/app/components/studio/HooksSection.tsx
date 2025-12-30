@@ -216,6 +216,79 @@ export function HooksSection({ activeItemId }: HooksSectionProps) {
             </div>
           </div>
 
+          {/* Standalone Validation Functions */}
+          <div>
+            <h4 className="text-lg font-semibold mb-3 text-[var(--color-text-primary)]">
+              Standalone Validation Functions
+            </h4>
+            <div className="space-y-4">
+              <Card className="p-6">
+                <h5 className="font-medium text-[var(--color-text-primary)] mb-3">validateField()</h5>
+                <p className="text-sm text-[var(--color-text-secondary)] mb-4">
+                  Validate a single field value against a set of validation rules. Returns an error message string or null if valid.
+                </p>
+                <div className="bg-[var(--color-surface)] p-4 rounded border border-[var(--color-border)] overflow-x-auto">
+                  <pre className="text-sm font-mono text-[var(--color-text-secondary)]">
+{`import { validateField, patterns } from '@ecosystem/design-system/utils';
+
+const emailError = validateField('invalid-email', {
+  required: true,
+  pattern: {
+    value: patterns.email,
+    message: 'Invalid email format'
+  }
+});
+// Returns: 'Invalid email format'
+
+const passwordError = validateField('abc', {
+  required: true,
+  minLength: { value: 8, message: 'Min 8 characters' }
+});
+// Returns: 'Min 8 characters'`}
+                  </pre>
+                </div>
+              </Card>
+
+              <Card className="p-6">
+                <h5 className="font-medium text-[var(--color-text-primary)] mb-3">validateForm()</h5>
+                <p className="text-sm text-[var(--color-text-secondary)] mb-4">
+                  Validate an entire form object against validation rules. Returns an object with field names as keys and error messages as values.
+                </p>
+                <div className="bg-[var(--color-surface)] p-4 rounded border border-[var(--color-border)] overflow-x-auto">
+                  <pre className="text-sm font-mono text-[var(--color-text-secondary)]">
+{`import { validateForm, patterns } from '@ecosystem/design-system/utils';
+
+const values = {
+  email: 'invalid-email',
+  password: 'abc',
+  age: '25'
+};
+
+const validations = {
+  email: {
+    required: true,
+    pattern: patterns.email
+  },
+  password: {
+    required: true,
+    minLength: { value: 8, message: 'Min 8 characters' }
+  },
+  age: {
+    pattern: patterns.number
+  }
+};
+
+const errors = validateForm(values, validations);
+// Returns: {
+//   email: 'Invalid email format',
+//   password: 'Min 8 characters'
+// }`}
+                  </pre>
+                </div>
+              </Card>
+            </div>
+          </div>
+
           {/* Code Example */}
           <div>
             <h4 className="text-lg font-semibold mb-3 text-[var(--color-text-primary)]">

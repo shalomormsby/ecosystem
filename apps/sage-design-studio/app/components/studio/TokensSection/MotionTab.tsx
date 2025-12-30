@@ -573,6 +573,63 @@ function MyComponent() {
 </motion.div>`}</pre>
                         </div>
                     </Card>
+
+                    {/* Rotate Variants */}
+                    <Card className="p-6">
+                        <h4 className="font-medium text-[var(--color-text-primary)] mb-3">Rotate Variants</h4>
+                        <p className="text-sm text-[var(--color-text-secondary)] mb-3">
+                            Rotation animations with fade
+                        </p>
+                        <div className="bg-[var(--color-surface)] p-3 rounded text-xs font-mono overflow-x-auto">
+                            <pre className="text-[var(--color-text-secondary)]">{`import { rotateVariants } from '@ecosystem/design-system/utils';
+
+<motion.div
+  initial="hidden"
+  animate="visible"
+  variants={rotateVariants}
+>
+  Content
+</motion.div>`}</pre>
+                        </div>
+                    </Card>
+
+                    {/* Drawer Variants */}
+                    <Card className="p-6">
+                        <h4 className="font-medium text-[var(--color-text-primary)] mb-3">Drawer Variants</h4>
+                        <p className="text-sm text-[var(--color-text-secondary)] mb-3">
+                            Slide-out panels from: Left, Right, Top, Bottom
+                        </p>
+                        <div className="bg-[var(--color-surface)] p-3 rounded text-xs font-mono overflow-x-auto">
+                            <pre className="text-[var(--color-text-secondary)]">{`import { drawerVariants } from '@ecosystem/design-system/utils';
+
+<motion.div
+  initial="hidden"
+  animate="visible"
+  variants={drawerVariants.fromRight}
+>
+  Drawer content
+</motion.div>`}</pre>
+                        </div>
+                    </Card>
+
+                    {/* Collapse Variants */}
+                    <Card className="p-6">
+                        <h4 className="font-medium text-[var(--color-text-primary)] mb-3">Collapse Variants</h4>
+                        <p className="text-sm text-[var(--color-text-secondary)] mb-3">
+                            Height-based expand/collapse for accordions
+                        </p>
+                        <div className="bg-[var(--color-surface)] p-3 rounded text-xs font-mono overflow-x-auto">
+                            <pre className="text-[var(--color-text-secondary)]">{`import { collapseVariants } from '@ecosystem/design-system/utils';
+
+<motion.div
+  initial="collapsed"
+  animate="expanded"
+  variants={collapseVariants}
+>
+  Collapsible content
+</motion.div>`}</pre>
+                        </div>
+                    </Card>
                 </div>
 
                 {/* Complete Presets */}
