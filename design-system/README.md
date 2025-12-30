@@ -300,6 +300,81 @@ const styles = {
 --color-link-hover-foreground // Link hover text color
 ```
 
+### Component Typography (CSS Variables)
+
+**Principle:** Components should control their own typography through CSS variables, not through props.
+
+The design system uses dedicated CSS variables for component-level typography customization:
+
+```css
+/* Define in your app's globals.css */
+:root {
+  /* Header Component Typography */
+  --font-header-logo: var(--font-sage-sans);  /* Logo/brand font */
+  --font-header-nav: var(--font-sage-sans);   /* Navigation link font */
+}
+```
+
+**How This Works:**
+
+1. **Components consume CSS variables internally** - The Header component uses `var(--font-header-nav)` by default for navigation links
+2. **Single source of truth** - Change the CSS variable in globals.css, all instances update automatically
+3. **No prop passing required** - Consumers don't pass `fontFamily` props (though it's available as an override)
+4. **Theme independence** - Component typography is separate from theme fonts (Studio/Sage/Volt)
+
+**Example - Header Component:**
+
+```typescript
+// ✅ CORRECT - Component uses CSS variables internally
+<Header
+  logo={
+    <a href="/" style={{ fontFamily: 'var(--font-header-logo)' }}>
+      Brand
+    </a>
+  }
+  navLinks={navigation}
+  // No fontFamily prop needed - uses var(--font-header-nav) by default
+/>
+
+// ❌ AVOID - Passing fonts as props defeats single source of truth
+<Header
+  logo={<a href="/">Brand</a>}
+  navLinks={navigation}
+  fontFamily="var(--font-sage-sans)"  // Don't do this on every instance
+/>
+```
+
+**To Customize Component Typography Ecosystem-Wide:**
+
+1. Define CSS variables in your app's `globals.css`:
+```css
+:root {
+  --font-header-logo: var(--font-sage-sans);
+  --font-header-nav: var(--font-sage-sans);
+}
+```
+
+2. Change the variable value to update all instances:
+```css
+:root {
+  --font-header-logo: var(--font-volt-sans);  /* Now all headers use Volt */
+  --font-header-nav: var(--font-volt-sans);
+}
+```
+
+**Benefits of This Pattern:**
+
+- **Maintainability** - One change updates the entire ecosystem
+- **Consistency** - Components automatically stay in sync
+- **Flexibility** - Easy to experiment with different fonts
+- **Performance** - No prop drilling through component trees
+- **Type Safety** - CSS variables are validated by the browser
+
+**When to Use Props vs CSS Variables:**
+
+- **Use CSS Variables** - For ecosystem-wide typography that should be consistent and easily changeable
+- **Use Props** - For one-off overrides or component-specific customization needs
+
 **CRITICAL: Always Use Foreground Variants**
 
 When using colored backgrounds, ALWAYS use the corresponding foreground color variable:
@@ -417,14 +492,24 @@ actions?: React.ReactNode             // Right-side content (CTA, auth buttons)
 glassOnScroll?: boolean              // Apply glass effect on scroll (default: true)
 scrollThreshold?: number             // Scroll px before glass effect (default: 10)
 sticky?: boolean                     // Fixed position header (default: true)
+fontFamily?: string                  // Navigation font (default: var(--font-header-nav))
 // + all standard header HTML attributes
 ```
+
+**Typography Customization:**
+
+The Header uses CSS variables for typography (see [Component Typography](#component-typography-css-variables)):
+- `--font-header-logo` - Controls logo/brand font
+- `--font-header-nav` - Controls navigation link font (default for component)
+
+Define these in your `globals.css` to customize typography ecosystem-wide. The `fontFamily` prop is available for one-off overrides but should be avoided in favor of CSS variables.
 
 Features:
 - Sticky header with glass morphism on scroll
 - Responsive mobile menu with hamburger toggle
 - Respects motion preferences (animations disabled when shouldAnimate is false)
 - Theme-aware colors using CSS variables
+- Typography controlled by CSS variables (`--font-header-logo`, `--font-header-nav`)
 - Full keyboard navigation and ARIA labels
 - Mobile menu locks body scroll when open
 - Staggered animations for mobile menu items
@@ -638,10 +723,15 @@ Apps can extend but should rarely override. If you find yourself overriding freq
 2. Create directory with component file, types
 3. Forward refs for all components
 4. Use only tokens for styling—no hardcoded values
-5. Include accessibility from the start (focus, keyboard, ARIA)
-6. Export from the level's `index.ts`
-7. Add to main `src/index.ts` if appropriate
-8. Update this README with usage examples
+5. **Use CSS variables for component-level customization** (see [Component Typography](#component-typography-css-variables))
+   - Define dedicated CSS variables (e.g., `--font-mycomponent-text`)
+   - Make components consume these variables internally
+   - Avoid requiring typography props on every instance
+   - Document the CSS variables in component examples
+6. Include accessibility from the start (focus, keyboard, ARIA)
+7. Export from the level's `index.ts`
+8. Add to main `src/index.ts` if appropriate
+9. Update this README with usage examples including CSS variable setup
 
 ---
 
