@@ -143,16 +143,18 @@ export function MotionTab() {
                 <Card className="p-6">
                     <p className="text-sm text-[var(--color-text-secondary)] mb-4">
                         Create eye-catching headlines with the <code className="px-2 py-1 bg-[var(--color-surface)] rounded text-[var(--color-primary)]">RainbowNeonGlowText</code> component.
-                        This component adds a smooth, animated rainbow neon glow behind text, perfect for hero sections or key focal points.
+                        This component creates a rotating rainbow neon glow that moves around the text edge, perfect for hero sections or key focal points.
                     </p>
                     <div className="mb-6 p-4 bg-[var(--color-background)] rounded border border-[var(--color-border)]">
                         <p className="text-xs text-[var(--color-text-muted)] mb-2">
-                            <strong>Performance Optimizations:</strong>
+                            <strong>Key Features:</strong>
                         </p>
                         <ul className="text-xs text-[var(--color-text-muted)] space-y-1">
+                            <li>✓ Rotating rainbow glow that moves in a circle around text edges</li>
+                            <li>✓ Tight glow that hugs the text outline using text-shadow</li>
+                            <li>✓ Customizable rotation direction (clockwise/counterclockwise)</li>
+                            <li>✓ Adjustable blur amount, glow distance, and custom color palettes</li>
                             <li>✓ GPU-accelerated with <code className="px-1 py-0.5 bg-[var(--color-surface)] rounded text-[var(--color-primary)]">will-change</code></li>
-                            <li>✓ Linear animation for smooth, continuous rainbow cycling</li>
-                            <li>✓ Customizable blur radius, opacity, and animation speed</li>
                             <li>✓ Works seamlessly in both Light and Dark modes</li>
                             <li>✓ Respects motion intensity settings for accessibility</li>
                         </ul>
@@ -161,12 +163,15 @@ export function MotionTab() {
                     {/* Live Demo */}
                     <div className="mb-6 p-8 bg-[var(--color-background)] rounded-lg border border-[var(--color-border)] flex items-center justify-center">
                         <RainbowNeonGlowText
-                            blurRadius={40}
-                            animationSpeed={5}
-                            glowOpacity={0.8}
-                            className="text-4xl font-bold text-[var(--color-text-primary)]"
+                            blurRadius={20}
+                            glowDistance={8}
+                            animationSpeed={3}
+                            direction="clockwise"
+                            glowOpacity={0.9}
+                            className="text-5xl font-bold text-[var(--color-text-primary)]"
+                            style={{ fontFamily: 'Clash Display, sans-serif' }}
                         >
-                            Rainbow Glow
+                            Clash Display
                         </RainbowNeonGlowText>
                     </div>
 
@@ -175,20 +180,40 @@ export function MotionTab() {
                         <pre className="text-sm font-mono text-[var(--color-text-primary)]">
                             {`import { RainbowNeonGlowText } from '@ecosystem/design-system';
 
-<RainbowNeonGlowText 
-  blurRadius={40} 
-  animationSpeed={5}
-  glowOpacity={0.8}
+<RainbowNeonGlowText
+  blurRadius={20}
+  glowDistance={8}
+  animationSpeed={3}
+  direction="clockwise"
+  glowOpacity={0.9}
+  fontFamily="Clash Display, sans-serif"
 >
-  Rainbow Glow
+  Clash Display
+</RainbowNeonGlowText>
+
+// Custom colors
+<RainbowNeonGlowText
+  colors={['#ff0000', '#00ff00', '#0000ff']}
+  direction="counterclockwise"
+>
+  Custom Colors
 </RainbowNeonGlowText>`}
                         </pre>
                     </div>
 
                     <div className="mt-4 p-3 bg-[var(--color-surface)] rounded border border-[var(--color-border)]">
-                        <p className="text-xs text-[var(--color-text-muted)]">
-                            <strong>Customization:</strong> Adjust <code className="px-1 py-0.5 bg-[var(--color-background)] rounded text-[var(--color-primary)]">blurRadius</code> (px), <code className="px-1 py-0.5 bg-[var(--color-background)] rounded text-[var(--color-primary)]">animationSpeed</code> (seconds), and <code className="px-1 py-0.5 bg-[var(--color-background)] rounded text-[var(--color-primary)]">glowOpacity</code> (0-1) to achieve your desired effect.
+                        <p className="text-xs text-[var(--color-text-muted)] mb-3">
+                            <strong>Customization Options:</strong>
                         </p>
+                        <ul className="text-xs text-[var(--color-text-muted)] space-y-1">
+                            <li>• <code className="px-1 py-0.5 bg-[var(--color-background)] rounded text-[var(--color-primary)]">blurRadius</code> - Blur amount in pixels (default: 20)</li>
+                            <li>• <code className="px-1 py-0.5 bg-[var(--color-background)] rounded text-[var(--color-primary)]">glowDistance</code> - Distance from text in pixels (default: 8)</li>
+                            <li>• <code className="px-1 py-0.5 bg-[var(--color-background)] rounded text-[var(--color-primary)]">animationSpeed</code> - Rotation duration in seconds (default: 3)</li>
+                            <li>• <code className="px-1 py-0.5 bg-[var(--color-background)] rounded text-[var(--color-primary)]">direction</code> - 'clockwise' or 'counterclockwise' (default: 'clockwise')</li>
+                            <li>• <code className="px-1 py-0.5 bg-[var(--color-background)] rounded text-[var(--color-primary)]">glowOpacity</code> - Opacity from 0-1 (default: 0.9)</li>
+                            <li>• <code className="px-1 py-0.5 bg-[var(--color-background)] rounded text-[var(--color-primary)]">colors</code> - Custom color array for rainbow effect</li>
+                            <li>• <code className="px-1 py-0.5 bg-[var(--color-background)] rounded text-[var(--color-primary)]">fontFamily</code> - Font family to use (default: 'Clash Display')</li>
+                        </ul>
                     </div>
                 </Card>
             </div>
