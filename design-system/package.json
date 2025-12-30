@@ -9,6 +9,7 @@
         "./atoms": "./atoms/index.ts",
         "./organisms": "./organisms/index.ts",
         "./hooks": "./hooks/index.ts",
+        "./utils": "./utils/index.ts",
         "./features": "./features/customizer/index.ts",
         "./features/customizer": "./features/customizer/index.ts",
         "./fonts": "./fonts/index.ts"

@@ -1,8 +1,9 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Card } from '@ecosystem/design-system';
+import { Card, Badge } from '@ecosystem/design-system';
 import { useTheme } from '@ecosystem/design-system/hooks';
+import { colorTokens, semanticColors, getContrastRatio, meetsContrastRequirements } from '@ecosystem/design-system/utils';
 
 export function ColorsTab() {
   const { theme, mode, setTheme, setMode } = useTheme();
@@ -13,17 +14,58 @@ export function ColorsTab() {
     setIsMounted(true);
   }, []);
 
-  const colorTokens = [
-    { name: '--color-background', description: 'Page background' },
-    { name: '--color-surface', description: 'Card/container background' },
-    { name: '--color-text-primary', description: 'Main text color' },
-    { name: '--color-text-secondary', description: 'Supporting text' },
-    { name: '--color-text-muted', description: 'De-emphasized text' },
-    { name: '--color-border', description: 'Border color' },
-    { name: '--color-focus', description: 'Focus ring color' },
-    { name: '--color-primary', description: 'Primary brand color' },
-    { name: '--color-accent', description: 'Accent color' },
+  const allColorTokens = [
+    // Background colors
+    { name: '--color-background', description: 'Page background', category: 'Background' },
+    { name: '--color-background-secondary', description: 'Secondary background', category: 'Background' },
+    { name: '--color-background-tertiary', description: 'Tertiary background', category: 'Background' },
+    { name: '--color-surface', description: 'Card/container background', category: 'Background' },
+
+    // Text colors
+    { name: '--color-foreground', description: 'Primary foreground', category: 'Text' },
+    { name: '--color-foreground-secondary', description: 'Secondary foreground', category: 'Text' },
+    { name: '--color-text-primary', description: 'Main text color', category: 'Text' },
+    { name: '--color-text-secondary', description: 'Supporting text', category: 'Text' },
+    { name: '--color-text-muted', description: 'De-emphasized text', category: 'Text' },
+
+    // Brand colors
+    { name: '--color-primary', description: 'Primary brand color', category: 'Brand' },
+    { name: '--color-primary-foreground', description: 'Primary text/icon color', category: 'Brand' },
+    { name: '--color-secondary', description: 'Secondary brand color', category: 'Brand' },
+    { name: '--color-secondary-foreground', description: 'Secondary text/icon color', category: 'Brand' },
+    { name: '--color-accent', description: 'Accent color', category: 'Brand' },
+    { name: '--color-accent-foreground', description: 'Accent text/icon color', category: 'Brand' },
+
+    // Status colors
+    { name: '--color-success', description: 'Success state', category: 'Status' },
+    { name: '--color-success-foreground', description: 'Success text/icon', category: 'Status' },
+    { name: '--color-warning', description: 'Warning state', category: 'Status' },
+    { name: '--color-warning-foreground', description: 'Warning text/icon', category: 'Status' },
+    { name: '--color-error', description: 'Error state', category: 'Status' },
+    { name: '--color-error-foreground', description: 'Error text/icon', category: 'Status' },
+    { name: '--color-info', description: 'Info state', category: 'Status' },
+    { name: '--color-info-foreground', description: 'Info text/icon', category: 'Status' },
+
+    // Border & Interactive
+    { name: '--color-border', description: 'Border color', category: 'UI' },
+    { name: '--color-border-subtle', description: 'Subtle border', category: 'UI' },
+    { name: '--color-hover', description: 'Hover state', category: 'UI' },
+    { name: '--color-active', description: 'Active state', category: 'UI' },
+    { name: '--color-focus', description: 'Focus ring color', category: 'UI' },
+
+    // Links
+    { name: '--color-link', description: 'Link color', category: 'Links' },
+    { name: '--color-link-hover', description: 'Link hover background', category: 'Links' },
+    { name: '--color-link-hover-foreground', description: 'Link hover text', category: 'Links' },
   ];
+
+  const categorizedTokens = allColorTokens.reduce((acc, token) => {
+    if (!acc[token.category]) {
+      acc[token.category] = [];
+    }
+    acc[token.category].push(token);
+    return acc;
+  }, {} as Record<string, typeof allColorTokens>);
 
   const copyColor = async (colorVar: string) => {
     const computedColor = getComputedStyle(document.documentElement).getPropertyValue(colorVar);
@@ -89,53 +131,197 @@ export function ColorsTab() {
         </div>
       </Card>
 
-      {/* Color Palette */}
+      {/* Color Palette by Category */}
+      <div className="space-y-8">
+        {Object.entries(categorizedTokens).map(([category, tokens]) => (
+          <div key={category}>
+            <h3 className="text-xl font-semibold mb-4 text-[var(--color-text-primary)]">
+              {category} Colors
+            </h3>
+            <p className="text-sm text-[var(--color-text-secondary)] mb-6">
+              Click any color to copy its CSS variable value
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+              {tokens.map((token) => {
+                const colorValue = isMounted
+                  ? getComputedStyle(document.documentElement)
+                      .getPropertyValue(token.name)
+                      .trim()
+                  : '';
+
+                return (
+                  <button
+                    key={token.name}
+                    onClick={() => copyColor(token.name)}
+                    className="group text-left transition-all hover:scale-105"
+                  >
+                    <Card className="p-4 cursor-pointer">
+                      {/* Color Swatch */}
+                      <div
+                        className="w-full h-20 rounded-lg mb-3 border border-[var(--color-border)]"
+                        style={{ backgroundColor: `var(${token.name})` }}
+                      />
+
+                      {/* Variable Name */}
+                      <p className="font-mono text-sm font-medium mb-1 text-[var(--color-text-primary)]">
+                        {token.name}
+                      </p>
+
+                      {/* Description */}
+                      <p className="text-xs text-[var(--color-text-secondary)] mb-2">
+                        {token.description}
+                      </p>
+
+                      {/* Value */}
+                      <p className="text-xs font-mono text-[var(--color-text-muted)]">
+                        {copiedColor === token.name ? '✓ Copied!' : (colorValue || '...')}
+                      </p>
+                    </Card>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Semantic Color Pairs */}
       <div>
         <h3 className="text-xl font-semibold mb-4 text-[var(--color-text-primary)]">
-          Semantic Colors
+          Semantic Color Pairs
         </h3>
         <p className="text-sm text-[var(--color-text-secondary)] mb-6">
-          Click any color to copy its CSS variable
+          Pre-configured background and foreground color pairs that ensure proper contrast
         </p>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {colorTokens.map((token) => {
-            const colorValue = isMounted
-              ? getComputedStyle(document.documentElement)
-                  .getPropertyValue(token.name)
-                  .trim()
-              : '';
 
-            return (
-              <button
-                key={token.name}
-                onClick={() => copyColor(token.name)}
-                className="group text-left transition-all hover:scale-105"
-              >
-                <Card className="p-4 cursor-pointer">
-                  {/* Color Swatch */}
+        {/* Status Colors */}
+        <div className="mb-6">
+          <h4 className="text-lg font-medium mb-3 text-[var(--color-text-primary)]">Status Colors</h4>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {Object.entries(semanticColors.status).map(([type, colors]) => (
+              <Card key={type} className="p-6">
+                <div
+                  className="px-4 py-3 rounded-lg mb-3 text-center font-medium"
+                  style={{
+                    backgroundColor: colors.bg,
+                    color: colors.fg,
+                  }}
+                >
+                  {type.charAt(0).toUpperCase() + type.slice(1)}
+                </div>
+                <div className="text-xs space-y-1">
+                  <p className="font-mono text-[var(--color-text-secondary)]">bg: var(--color-{type})</p>
+                  <p className="font-mono text-[var(--color-text-secondary)]">fg: var(--color-{type}-foreground)</p>
+                </div>
+              </Card>
+            ))}
+          </div>
+        </div>
+
+        {/* Brand Colors */}
+        <div className="mb-6">
+          <h4 className="text-lg font-medium mb-3 text-[var(--color-text-primary)]">Brand Colors</h4>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            {Object.entries(semanticColors.brand).map(([type, colors]) => (
+              <Card key={type} className="p-6">
+                <div
+                  className="px-4 py-3 rounded-lg mb-3 text-center font-medium"
+                  style={{
+                    backgroundColor: colors.bg,
+                    color: colors.fg,
+                  }}
+                >
+                  {type.charAt(0).toUpperCase() + type.slice(1)}
+                </div>
+                <div className="text-xs space-y-1">
+                  <p className="font-mono text-[var(--color-text-secondary)]">bg: var(--color-{type})</p>
+                  <p className="font-mono text-[var(--color-text-secondary)]">fg: var(--color-{type}-foreground)</p>
+                </div>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Accessibility Tools */}
+      <div>
+        <h3 className="text-xl font-semibold mb-4 text-[var(--color-text-primary)]">
+          Accessibility & Utilities
+        </h3>
+        <p className="text-sm text-[var(--color-text-secondary)] mb-6">
+          Built-in utilities for checking color contrast and ensuring WCAG compliance
+        </p>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {/* Contrast Examples */}
+          <Card className="p-6">
+            <h4 className="text-lg font-medium mb-4 text-[var(--color-text-primary)]">
+              Contrast Checker Example
+            </h4>
+            <p className="text-sm text-[var(--color-text-secondary)] mb-4">
+              All semantic color pairs are designed to meet WCAG AA standards
+            </p>
+            <div className="space-y-3">
+              {[
+                { bg: colorTokens.primary, fg: colorTokens.primaryForeground, label: 'Primary' },
+                { bg: colorTokens.success, fg: colorTokens.successForeground, label: 'Success' },
+                { bg: colorTokens.error, fg: colorTokens.errorForeground, label: 'Error' },
+              ].map((pair, idx) => {
+                const ratio = isMounted
+                  ? getContrastRatio(
+                      getComputedStyle(document.documentElement).getPropertyValue(pair.bg.replace('var(', '').replace(')', '')),
+                      getComputedStyle(document.documentElement).getPropertyValue(pair.fg.replace('var(', '').replace(')', ''))
+                    )
+                  : 0;
+                const meetsAA = ratio >= 4.5;
+
+                return (
                   <div
-                    className="w-full h-20 rounded-lg mb-3 border border-[var(--color-border)]"
-                    style={{ backgroundColor: `var(${token.name})` }}
-                  />
+                    key={idx}
+                    className="px-4 py-3 rounded-lg flex items-center justify-between"
+                    style={{ backgroundColor: pair.bg, color: pair.fg }}
+                  >
+                    <span className="font-medium">{pair.label}</span>
+                    <Badge variant={meetsAA ? 'success' : 'error'} size="sm">
+                      {ratio ? `${ratio.toFixed(2)}:1` : '...'}
+                    </Badge>
+                  </div>
+                );
+              })}
+            </div>
+          </Card>
 
-                  {/* Variable Name */}
-                  <p className="font-mono text-sm font-medium mb-1 text-[var(--color-text-primary)]">
-                    {token.name}
-                  </p>
-
-                  {/* Description */}
-                  <p className="text-xs text-[var(--color-text-secondary)] mb-2">
-                    {token.description}
-                  </p>
-
-                  {/* Value */}
-                  <p className="text-xs font-mono text-[var(--color-text-muted)]">
-                    {copiedColor === token.name ? '✓ Copied!' : (colorValue || '...')}
-                  </p>
-                </Card>
-              </button>
-            );
-          })}
+          {/* Available Utilities */}
+          <Card className="p-6">
+            <h4 className="text-lg font-medium mb-4 text-[var(--color-text-primary)]">
+              Available Utilities
+            </h4>
+            <p className="text-sm text-[var(--color-text-secondary)] mb-4">
+              Import from <code className="px-1 py-0.5 bg-[var(--color-surface)] rounded text-[var(--color-primary)]">@ecosystem/design-system/utils</code>
+            </p>
+            <div className="space-y-3 text-sm">
+              <div>
+                <code className="text-xs font-mono text-[var(--color-primary)]">getCSSVariable(name)</code>
+                <p className="text-xs text-[var(--color-text-secondary)] mt-1">Get computed CSS variable value</p>
+              </div>
+              <div>
+                <code className="text-xs font-mono text-[var(--color-primary)]">getContrastRatio(hex1, hex2)</code>
+                <p className="text-xs text-[var(--color-text-secondary)] mt-1">Calculate WCAG contrast ratio</p>
+              </div>
+              <div>
+                <code className="text-xs font-mono text-[var(--color-primary)]">meetsContrastRequirements(fg, bg)</code>
+                <p className="text-xs text-[var(--color-text-secondary)] mt-1">Check AA/AAA compliance</p>
+              </div>
+              <div>
+                <code className="text-xs font-mono text-[var(--color-primary)]">getSemanticColorPair(type)</code>
+                <p className="text-xs text-[var(--color-text-secondary)] mt-1">Get matching bg/fg colors</p>
+              </div>
+              <div>
+                <code className="text-xs font-mono text-[var(--color-primary)]">hexToRgb(hex)</code>
+                <p className="text-xs text-[var(--color-text-secondary)] mt-1">Convert hex to RGB values</p>
+              </div>
+            </div>
+          </Card>
         </div>
       </div>
     </div>
