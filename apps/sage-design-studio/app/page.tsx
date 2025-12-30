@@ -6,6 +6,10 @@ import { NavigationSidebar } from './components/NavigationSidebar';
 import { SearchCommandPalette } from './components/SearchCommandPalette';
 import { TableOfContents } from './components/TableOfContents';
 import { OverviewSection } from './components/studio/OverviewSection';
+import { ArchitectureSection } from './components/studio/ArchitectureSection';
+import { AddingComponentsSection } from './components/studio/AddingComponentsSection';
+import { CommonPatternsSection } from './components/studio/CommonPatternsSection';
+import { ContributingSection } from './components/studio/ContributingSection';
 import { TokensSection } from './components/studio/TokensSection';
 import { ComponentsSection } from './components/studio/ComponentsSection';
 import { MoleculesSection } from './components/studio/MoleculesSection';
@@ -13,7 +17,18 @@ import { OrganismsSection } from './components/studio/OrganismsSection';
 import { HooksSection } from './components/studio/HooksSection';
 import { TemplatesSection } from './components/studio/TemplatesSection';
 
-type Section = 'overview' | 'tokens' | 'atoms' | 'molecules' | 'organisms' | 'hooks' | 'templates';
+type Section =
+  | 'overview'
+  | 'architecture'
+  | 'adding-components'
+  | 'common-patterns'
+  | 'contributing'
+  | 'tokens'
+  | 'atoms'
+  | 'molecules'
+  | 'organisms'
+  | 'hooks'
+  | 'templates';
 
 export default function StudioPage() {
   const [activeSection, setActiveSection] = useState<Section>('overview');
@@ -119,6 +134,10 @@ export default function StudioPage() {
           <div className="flex-1 flex">
             <div className="flex-1 px-4 sm:px-6 lg:px-8 py-8 max-w-7xl">
               {activeSection === 'overview' && <OverviewSection />}
+              {activeSection === 'architecture' && <ArchitectureSection />}
+              {activeSection === 'adding-components' && <AddingComponentsSection />}
+              {activeSection === 'common-patterns' && <CommonPatternsSection />}
+              {activeSection === 'contributing' && <ContributingSection />}
               {activeSection === 'tokens' && <TokensSection activeItemId={activeItemId} />}
               {activeSection === 'atoms' && <ComponentsSection activeItemId={activeItemId} />}
               {activeSection === 'molecules' && <MoleculesSection activeItemId={activeItemId} />}

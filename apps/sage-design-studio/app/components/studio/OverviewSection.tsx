@@ -30,7 +30,7 @@ export function OverviewSection() {
         <Card className="p-6">
           <div className="space-y-3">
             <a
-              href="https://github.com/shalomormsby/ecosystem/blob/main/DESIGN-PHILOSOPHY.md"
+              href="https://github.com/shalom-ormsby/ecosystem/blob/main/DESIGN-PHILOSOPHY.md"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 text-[var(--color-primary)] hover:underline"
@@ -42,7 +42,7 @@ export function OverviewSection() {
               <span className="text-sm text-[var(--color-text-muted)]">— Core principles and decision-making framework</span>
             </a>
             <a
-              href="https://github.com/shalomormsby/ecosystem"
+              href="https://github.com/shalom-ormsby/ecosystem/tree/main/design-system"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 text-[var(--color-primary)] hover:underline"
@@ -63,7 +63,7 @@ export function OverviewSection() {
           Quick Start
         </h2>
 
-        <div className="space-y-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <Card className="p-6">
             <h3 className="font-semibold mb-3 text-[var(--color-text-primary)]">Installation</h3>
             <pre className="bg-[var(--color-surface)] p-4 rounded-md overflow-x-auto border border-[var(--color-border)]">
@@ -86,7 +86,7 @@ export function MyComponent() {
             </pre>
           </Card>
 
-          <Card className="p-6">
+          <Card className="p-6 md:col-span-2">
             <h3 className="font-semibold mb-3 text-[var(--color-text-primary)]">Theme Switching</h3>
             <pre className="bg-[var(--color-surface)] p-4 rounded-md overflow-x-auto border border-[var(--color-border)]">
               <code className="text-sm text-[var(--color-text-primary)]">{`import { useTheme } from '@ecosystem/design-system';

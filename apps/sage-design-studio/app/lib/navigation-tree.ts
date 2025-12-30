@@ -17,6 +17,26 @@ export const navigationTree: NavigationItem[] = [
         label: 'Overview',
         section: 'overview',
       },
+      {
+        id: 'architecture',
+        label: 'Architecture',
+        section: 'architecture',
+      },
+      {
+        id: 'adding-components',
+        label: 'Adding Components',
+        section: 'adding-components',
+      },
+      {
+        id: 'common-patterns',
+        label: 'Common Patterns',
+        section: 'common-patterns',
+      },
+      {
+        id: 'contributing',
+        label: 'Contributing',
+        section: 'contributing',
+      },
     ],
   },
   {
@@ -247,76 +267,6 @@ export const navigationTree: NavigationItem[] = [
         id: 'use-motion-preference',
         label: 'useMotionPreference',
         section: 'hooks',
-      },
-    ],
-  },
-  {
-    id: 'utilities',
-    label: 'Utilities',
-    icon: '🛠️',
-    children: [
-      {
-        id: 'validation',
-        label: 'Validation',
-        children: [
-          {
-            id: 'field-validation',
-            label: 'Field Validation',
-            section: 'hooks',
-          },
-          {
-            id: 'form-validation',
-            label: 'Form Validation',
-            section: 'hooks',
-          },
-          {
-            id: 'patterns',
-            label: 'Built-in Patterns',
-            section: 'hooks',
-          },
-        ],
-      },
-      {
-        id: 'colors-utils',
-        label: 'Colors',
-        children: [
-          {
-            id: 'color-tokens',
-            label: 'Color Tokens',
-            section: 'tokens',
-          },
-          {
-            id: 'semantic-colors',
-            label: 'Semantic Colors',
-            section: 'tokens',
-          },
-          {
-            id: 'contrast-checker',
-            label: 'Contrast Checker',
-            section: 'tokens',
-          },
-        ],
-      },
-      {
-        id: 'animations',
-        label: 'Animations',
-        children: [
-          {
-            id: 'variants',
-            label: 'Variants',
-            section: 'tokens',
-          },
-          {
-            id: 'presets',
-            label: 'Presets',
-            section: 'tokens',
-          },
-          {
-            id: 'custom-helpers',
-            label: 'Custom Helpers',
-            section: 'tokens',
-          },
-        ],
       },
     ],
   },
