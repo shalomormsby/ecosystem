@@ -90,7 +90,7 @@ export function ComponentPlayground({ componentName, config }: ComponentPlaygrou
                           px-3 py-1.5 rounded text-sm transition-all
                           ${
                             props[propName] === option
-                              ? 'bg-[var(--color-primary)] text-white'
+                              ? 'bg-[var(--color-primary)] text-[var(--color-primary-foreground)]'
                               : 'bg-[var(--color-surface)] text-[var(--color-text-secondary)] border border-[var(--color-border)] hover:text-[var(--color-text-primary)]'
                           }
                         `}
@@ -108,7 +108,7 @@ export function ComponentPlayground({ componentName, config }: ComponentPlaygrou
                       px-4 py-2 rounded text-sm transition-all
                       ${
                         props[propName]
-                          ? 'bg-[var(--color-primary)] text-white'
+                          ? 'bg-[var(--color-primary)] text-[var(--color-primary-foreground)]'
                           : 'bg-[var(--color-surface)] text-[var(--color-text-secondary)] border border-[var(--color-border)]'
                       }
                     `}

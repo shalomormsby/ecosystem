@@ -51,7 +51,7 @@ export function ColorsTab() {
                     px-4 py-2 rounded-lg text-sm font-medium capitalize transition-all
                     ${
                       theme === t
-                        ? 'bg-[var(--color-primary)] text-white'
+                        ? 'bg-[var(--color-primary)] text-[var(--color-primary-foreground)]'
                         : 'bg-[var(--color-surface)] text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]'
                     }
                   `}
@@ -76,7 +76,7 @@ export function ColorsTab() {
                     px-4 py-2 rounded-lg text-sm font-medium capitalize transition-all
                     ${
                       mode === m
-                        ? 'bg-[var(--color-primary)] text-white'
+                        ? 'bg-[var(--color-primary)] text-[var(--color-primary-foreground)]'
                         : 'bg-[var(--color-surface)] text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]'
                     }
                   `}

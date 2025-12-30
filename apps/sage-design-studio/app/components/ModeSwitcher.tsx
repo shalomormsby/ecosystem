@@ -31,7 +31,7 @@ export function ModeSwitcher() {
           className={`
             px-4 py-2 rounded-full text-sm font-medium transition-all flex items-center gap-2
             ${mode === 'light'
-              ? 'bg-[var(--color-primary)] text-white shadow-md'
+              ? 'bg-[var(--color-primary)] text-[var(--color-primary-foreground)] shadow-md'
               : 'text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]'
             }
           `}
@@ -45,7 +45,7 @@ export function ModeSwitcher() {
           className={`
             px-4 py-2 rounded-full text-sm font-medium transition-all flex items-center gap-2
             ${mode === 'dark'
-              ? 'bg-[var(--color-primary)] text-white shadow-md'
+              ? 'bg-[var(--color-primary)] text-[var(--color-primary-foreground)] shadow-md'
               : 'text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]'
             }
           `}

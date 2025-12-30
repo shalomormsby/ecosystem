@@ -180,7 +180,7 @@ export function MotionTab() {
                     className={`
                       px-3 py-2 rounded text-sm transition-all border
                       ${selectedDuration === name
-                        ? 'bg-[var(--color-primary)] text-white border-[var(--color-primary)]'
+                        ? 'bg-[var(--color-primary)] text-[var(--color-primary-foreground)] border-[var(--color-primary)]'
                         : 'bg-[var(--color-surface)] text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] border-[var(--color-border)]'
                       }
                     `}
@@ -204,7 +204,7 @@ export function MotionTab() {
                     className={`
                       px-3 py-2 rounded text-sm transition-all border
                       ${selectedEasing === name
-                        ? 'bg-[var(--color-primary)] text-white border-[var(--color-primary)]'
+                        ? 'bg-[var(--color-primary)] text-[var(--color-primary-foreground)] border-[var(--color-primary)]'
                         : 'bg-[var(--color-surface)] text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] border-[var(--color-border)]'
                       }
                     `}
@@ -274,7 +274,7 @@ export function MotionTab() {
                   motion.dev →
                 </a>
               </div>
-              <span className="text-xs px-2 py-1 bg-[var(--color-primary)] text-white rounded">
+              <span className="text-xs px-2 py-1 bg-[var(--color-primary)] text-[var(--color-primary-foreground)] rounded">
                 Recommended
               </span>
             </div>

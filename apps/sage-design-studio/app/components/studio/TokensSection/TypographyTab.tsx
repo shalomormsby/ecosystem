@@ -104,7 +104,7 @@ export function TypographyTab() {
                 px-4 py-3 rounded-lg text-sm font-medium transition-all flex flex-col items-center gap-2 border
                 ${
                   selectedTheme === theme.id
-                    ? 'bg-[var(--color-primary)] text-white shadow-md border-[var(--color-primary)]'
+                    ? 'bg-[var(--color-primary)] text-[var(--color-primary-foreground)] shadow-md border-[var(--color-primary)]'
                     : 'bg-[var(--color-surface)] text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] border-[var(--color-border)]'
                 }
               `}

@@ -85,7 +85,7 @@ export const SecondaryNav = React.forwardRef<HTMLElement, SecondaryNavProps>(
                                     focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus)] focus-visible:ring-offset-2
                                     ${
                                         activeId === item.id
-                                            ? 'bg-[var(--color-primary)] text-white'
+                                            ? 'bg-[var(--color-primary)] text-[var(--color-primary-foreground)]'
                                             : 'text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-surface)]'
                                     }
                                 `}

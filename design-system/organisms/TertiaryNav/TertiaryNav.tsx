@@ -91,7 +91,7 @@ export const TertiaryNav = React.forwardRef<HTMLElement, TertiaryNavProps>(
                                     focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus)] focus-visible:ring-offset-2
                                     ${
                                         activeId === item.id
-                                            ? 'bg-[var(--color-primary)] text-white'
+                                            ? 'bg-[var(--color-primary)] text-[var(--color-primary-foreground)]'
                                             : 'bg-[var(--color-surface)] text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] border border-[var(--color-border)]'
                                     }
                                 `}
