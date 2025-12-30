@@ -108,7 +108,7 @@ export default function StudioPage() {
         />
 
         {/* Main Content */}
-        <main className="flex-1 min-h-screen flex">
+        <main className="flex-1 min-h-screen flex lg:ml-[280px]">
           {/* Mobile Menu Button - Floating */}
           <button
             onClick={() => setSidebarOpen(!sidebarOpen)}

@@ -128,7 +128,7 @@ export function NavigationSidebar({
       <aside
         className={`fixed top-0 left-0 h-screen w-[280px] bg-[var(--color-background)] border-r border-[var(--color-border)] z-40 transition-transform duration-300 ${
           isOpen ? 'translate-x-0' : '-translate-x-full'
-        } lg:translate-x-0 lg:static lg:z-0`}
+        } lg:translate-x-0`}
       >
         <div className="flex flex-col h-full">
           {/* Header */}
@@ -184,7 +184,7 @@ export function NavigationSidebar({
           </div>
 
           {/* Navigation */}
-          <nav className="flex-1 overflow-y-auto py-4">
+          <nav className="flex-1 min-h-0 overflow-y-auto py-4 px-2">
             {navigationTree.map((item) => renderItem(item))}
           </nav>
 
@@ -205,7 +205,7 @@ export function NavigationSidebar({
 
             {/* Created By */}
             <div className="pt-3">
-              <p className="text-xs text-[var(--color-text-muted)] mb-2">Created by</p>
+              <p className="text-xs text-[var(--color-text-muted)] mb-1">Created by</p>
               <a
                 href="https://www.shalomormsby.com"
                 className="block text-sm font-bold text-[var(--color-text-primary)] hover:text-[var(--color-primary)] transition-colors"
