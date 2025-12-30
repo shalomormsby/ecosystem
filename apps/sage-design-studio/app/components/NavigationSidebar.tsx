@@ -158,7 +158,7 @@ export function NavigationSidebar({
           </div>
 
           {/* Search */}
-          <div className="px-4 py-3 border-b border-[var(--color-border)]">
+          <div className="px-4 py-3">
             <button
               onClick={onSearchOpen}
               className="w-full flex items-center gap-2 px-3 py-2 text-xs bg-[var(--color-surface)] hover:bg-[var(--color-hover)] border border-[var(--color-border)] rounded-md transition-colors"
@@ -189,10 +189,7 @@ export function NavigationSidebar({
           </nav>
 
           {/* Footer Info */}
-          <div className="px-4 py-4 border-t border-[var(--color-border)] space-y-3">
-            {/* Version */}
-            <p className="text-xs text-[var(--color-text-muted)]">v0.1.0</p>
-
+          <div className="px-4 py-4 space-y-3">
             {/* GitHub Link */}
             <a
               href="https://github.com/shalomormsby/ecosystem"
@@ -207,7 +204,7 @@ export function NavigationSidebar({
             </a>
 
             {/* Created By */}
-            <div className="pt-3 border-t border-[var(--color-border)]">
+            <div className="pt-3">
               <p className="text-xs text-[var(--color-text-muted)] mb-2">Created by</p>
               <a
                 href="https://www.shalomormsby.com"

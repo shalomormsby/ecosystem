@@ -46,6 +46,14 @@ export function OverviewSection() {
 
   return (
     <div className="space-y-16">
+      {/* Title */}
+      <div className="border-b border-[var(--color-border)] pb-6">
+        <h1 className="text-4xl font-bold mb-2 text-[var(--color-text-primary)]">
+          Sage Design System Overview
+        </h1>
+        <p className="text-sm text-[var(--color-text-muted)]">Version 0.1.0</p>
+      </div>
+
       {/* Philosophy */}
       <section>
         <h2 className="text-3xl font-bold mb-6 text-[var(--color-text-primary)]">
