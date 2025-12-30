@@ -92,7 +92,7 @@ export function SearchCommandPalette({ onNavigate }: SearchCommandPaletteProps) 
     return (
       <button
         onClick={() => setIsOpen(true)}
-        className="flex items-center gap-2 px-3 py-2 text-sm text-[var(--color-text-secondary)] bg-[var(--color-surface)] border border-[var(--color-border)] rounded-lg hover:bg-[var(--color-hover)] transition-colors"
+        className="w-full flex items-center gap-2 px-3 py-2 text-xs bg-[var(--color-surface)] hover:bg-[var(--color-hover)] border border-[var(--color-border)] rounded-md transition-colors"
       >
         <svg
           className="w-4 h-4"
@@ -107,8 +107,8 @@ export function SearchCommandPalette({ onNavigate }: SearchCommandPaletteProps) 
             d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
           />
         </svg>
-        <span>Search</span>
-        <kbd className="hidden sm:inline-flex items-center gap-1 px-2 py-0.5 text-xs font-mono bg-[var(--color-background)] border border-[var(--color-border)] rounded">
+        <span className="flex-1 text-left">Search</span>
+        <kbd className="px-2 py-0.5 text-xs font-mono bg-[var(--color-background)] border border-[var(--color-border)] rounded">
           ⌘K
         </kbd>
       </button>

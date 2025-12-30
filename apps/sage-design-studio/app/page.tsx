@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import { ModeSwitcher } from './components/ModeSwitcher';
 import { NavigationSidebar } from './components/NavigationSidebar';
-import { SearchCommandPalette } from './components/SearchCommandPalette';
 import { TableOfContents } from './components/TableOfContents';
 import { OverviewSection } from './components/studio/OverviewSection';
 import { TokensSection } from './components/studio/TokensSection';
@@ -73,39 +72,33 @@ export default function StudioPage() {
             setSidebarOpen(false); // Close sidebar on mobile after navigation
             window.scrollTo({ top: 0, behavior: 'smooth' });
           }}
+          onSearchNavigate={handleSearchNavigate}
           isOpen={sidebarOpen}
           onToggle={() => setSidebarOpen(!sidebarOpen)}
         />
 
         {/* Main Content */}
-        <main className="flex-1 min-h-screen flex flex-col">
-          {/* Top Bar with Search and Mobile Menu */}
-          <div className="sticky top-0 z-30 bg-[var(--color-background)] border-b border-[var(--color-border)]">
-            <div className="px-4 sm:px-6 lg:px-8 py-3 flex items-center gap-3">
-              {/* Mobile Menu Button */}
-              <button
-                onClick={() => setSidebarOpen(!sidebarOpen)}
-                className="lg:hidden p-2 hover:bg-[var(--color-hover)] rounded-lg transition-colors"
-                aria-label="Toggle sidebar"
-              >
-                <svg
-                  className="w-5 h-5"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M4 6h16M4 12h16M4 18h16"
-                  />
-                </svg>
-              </button>
-
-              <SearchCommandPalette onNavigate={handleSearchNavigate} />
-            </div>
-          </div>
+        <main className="flex-1 min-h-screen flex">
+          {/* Mobile Menu Button - Floating */}
+          <button
+            onClick={() => setSidebarOpen(!sidebarOpen)}
+            className="lg:hidden fixed top-4 left-4 z-30 p-2 bg-[var(--color-surface)] hover:bg-[var(--color-hover)] border border-[var(--color-border)] rounded-lg transition-colors shadow-lg"
+            aria-label="Toggle sidebar"
+          >
+            <svg
+              className="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M4 6h16M4 12h16M4 18h16"
+              />
+            </svg>
+          </button>
 
           {/* Content Area */}
           <div className="flex-1 flex">
@@ -119,7 +112,7 @@ export default function StudioPage() {
               {activeSection === 'templates' && <TemplatesSection />}
             </div>
 
-            {/* Table of Contents - Placeholder for now */}
+            {/* Table of Contents */}
             <TableOfContents />
           </div>
         </main>

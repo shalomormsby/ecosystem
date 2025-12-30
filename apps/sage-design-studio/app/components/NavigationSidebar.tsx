@@ -2,11 +2,13 @@
 
 import { useState, useEffect } from 'react';
 import { navigationTree, type NavigationItem } from '../lib/navigation-tree';
+import { SearchCommandPalette } from './SearchCommandPalette';
 
 interface NavigationSidebarProps {
   activeSection: string;
   activeItemId?: string;
   onNavigate: (section: string, itemId?: string) => void;
+  onSearchNavigate: (path: string) => void;
   isOpen?: boolean;
   onToggle?: () => void;
 }
@@ -15,6 +17,7 @@ export function NavigationSidebar({
   activeSection,
   activeItemId,
   onNavigate,
+  onSearchNavigate,
   isOpen = true,
   onToggle,
 }: NavigationSidebarProps) {
@@ -162,13 +165,8 @@ export function NavigationSidebar({
 
           {/* Footer Info */}
           <div className="px-4 py-4 border-t border-[var(--color-border)] space-y-3">
-            {/* Quick Search Hint */}
-            <div className="flex items-center gap-2 text-xs text-[var(--color-text-secondary)]">
-              <kbd className="px-2 py-1 bg-[var(--color-surface)] border border-[var(--color-border)] rounded font-mono">
-                ⌘K
-              </kbd>
-              <span>Quick search</span>
-            </div>
+            {/* Search */}
+            <SearchCommandPalette onNavigate={onSearchNavigate} />
 
             {/* Version */}
             <p className="text-xs text-[var(--color-text-muted)]">v0.1.0</p>
