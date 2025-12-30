@@ -179,8 +179,7 @@ export const Modal: React.FC<ModalProps> = ({
               onClick={onClose}
               className="
                 p-2 rounded-lg
-                text-[var(--color-text-secondary)]
-                hover:text-[var(--color-text-primary)]
+                text-[var(--color-text-primary)]
                 hover:bg-[var(--color-hover)]
                 transition-colors
                 focus-visible:outline-none

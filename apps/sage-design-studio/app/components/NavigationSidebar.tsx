@@ -138,7 +138,7 @@ export function NavigationSidebar({
             </h2>
             <button
               onClick={onToggle}
-              className="lg:hidden p-2 hover:bg-[var(--color-hover)] rounded-lg transition-colors"
+              className="lg:hidden p-2 text-[var(--color-text-primary)] hover:bg-[var(--color-hover)] rounded-lg transition-colors"
               aria-label="Close sidebar"
             >
               <svg
