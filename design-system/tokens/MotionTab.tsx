@@ -43,6 +43,7 @@ function MotionExample({
 }
 
 export function MotionTab() {
+    console.log('Rendering MotionTab from design-system/tokens');
     const [selectedDuration, setSelectedDuration] = useState<keyof typeof baseTokens.duration>('normal');
     const [selectedEasing, setSelectedEasing] = useState<keyof typeof motion.easing>('default');
 
