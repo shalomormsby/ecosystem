@@ -5,8 +5,8 @@
 @layer base {
   /* Header Component Typography (independent of themes) */
   :root {
-    --font-header-logo: var(--font-sage-sans);
-    --font-header-nav: var(--font-sage-sans);
+    --font-header-logo: var(--font-header);
+    --font-header-nav: var(--font-header);
   }
 
   /* Documentation Typography Hierarchy */

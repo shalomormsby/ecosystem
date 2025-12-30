@@ -65,10 +65,10 @@ const instrumentSans = Instrument_Sans({
   weight: ['400', '500', '600', '700'],
 });
 
-// Instrument Sans also as --font-sage-sans for consistency with portfolio
-const instrumentSansSans = Instrument_Sans({
+// Header Component Fonts (independent of themes)
+const headerFont = Instrument_Sans({
   subsets: ['latin'],
-  variable: '--font-sage-sans',
+  variable: '--font-header',
   display: 'swap',
   weight: ['400', '500', '600', '700'],
 });
@@ -103,8 +103,9 @@ export default function RootLayout({
     <html lang="en" className={`
       ${nunito.variable} ${nunitoSans.variable}
       ${outfit.variable} ${manrope.variable}
-      ${lora.variable} ${instrumentSans.variable} ${instrumentSansSans.variable}
+      ${lora.variable} ${instrumentSans.variable}
       ${spaceGrotesk.variable} ${firaCode.variable}
+      ${headerFont.variable}
     `}>
       <body>
         <ThemeProvider>

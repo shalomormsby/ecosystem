@@ -30,8 +30,8 @@
   --font-mono: var(--font-studio-mono);
 
   /* Header Component Typography (independent of themes) */
-  --font-header-logo: var(--font-sage-sans);
-  --font-header-nav: var(--font-sage-sans);
+  --font-header-logo: var(--font-header);
+  --font-header-nav: var(--font-header);
 
   /* Motion */
   --ease-default: cubic-bezier(0.4, 0, 0.2, 1);

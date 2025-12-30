@@ -73,6 +73,17 @@ export const voltMono = Fira_Code({
 });
 
 /**
+ * Header Component Fonts
+ * Independent of theme fonts - used specifically for Header organism
+ */
+export const headerFont = Instrument_Sans({
+  subsets: ['latin'],
+  variable: '--font-header',
+  display: 'swap',
+  weight: ['400', '500', '600', '700'],
+});
+
+/**
  * All font variables combined
  * Apply to root HTML element className
  */
@@ -85,4 +96,5 @@ export const allFontVariables = [
   sageMono.variable,
   voltSans.variable,
   voltMono.variable,
+  headerFont.variable,
 ].join(' ');
