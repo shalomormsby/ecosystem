@@ -1,16 +1,101 @@
 'use client';
 
 import { useState } from 'react';
-import { Card, Button, Header, SecondaryNav, TertiaryNav, Footer } from '@ecosystem/design-system';
+import { Card, Button, Header, SecondaryNav, TertiaryNav, Footer, Modal, ToastProvider, useToast } from '@ecosystem/design-system';
+
+type OrganismType = 'PrimaryNav' | 'FirstStack' | 'SecondStack' | 'Footer' | 'Toast' | 'Modal';
+
+function ToastDemo() {
+  const { toast } = useToast();
+
+  return (
+    <div className="space-y-4">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+        <Button
+          variant="primary"
+          size="sm"
+          onClick={() => toast('Operation successful!', 'success')}
+        >
+          Success Toast
+        </Button>
+        <Button
+          variant="secondary"
+          size="sm"
+          onClick={() => toast('Something went wrong', 'error')}
+        >
+          Error Toast
+        </Button>
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={() => toast('Please be careful', 'warning')}
+        >
+          Warning Toast
+        </Button>
+        <Button
+          variant="secondary"
+          size="sm"
+          onClick={() => toast('Here is some information', 'info')}
+        >
+          Info Toast
+        </Button>
+      </div>
+    </div>
+  );
+}
+
+function ModalDemo() {
+  const [isOpen, setIsOpen] = useState(false);
+  const [size, setSize] = useState<'sm' | 'md' | 'lg' | 'xl'>('md');
+
+  return (
+    <div className="space-y-4">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+        <Button variant="primary" size="sm" onClick={() => { setSize('sm'); setIsOpen(true); }}>
+          Small Modal
+        </Button>
+        <Button variant="primary" size="sm" onClick={() => { setSize('md'); setIsOpen(true); }}>
+          Medium Modal
+        </Button>
+        <Button variant="primary" size="sm" onClick={() => { setSize('lg'); setIsOpen(true); }}>
+          Large Modal
+        </Button>
+        <Button variant="primary" size="sm" onClick={() => { setSize('xl'); setIsOpen(true); }}>
+          XL Modal
+        </Button>
+      </div>
+
+      <Modal
+        isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
+        title={`${size.toUpperCase()} Modal Example`}
+        size={size}
+        footer={
+          <>
+            <Button variant="ghost" onClick={() => setIsOpen(false)}>Cancel</Button>
+            <Button variant="primary" onClick={() => setIsOpen(false)}>Confirm</Button>
+          </>
+        }
+      >
+        <p className="text-[var(--color-text-secondary)]">
+          This is a {size} sized modal. It demonstrates the modal component with title, content, and footer actions.
+          Modals are useful for focused interactions that require user attention.
+        </p>
+      </Modal>
+    </div>
+  );
+}
 
 export function OrganismsSection() {
-  const [selectedOrganism, setSelectedOrganism] = useState<'PrimaryNav' | 'FirstStack' | 'SecondStack' | 'Footer'>('PrimaryNav');
+  const [selectedOrganism, setSelectedOrganism] = useState<OrganismType>('PrimaryNav');
 
   const organisms = [
     { id: 'PrimaryNav', label: 'Primary Nav' },
     { id: 'FirstStack', label: '1st Stacking Row' },
     { id: 'SecondStack', label: '2nd Stacking Row' },
     { id: 'Footer', label: 'Footer' },
+    { id: 'Toast', label: 'Toast' },
+    { id: 'Modal', label: 'Modal' },
   ];
 
   return (
@@ -586,6 +671,154 @@ const components = [
                 </p>
               </div>
             </div>
+          </Card>
+        </div>
+        </section>
+      )}
+
+      {/* Toast Component */}
+      {selectedOrganism === 'Toast' && (
+        <section className="space-y-6">
+        <div>
+          <h3 className="text-2xl font-semibold mb-2 text-[var(--color-text-primary)]">
+            Toast
+          </h3>
+          <Card className="p-6">
+            <p className="text-[var(--color-text-primary)] mb-4">
+              Temporary notification messages that appear at the edge of the screen. Toasts auto-dismiss after a configurable duration and support multiple types.
+            </p>
+            <div className="space-y-4">
+              <div className="text-sm text-[var(--color-text-secondary)]">
+                <strong>Key Features:</strong>
+                <ul className="list-disc list-inside mt-2 space-y-1">
+                  <li>Four semantic types: success, error, warning, info</li>
+                  <li>Auto-dismiss with configurable duration</li>
+                  <li>Stacks multiple toasts with max limit</li>
+                  <li>Six position options (corners and centers)</li>
+                  <li>Respects motion preferences for animations</li>
+                  <li>Accessible with ARIA live regions</li>
+                  <li>Theme-aware colors</li>
+                </ul>
+              </div>
+            </div>
+          </Card>
+        </div>
+
+        {/* Live Example */}
+        <div>
+          <h4 className="text-lg font-semibold mb-3 text-[var(--color-text-primary)]">
+            Live Example
+          </h4>
+          <Card className="p-6">
+            <ToastDemo />
+          </Card>
+        </div>
+
+        {/* Code Example */}
+        <div>
+          <h4 className="text-lg font-semibold mb-3 text-[var(--color-text-primary)]">
+            Code Example
+          </h4>
+          <Card className="p-6 bg-[var(--color-surface)]">
+            <pre className="text-sm text-[var(--color-text-secondary)] overflow-x-auto">
+              <code>{`// Wrap your app with ToastProvider
+<ToastProvider position="bottom-right" maxToasts={3}>
+  <App />
+</ToastProvider>
+
+// Use the toast hook in any component
+function MyComponent() {
+  const { toast } = useToast();
+
+  return (
+    <Button onClick={() => toast('Saved!', 'success')}>
+      Save
+    </Button>
+  );
+}`}</code>
+            </pre>
+          </Card>
+        </div>
+        </section>
+      )}
+
+      {/* Modal Component */}
+      {selectedOrganism === 'Modal' && (
+        <section className="space-y-6">
+        <div>
+          <h3 className="text-2xl font-semibold mb-2 text-[var(--color-text-primary)]">
+            Modal
+          </h3>
+          <Card className="p-6">
+            <p className="text-[var(--color-text-primary)] mb-4">
+              A dialog overlay for focused user interactions that require attention. Modals block the main content and trap focus until dismissed.
+            </p>
+            <div className="space-y-4">
+              <div className="text-sm text-[var(--color-text-secondary)]">
+                <strong>Key Features:</strong>
+                <ul className="list-disc list-inside mt-2 space-y-1">
+                  <li>Five size variants: sm, md, lg, xl, full</li>
+                  <li>Optional title and footer sections</li>
+                  <li>Click outside to close (configurable)</li>
+                  <li>Escape key to close (configurable)</li>
+                  <li>Focus trap for keyboard navigation</li>
+                  <li>Blocks body scroll when open</li>
+                  <li>Smooth animations with motion preferences</li>
+                  <li>Theme-aware styling</li>
+                </ul>
+              </div>
+            </div>
+          </Card>
+        </div>
+
+        {/* Live Example */}
+        <div>
+          <h4 className="text-lg font-semibold mb-3 text-[var(--color-text-primary)]">
+            Live Example
+          </h4>
+          <Card className="p-6">
+            <ModalDemo />
+          </Card>
+        </div>
+
+        {/* Code Example */}
+        <div>
+          <h4 className="text-lg font-semibold mb-3 text-[var(--color-text-primary)]">
+            Code Example
+          </h4>
+          <Card className="p-6 bg-[var(--color-surface)]">
+            <pre className="text-sm text-[var(--color-text-secondary)] overflow-x-auto">
+              <code>{`function MyComponent() {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <>
+      <Button onClick={() => setIsOpen(true)}>
+        Open Modal
+      </Button>
+
+      <Modal
+        isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
+        title="Confirm Action"
+        size="md"
+        footer={
+          <>
+            <Button variant="ghost" onClick={() => setIsOpen(false)}>
+              Cancel
+            </Button>
+            <Button onClick={handleConfirm}>
+              Confirm
+            </Button>
+          </>
+        }
+      >
+        <p>Are you sure you want to proceed?</p>
+      </Modal>
+    </>
+  );
+}`}</code>
+            </pre>
           </Card>
         </div>
         </section>

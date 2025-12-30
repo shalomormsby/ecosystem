@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { ThemeProvider } from '@ecosystem/design-system';
+import { ThemeProvider, ToastProvider } from '@ecosystem/design-system';
 import { allFontVariables } from '../lib/fonts';
 import './globals.css';
 
@@ -17,7 +17,9 @@ export default function RootLayout({
     <html lang="en" className={allFontVariables}>
       <body>
         <ThemeProvider>
-          {children}
+          <ToastProvider position="bottom-right">
+            {children}
+          </ToastProvider>
         </ThemeProvider>
       </body>
     </html>
