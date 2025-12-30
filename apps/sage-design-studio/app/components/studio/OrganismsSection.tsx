@@ -1,15 +1,16 @@
 'use client';
 
 import { useState } from 'react';
-import { Card, Button, Header, SecondaryNav, TertiaryNav } from '@ecosystem/design-system';
+import { Card, Button, Header, SecondaryNav, TertiaryNav, Footer } from '@ecosystem/design-system';
 
 export function OrganismsSection() {
-  const [selectedOrganism, setSelectedOrganism] = useState<'PrimaryNav' | 'FirstStack' | 'SecondStack'>('PrimaryNav');
+  const [selectedOrganism, setSelectedOrganism] = useState<'PrimaryNav' | 'FirstStack' | 'SecondStack' | 'Footer'>('PrimaryNav');
 
   const organisms = [
     { id: 'PrimaryNav', label: 'Primary Nav' },
     { id: 'FirstStack', label: '1st Stacking Row' },
     { id: 'SecondStack', label: '2nd Stacking Row' },
+    { id: 'Footer', label: 'Footer' },
   ];
 
   return (
@@ -30,7 +31,7 @@ export function OrganismsSection() {
       <TertiaryNav
         items={organisms}
         activeId={selectedOrganism}
-        onItemChange={(id) => setSelectedOrganism(id as 'PrimaryNav' | 'FirstStack' | 'SecondStack')}
+        onItemChange={(id) => setSelectedOrganism(id as 'PrimaryNav' | 'FirstStack' | 'SecondStack' | 'Footer')}
       />
 
       {/* Primary Nav Component */}
@@ -299,6 +300,195 @@ const components = [
               <div className="mt-4 p-3 bg-[var(--color-surface)] rounded border border-[var(--color-border)]">
                 <p className="text-xs text-[var(--color-text-muted)]">
                   <strong>Positioning Math:</strong> The 2nd Stacking Row's <code className="px-1 py-0.5 bg-[var(--color-background)] rounded text-[var(--color-primary)]">top</code> value equals Primary Nav height (64/80px) + 1st Stacking Row height (64px) = 128px mobile, 144px desktop.
+                </p>
+              </div>
+            </div>
+          </Card>
+        </div>
+        </section>
+      )}
+
+      {/* Footer Component */}
+      {selectedOrganism === 'Footer' && (
+        <section className="space-y-6">
+        <div>
+          <h3 className="text-2xl font-semibold mb-2 text-[var(--color-text-primary)]">
+            Footer
+          </h3>
+          <Card className="p-6">
+            <p className="text-[var(--color-text-primary)] mb-4">
+              Swiss Grid-inspired footer organism with multi-column layout, social links with icons, and organized content sections. Designed following Swiss design principles with precise spacing and clean typography.
+            </p>
+            <div className="space-y-4">
+              <div className="text-sm text-[var(--color-text-secondary)]">
+                <strong>Key Features:</strong>
+                <ul className="list-disc list-inside mt-2 space-y-1">
+                  <li>Swiss Grid design with 8px base unit spacing system</li>
+                  <li>Responsive multi-column layout (1 col mobile, 2 cols tablet, 12-col grid desktop)</li>
+                  <li>Organized content sections with clear typographic hierarchy</li>
+                  <li>Social links with integrated GitHub icon</li>
+                  <li>Generous whitespace for breathing room</li>
+                  <li>Grid-based layout with precise alignment</li>
+                  <li>Minimal, functional aesthetic</li>
+                  <li>Theme-aware colors using CSS custom properties</li>
+                  <li>Separated top content area and bottom copyright bar</li>
+                </ul>
+              </div>
+              <div className="mt-4 p-3 bg-[var(--color-surface)] rounded border border-[var(--color-border)]">
+                <p className="text-xs text-[var(--color-text-muted)]">
+                  <strong>Swiss Grid Principles:</strong> The Footer uses an 8px base spacing unit (py-16 sm:py-20 lg:py-24 = 128/160/192px) and a 12-column grid system on large screens for precise, structured layouts.
+                </p>
+              </div>
+            </div>
+          </Card>
+        </div>
+
+        {/* Live Example */}
+        <div>
+          <h4 className="text-lg font-semibold mb-3 text-[var(--color-text-primary)]">
+            Live Example
+          </h4>
+          <Card className="p-0 overflow-hidden bg-[var(--color-background)]">
+            <Footer
+              logo="My Brand"
+              sections={[
+                {
+                  title: 'Work',
+                  links: [
+                    { label: 'Portfolio', href: '/portfolio' },
+                    { label: 'Case Studies', href: '/case-studies' },
+                    { label: 'Resume', href: '/resume.pdf', external: true },
+                  ],
+                },
+                {
+                  title: 'Play',
+                  links: [
+                    { label: 'Creative Sandbox', href: '/sandbox', external: true },
+                    { label: 'Blog', href: '/blog' },
+                    { label: 'Poetry', href: '/poetry' },
+                  ],
+                },
+                {
+                  title: 'Tools',
+                  links: [
+                    { label: 'Design Studio', href: '/studio' },
+                    { label: 'Component Library', href: '/components' },
+                  ],
+                },
+              ]}
+              socialLinks={{
+                github: 'https://github.com/example',
+                linkedin: 'https://linkedin.com/in/example',
+                email: 'hello@example.com',
+              }}
+              copyright="© 2025 Example Brand"
+            />
+          </Card>
+        </div>
+
+        {/* Code Example */}
+        <div>
+          <h4 className="text-lg font-semibold mb-3 text-[var(--color-text-primary)]">
+            Code Example
+          </h4>
+          <Card className="p-6 bg-[var(--color-surface)]">
+            <pre className="text-sm text-[var(--color-text-secondary)] overflow-x-auto">
+              <code>{`<Footer
+  logo="My Brand"
+  sections={[
+    {
+      title: 'Work',
+      links: [
+        { label: 'Portfolio', href: '/portfolio' },
+        { label: 'Case Studies', href: '/case-studies' },
+        { label: 'Resume', href: '/resume.pdf', external: true },
+      ],
+    },
+    {
+      title: 'Play',
+      links: [
+        { label: 'Creative Sandbox', href: '/sandbox', external: true },
+        { label: 'Blog', href: '/blog' },
+        { label: 'Poetry', href: '/poetry' },
+      ],
+    },
+    {
+      title: 'Tools',
+      links: [
+        { label: 'Design Studio', href: '/studio' },
+        { label: 'Component Library', href: '/components' },
+      ],
+    },
+  ]}
+  socialLinks={{
+    github: 'https://github.com/example',
+    linkedin: 'https://linkedin.com/in/example',
+    email: 'hello@example.com',
+  }}
+  copyright="© 2025 Example Brand"
+/>`}</code>
+            </pre>
+          </Card>
+        </div>
+
+        {/* Swiss Grid Layout */}
+        <div>
+          <h4 className="text-lg font-semibold mb-3 text-[var(--color-text-primary)]">
+            Swiss Grid Layout
+          </h4>
+          <Card className="p-6">
+            <p className="text-[var(--color-text-primary)] mb-4">
+              The Footer employs a precise 12-column grid system on desktop, with responsive behavior across breakpoints.
+            </p>
+            <div className="space-y-4">
+              <div className="text-sm text-[var(--color-text-secondary)]">
+                <strong>Grid Configuration:</strong>
+                <ul className="list-disc list-inside mt-2 space-y-1">
+                  <li><strong>Brand Section:</strong> <code className="px-1 py-0.5 bg-[var(--color-background)] rounded text-[var(--color-primary)]">lg:col-span-4</code> - Takes 4 of 12 columns (33%)</li>
+                  <li><strong>Navigation Sections:</strong> <code className="px-1 py-0.5 bg-[var(--color-background)] rounded text-[var(--color-primary)]">lg:col-span-2</code> - Each takes 2 of 12 columns (16.6%)</li>
+                  <li><strong>Social Links:</strong> <code className="px-1 py-0.5 bg-[var(--color-background)] rounded text-[var(--color-primary)]">lg:col-span-2</code> - Takes remaining 2 columns (16.6%)</li>
+                </ul>
+              </div>
+              <div className="text-sm text-[var(--color-text-secondary)]">
+                <strong>Spacing (8px base units):</strong>
+                <ul className="list-disc list-inside mt-2 space-y-1">
+                  <li><code className="px-1 py-0.5 bg-[var(--color-background)] rounded text-[var(--color-primary)]">py-16 sm:py-20 lg:py-24</code> - Vertical padding: 128/160/192px (16/20/24 units)</li>
+                  <li><code className="px-1 py-0.5 bg-[var(--color-background)] rounded text-[var(--color-primary)]">gap-12 lg:gap-8</code> - Column gaps: 96px mobile, 64px desktop (12/8 units)</li>
+                  <li><code className="px-1 py-0.5 bg-[var(--color-background)] rounded text-[var(--color-primary)]">mb-6</code> - Logo margin: 48px (6 units)</li>
+                  <li><code className="px-1 py-0.5 bg-[var(--color-background)] rounded text-[var(--color-primary)]">mb-4</code> - Section title margin: 32px (4 units)</li>
+                  <li><code className="px-1 py-0.5 bg-[var(--color-background)] rounded text-[var(--color-primary)]">space-y-3</code> - Link spacing: 24px (3 units)</li>
+                </ul>
+              </div>
+              <div className="mt-4 p-3 bg-[var(--color-surface)] rounded border border-[var(--color-border)]">
+                <p className="text-xs text-[var(--color-text-muted)]">
+                  <strong>Design Philosophy:</strong> Every spacing value is a multiple of 8px, creating a consistent vertical and horizontal rhythm. The grid ensures precise alignment and professional appearance across all screen sizes.
+                </p>
+              </div>
+            </div>
+          </Card>
+        </div>
+
+        {/* Social Links Integration */}
+        <div>
+          <h4 className="text-lg font-semibold mb-3 text-[var(--color-text-primary)]">
+            Social Links with Icons
+          </h4>
+          <Card className="p-6">
+            <p className="text-[var(--color-text-primary)] mb-4">
+              The Footer includes integrated icon support for social links, with the GitHub icon automatically displayed alongside the GitHub link.
+            </p>
+            <div className="space-y-4">
+              <div className="text-sm text-[var(--color-text-secondary)]">
+                <strong>Supported Social Links:</strong>
+                <ul className="list-disc list-inside mt-2 space-y-1">
+                  <li><strong>GitHub:</strong> Displays with GitHubIcon component (size 16)</li>
+                  <li><strong>LinkedIn:</strong> Text-only link</li>
+                  <li><strong>Email:</strong> Mailto link</li>
+                </ul>
+              </div>
+              <div className="mt-4 p-3 bg-[var(--color-surface)] rounded border border-[var(--color-border)]">
+                <p className="text-xs text-[var(--color-text-muted)]">
+                  <strong>Icon Integration:</strong> The GitHubIcon uses <code className="px-1 py-0.5 bg-[var(--color-background)] rounded text-[var(--color-primary)]">currentColor</code> to automatically adapt to light/dark modes and inherits the link's hover color.
                 </p>
               </div>
             </div>
