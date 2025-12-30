@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { Card, Button } from '@ecosystem/design-system';
 import { baseTokens, motion } from '@ecosystem/design-system/tokens';
-import { VariableWeightText } from '@ecosystem/design-system';
+import { VariableWeightText, RainbowNeonGlowText } from '@ecosystem/design-system';
 
 /**
  * Interactive example component for motion demonstrations
@@ -134,6 +134,65 @@ export function MotionTab() {
                     </div>
                 </Card>
             </div>
+
+            {/* Rainbow Neon Glow Motion */}
+            <div>
+                <h3 className="text-xl font-semibold mb-4 text-[var(--color-text-primary)]">
+                    Rainbow Neon Glow Motion
+                </h3>
+                <Card className="p-6">
+                    <p className="text-sm text-[var(--color-text-secondary)] mb-4">
+                        Create eye-catching headlines with the <code className="px-2 py-1 bg-[var(--color-surface)] rounded text-[var(--color-primary)]">RainbowNeonGlowText</code> component.
+                        This component adds a smooth, animated rainbow neon glow behind text, perfect for hero sections or key focal points.
+                    </p>
+                    <div className="mb-6 p-4 bg-[var(--color-background)] rounded border border-[var(--color-border)]">
+                        <p className="text-xs text-[var(--color-text-muted)] mb-2">
+                            <strong>Performance Optimizations:</strong>
+                        </p>
+                        <ul className="text-xs text-[var(--color-text-muted)] space-y-1">
+                            <li>✓ GPU-accelerated with <code className="px-1 py-0.5 bg-[var(--color-surface)] rounded text-[var(--color-primary)]">will-change</code></li>
+                            <li>✓ Linear animation for smooth, continuous rainbow cycling</li>
+                            <li>✓ Customizable blur radius, opacity, and animation speed</li>
+                            <li>✓ Works seamlessly in both Light and Dark modes</li>
+                            <li>✓ Respects motion intensity settings for accessibility</li>
+                        </ul>
+                    </div>
+
+                    {/* Live Demo */}
+                    <div className="mb-6 p-8 bg-[var(--color-background)] rounded-lg border border-[var(--color-border)] flex items-center justify-center">
+                        <RainbowNeonGlowText
+                            blurRadius={40}
+                            animationSpeed={5}
+                            glowOpacity={0.8}
+                            className="text-4xl font-bold text-[var(--color-text-primary)]"
+                        >
+                            Rainbow Glow
+                        </RainbowNeonGlowText>
+                    </div>
+
+                    {/* Code Example */}
+                    <div className="bg-[var(--color-background)] p-4 rounded border border-[var(--color-border)] overflow-x-auto">
+                        <pre className="text-sm font-mono text-[var(--color-text-primary)]">
+                            {`import { RainbowNeonGlowText } from '@ecosystem/design-system';
+
+<RainbowNeonGlowText 
+  blurRadius={40} 
+  animationSpeed={5}
+  glowOpacity={0.8}
+>
+  Rainbow Glow
+</RainbowNeonGlowText>`}
+                        </pre>
+                    </div>
+
+                    <div className="mt-4 p-3 bg-[var(--color-surface)] rounded border border-[var(--color-border)]">
+                        <p className="text-xs text-[var(--color-text-muted)]">
+                            <strong>Customization:</strong> Adjust <code className="px-1 py-0.5 bg-[var(--color-background)] rounded text-[var(--color-primary)]">blurRadius</code> (px), <code className="px-1 py-0.5 bg-[var(--color-background)] rounded text-[var(--color-primary)]">animationSpeed</code> (seconds), and <code className="px-1 py-0.5 bg-[var(--color-background)] rounded text-[var(--color-primary)]">glowOpacity</code> (0-1) to achieve your desired effect.
+                        </p>
+                    </div>
+                </Card>
+            </div>
+
 
             {/* Duration Scale */}
             <div>
