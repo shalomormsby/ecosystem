@@ -4,8 +4,8 @@
 
 /* Header Component Typography (independent of themes) */
 :root {
-  --font-header-logo: 'Instrument Sans', system-ui, sans-serif;
-  --font-header-nav: 'Instrument Sans', system-ui, sans-serif;
+  --font-header-logo: var(--font-sage-body);
+  --font-header-nav: var(--font-sage-body);
 }
 
 @layer base {
