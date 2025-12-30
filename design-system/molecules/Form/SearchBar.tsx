@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect, forwardRef } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { TextField, type TextFieldProps } from '../../atoms/Input/TextField';
 
 export interface SearchBarProps extends Omit<TextFieldProps, 'variant'> {
@@ -51,7 +51,7 @@ export interface SearchBarProps extends Omit<TextFieldProps, 'variant'> {
  * />
  * ```
  */
-export const SearchBar = forwardRef<HTMLInputElement, SearchBarProps>(
+export const SearchBar = React.forwardRef<HTMLInputElement, SearchBarProps>(
   (
     {
       onSearch,
