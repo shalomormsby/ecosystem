@@ -121,6 +121,9 @@ export const RainbowNeonGlowText = ({
     const wrapperStyle: React.CSSProperties = {
         position: 'relative',
         display: 'inline-block',
+        padding: `${borderWidth}px`,
+        borderRadius,
+        overflow: 'hidden',
         ...style,
     };
 
@@ -131,29 +134,27 @@ export const RainbowNeonGlowText = ({
                 className={className}
                 style={{
                     ...wrapperStyle,
-                    padding: `${borderWidth}px`,
                     background: conicGradient,
-                    borderRadius,
                 }}
             >
+                {/* Blurred glow layer - positioned behind */}
                 <div
                     style={{
-                        filter: `blur(${blurRadius}px)`,
                         position: 'absolute',
-                        inset: 0,
+                        inset: `-${blurRadius * 2}px`,
                         background: conicGradient,
-                        borderRadius,
+                        filter: `blur(${blurRadius}px)`,
                         opacity: 0.6,
                         zIndex: 0,
                     }}
                 />
+                {/* Content with background */}
                 <div
                     style={{
                         position: 'relative',
                         zIndex: 1,
                         background: 'var(--color-background)',
                         borderRadius: `calc(${borderRadius} - ${borderWidth}px)`,
-                        padding: '2px',
                     }}
                 >
                     {children}
@@ -166,19 +167,16 @@ export const RainbowNeonGlowText = ({
     return (
         <div
             className={className}
-            style={{
-                ...wrapperStyle,
-                padding: `${borderWidth}px`,
-            }}
+            style={wrapperStyle}
         >
-            {/* Rotating gradient border */}
+            {/* Rotating gradient border layer */}
             <motion.div
                 style={{
                     position: 'absolute',
-                    inset: 0,
+                    inset: `-50%`,
                     background: conicGradient,
-                    borderRadius,
                     willChange: 'transform',
+                    zIndex: 0,
                 }}
                 animate={{
                     rotate: direction === 'clockwise' ? 360 : -360,
@@ -194,12 +192,12 @@ export const RainbowNeonGlowText = ({
             <motion.div
                 style={{
                     position: 'absolute',
-                    inset: 0,
+                    inset: `-${blurRadius * 2}px`,
                     background: conicGradient,
-                    borderRadius,
                     filter: `blur(${blurRadius}px)`,
                     opacity: 0.6,
                     willChange: 'transform',
+                    zIndex: 0,
                 }}
                 animate={{
                     rotate: direction === 'clockwise' ? 360 : -360,
@@ -211,14 +209,13 @@ export const RainbowNeonGlowText = ({
                 }}
             />
 
-            {/* Content */}
+            {/* Content with background to mask inner area */}
             <div
                 style={{
                     position: 'relative',
                     zIndex: 1,
                     background: 'var(--color-background)',
                     borderRadius: `calc(${borderRadius} - ${borderWidth}px)`,
-                    padding: '2px',
                 }}
             >
                 {children}
