@@ -269,17 +269,18 @@ export function MotionFoundationsSection() {
               if (preview && code && icon) {
                 const isHidden = code.classList.contains('hidden');
                 if (isHidden) {
-                  preview.classList.add('hidden');
+                  // Opening: start at preview height, expand to full
                   code.classList.remove('hidden');
-                  code.style.maxHeight = '0px';
-                  // Force reflow to ensure 0px state is painted before animating
-                  code.offsetHeight;
+                  code.style.maxHeight = '5.5rem'; // Match preview height
+                  code.offsetHeight; // Force reflow
                   code.style.maxHeight = code.scrollHeight + 'px';
+                  preview.classList.add('hidden');
                 } else {
-                  preview.classList.remove('hidden');
-                  code.style.maxHeight = '0px';
+                  // Closing: collapse to preview height, then swap
+                  code.style.maxHeight = '5.5rem';
                   setTimeout(() => {
                     code.classList.add('hidden');
+                    preview.classList.remove('hidden');
                   }, 500);
                 }
                 icon.classList.toggle('rotate-90');
@@ -349,7 +350,7 @@ function MyComponent() {
                 <span className="text-[#0550ae] dark:text-[#9CDCFE]">prefers-reduced-motion</span>
               </code>
             </pre>
-            <div className="absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-[var(--color-background)] to-transparent pointer-events-none" />
+            <div className="absolute inset-x-0 bottom-0 h-8 bg-gradient-to-t from-[var(--color-background)] to-transparent pointer-events-none" />
           </div>
         </div>
 
@@ -495,17 +496,18 @@ function MyComponent() {
                   if (preview && code && icon) {
                     const isHidden = code.classList.contains('hidden');
                     if (isHidden) {
-                      preview.classList.add('hidden');
+                      // Opening: start at preview height, expand to full
                       code.classList.remove('hidden');
-                      code.style.maxHeight = '0px';
-                      // Force reflow to ensure 0px state is painted before animating
-                      code.offsetHeight;
+                      code.style.maxHeight = '5.5rem'; // Match preview height
+                      code.offsetHeight; // Force reflow
                       code.style.maxHeight = code.scrollHeight + 'px';
+                      preview.classList.add('hidden');
                     } else {
-                      preview.classList.remove('hidden');
-                      code.style.maxHeight = '0px';
+                      // Closing: collapse to preview height, then swap
+                      code.style.maxHeight = '5.5rem';
                       setTimeout(() => {
                         code.classList.add('hidden');
+                        preview.classList.remove('hidden');
                       }, 500);
                     }
                     icon.classList.toggle('rotate-90');
@@ -561,7 +563,7 @@ function MyComponent() {
                     <span className="text-[#0550ae] dark:text-[#9CDCFE]">transition</span>
                   </code>
                 </pre>
-                <div className="absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-[var(--color-background)] to-transparent pointer-events-none" />
+                <div className="absolute inset-x-0 bottom-0 h-8 bg-gradient-to-t from-[var(--color-background)] to-transparent pointer-events-none" />
               </div>
             </div>
 
@@ -658,17 +660,18 @@ function MyComponent() {
                     if (preview && code && icon) {
                       const isHidden = code.classList.contains('hidden');
                       if (isHidden) {
-                        preview.classList.add('hidden');
+                        // Opening: start at preview height, expand to full
                         code.classList.remove('hidden');
-                        code.style.maxHeight = '0px';
-                        // Force reflow to ensure 0px state is painted before animating
-                        code.offsetHeight;
+                        code.style.maxHeight = '5.5rem'; // Match preview height
+                        code.offsetHeight; // Force reflow
                         code.style.maxHeight = code.scrollHeight + 'px';
+                        preview.classList.add('hidden');
                       } else {
-                        preview.classList.remove('hidden');
-                        code.style.maxHeight = '0px';
+                        // Closing: collapse to preview height, then swap
+                        code.style.maxHeight = '5.5rem';
                         setTimeout(() => {
                           code.classList.add('hidden');
+                          preview.classList.remove('hidden');
                         }, 500);
                       }
                       icon.classList.toggle('rotate-90');
@@ -738,7 +741,7 @@ function MyComponent() {
                       <span className="text-[#8250df] dark:text-[#C586C0]">from</span>
                     </code>
                   </pre>
-                  <div className="absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-[var(--color-background)] to-transparent pointer-events-none" />
+                  <div className="absolute inset-x-0 bottom-0 h-8 bg-gradient-to-t from-[var(--color-background)] to-transparent pointer-events-none" />
                 </div>
               </div>
 
@@ -922,17 +925,18 @@ function MyComponent() {
                     if (preview && code && icon) {
                       const isHidden = code.classList.contains('hidden');
                       if (isHidden) {
-                        preview.classList.add('hidden');
+                        // Opening: start at preview height, expand to full
                         code.classList.remove('hidden');
-                        code.style.maxHeight = '0px';
-                        // Force reflow to ensure 0px state is painted before animating
-                        code.offsetHeight;
+                        code.style.maxHeight = '5.5rem'; // Match preview height
+                        code.offsetHeight; // Force reflow
                         code.style.maxHeight = code.scrollHeight + 'px';
+                        preview.classList.add('hidden');
                       } else {
-                        preview.classList.remove('hidden');
-                        code.style.maxHeight = '0px';
+                        // Closing: collapse to preview height, then swap
+                        code.style.maxHeight = '5.5rem';
                         setTimeout(() => {
                           code.classList.add('hidden');
+                          preview.classList.remove('hidden');
                         }, 500);
                       }
                       icon.classList.toggle('rotate-90');
@@ -996,7 +1000,7 @@ tl.to('.hero', { opacity: 1, duration: 0.5 })
                       <span className="text-[#8250df] dark:text-[#C586C0]">from</span>
                     </code>
                   </pre>
-                  <div className="absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-[var(--color-background)] to-transparent pointer-events-none" />
+                  <div className="absolute inset-x-0 bottom-0 h-8 bg-gradient-to-t from-[var(--color-background)] to-transparent pointer-events-none" />
                 </div>
               </div>
 
