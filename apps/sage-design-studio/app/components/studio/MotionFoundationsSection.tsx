@@ -251,40 +251,154 @@ export function MotionFoundationsSection() {
 
       {/* Accessibility */}
       <Card className="p-8 mb-8 bg-[var(--color-surface)]">
-        <h2 className="text-2xl font-semibold mb-4 text-[var(--color-text-primary)]">
-          Accessibility: Respecting User Preferences
-        </h2>
-        <p className="text-sm text-[var(--color-text-secondary)] mb-4">
-          Always respect the <code className="px-1 py-0.5 bg-[var(--color-background)] rounded text-[var(--color-primary)]">prefers-reduced-motion</code> media query.
-          Some users experience motion sickness or find animations distracting.
-        </p>
-        <div className="bg-[var(--color-background)] p-4 rounded border border-[var(--color-border)] overflow-x-auto">
-          <pre className="text-sm font-mono text-[var(--color-text-primary)]">
-            {`/* CSS approach */
-@media (prefers-reduced-motion: reduce) {
-  * {
-    animation-duration: 0.01ms !important;
-    transition-duration: 0.01ms !important;
-  }
-}
-
-// React Hook approach (recommended)
-import { useMotionPreference } from '@ecosystem/design-system';
-
-function MyComponent() {
-  const { shouldAnimate } = useMotionPreference();
-
-  return (
-    <motion.div
-      initial={shouldAnimate ? { opacity: 0, y: 20 } : false}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: shouldAnimate ? 0.3 : 0 }}
-    >
-      Content
-    </motion.div>
-  );
-}`}
-          </pre>
+        <div className="flex items-start justify-between mb-4">
+          <div className="flex-1">
+            <h2 className="text-2xl font-semibold mb-2 text-[var(--color-text-primary)]">
+              Accessibility: Respecting User Preferences
+            </h2>
+            <p className="text-sm text-[var(--color-text-secondary)]">
+              Always respect the <code className="px-1 py-0.5 bg-[var(--color-background)] rounded text-[var(--color-primary)]">prefers-reduced-motion</code> media query.
+              Some users experience motion sickness or find animations distracting.
+            </p>
+          </div>
+          <button
+            onClick={() => {
+              const element = document.getElementById('accessibility-code');
+              if (element) {
+                element.classList.toggle('hidden');
+              }
+              const arrow = document.getElementById('accessibility-arrow');
+              if (arrow) {
+                arrow.classList.toggle('rotate-180');
+              }
+            }}
+            className="ml-4 p-2 hover:bg-[var(--color-hover)] rounded-lg transition-colors"
+            aria-label="Toggle code"
+          >
+            <svg
+              id="accessibility-arrow"
+              className="w-5 h-5 text-[var(--color-text-primary)] transition-transform"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+        </div>
+        <div id="accessibility-code" className="hidden">
+          <div className="bg-[var(--color-background)] p-4 rounded border border-[var(--color-border)] overflow-x-auto">
+            <pre className="text-sm font-mono">
+              <code>
+                <span className="text-[#6A9955]">/* CSS approach */</span>
+                {'\n'}
+                <span className="text-[#D4D4D4]">@</span>
+                <span className="text-[#4EC9B0]">media</span>
+                <span className="text-[#D4D4D4]"> (</span>
+                <span className="text-[#9CDCFE]">prefers-reduced-motion</span>
+                <span className="text-[#D4D4D4]">: </span>
+                <span className="text-[#CE9178]">reduce</span>
+                <span className="text-[#D4D4D4]">) {'{'}</span>
+                {'\n  '}
+                <span className="text-[#D4D4D4]">* {'{'}</span>
+                {'\n    '}
+                <span className="text-[#9CDCFE]">animation-duration</span>
+                <span className="text-[#D4D4D4]">: </span>
+                <span className="text-[#CE9178]">0.01ms</span>
+                <span className="text-[#D4D4D4]"> !important;</span>
+                {'\n    '}
+                <span className="text-[#9CDCFE]">transition-duration</span>
+                <span className="text-[#D4D4D4]">: </span>
+                <span className="text-[#CE9178]">0.01ms</span>
+                <span className="text-[#D4D4D4]"> !important;</span>
+                {'\n  '}
+                <span className="text-[#D4D4D4]">{'}'}</span>
+                {'\n'}
+                <span className="text-[#D4D4D4]">{'}'}</span>
+                {'\n\n'}
+                <span className="text-[#6A9955]">// React Hook approach (recommended)</span>
+                {'\n'}
+                <span className="text-[#C586C0]">import</span>
+                <span className="text-[#D4D4D4]"> {'{ '}</span>
+                <span className="text-[#9CDCFE]">useMotionPreference</span>
+                <span className="text-[#D4D4D4]"> {'} '}</span>
+                <span className="text-[#C586C0]">from</span>
+                <span className="text-[#D4D4D4]"> </span>
+                <span className="text-[#CE9178]">'@ecosystem/design-system'</span>
+                <span className="text-[#D4D4D4]">;</span>
+                {'\n\n'}
+                <span className="text-[#C586C0]">function</span>
+                <span className="text-[#D4D4D4]"> </span>
+                <span className="text-[#DCDCAA]">MyComponent</span>
+                <span className="text-[#D4D4D4]">() {'{'}</span>
+                {'\n  '}
+                <span className="text-[#C586C0]">const</span>
+                <span className="text-[#D4D4D4]"> {'{ '}</span>
+                <span className="text-[#9CDCFE]">shouldAnimate</span>
+                <span className="text-[#D4D4D4]"> {'} = '}</span>
+                <span className="text-[#DCDCAA]">useMotionPreference</span>
+                <span className="text-[#D4D4D4]">();</span>
+                {'\n\n  '}
+                <span className="text-[#C586C0]">return</span>
+                <span className="text-[#D4D4D4]"> (</span>
+                {'\n    '}
+                <span className="text-[#808080]">{'<'}</span>
+                <span className="text-[#4EC9B0]">motion.div</span>
+                {'\n      '}
+                <span className="text-[#9CDCFE]">initial</span>
+                <span className="text-[#D4D4D4]">=</span>
+                <span className="text-[#D4D4D4]">{'{'}</span>
+                <span className="text-[#9CDCFE]">shouldAnimate</span>
+                <span className="text-[#D4D4D4]"> ? {'{ '}</span>
+                <span className="text-[#9CDCFE]">opacity</span>
+                <span className="text-[#D4D4D4]">: </span>
+                <span className="text-[#B5CEA8]">0</span>
+                <span className="text-[#D4D4D4]">, </span>
+                <span className="text-[#9CDCFE]">y</span>
+                <span className="text-[#D4D4D4]">: </span>
+                <span className="text-[#B5CEA8]">20</span>
+                <span className="text-[#D4D4D4]"> {'} : '}</span>
+                <span className="text-[#569CD6]">false</span>
+                <span className="text-[#D4D4D4]">{'}'}</span>
+                {'\n      '}
+                <span className="text-[#9CDCFE]">animate</span>
+                <span className="text-[#D4D4D4]">=</span>
+                <span className="text-[#D4D4D4]">{'{{'} {'{ '}</span>
+                <span className="text-[#9CDCFE]">opacity</span>
+                <span className="text-[#D4D4D4]">: </span>
+                <span className="text-[#B5CEA8]">1</span>
+                <span className="text-[#D4D4D4]">, </span>
+                <span className="text-[#9CDCFE]">y</span>
+                <span className="text-[#D4D4D4]">: </span>
+                <span className="text-[#B5CEA8]">0</span>
+                <span className="text-[#D4D4D4]">{' } }}'}</span>
+                {'\n      '}
+                <span className="text-[#9CDCFE]">transition</span>
+                <span className="text-[#D4D4D4]">=</span>
+                <span className="text-[#D4D4D4]">{'{{'} {'{ '}</span>
+                <span className="text-[#9CDCFE]">duration</span>
+                <span className="text-[#D4D4D4]">: </span>
+                <span className="text-[#9CDCFE]">shouldAnimate</span>
+                <span className="text-[#D4D4D4]"> ? </span>
+                <span className="text-[#B5CEA8]">0.3</span>
+                <span className="text-[#D4D4D4]"> : </span>
+                <span className="text-[#B5CEA8]">0</span>
+                <span className="text-[#D4D4D4]">{' } }}'}</span>
+                {'\n    '}
+                <span className="text-[#808080]">{'>'}</span>
+                {'\n      '}
+                <span className="text-[#D4D4D4]">Content</span>
+                {'\n    '}
+                <span className="text-[#808080]">{'</'}</span>
+                <span className="text-[#4EC9B0]">motion.div</span>
+                <span className="text-[#808080]">{'>'}</span>
+                {'\n  '}
+                <span className="text-[#D4D4D4]">);</span>
+                {'\n'}
+                <span className="text-[#D4D4D4]">{'}'}</span>
+              </code>
+            </pre>
+          </div>
         </div>
       </Card>
 
@@ -296,51 +410,140 @@ function MyComponent() {
         <div className="space-y-6">
           {/* CSS/Tailwind */}
           <Card className="p-6">
-            <h3 className="text-lg font-semibold mb-3 text-[var(--color-text-primary)]">
-              CSS / Tailwind
-            </h3>
-            <p className="text-sm text-[var(--color-text-secondary)] mb-4">
-              For simple transitions and states, use CSS transitions with our motion tokens.
-            </p>
-            <div className="bg-[var(--color-background)] p-4 rounded border border-[var(--color-border)] overflow-x-auto">
-              <pre className="text-sm font-mono text-[var(--color-text-primary)]">
-                {`/* Using CSS custom properties */
-.button {
-  transition: all var(--duration-normal) var(--ease-default);
-}
-
-/* Using Tailwind */
-<button className="transition-all duration-300 ease-out hover:scale-105">
-  Hover me
-</button>`}
-              </pre>
+            <div className="flex items-start justify-between mb-3">
+              <div className="flex-1">
+                <h3 className="text-lg font-semibold text-[var(--color-text-primary)]">
+                  CSS / Tailwind
+                </h3>
+                <p className="text-sm text-[var(--color-text-secondary)] mt-2">
+                  For simple transitions and states, use CSS transitions with our motion tokens.
+                </p>
+              </div>
+              <button
+                onClick={() => {
+                  const element = document.getElementById('css-tailwind-code');
+                  if (element) {
+                    element.classList.toggle('hidden');
+                  }
+                  const arrow = document.getElementById('css-tailwind-arrow');
+                  if (arrow) {
+                    arrow.classList.toggle('rotate-180');
+                  }
+                }}
+                className="ml-4 p-2 hover:bg-[var(--color-hover)] rounded-lg transition-colors"
+                aria-label="Toggle code"
+              >
+                <svg
+                  id="css-tailwind-arrow"
+                  className="w-5 h-5 text-[var(--color-text-primary)] transition-transform"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+            </div>
+            <div id="css-tailwind-code" className="hidden">
+              <div className="bg-[var(--color-background)] p-4 rounded border border-[var(--color-border)] overflow-x-auto">
+                <pre className="text-sm font-mono">
+                  <code>
+                    <span className="text-[#6A9955]">/* Using CSS custom properties */</span>
+                    {'\n'}
+                    <span className="text-[#D4D4D4]">.</span>
+                    <span className="text-[#4EC9B0]">button</span>
+                    <span className="text-[#D4D4D4]"> {'{'}</span>
+                    {'\n  '}
+                    <span className="text-[#9CDCFE]">transition</span>
+                    <span className="text-[#D4D4D4]">: </span>
+                    <span className="text-[#CE9178]">all</span>
+                    <span className="text-[#D4D4D4]"> </span>
+                    <span className="text-[#DCDCAA]">var</span>
+                    <span className="text-[#D4D4D4]">(</span>
+                    <span className="text-[#CE9178]">--duration-normal</span>
+                    <span className="text-[#D4D4D4]">) </span>
+                    <span className="text-[#DCDCAA]">var</span>
+                    <span className="text-[#D4D4D4]">(</span>
+                    <span className="text-[#CE9178]">--ease-default</span>
+                    <span className="text-[#D4D4D4]">);</span>
+                    {'\n'}
+                    <span className="text-[#D4D4D4]">{'}'}</span>
+                    {'\n\n'}
+                    <span className="text-[#6A9955]">/* Using Tailwind */</span>
+                    {'\n'}
+                    <span className="text-[#808080]">{'<'}</span>
+                    <span className="text-[#4EC9B0]">button</span>
+                    <span className="text-[#D4D4D4]"> </span>
+                    <span className="text-[#9CDCFE]">className</span>
+                    <span className="text-[#D4D4D4]">=</span>
+                    <span className="text-[#CE9178]">"transition-all duration-300 ease-out hover:scale-105"</span>
+                    <span className="text-[#808080]">{'>'}</span>
+                    {'\n  '}
+                    <span className="text-[#D4D4D4]">Hover me</span>
+                    {'\n'}
+                    <span className="text-[#808080]">{'</'}</span>
+                    <span className="text-[#4EC9B0]">button</span>
+                    <span className="text-[#808080]">{'>'}</span>
+                  </code>
+                </pre>
+              </div>
             </div>
           </Card>
 
           {/* Framer Motion */}
           <Card className="p-6">
             <div className="flex items-start justify-between mb-3">
-              <div>
-                <h3 className="text-lg font-semibold text-[var(--color-text-primary)]">
-                  Framer Motion
-                </h3>
-                <a
-                  href="https://motion.dev"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm text-[var(--color-primary)] hover:underline"
-                >
-                  motion.dev →
-                </a>
+              <div className="flex-1">
+                <div className="flex items-start justify-between">
+                  <div>
+                    <h3 className="text-lg font-semibold text-[var(--color-text-primary)]">
+                      Framer Motion
+                    </h3>
+                    <a
+                      href="https://motion.dev"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sm text-[var(--color-primary)] hover:underline"
+                    >
+                      motion.dev →
+                    </a>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <span className="text-xs px-2 py-1 bg-[var(--color-primary)] text-[var(--color-primary-foreground)] rounded">
+                      Recommended
+                    </span>
+                    <button
+                      onClick={() => {
+                        const element = document.getElementById('framer-motion-code');
+                        if (element) {
+                          element.classList.toggle('hidden');
+                        }
+                        const arrow = document.getElementById('framer-motion-arrow');
+                        if (arrow) {
+                          arrow.classList.toggle('rotate-180');
+                        }
+                      }}
+                      className="p-2 hover:bg-[var(--color-hover)] rounded-lg transition-colors"
+                      aria-label="Toggle code"
+                    >
+                      <svg
+                        id="framer-motion-arrow"
+                        className="w-5 h-5 text-[var(--color-text-primary)] transition-transform"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+                <p className="text-sm text-[var(--color-text-secondary)] mt-3">
+                  Framer Motion is our recommended animation library for React. It provides declarative animations,
+                  gesture support, and excellent TypeScript integration.
+                </p>
               </div>
-              <span className="text-xs px-2 py-1 bg-[var(--color-primary)] text-[var(--color-primary-foreground)] rounded">
-                Recommended
-              </span>
             </div>
-            <p className="text-sm text-[var(--color-text-secondary)] mb-4">
-              Framer Motion is our recommended animation library for React. It provides declarative animations,
-              gesture support, and excellent TypeScript integration.
-            </p>
             <div className="space-y-4">
               <div>
                 <p className="text-sm font-semibold text-[var(--color-text-primary)] mb-2">
@@ -354,34 +557,135 @@ function MyComponent() {
                   <li>• When you need React-aware animations</li>
                 </ul>
               </div>
-              <div className="bg-[var(--color-background)] p-4 rounded border border-[var(--color-border)] overflow-x-auto">
-                <pre className="text-sm font-mono text-[var(--color-text-primary)]">
-                  {`import { motion } from 'framer-motion';
-
-// Basic animation
-<motion.div
-  initial={{ opacity: 0, y: 20 }}
-  animate={{ opacity: 1, y: 0 }}
-  transition={{
-    duration: 0.3, // 300ms = normal
-    ease: [0, 0, 0.2, 1] // ease-out
-  }}
->
-  Content
-</motion.div>
-
-// Using design system tokens
-<motion.button
-  whileHover={{ scale: 1.05 }}
-  whileTap={{ scale: 0.95 }}
-  transition={{
-    duration: 0.15, // fast
-    ease: [0.16, 1, 0.3, 1] // spring
-  }}
->
-  Click me
-</motion.button>`}
-                </pre>
+              <div id="framer-motion-code" className="hidden">
+                <div className="bg-[var(--color-background)] p-4 rounded border border-[var(--color-border)] overflow-x-auto">
+                  <pre className="text-sm font-mono">
+                    <code>
+                      <span className="text-[#C586C0]">import</span>
+                      <span className="text-[#D4D4D4]"> {'{ '}</span>
+                      <span className="text-[#9CDCFE]">motion</span>
+                      <span className="text-[#D4D4D4]"> {'} '}</span>
+                      <span className="text-[#C586C0]">from</span>
+                      <span className="text-[#D4D4D4]"> </span>
+                      <span className="text-[#CE9178]">'framer-motion'</span>
+                      <span className="text-[#D4D4D4]">;</span>
+                      {'\n\n'}
+                      <span className="text-[#6A9955]">// Basic animation</span>
+                      {'\n'}
+                      <span className="text-[#808080]">{'<'}</span>
+                      <span className="text-[#4EC9B0]">motion.div</span>
+                      {'\n  '}
+                      <span className="text-[#9CDCFE]">initial</span>
+                      <span className="text-[#D4D4D4]">=</span>
+                      <span className="text-[#D4D4D4]">{'{{'} {'{ '}</span>
+                      <span className="text-[#9CDCFE]">opacity</span>
+                      <span className="text-[#D4D4D4]">: </span>
+                      <span className="text-[#B5CEA8]">0</span>
+                      <span className="text-[#D4D4D4]">, </span>
+                      <span className="text-[#9CDCFE]">y</span>
+                      <span className="text-[#D4D4D4]">: </span>
+                      <span className="text-[#B5CEA8]">20</span>
+                      <span className="text-[#D4D4D4]">{' } }}'}</span>
+                      {'\n  '}
+                      <span className="text-[#9CDCFE]">animate</span>
+                      <span className="text-[#D4D4D4]">=</span>
+                      <span className="text-[#D4D4D4]">{'{{'} {'{ '}</span>
+                      <span className="text-[#9CDCFE]">opacity</span>
+                      <span className="text-[#D4D4D4]">: </span>
+                      <span className="text-[#B5CEA8]">1</span>
+                      <span className="text-[#D4D4D4]">, </span>
+                      <span className="text-[#9CDCFE]">y</span>
+                      <span className="text-[#D4D4D4]">: </span>
+                      <span className="text-[#B5CEA8]">0</span>
+                      <span className="text-[#D4D4D4]">{' } }}'}</span>
+                      {'\n  '}
+                      <span className="text-[#9CDCFE]">transition</span>
+                      <span className="text-[#D4D4D4]">=</span>
+                      <span className="text-[#D4D4D4]">{'{{'}</span>
+                      {'\n    '}
+                      <span className="text-[#9CDCFE]">duration</span>
+                      <span className="text-[#D4D4D4]">: </span>
+                      <span className="text-[#B5CEA8]">0.3</span>
+                      <span className="text-[#D4D4D4]">, </span>
+                      <span className="text-[#6A9955]">// 300ms = normal</span>
+                      {'\n    '}
+                      <span className="text-[#9CDCFE]">ease</span>
+                      <span className="text-[#D4D4D4]">: [</span>
+                      <span className="text-[#B5CEA8]">0</span>
+                      <span className="text-[#D4D4D4]">, </span>
+                      <span className="text-[#B5CEA8]">0</span>
+                      <span className="text-[#D4D4D4]">, </span>
+                      <span className="text-[#B5CEA8]">0.2</span>
+                      <span className="text-[#D4D4D4]">, </span>
+                      <span className="text-[#B5CEA8]">1</span>
+                      <span className="text-[#D4D4D4]">] </span>
+                      <span className="text-[#6A9955]">// ease-out</span>
+                      {'\n  '}
+                      <span className="text-[#D4D4D4]">{'}}'}</span>
+                      {'\n'}
+                      <span className="text-[#808080]">{'>'}</span>
+                      {'\n  '}
+                      <span className="text-[#D4D4D4]">Content</span>
+                      {'\n'}
+                      <span className="text-[#808080]">{'</'}</span>
+                      <span className="text-[#4EC9B0]">motion.div</span>
+                      <span className="text-[#808080]">{'>'}</span>
+                      {'\n\n'}
+                      <span className="text-[#6A9955]">// Using design system tokens</span>
+                      {'\n'}
+                      <span className="text-[#808080]">{'<'}</span>
+                      <span className="text-[#4EC9B0]">motion.button</span>
+                      {'\n  '}
+                      <span className="text-[#9CDCFE]">whileHover</span>
+                      <span className="text-[#D4D4D4]">=</span>
+                      <span className="text-[#D4D4D4]">{'{{'} {'{ '}</span>
+                      <span className="text-[#9CDCFE]">scale</span>
+                      <span className="text-[#D4D4D4]">: </span>
+                      <span className="text-[#B5CEA8]">1.05</span>
+                      <span className="text-[#D4D4D4]">{' } }}'}</span>
+                      {'\n  '}
+                      <span className="text-[#9CDCFE]">whileTap</span>
+                      <span className="text-[#D4D4D4]">=</span>
+                      <span className="text-[#D4D4D4]">{'{{'} {'{ '}</span>
+                      <span className="text-[#9CDCFE]">scale</span>
+                      <span className="text-[#D4D4D4]">: </span>
+                      <span className="text-[#B5CEA8]">0.95</span>
+                      <span className="text-[#D4D4D4]">{' } }}'}</span>
+                      {'\n  '}
+                      <span className="text-[#9CDCFE]">transition</span>
+                      <span className="text-[#D4D4D4]">=</span>
+                      <span className="text-[#D4D4D4]">{'{{'}</span>
+                      {'\n    '}
+                      <span className="text-[#9CDCFE]">duration</span>
+                      <span className="text-[#D4D4D4]">: </span>
+                      <span className="text-[#B5CEA8]">0.15</span>
+                      <span className="text-[#D4D4D4]">, </span>
+                      <span className="text-[#6A9955]">// fast</span>
+                      {'\n    '}
+                      <span className="text-[#9CDCFE]">ease</span>
+                      <span className="text-[#D4D4D4]">: [</span>
+                      <span className="text-[#B5CEA8]">0.16</span>
+                      <span className="text-[#D4D4D4]">, </span>
+                      <span className="text-[#B5CEA8]">1</span>
+                      <span className="text-[#D4D4D4]">, </span>
+                      <span className="text-[#B5CEA8]">0.3</span>
+                      <span className="text-[#D4D4D4]">, </span>
+                      <span className="text-[#B5CEA8]">1</span>
+                      <span className="text-[#D4D4D4]">] </span>
+                      <span className="text-[#6A9955]">// spring</span>
+                      {'\n  '}
+                      <span className="text-[#D4D4D4]">{'}}'}</span>
+                      {'\n'}
+                      <span className="text-[#808080]">{'>'}</span>
+                      {'\n  '}
+                      <span className="text-[#D4D4D4]">Click me</span>
+                      {'\n'}
+                      <span className="text-[#808080]">{'</'}</span>
+                      <span className="text-[#4EC9B0]">motion.button</span>
+                      <span className="text-[#808080]">{'>'}</span>
+                    </code>
+                  </pre>
+                </div>
               </div>
             </div>
           </Card>
@@ -389,27 +693,57 @@ function MyComponent() {
           {/* GSAP */}
           <Card className="p-6">
             <div className="flex items-start justify-between mb-3">
-              <div>
-                <h3 className="text-lg font-semibold text-[var(--color-text-primary)]">
-                  GSAP (GreenSock Animation Platform)
-                </h3>
-                <a
-                  href="https://gsap.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm text-[var(--color-primary)] hover:underline"
-                >
-                  gsap.com →
-                </a>
+              <div className="flex-1">
+                <div className="flex items-start justify-between">
+                  <div>
+                    <h3 className="text-lg font-semibold text-[var(--color-text-primary)]">
+                      GSAP (GreenSock Animation Platform)
+                    </h3>
+                    <a
+                      href="https://gsap.com"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sm text-[var(--color-primary)] hover:underline"
+                    >
+                      gsap.com →
+                    </a>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <span className="text-xs px-2 py-1 bg-[var(--color-surface)] text-[var(--color-text-primary)] rounded border border-[var(--color-border)]">
+                      Specialized
+                    </span>
+                    <button
+                      onClick={() => {
+                        const element = document.getElementById('gsap-code');
+                        if (element) {
+                          element.classList.toggle('hidden');
+                        }
+                        const arrow = document.getElementById('gsap-arrow');
+                        if (arrow) {
+                          arrow.classList.toggle('rotate-180');
+                        }
+                      }}
+                      className="p-2 hover:bg-[var(--color-hover)] rounded-lg transition-colors"
+                      aria-label="Toggle code"
+                    >
+                      <svg
+                        id="gsap-arrow"
+                        className="w-5 h-5 text-[var(--color-text-primary)] transition-transform"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+                <p className="text-sm text-[var(--color-text-secondary)] mt-3">
+                  GSAP is the industry-standard animation library for complex, timeline-based animations.
+                  Use it when you need precise control or advanced animation sequences.
+                </p>
               </div>
-              <span className="text-xs px-2 py-1 bg-[var(--color-surface)] text-[var(--color-text-primary)] rounded border border-[var(--color-border)]">
-                Specialized
-              </span>
             </div>
-            <p className="text-sm text-[var(--color-text-secondary)] mb-4">
-              GSAP is the industry-standard animation library for complex, timeline-based animations.
-              Use it when you need precise control or advanced animation sequences.
-            </p>
             <div className="space-y-4">
               <div>
                 <p className="text-sm font-semibold text-[var(--color-text-primary)] mb-2">
@@ -423,28 +757,119 @@ function MyComponent() {
                   <li>• Framework-agnostic animations</li>
                 </ul>
               </div>
-              <div className="bg-[var(--color-background)] p-4 rounded border border-[var(--color-border)] overflow-x-auto">
-                <pre className="text-sm font-mono text-[var(--color-text-primary)]">
-                  {`import { gsap } from 'gsap';
-
-// Basic animation
-gsap.to('.element', {
-  opacity: 1,
-  y: 0,
-  duration: 0.3, // 300ms = normal
-  ease: 'power2.out' // Similar to ease-out
-});
-
-// Timeline sequence
-const tl = gsap.timeline();
-tl.to('.hero', { opacity: 1, duration: 0.5 })
-  .to('.cta', { scale: 1, duration: 0.15 }, '-=0.2')
-  .to('.features', {
-    y: 0,
-    stagger: 0.1, // Stagger items
-    duration: 0.3
-  });`}
-                </pre>
+              <div id="gsap-code" className="hidden">
+                <div className="bg-[var(--color-background)] p-4 rounded border border-[var(--color-border)] overflow-x-auto">
+                  <pre className="text-sm font-mono">
+                    <code>
+                      <span className="text-[#C586C0]">import</span>
+                      <span className="text-[#D4D4D4]"> {'{ '}</span>
+                      <span className="text-[#9CDCFE]">gsap</span>
+                      <span className="text-[#D4D4D4]"> {'} '}</span>
+                      <span className="text-[#C586C0]">from</span>
+                      <span className="text-[#D4D4D4]"> </span>
+                      <span className="text-[#CE9178]">'gsap'</span>
+                      <span className="text-[#D4D4D4]">;</span>
+                      {'\n\n'}
+                      <span className="text-[#6A9955]">// Basic animation</span>
+                      {'\n'}
+                      <span className="text-[#9CDCFE]">gsap</span>
+                      <span className="text-[#D4D4D4]">.</span>
+                      <span className="text-[#DCDCAA]">to</span>
+                      <span className="text-[#D4D4D4]">(</span>
+                      <span className="text-[#CE9178]">'.element'</span>
+                      <span className="text-[#D4D4D4]">, {'{'}</span>
+                      {'\n  '}
+                      <span className="text-[#9CDCFE]">opacity</span>
+                      <span className="text-[#D4D4D4]">: </span>
+                      <span className="text-[#B5CEA8]">1</span>
+                      <span className="text-[#D4D4D4]">,</span>
+                      {'\n  '}
+                      <span className="text-[#9CDCFE]">y</span>
+                      <span className="text-[#D4D4D4]">: </span>
+                      <span className="text-[#B5CEA8]">0</span>
+                      <span className="text-[#D4D4D4]">,</span>
+                      {'\n  '}
+                      <span className="text-[#9CDCFE]">duration</span>
+                      <span className="text-[#D4D4D4]">: </span>
+                      <span className="text-[#B5CEA8]">0.3</span>
+                      <span className="text-[#D4D4D4]">, </span>
+                      <span className="text-[#6A9955]">// 300ms = normal</span>
+                      {'\n  '}
+                      <span className="text-[#9CDCFE]">ease</span>
+                      <span className="text-[#D4D4D4]">: </span>
+                      <span className="text-[#CE9178]">'power2.out'</span>
+                      <span className="text-[#D4D4D4]"> </span>
+                      <span className="text-[#6A9955]">// Similar to ease-out</span>
+                      {'\n'}
+                      <span className="text-[#D4D4D4]">{'}'});</span>
+                      {'\n\n'}
+                      <span className="text-[#6A9955]">// Timeline sequence</span>
+                      {'\n'}
+                      <span className="text-[#C586C0]">const</span>
+                      <span className="text-[#D4D4D4]"> </span>
+                      <span className="text-[#9CDCFE]">tl</span>
+                      <span className="text-[#D4D4D4]"> = </span>
+                      <span className="text-[#9CDCFE]">gsap</span>
+                      <span className="text-[#D4D4D4]">.</span>
+                      <span className="text-[#DCDCAA]">timeline</span>
+                      <span className="text-[#D4D4D4]">();</span>
+                      {'\n'}
+                      <span className="text-[#9CDCFE]">tl</span>
+                      <span className="text-[#D4D4D4]">.</span>
+                      <span className="text-[#DCDCAA]">to</span>
+                      <span className="text-[#D4D4D4]">(</span>
+                      <span className="text-[#CE9178]">'.hero'</span>
+                      <span className="text-[#D4D4D4]">, {'{ '}</span>
+                      <span className="text-[#9CDCFE]">opacity</span>
+                      <span className="text-[#D4D4D4]">: </span>
+                      <span className="text-[#B5CEA8]">1</span>
+                      <span className="text-[#D4D4D4]">, </span>
+                      <span className="text-[#9CDCFE]">duration</span>
+                      <span className="text-[#D4D4D4]">: </span>
+                      <span className="text-[#B5CEA8]">0.5</span>
+                      <span className="text-[#D4D4D4]"> {'}'})</span>
+                      {'\n  '}
+                      <span className="text-[#D4D4D4]">.</span>
+                      <span className="text-[#DCDCAA]">to</span>
+                      <span className="text-[#D4D4D4]">(</span>
+                      <span className="text-[#CE9178]">'.cta'</span>
+                      <span className="text-[#D4D4D4]">, {'{ '}</span>
+                      <span className="text-[#9CDCFE]">scale</span>
+                      <span className="text-[#D4D4D4]">: </span>
+                      <span className="text-[#B5CEA8]">1</span>
+                      <span className="text-[#D4D4D4]">, </span>
+                      <span className="text-[#9CDCFE]">duration</span>
+                      <span className="text-[#D4D4D4]">: </span>
+                      <span className="text-[#B5CEA8]">0.15</span>
+                      <span className="text-[#D4D4D4]"> {'}'}, </span>
+                      <span className="text-[#CE9178]">'-=0.2'</span>
+                      <span className="text-[#D4D4D4]">)</span>
+                      {'\n  '}
+                      <span className="text-[#D4D4D4]">.</span>
+                      <span className="text-[#DCDCAA]">to</span>
+                      <span className="text-[#D4D4D4]">(</span>
+                      <span className="text-[#CE9178]">'.features'</span>
+                      <span className="text-[#D4D4D4]">, {'{'}</span>
+                      {'\n    '}
+                      <span className="text-[#9CDCFE]">y</span>
+                      <span className="text-[#D4D4D4]">: </span>
+                      <span className="text-[#B5CEA8]">0</span>
+                      <span className="text-[#D4D4D4]">,</span>
+                      {'\n    '}
+                      <span className="text-[#9CDCFE]">stagger</span>
+                      <span className="text-[#D4D4D4]">: </span>
+                      <span className="text-[#B5CEA8]">0.1</span>
+                      <span className="text-[#D4D4D4]">, </span>
+                      <span className="text-[#6A9955]">// Stagger items</span>
+                      {'\n    '}
+                      <span className="text-[#9CDCFE]">duration</span>
+                      <span className="text-[#D4D4D4]">: </span>
+                      <span className="text-[#B5CEA8]">0.3</span>
+                      {'\n  '}
+                      <span className="text-[#D4D4D4]">{'}'});</span>
+                    </code>
+                  </pre>
+                </div>
               </div>
             </div>
           </Card>
