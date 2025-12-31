@@ -62,7 +62,43 @@ export const navigationTree: NavigationItem[] = [
       {
         id: 'motion',
         label: 'Motion',
-        section: 'tokens',
+        children: [
+          {
+            id: 'motion-foundations',
+            label: 'Foundations',
+            section: 'motion-foundations',
+          },
+          {
+            id: 'text-effects',
+            label: 'Text Effects',
+            section: 'text-effects',
+          },
+          {
+            id: 'scroll',
+            label: 'Scroll',
+            section: 'scroll',
+          },
+          {
+            id: 'loading',
+            label: 'Loading',
+            section: 'loading',
+          },
+          {
+            id: 'interactive',
+            label: 'Interactive',
+            section: 'interactive',
+          },
+          {
+            id: 'transitions',
+            label: 'Transitions',
+            section: 'transitions',
+          },
+          {
+            id: 'cursor-effects',
+            label: 'Cursor Effects',
+            section: 'cursor-effects',
+          },
+        ],
       },
     ],
   },

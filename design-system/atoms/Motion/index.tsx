@@ -119,4 +119,3 @@ export const StaggerItem = ({ children, className, ...props }: HTMLMotionProps<'
 };
 
 export * from './VariableWeightText';
-export * from './RainbowNeonGlowText';
