@@ -1,6 +1,7 @@
 'use client';
 
 import { Card } from '@ecosystem/design-system';
+import { VariableWeightText } from '@ecosystem/design-system';
 
 export function TextEffectsSection() {
   return (
@@ -31,17 +32,54 @@ export function TextEffectsSection() {
         </div>
       </Card>
 
-      {/* Variable Weight Text - Coming Soon */}
+      {/* Variable Weight Text */}
       <Card className="p-8 mb-8">
         <h2 className="text-2xl font-semibold mb-4 text-[var(--color-text-primary)]">
           Variable Weight Text
         </h2>
-        <div className="p-12 bg-[var(--color-background)] rounded-lg border border-[var(--color-border)] text-center">
-          <div className="inline-block px-4 py-2 bg-[var(--color-surface)] border border-[var(--color-border)] rounded-lg">
-            <span className="text-[var(--color-text-muted)]">Coming Soon</span>
-          </div>
-          <p className="mt-4 text-sm text-[var(--color-text-secondary)] max-w-md mx-auto">
-            Smooth font-weight transitions using variable fonts. Perfect for creating breathing text effects or emphasizing content on hover.
+        <p className="text-sm text-[var(--color-text-secondary)] mb-4">
+          For variable fonts (like <strong>Clash Display</strong>), use the <code className="px-2 py-1 bg-[var(--color-surface)] rounded text-[var(--color-primary)]">VariableWeightText</code> component to create a silky-smooth "breathing" effect that animates font weight.
+          This animation uses <code className="px-2 py-1 bg-[var(--color-surface)] rounded text-[var(--color-primary)]">font-variation-settings</code> for true variable font interpolation.
+        </p>
+        <div className="mb-6 p-4 bg-[var(--color-background)] rounded border border-[var(--color-border)]">
+          <p className="text-xs text-[var(--color-text-muted)] mb-2">
+            <strong>Performance Optimizations:</strong>
+          </p>
+          <ul className="text-xs text-[var(--color-text-muted)] space-y-1">
+            <li>✓ Uses true variable font (continuous weight axis from 200-700)</li>
+            <li>✓ GPU-accelerated with <code className="px-1 py-0.5 bg-[var(--color-surface)] rounded text-[var(--color-primary)]">will-change</code></li>
+            <li>✓ Custom easing curve <code className="px-1 py-0.5 bg-[var(--color-surface)] rounded text-[var(--color-primary)]">[0.45, 0, 0.55, 1]</code> for ultra-smooth motion</li>
+            <li>✓ Font smoothing (antialiased) for crisp rendering</li>
+            <li>✓ Centered to prevent layout shifts during weight changes</li>
+          </ul>
+        </div>
+
+        {/* Live Demo */}
+        <div className="mb-6 p-8 bg-[var(--color-background)] rounded-lg border border-[var(--color-border)]">
+          <VariableWeightText
+            minWeight={200}
+            maxWeight={700}
+            duration={2}
+            className="text-4xl text-[var(--color-text-primary)]"
+          >
+            Clash Display
+          </VariableWeightText>
+        </div>
+
+        {/* Code Example */}
+        <div className="bg-[var(--color-background)] p-4 rounded border border-[var(--color-border)] overflow-x-auto">
+          <pre className="text-sm font-mono text-[var(--color-text-primary)]">
+            {`import { VariableWeightText } from '@ecosystem/design-system';
+
+<VariableWeightText minWeight={200} maxWeight={700}>
+  Clash Display
+</VariableWeightText>`}
+          </pre>
+        </div>
+
+        <div className="mt-4 p-3 bg-[var(--color-surface)] rounded border border-[var(--color-border)]">
+          <p className="text-xs text-[var(--color-text-muted)]">
+            <strong>Note:</strong> The VariableWeightText component defaults to using Clash Display, but you can override with the <code className="px-1 py-0.5 bg-[var(--color-background)] rounded text-[var(--color-primary)]">fontFamily</code> prop to use any variable font.
           </p>
         </div>
       </Card>
