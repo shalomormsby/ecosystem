@@ -1,5 +1,6 @@
 export { Button } from './Button/Button';
 export { Card } from './Card/Card';
+export * from './Code';
 export { Link } from './Link/Link';
 export * from './Motion';
 export * from './Icon';

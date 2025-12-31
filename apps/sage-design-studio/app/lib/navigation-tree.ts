@@ -127,6 +127,11 @@ export const navigationTree: NavigationItem[] = [
             section: 'atoms',
           },
           {
+            id: 'code',
+            label: 'Code',
+            section: 'atoms',
+          },
+          {
             id: 'link',
             label: 'Link',
             section: 'atoms',

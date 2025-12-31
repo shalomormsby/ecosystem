@@ -1,4 +1,4 @@
-import { Button, Card, Link, Badge, Avatar, Spinner, ProgressBar } from '@ecosystem/design-system';
+import { Button, Card, Code, Link, Badge, Avatar, Spinner, ProgressBar } from '@ecosystem/design-system';
 
 export interface PropConfig {
   type: 'select' | 'boolean' | 'text';
@@ -66,6 +66,36 @@ export const componentRegistry: Record<string, ComponentConfig> = {
         props: { hoverEffect: false },
         children: 'Card content without hover',
       },
+    ],
+  },
+
+  Code: {
+    component: Code,
+    description: 'A semantic code wrapper with automatic syntax highlighting. Leverages CSS variables from ThemeProvider for theme-aware colors. Perfect for inline code snippets and small code examples.',
+    props: {
+      syntax: {
+        type: 'select',
+        options: ['plain', 'comment', 'keyword', 'function', 'string', 'number', 'boolean', 'operator', 'property', 'className', 'tag', 'attribute', 'variable', 'punctuation'] as const,
+        default: 'plain',
+        description: 'Syntax highlighting type for the code',
+      },
+      inline: {
+        type: 'boolean',
+        default: true,
+        description: 'Render as inline code (true) or block code (false)',
+      },
+    },
+    examples: [
+      { label: 'Plain Text', props: { syntax: 'plain', inline: true }, children: 'example' },
+      { label: 'Keyword', props: { syntax: 'keyword', inline: true }, children: 'const' },
+      { label: 'Function', props: { syntax: 'function', inline: true }, children: 'useState()' },
+      { label: 'String', props: { syntax: 'string', inline: true }, children: '"Hello World"' },
+      { label: 'Number', props: { syntax: 'number', inline: true }, children: '42' },
+      { label: 'Boolean', props: { syntax: 'boolean', inline: true }, children: 'true' },
+      { label: 'Property', props: { syntax: 'property', inline: true }, children: 'backgroundColor' },
+      { label: 'Class Name', props: { syntax: 'className', inline: true }, children: 'MyComponent' },
+      { label: 'Comment', props: { syntax: 'comment', inline: true }, children: '// This is a comment' },
+      { label: 'Block Code', props: { syntax: 'keyword', inline: false }, children: 'const example = "value";' },
     ],
   },
 
