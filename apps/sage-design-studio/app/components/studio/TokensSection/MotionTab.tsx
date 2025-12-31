@@ -142,37 +142,63 @@ export function MotionTab() {
                 </h3>
                 <Card className="p-6">
                     <p className="text-sm text-[var(--color-text-secondary)] mb-4">
-                        Create eye-catching headlines with the <code className="px-2 py-1 bg-[var(--color-surface)] rounded text-[var(--color-primary)]">RainbowNeonGlowText</code> component.
-                        This component creates a rotating rainbow neon glow that moves around the text edge, perfect for hero sections or key focal points.
+                        Create eye-catching elements with the <code className="px-2 py-1 bg-[var(--color-surface)] rounded text-[var(--color-primary)]">RainbowNeonGlowText</code> component.
+                        This component creates a silky-smooth rotating rainbow glow along element edges. Works for text, buttons, dividers, and any other elements.
                     </p>
                     <div className="mb-6 p-4 bg-[var(--color-background)] rounded border border-[var(--color-border)]">
                         <p className="text-xs text-[var(--color-text-muted)] mb-2">
                             <strong>Key Features:</strong>
                         </p>
                         <ul className="text-xs text-[var(--color-text-muted)] space-y-1">
-                            <li>✓ Rotating rainbow glow that moves in a circle around text edges</li>
-                            <li>✓ Tight glow that hugs the text outline using text-shadow</li>
+                            <li>✓ Silky-smooth rotating rainbow glow using conic gradients</li>
+                            <li>✓ Subtle edge glow that doesn't overwhelm content</li>
+                            <li>✓ Works for any element type (text, buttons, dividers, etc.)</li>
+                            <li>✓ Seamless looping animation with no visible seams</li>
                             <li>✓ Customizable rotation direction (clockwise/counterclockwise)</li>
-                            <li>✓ Adjustable blur amount, glow distance, and custom color palettes</li>
+                            <li>✓ Adjustable blur, border width, and custom color palettes</li>
                             <li>✓ GPU-accelerated with <code className="px-1 py-0.5 bg-[var(--color-surface)] rounded text-[var(--color-primary)]">will-change</code></li>
                             <li>✓ Works seamlessly in both Light and Dark modes</li>
                             <li>✓ Respects motion intensity settings for accessibility</li>
                         </ul>
                     </div>
 
-                    {/* Live Demo */}
-                    <div className="mb-6 p-8 bg-[var(--color-background)] rounded-lg border border-[var(--color-border)] flex items-center justify-center">
-                        <RainbowNeonGlowText
-                            blurRadius={20}
-                            glowDistance={8}
-                            animationSpeed={3}
-                            direction="clockwise"
-                            glowOpacity={0.9}
-                            className="text-5xl font-bold text-[var(--color-text-primary)]"
-                            style={{ fontFamily: 'Clash Display, sans-serif' }}
-                        >
-                            Clash Display
-                        </RainbowNeonGlowText>
+                    {/* Live Demos */}
+                    <div className="space-y-6 mb-6">
+                        {/* Text Demo */}
+                        <div className="p-8 bg-[var(--color-background)] rounded-lg border border-[var(--color-border)] flex items-center justify-center">
+                            <RainbowNeonGlowText
+                                blurRadius={6}
+                                borderWidth={2}
+                                animationSpeed={4}
+                                direction="clockwise"
+                                borderRadius="0.5rem"
+                            >
+                                <div className="px-6 py-3 text-4xl font-bold text-[var(--color-text-primary)]" style={{ fontFamily: 'Clash Display, sans-serif' }}>
+                                    Clash Display
+                                </div>
+                            </RainbowNeonGlowText>
+                        </div>
+
+                        {/* Button Demo */}
+                        <div className="p-8 bg-[var(--color-background)] rounded-lg border border-[var(--color-border)] flex gap-4 items-center justify-center flex-wrap">
+                            <RainbowNeonGlowText borderRadius="0.5rem" borderWidth={2} blurRadius={6}>
+                                <button className="px-6 py-3 bg-[var(--color-surface)] text-[var(--color-text-primary)] font-semibold">
+                                    Glowing Button
+                                </button>
+                            </RainbowNeonGlowText>
+
+                            <RainbowNeonGlowText
+                                borderRadius="9999px"
+                                borderWidth={2}
+                                blurRadius={6}
+                                colors={['#ff0088', '#8800ff', '#0088ff', '#00ff88']}
+                                direction="counterclockwise"
+                            >
+                                <button className="px-6 py-3 bg-[var(--color-surface)] text-[var(--color-text-primary)] font-semibold rounded-full">
+                                    Rounded Button
+                                </button>
+                            </RainbowNeonGlowText>
+                        </div>
                     </div>
 
                     {/* Code Example */}
@@ -180,23 +206,34 @@ export function MotionTab() {
                         <pre className="text-sm font-mono text-[var(--color-text-primary)]">
                             {`import { RainbowNeonGlowText } from '@ecosystem/design-system';
 
+// Text
 <RainbowNeonGlowText
-  blurRadius={20}
-  glowDistance={8}
-  animationSpeed={3}
-  direction="clockwise"
-  glowOpacity={0.9}
-  fontFamily="Clash Display, sans-serif"
+  blurRadius={6}
+  borderWidth={2}
+  animationSpeed={4}
+  borderRadius="0.5rem"
 >
-  Clash Display
+  <div className="px-6 py-3 text-4xl font-bold">
+    Clash Display
+  </div>
 </RainbowNeonGlowText>
 
-// Custom colors
+// Button
+<RainbowNeonGlowText borderRadius="0.5rem">
+  <button className="px-6 py-3">
+    Glowing Button
+  </button>
+</RainbowNeonGlowText>
+
+// Custom colors & direction
 <RainbowNeonGlowText
-  colors={['#ff0000', '#00ff00', '#0000ff']}
+  colors={['#ff0088', '#8800ff', '#0088ff']}
   direction="counterclockwise"
+  borderRadius="9999px"
 >
-  Custom Colors
+  <button className="px-6 py-3 rounded-full">
+    Custom Colors
+  </button>
 </RainbowNeonGlowText>`}
                         </pre>
                     </div>
@@ -206,13 +243,12 @@ export function MotionTab() {
                             <strong>Customization Options:</strong>
                         </p>
                         <ul className="text-xs text-[var(--color-text-muted)] space-y-1">
-                            <li>• <code className="px-1 py-0.5 bg-[var(--color-background)] rounded text-[var(--color-primary)]">blurRadius</code> - Blur amount in pixels (default: 20)</li>
-                            <li>• <code className="px-1 py-0.5 bg-[var(--color-background)] rounded text-[var(--color-primary)]">glowDistance</code> - Distance from text in pixels (default: 8)</li>
-                            <li>• <code className="px-1 py-0.5 bg-[var(--color-background)] rounded text-[var(--color-primary)]">animationSpeed</code> - Rotation duration in seconds (default: 3)</li>
+                            <li>• <code className="px-1 py-0.5 bg-[var(--color-background)] rounded text-[var(--color-primary)]">blurRadius</code> - Blur amount in pixels (default: 6)</li>
+                            <li>• <code className="px-1 py-0.5 bg-[var(--color-background)] rounded text-[var(--color-primary)]">borderWidth</code> - Border thickness in pixels (default: 2)</li>
+                            <li>• <code className="px-1 py-0.5 bg-[var(--color-background)] rounded text-[var(--color-primary)]">animationSpeed</code> - Rotation duration in seconds (default: 4)</li>
                             <li>• <code className="px-1 py-0.5 bg-[var(--color-background)] rounded text-[var(--color-primary)]">direction</code> - 'clockwise' or 'counterclockwise' (default: 'clockwise')</li>
-                            <li>• <code className="px-1 py-0.5 bg-[var(--color-background)] rounded text-[var(--color-primary)]">glowOpacity</code> - Opacity from 0-1 (default: 0.9)</li>
+                            <li>• <code className="px-1 py-0.5 bg-[var(--color-background)] rounded text-[var(--color-primary)]">borderRadius</code> - Border radius string (default: '0.5rem')</li>
                             <li>• <code className="px-1 py-0.5 bg-[var(--color-background)] rounded text-[var(--color-primary)]">colors</code> - Custom color array for rainbow effect</li>
-                            <li>• <code className="px-1 py-0.5 bg-[var(--color-background)] rounded text-[var(--color-primary)]">fontFamily</code> - Font family to use (default: 'Clash Display')</li>
                         </ul>
                     </div>
                 </Card>

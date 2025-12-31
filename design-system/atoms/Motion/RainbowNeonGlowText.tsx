@@ -7,17 +7,17 @@ import { useCustomizer } from '../../features/customizer/store';
 interface RainbowNeonGlowTextProps {
     /**
      * Blur amount in pixels - how soft the glow appears
-     * @default 20
+     * @default 6
      */
     blurRadius?: number;
     /**
-     * Glow distance from text in pixels - how far the glow extends
-     * @default 8
+     * Border width in pixels - controls the glow thickness
+     * @default 2
      */
-    glowDistance?: number;
+    borderWidth?: number;
     /**
      * Animation speed in seconds for one full rotation
-     * @default 3
+     * @default 4
      */
     animationSpeed?: number;
     /**
@@ -26,13 +26,8 @@ interface RainbowNeonGlowTextProps {
      */
     direction?: 'clockwise' | 'counterclockwise';
     /**
-     * Intensity of the glow opacity (0-1)
-     * @default 0.9
-     */
-    glowOpacity?: number;
-    /**
      * Array of colors for the rainbow effect (minimum 2 colors)
-     * @default ['#ff0000', '#ff8800', '#ffff00', '#00ff00', '#0088ff', '#0000ff', '#8800ff', '#ff0088']
+     * @default ['#ff0088', '#ff0000', '#ff8800', '#ffff00', '#00ff00', '#0088ff', '#0000ff', '#8800ff']
      */
     colors?: string[];
     /**
@@ -40,10 +35,10 @@ interface RainbowNeonGlowTextProps {
      */
     intensity?: number;
     /**
-     * Font family to use
-     * @default 'Clash Display, sans-serif'
+     * Border radius for the glow effect
+     * @default '0.5rem'
      */
-    fontFamily?: string;
+    borderRadius?: string;
     /**
      * Text content to animate
      */
@@ -61,38 +56,45 @@ interface RainbowNeonGlowTextProps {
 /**
  * RainbowNeonGlowText
  *
- * A motion component that creates a rotating rainbow neon glow around text.
- * The glow moves in a circle around the text edge, creating a dynamic effect.
+ * A motion component that creates a subtle rotating rainbow glow along element edges.
+ * The glow moves smoothly in a circle, creating a refined neon effect.
+ * Works for text, buttons, dividers, and any other elements.
  *
  * **Key Features:**
- * - Rotating rainbow glow that moves around text edges
- * - Customizable colors, blur, distance, and direction
- * - Tight glow that hugs the text outline
+ * - Silky-smooth rotating rainbow glow using conic gradients
+ * - Subtle edge glow that doesn't overwhelm content
+ * - Works for any element type (text, buttons, dividers, etc.)
+ * - Seamless looping animation
+ * - Customizable colors, blur, and rotation speed
  * - Respects global motion intensity settings
- * - Works in both Light and Dark modes
  *
  * **Usage:**
  * ```tsx
- * <RainbowNeonGlowText
- *   blurRadius={20}
- *   glowDistance={8}
- *   direction="clockwise"
- *   colors={['#ff0000', '#00ff00', '#0000ff']}
- * >
+ * // Text
+ * <RainbowNeonGlowText>
  *   Glowing Text
+ * </RainbowNeonGlowText>
+ *
+ * // Button
+ * <RainbowNeonGlowText borderRadius="0.5rem">
+ *   <button className="px-6 py-3">Click Me</button>
+ * </RainbowNeonGlowText>
+ *
+ * // Divider
+ * <RainbowNeonGlowText borderRadius="0">
+ *   <div className="h-px w-full" />
  * </RainbowNeonGlowText>
  * ```
  */
 export const RainbowNeonGlowText = ({
     children,
-    blurRadius = 20,
-    glowDistance = 8,
-    animationSpeed = 3,
+    blurRadius = 6,
+    borderWidth = 2,
+    animationSpeed = 4,
     direction = 'clockwise',
-    glowOpacity = 0.9,
-    colors = ['#ff0000', '#ff8800', '#ffff00', '#00ff00', '#0088ff', '#0000ff', '#8800ff', '#ff0088'],
+    colors = ['#ff0088', '#ff0000', '#ff8800', '#ffff00', '#00ff00', '#0088ff', '#0000ff', '#8800ff'],
     intensity,
-    fontFamily = 'Clash Display, sans-serif',
+    borderRadius = '0.5rem',
     className,
     style,
 }: RainbowNeonGlowTextProps) => {
@@ -106,90 +108,121 @@ export const RainbowNeonGlowText = ({
         ? animationSpeed * (5 / effectiveIntensity)
         : animationSpeed;
 
-    // Generate glow positions around a circle (12 positions for smooth rotation)
-    const glowPositions = useMemo(() => {
-        const positions = [];
-        const numPositions = 12;
-        for (let i = 0; i < numPositions; i++) {
-            const angle = (i / numPositions) * Math.PI * 2;
-            const x = Math.cos(angle) * glowDistance;
-            const y = Math.sin(angle) * glowDistance;
-            const colorIndex = Math.floor((i / numPositions) * colors.length) % colors.length;
-            positions.push({ x, y, color: colors[colorIndex] });
-        }
-        return positions;
-    }, [glowDistance, colors]);
+    // Create conic gradient from colors
+    const conicGradient = useMemo(() => {
+        const colorStops = colors.map((color, index) => {
+            const percentage = (index / colors.length) * 100;
+            return `${color} ${percentage}%`;
+        }).join(', ');
+        // Add the first color at the end for seamless loop
+        return `conic-gradient(from 0deg, ${colorStops}, ${colors[0]} 100%)`;
+    }, [colors]);
 
-    // Create rotating text-shadow keyframes
-    const createTextShadowKeyframes = () => {
-        const numSteps = 12;
-        const keyframes = [];
-
-        for (let step = 0; step < numSteps; step++) {
-            const shadows = glowPositions.map((_, index) => {
-                const rotatedIndex = direction === 'clockwise'
-                    ? (index + step) % glowPositions.length
-                    : (index - step + glowPositions.length) % glowPositions.length;
-                const pos = glowPositions[index];
-                const color = glowPositions[rotatedIndex].color;
-                return `${pos.x}px ${pos.y}px ${blurRadius}px ${color}`;
-            }).join(', ');
-
-            keyframes.push(shadows);
-        }
-
-        return keyframes;
-    };
-
-    const textShadowKeyframes = useMemo(() => createTextShadowKeyframes(), [glowPositions, blurRadius, direction]);
-
-    const wrapperStyle = {
-        position: 'relative' as const,
+    const wrapperStyle: React.CSSProperties = {
+        position: 'relative',
         display: 'inline-block',
-        fontFamily,
         ...style,
     };
 
     // If motion is disabled (intensity 0), render static glow
     if (effectiveIntensity === 0) {
-        const staticShadow = glowPositions.map((pos, i) =>
-            `${pos.x}px ${pos.y}px ${blurRadius}px ${pos.color}`
-        ).join(', ');
-
         return (
             <div
                 className={className}
                 style={{
                     ...wrapperStyle,
-                    textShadow: staticShadow,
-                    opacity: glowOpacity,
-                    whiteSpace: 'nowrap',
+                    padding: `${borderWidth}px`,
+                    background: conicGradient,
+                    borderRadius,
                 }}
             >
-                {children}
+                <div
+                    style={{
+                        filter: `blur(${blurRadius}px)`,
+                        position: 'absolute',
+                        inset: 0,
+                        background: conicGradient,
+                        borderRadius,
+                        opacity: 0.6,
+                        zIndex: 0,
+                    }}
+                />
+                <div
+                    style={{
+                        position: 'relative',
+                        zIndex: 1,
+                        background: 'var(--color-background)',
+                        borderRadius: `calc(${borderRadius} - ${borderWidth}px)`,
+                        padding: '2px',
+                    }}
+                >
+                    {children}
+                </div>
             </div>
         );
     }
 
+    // Animated version
     return (
-        <motion.div
+        <div
             className={className}
             style={{
                 ...wrapperStyle,
-                opacity: glowOpacity,
-                whiteSpace: 'nowrap',
-                willChange: 'text-shadow',
-            }}
-            animate={{
-                textShadow: textShadowKeyframes
-            }}
-            transition={{
-                duration: scaledDuration,
-                repeat: Infinity,
-                ease: "linear",
+                padding: `${borderWidth}px`,
             }}
         >
-            {children}
-        </motion.div>
+            {/* Rotating gradient border */}
+            <motion.div
+                style={{
+                    position: 'absolute',
+                    inset: 0,
+                    background: conicGradient,
+                    borderRadius,
+                    willChange: 'transform',
+                }}
+                animate={{
+                    rotate: direction === 'clockwise' ? 360 : -360,
+                }}
+                transition={{
+                    duration: scaledDuration,
+                    repeat: Infinity,
+                    ease: "linear",
+                }}
+            />
+
+            {/* Blurred glow layer */}
+            <motion.div
+                style={{
+                    position: 'absolute',
+                    inset: 0,
+                    background: conicGradient,
+                    borderRadius,
+                    filter: `blur(${blurRadius}px)`,
+                    opacity: 0.6,
+                    willChange: 'transform',
+                }}
+                animate={{
+                    rotate: direction === 'clockwise' ? 360 : -360,
+                }}
+                transition={{
+                    duration: scaledDuration,
+                    repeat: Infinity,
+                    ease: "linear",
+                }}
+            />
+
+            {/* Content */}
+            <div
+                style={{
+                    position: 'relative',
+                    zIndex: 1,
+                    background: 'var(--color-background)',
+                    borderRadius: `calc(${borderRadius} - ${borderWidth}px)`,
+                    padding: '2px',
+                }}
+            >
+                {children}
+            </div>
+        </div>
     );
 };
