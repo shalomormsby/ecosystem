@@ -10,7 +10,7 @@ import { useThemeStore } from '../store/theme';
 import { studioTokens } from '../tokens/studio';
 import { sageTokens } from '../tokens/sage';
 import { voltTokens } from '../tokens/volt';
-import { syntaxColors } from '../tokens/syntax';
+import { syntaxColors, codeColors } from '../tokens/syntax';
 import type { ThemeName, ColorMode } from '../store/theme';
 
 // Theme token map
@@ -120,6 +120,11 @@ function getThemeVars(theme: ThemeName, mode: ColorMode): Record<string, string>
     '--syntax-variable': mode === 'light' ? syntaxColors.light.variable : syntaxColors.dark.variable,
     '--syntax-punctuation': mode === 'light' ? syntaxColors.light.punctuation : syntaxColors.dark.punctuation,
     '--syntax-plain': mode === 'light' ? syntaxColors.light.plain : syntaxColors.dark.plain,
+
+    // Code Block Backgrounds and Borders - Accessible contrast (WCAG AA 4.5:1)
+    '--code-block-bg': mode === 'light' ? codeColors.light.blockBackground : codeColors.dark.blockBackground,
+    '--code-inline-bg': mode === 'light' ? codeColors.light.inlineBackground : codeColors.dark.inlineBackground,
+    '--code-border': mode === 'light' ? codeColors.light.border : codeColors.dark.border,
   };
 }
 

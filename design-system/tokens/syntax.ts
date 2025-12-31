@@ -1,6 +1,7 @@
 /**
  * Syntax Highlighting Tokens
  * Based on VS Code Dark+ theme with light mode variants
+ * Includes accessible background and border colors for code blocks
  */
 
 export const syntaxColors = {
@@ -35,6 +36,29 @@ export const syntaxColors = {
     variable: '#9CDCFE',     // Light blue for variables
     punctuation: '#808080',  // Gray for punctuation
     plain: '#D4D4D4',        // Default text color
+  },
+} as const;
+
+/**
+ * Code Block Background and Border Colors
+ * Designed for optimal contrast and accessibility (WCAG AA 4.5:1)
+ */
+export const codeColors = {
+  light: {
+    // Block code background - cool gray for subtle distinction
+    blockBackground: '#F8F9FA',
+    // Inline code background - pale amber for warmth and visibility
+    inlineBackground: '#FEF3E7',
+    // Border color for definition and separation
+    border: '#E1E4E8',
+  },
+  dark: {
+    // Block code background - VS Code-inspired dark background
+    blockBackground: '#1E1E1E',
+    // Inline code background - slightly lighter for contrast
+    inlineBackground: '#252525',
+    // Border color for definition
+    border: '#3D3D3D',
   },
 } as const;
 

@@ -71,7 +71,7 @@ export const componentRegistry: Record<string, ComponentConfig> = {
 
   Code: {
     component: Code,
-    description: 'A semantic code wrapper with automatic syntax highlighting. Leverages CSS variables from ThemeProvider for theme-aware colors. Perfect for inline code snippets and small code examples.',
+    description: 'A semantic code wrapper with enhanced visual styling and automatic syntax highlighting. Features distinct treatments for inline (pale amber background) vs block code (cool gray background with copy-on-hover). Accessible contrast ratios (WCAG AA 4.5:1).',
     props: {
       syntax: {
         type: 'select',
@@ -84,6 +84,11 @@ export const componentRegistry: Record<string, ComponentConfig> = {
         default: true,
         description: 'Render as inline code (true) or block code (false)',
       },
+      showCopy: {
+        type: 'boolean',
+        default: true,
+        description: 'Show copy button for block code (appears on hover)',
+      },
     },
     examples: [
       { label: 'Plain Text', props: { syntax: 'plain', inline: true }, children: 'example' },
@@ -95,7 +100,9 @@ export const componentRegistry: Record<string, ComponentConfig> = {
       { label: 'Property', props: { syntax: 'property', inline: true }, children: 'backgroundColor' },
       { label: 'Class Name', props: { syntax: 'className', inline: true }, children: 'MyComponent' },
       { label: 'Comment', props: { syntax: 'comment', inline: true }, children: '// This is a comment' },
-      { label: 'Block Code', props: { syntax: 'keyword', inline: false }, children: 'const example = "value";' },
+      { label: 'Block Code', props: { syntax: 'plain', inline: false }, children: 'const greeting = "Hello World";\nconsole.log(greeting);' },
+      { label: 'Block with Copy', props: { syntax: 'keyword', inline: false, showCopy: true }, children: 'import { useState } from "react";' },
+      { label: 'Block No Copy', props: { syntax: 'string', inline: false, showCopy: false }, children: '"No copy button on this block"' },
     ],
   },
 
