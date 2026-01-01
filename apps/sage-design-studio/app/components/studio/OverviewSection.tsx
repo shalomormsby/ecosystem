@@ -1,153 +1,589 @@
 'use client';
 
-import { Card, Code, CollapsibleCodeBlock } from '@ecosystem/design-system';
+import { Card, Code, CollapsibleCodeBlock, Button } from '@ecosystem/design-system';
+import { useTheme } from '@ecosystem/design-system/hooks';
 
 export function OverviewSection() {
-  return (
-    <div className="space-y-12">
-      {/* Title */}
-      <div className="border-b border-[var(--color-border)] pb-6">
-        <h1 className="text-4xl font-bold mb-2 text-[var(--color-text-primary)]">
-          Sage Design System
-        </h1>
-        <p className="text-sm text-[var(--color-text-muted)]">Version 0.1.0</p>
-      </div>
+  const { theme, setTheme, mode, setMode } = useTheme();
 
-      {/* Quick Orientation */}
-      <section>
-        <p className="text-lg text-[var(--color-text-primary)] leading-relaxed">
-          A React component library with three distinct themes, built on design tokens and human-centered principles.
-          Designed for AI agents and humans to easily consume, understand, and extend.
-          All components respect motion preferences and follow atomic design architecture.
-        </p>
+  return (
+    <div className="space-y-16">
+      {/* 1. WELCOME & VALUE PROPOSITION */}
+      <section className="border-b border-[var(--color-border)] pb-12">
+        <div className="text-center max-w-4xl mx-auto">
+          <h1 className="text-4xl sm:text-5xl font-bold mb-6 text-[var(--color-text-primary)]">
+            Welcome to the Sage Design System
+          </h1>
+          <p className="text-xl text-[var(--color-text-primary)] mb-4 leading-relaxed">
+            A human-centered design system that makes user control, transparency,
+            and emotional resonance tangible through code.
+          </p>
+          <p className="text-lg text-[var(--color-text-secondary)] leading-relaxed">
+            This isn't just a component library. It's a functional design philosophy
+            that helps you build products where users feel <strong className="text-[var(--color-text-primary)]">seen</strong>,
+            <strong className="text-[var(--color-text-primary)]"> capable</strong>, and{' '}
+            <strong className="text-[var(--color-text-primary)]">empowered</strong>.
+          </p>
+        </div>
       </section>
 
-      {/* Essential Links */}
+      {/* 2. WHO IS THIS FOR? */}
       <section>
-        <h2 className="text-2xl font-bold mb-4 text-[var(--color-text-primary)]">
-          Essential Documentation
+        <h2 className="text-3xl font-bold mb-6 text-[var(--color-text-primary)] text-center">
+          Who Is This For?
         </h2>
-        <Card className="p-6">
-          <div className="space-y-3">
-            <a
-              href="https://github.com/shalom-ormsby/ecosystem/blob/main/DESIGN-PHILOSOPHY.md"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 text-[var(--color-primary)] hover:underline"
-            >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-              </svg>
-              <span className="font-medium">Design Philosophy</span>
-              <span className="text-sm text-[var(--color-text-muted)]">— Core principles and decision-making framework</span>
-            </a>
-            <a
-              href="https://github.com/shalom-ormsby/ecosystem/tree/main/design-system"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 text-[var(--color-primary)] hover:underline"
-            >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-              </svg>
-              <span className="font-medium">GitHub Repository</span>
-              <span className="text-sm text-[var(--color-text-muted)]">— Source code, issues, and contribution guide</span>
-            </a>
-          </div>
-        </Card>
-      </section>
-
-      {/* Quick Start */}
-      <section>
-        <h2 className="text-2xl font-bold mb-4 text-[var(--color-text-primary)]">
-          Quick Start
-        </h2>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {/* Developers */}
           <Card className="p-6">
-            <h3 className="font-semibold mb-3 text-[var(--color-text-primary)]">Installation</h3>
-            <Code inline={false} syntax="plain">pnpm add @ecosystem/design-system</Code>
+            <div className="text-4xl mb-4">💻</div>
+            <h3 className="text-lg font-semibold mb-2 text-[var(--color-text-primary)]">
+              Developers
+            </h3>
+            <p className="text-sm text-[var(--color-text-secondary)] mb-4">
+              Build faster with TypeScript-first components, comprehensive examples, and a ~2KB syntax parser that just works.
+            </p>
+            <p className="text-xs text-[var(--color-text-muted)]">
+              → Jump to <a href="#quick-start" className="text-[var(--color-primary)] hover:underline">Quick Start</a>
+            </p>
           </Card>
 
+          {/* Designers */}
           <Card className="p-6">
-            <h3 className="font-semibold mb-3 text-[var(--color-text-primary)]">Basic Usage</h3>
-            <CollapsibleCodeBlock
-              id="basic-usage"
-              code={`import { Button, Card } from '@ecosystem/design-system';
-
-export function MyComponent() {
-  return (
-    <Card>
-      <Button variant="primary">Click me</Button>
-    </Card>
-  );
-}`}
-              defaultCollapsed={false}
-              showCopy={true}
-            />
+            <div className="text-4xl mb-4">🎨</div>
+            <h3 className="text-lg font-semibold mb-2 text-[var(--color-text-primary)]">
+              Designers
+            </h3>
+            <p className="text-sm text-[var(--color-text-secondary)] mb-4">
+              Explore live components, customize themes with the built-in Customizer, and see design tokens as importable JavaScript objects.
+            </p>
+            <p className="text-xs text-[var(--color-text-muted)]">
+              → Explore <a href="#tokens" className="text-[var(--color-primary)] hover:underline">Tokens</a> and <a href="#atoms" className="text-[var(--color-primary)] hover:underline">Components</a>
+            </p>
           </Card>
 
-          <Card className="p-6 md:col-span-2">
-            <h3 className="font-semibold mb-3 text-[var(--color-text-primary)]">Theme Switching</h3>
-            <CollapsibleCodeBlock
-              id="theme-switching"
-              code={`import { useTheme } from '@ecosystem/design-system';
+          {/* AI Agents */}
+          <Card className="p-6">
+            <div className="text-4xl mb-4">🤖</div>
+            <h3 className="text-lg font-semibold mb-2 text-[var(--color-text-primary)]">
+              AI Agents
+            </h3>
+            <p className="text-sm text-[var(--color-text-secondary)] mb-4">
+              All components include prop interfaces, usage examples, and transparent documentation. Built with AI collaboration from day one.
+            </p>
+            <p className="text-xs text-[var(--color-text-muted)]">
+              → Read{' '}
+              <a
+                href="https://github.com/shalom-ormsby/ecosystem/blob/main/AGENTS.md"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[var(--color-primary)] hover:underline"
+              >
+                AGENTS.md
+              </a>
+            </p>
+          </Card>
 
-export function ThemeSwitcher() {
-  const { theme, setTheme } = useTheme();
-
-  return (
-    <button onClick={() => setTheme('sage')}>
-      Switch to Sage theme
-    </button>
-  );
-}`}
-              defaultCollapsed={false}
-              showCopy={true}
-            />
+          {/* Learners */}
+          <Card className="p-6">
+            <div className="text-4xl mb-4">📚</div>
+            <h3 className="text-lg font-semibold mb-2 text-[var(--color-text-primary)]">
+              Learners
+            </h3>
+            <p className="text-sm text-[var(--color-text-secondary)] mb-4">
+              Study atomic design in practice, understand design tokens, and see how philosophy translates to functional code.
+            </p>
+            <p className="text-xs text-[var(--color-text-muted)]">
+              → Start with <a href="#architecture" className="text-[var(--color-primary)] hover:underline">How It Works</a>
+            </p>
           </Card>
         </div>
       </section>
 
-      {/* File Structure */}
-      <section>
-        <h2 className="text-2xl font-bold mb-4 text-[var(--color-text-primary)]">
-          File Structure Reference
+      {/* 3. PHILOSOPHY IN ACTION */}
+      <section id="philosophy" className="border-t border-[var(--color-border)] pt-12">
+        <h2 className="text-3xl font-bold mb-6 text-[var(--color-text-primary)] text-center">
+          Philosophy in Action
         </h2>
-        <Card className="p-6">
-          <div className="space-y-2 font-mono text-sm">
-            <div className="flex items-start gap-3">
-              <span className="text-[var(--color-text-muted)] flex-shrink-0">Design Tokens:</span>
-              <code className="text-[var(--color-text-primary)]">packages/design-system/src/tokens/</code>
+        <p className="text-center text-[var(--color-text-secondary)] mb-8 max-w-3xl mx-auto">
+          These aren't abstract principles. They're design decisions you can see, touch, and fork.
+        </p>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Principle 1: Emotionally Resonant */}
+          <Card className="p-6">
+            <div className="flex items-start gap-4 mb-4">
+              <div className="text-3xl">💚</div>
+              <div>
+                <h3 className="text-lg font-semibold text-[var(--color-text-primary)] mb-1">
+                  Emotionally Resonant
+                </h3>
+                <p className="text-sm text-[var(--color-text-secondary)]">
+                  Touch hearts, don't just solve problems. Every interaction should feel like it was made by someone who genuinely cares.
+                </p>
+              </div>
             </div>
-            <div className="flex items-start gap-3">
-              <span className="text-[var(--color-text-muted)] flex-shrink-0">Components:</span>
-              <code className="text-[var(--color-text-primary)]">packages/design-system/src/components/</code>
+            <div className="pl-12 border-l-2 border-[var(--color-border)] ml-6">
+              <p className="text-xs font-semibold text-[var(--color-text-primary)] mb-2">
+                In practice:
+              </p>
+              <p className="text-xs text-[var(--color-text-secondary)]">
+                Three distinct themes (Studio, Sage, Volt) with unique personalities. Motion that enhances rather than distracts. Color palettes that respect accessibility while expressing emotion.
+              </p>
             </div>
-            <div className="flex items-start gap-3">
-              <span className="text-[var(--color-text-muted)] flex-shrink-0">Hooks:</span>
-              <code className="text-[var(--color-text-primary)]">packages/design-system/src/hooks/</code>
+          </Card>
+
+          {/* Principle 2: User Control & Freedom */}
+          <Card className="p-6">
+            <div className="flex items-start gap-4 mb-4">
+              <div className="text-3xl">🎛️</div>
+              <div>
+                <h3 className="text-lg font-semibold text-[var(--color-text-primary)] mb-1">
+                  User Control & Freedom
+                </h3>
+                <p className="text-sm text-[var(--color-text-secondary)]">
+                  The user is the controller of their own experience. From motion controls to theme preferences, nothing forced, everything explained.
+                </p>
+              </div>
             </div>
-            <div className="flex items-start gap-3">
-              <span className="text-[var(--color-text-muted)] flex-shrink-0">Build Config:</span>
-              <code className="text-[var(--color-text-primary)]">packages/design-system/tsup.config.ts</code>
+            <div className="pl-12 border-l-2 border-[var(--color-border)] ml-6">
+              <p className="text-xs font-semibold text-[var(--color-text-primary)] mb-2">
+                In practice:
+              </p>
+              <p className="text-xs text-[var(--color-text-secondary)]">
+                User-controlled motion scale (0-10) with automatic <Code className="text-xs">prefers-reduced-motion</Code> support. Theme and mode switching with localStorage persistence. Built-in Customizer for real-time experimentation.
+              </p>
             </div>
-            <div className="flex items-start gap-3">
-              <span className="text-[var(--color-text-muted)] flex-shrink-0">Studio App:</span>
-              <code className="text-[var(--color-text-primary)]">apps/sage-design-studio/</code>
+          </Card>
+
+          {/* Principle 3: Transparent by Design */}
+          <Card className="p-6">
+            <div className="flex items-start gap-4 mb-4">
+              <div className="text-3xl">🔍</div>
+              <div>
+                <h3 className="text-lg font-semibold text-[var(--color-text-primary)] mb-1">
+                  Transparent by Design
+                </h3>
+                <p className="text-sm text-[var(--color-text-secondary)]">
+                  Show the receipts. AI collaboration documented, design tokens exposed, code that teaches.
+                </p>
+              </div>
             </div>
-          </div>
-        </Card>
+            <div className="pl-12 border-l-2 border-[var(--color-border)] ml-6">
+              <p className="text-xs font-semibold text-[var(--color-text-primary)] mb-2">
+                In practice:
+              </p>
+              <p className="text-xs text-[var(--color-text-secondary)]">
+                Design tokens as importable JavaScript objects. Comprehensive prop tables and examples for every component. AI collaboration history documented in{' '}
+                <a
+                  href="https://github.com/shalom-ormsby/ecosystem/blob/main/AGENTS.md"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[var(--color-primary)] hover:underline"
+                >
+                  AGENTS.md
+                </a>.
+              </p>
+            </div>
+          </Card>
+
+          {/* Principle 4: Generous by Design */}
+          <Card className="p-6">
+            <div className="flex items-start gap-4 mb-4">
+              <div className="text-3xl">🌱</div>
+              <div>
+                <h3 className="text-lg font-semibold text-[var(--color-text-primary)] mb-1">
+                  Generous by Design
+                </h3>
+                <p className="text-sm text-[var(--color-text-secondary)]">
+                  Open source. Teachable. Accessible to all. MIT License from day one.
+                </p>
+              </div>
+            </div>
+            <div className="pl-12 border-l-2 border-[var(--color-border)] ml-6">
+              <p className="text-xs font-semibold text-[var(--color-text-primary)] mb-2">
+                In practice:
+              </p>
+              <p className="text-xs text-[var(--color-text-secondary)]">
+                MIT licensed, fully documented, with commented code that explains the "why." WCAG AA compliance. Detailed architecture documentation. Fork-friendly structure.
+              </p>
+            </div>
+          </Card>
+        </div>
+
+        <div className="mt-6 text-center">
+          <a
+            href="https://github.com/shalom-ormsby/ecosystem/blob/main/DESIGN-PHILOSOPHY.md"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[var(--color-primary)] hover:underline text-sm font-medium"
+          >
+            Read the full Design Philosophy →
+          </a>
+        </div>
       </section>
 
-      {/* Architecture Overview */}
-      <section>
-        <h2 className="text-2xl font-bold mb-4 text-[var(--color-text-primary)]">
-          Architecture Overview
+      {/* 4. WHAT MAKES THIS DIFFERENT */}
+      <section id="features" className="border-t border-[var(--color-border)] pt-12">
+        <h2 className="text-3xl font-bold mb-6 text-[var(--color-text-primary)] text-center">
+          What Makes This Different
         </h2>
-        <Card className="p-6">
-          <p className="text-[var(--color-text-primary)] mb-4">
-            This design system follows <strong>atomic design principles</strong> with a clear hierarchy:
+
+        <div className="space-y-8">
+          {/* Feature 1: Automatic Syntax Parser */}
+          <Card className="p-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <div>
+                <h3 className="text-xl font-semibold mb-3 text-[var(--color-text-primary)]">
+                  Automatic Syntax Parser
+                </h3>
+                <p className="text-[var(--color-text-secondary)] mb-4">
+                  A ~2KB regex-based tokenizer with 14 token types, zero dependencies, and automatic theme awareness. No heavy libraries like Prism or Highlight.js required.
+                </p>
+                <div className="space-y-2 text-sm text-[var(--color-text-secondary)]">
+                  <div className="flex items-start gap-2">
+                    <span className="text-[var(--color-primary)]">✓</span>
+                    <span>Automatically detects TypeScript, JavaScript, JSX, TSX</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <span className="text-[var(--color-primary)]">✓</span>
+                    <span>Theme-aware colors adapt to light/dark mode</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <span className="text-[var(--color-primary)]">✓</span>
+                    <span>Built-in copy button and collapsible code blocks</span>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <CollapsibleCodeBlock
+                  id="syntax-parser-demo"
+                  code={`import { parseCode } from '@ecosystem/design-system';
+
+const code = \`function hello() {
+  return "world";
+}\`;
+
+const tokens = parseCode(code, 'typescript');
+// Returns 14 classified token types`}
+                  defaultCollapsed={false}
+                  showCopy={true}
+                />
+              </div>
+            </div>
+          </Card>
+
+          {/* Feature 2: User-Controlled Motion */}
+          <Card className="p-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <div>
+                <h3 className="text-xl font-semibold mb-3 text-[var(--color-text-primary)]">
+                  User-Controlled Motion
+                </h3>
+                <p className="text-[var(--color-text-secondary)] mb-4">
+                  A 0-10 scale motion system that respects user preferences. Automatically honors <Code className="text-xs">prefers-reduced-motion</Code> while allowing fine-grained control.
+                </p>
+                <div className="space-y-2 text-sm text-[var(--color-text-secondary)]">
+                  <div className="flex items-start gap-2">
+                    <span className="text-[var(--color-primary)]">✓</span>
+                    <span>System preference override (0 = respects OS setting)</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <span className="text-[var(--color-primary)]">✓</span>
+                    <span>Granular control from subtle (1-3) to playful (8-10)</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <span className="text-[var(--color-primary)]">✓</span>
+                    <span>Accessible by default, customizable by choice</span>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <CollapsibleCodeBlock
+                  id="motion-control-demo"
+                  code={`import { useMotion } from '@ecosystem/design-system';
+
+export function MyComponent() {
+  const { motionLevel, setMotionLevel } = useMotion();
+
+  return (
+    <div>
+      <p>Current motion: {motionLevel}</p>
+      <button onClick={() => setMotionLevel(5)}>
+        Set to moderate
+      </button>
+    </div>
+  );
+}`}
+                  defaultCollapsed={false}
+                  showCopy={true}
+                />
+              </div>
+            </div>
+          </Card>
+
+          {/* Feature 3: Three Living Themes */}
+          <Card className="p-6">
+            <div>
+              <h3 className="text-xl font-semibold mb-3 text-[var(--color-text-primary)]">
+                Three Living Themes
+              </h3>
+              <p className="text-[var(--color-text-secondary)] mb-6">
+                Each theme has its own personality, typography pairing, and emotional resonance. All components automatically adapt via CSS custom properties.
+              </p>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                <button
+                  onClick={() => setTheme('studio')}
+                  className={`p-4 rounded-lg border-2 transition-all ${
+                    theme === 'studio'
+                      ? 'border-[var(--color-primary)] bg-[var(--color-primary)]/10'
+                      : 'border-[var(--color-border)] hover:border-[var(--color-primary)]/50'
+                  }`}
+                >
+                  <div className="text-2xl mb-2">🏢</div>
+                  <h4 className="font-semibold text-[var(--color-text-primary)]">Studio</h4>
+                  <p className="text-xs text-[var(--color-text-secondary)]">
+                    Professional, balanced, modern
+                  </p>
+                </button>
+
+                <button
+                  onClick={() => setTheme('sage')}
+                  className={`p-4 rounded-lg border-2 transition-all ${
+                    theme === 'sage'
+                      ? 'border-[var(--color-primary)] bg-[var(--color-primary)]/10'
+                      : 'border-[var(--color-border)] hover:border-[var(--color-primary)]/50'
+                  }`}
+                >
+                  <div className="text-2xl mb-2">🌿</div>
+                  <h4 className="font-semibold text-[var(--color-text-primary)]">Sage</h4>
+                  <p className="text-xs text-[var(--color-text-secondary)]">
+                    Calm, organic, thoughtful
+                  </p>
+                </button>
+
+                <button
+                  onClick={() => setTheme('volt')}
+                  className={`p-4 rounded-lg border-2 transition-all ${
+                    theme === 'volt'
+                      ? 'border-[var(--color-primary)] bg-[var(--color-primary)]/10'
+                      : 'border-[var(--color-border)] hover:border-[var(--color-primary)]/50'
+                  }`}
+                >
+                  <div className="text-2xl mb-2">⚡</div>
+                  <h4 className="font-semibold text-[var(--color-text-primary)]">Volt</h4>
+                  <p className="text-xs text-[var(--color-text-secondary)]">
+                    Bold, electric, energetic
+                  </p>
+                </button>
+              </div>
+
+              <CollapsibleCodeBlock
+                id="theme-switching-demo"
+                code={`import { useTheme } from '@ecosystem/design-system';
+
+export function ThemeSwitcher() {
+  const { theme, setTheme, mode, setMode } = useTheme();
+
+  return (
+    <>
+      <button onClick={() => setTheme('sage')}>Sage</button>
+      <button onClick={() => setMode('dark')}>Dark Mode</button>
+    </>
+  );
+}`}
+                defaultCollapsed={true}
+                showCopy={true}
+              />
+            </div>
+          </Card>
+
+          {/* Feature 4: Built-in Customizer */}
+          <Card className="p-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <div>
+                <h3 className="text-xl font-semibold mb-3 text-[var(--color-text-primary)]">
+                  Built-in Customizer
+                </h3>
+                <p className="text-[var(--color-text-secondary)] mb-4">
+                  A floating panel that lets users experiment with themes, motion, and preferences in real-time. All changes persist to localStorage.
+                </p>
+                <div className="space-y-2 text-sm text-[var(--color-text-secondary)]">
+                  <div className="flex items-start gap-2">
+                    <span className="text-[var(--color-primary)]">✓</span>
+                    <span>Live theme and mode switching</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <span className="text-[var(--color-primary)]">✓</span>
+                    <span>Motion scale control with instant feedback</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <span className="text-[var(--color-primary)]">✓</span>
+                    <span>Preferences saved across sessions</span>
+                  </div>
+                </div>
+              </div>
+              <div className="flex items-center justify-center p-8 bg-[var(--color-background)] rounded-lg border border-[var(--color-border)]">
+                <p className="text-sm text-[var(--color-text-secondary)] text-center">
+                  Look for the floating{' '}
+                  <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-[var(--color-primary)] text-[var(--color-primary-foreground)] font-bold mx-1">
+                    ⚙
+                  </span>{' '}
+                  button on this page to try it yourself!
+                </p>
+              </div>
+            </div>
+          </Card>
+        </div>
+      </section>
+
+      {/* 5. CHOOSE YOUR PATH */}
+      <section id="paths" className="border-t border-[var(--color-border)] pt-12">
+        <h2 className="text-3xl font-bold mb-6 text-[var(--color-text-primary)] text-center">
+          Choose Your Path
+        </h2>
+        <p className="text-center text-[var(--color-text-secondary)] mb-8 max-w-3xl mx-auto">
+          Different starting points for different goals.
+        </p>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Path 1: Start Building */}
+          <Card className="p-6 hover:shadow-lg transition-shadow">
+            <h3 className="text-lg font-semibold mb-2 text-[var(--color-text-primary)]">
+              "I want to start building"
+            </h3>
+            <p className="text-sm text-[var(--color-text-secondary)] mb-4">
+              Jump straight to installation, grab components, and start shipping.
+            </p>
+            <div className="space-y-2 text-sm">
+              <a href="#quick-start" className="block text-[var(--color-primary)] hover:underline">
+                1. Quick Start →
+              </a>
+              <a href="#atoms" className="block text-[var(--color-primary)] hover:underline">
+                2. Browse Components →
+              </a>
+              <a
+                href="https://github.com/shalom-ormsby/ecosystem/tree/main/design-system"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block text-[var(--color-primary)] hover:underline"
+              >
+                3. GitHub Repository →
+              </a>
+            </div>
+          </Card>
+
+          {/* Path 2: Understand the System */}
+          <Card className="p-6 hover:shadow-lg transition-shadow">
+            <h3 className="text-lg font-semibold mb-2 text-[var(--color-text-primary)]">
+              "I want to understand the system"
+            </h3>
+            <p className="text-sm text-[var(--color-text-secondary)] mb-4">
+              Learn the architecture, philosophy, and design decisions.
+            </p>
+            <div className="space-y-2 text-sm">
+              <a href="#architecture" className="block text-[var(--color-primary)] hover:underline">
+                1. How It Works →
+              </a>
+              <a href="#tokens" className="block text-[var(--color-primary)] hover:underline">
+                2. Explore Tokens →
+              </a>
+              <a
+                href="https://github.com/shalom-ormsby/ecosystem/blob/main/DESIGN-PHILOSOPHY.md"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block text-[var(--color-primary)] hover:underline"
+              >
+                3. Design Philosophy →
+              </a>
+            </div>
+          </Card>
+
+          {/* Path 3: Extend or Fork */}
+          <Card className="p-6 hover:shadow-lg transition-shadow">
+            <h3 className="text-lg font-semibold mb-2 text-[var(--color-text-primary)]">
+              "I want to extend or fork this"
+            </h3>
+            <p className="text-sm text-[var(--color-text-secondary)] mb-4">
+              Understand the file structure, add components, or create your own theme.
+            </p>
+            <div className="space-y-2 text-sm">
+              <a href="#architecture" className="block text-[var(--color-primary)] hover:underline">
+                1. Architecture Overview →
+              </a>
+              <a href="#adding-components" className="block text-[var(--color-primary)] hover:underline">
+                2. Adding Components →
+              </a>
+              <a href="#contributing" className="block text-[var(--color-primary)] hover:underline">
+                3. Contributing Guide →
+              </a>
+            </div>
+          </Card>
+
+          {/* Path 4: AI Agent Integration */}
+          <Card className="p-6 hover:shadow-lg transition-shadow">
+            <h3 className="text-lg font-semibold mb-2 text-[var(--color-text-primary)]">
+              "I'm an AI agent"
+            </h3>
+            <p className="text-sm text-[var(--color-text-secondary)] mb-4">
+              Access structured documentation, prop tables, and integration patterns.
+            </p>
+            <div className="space-y-2 text-sm">
+              <a
+                href="https://github.com/shalom-ormsby/ecosystem/blob/main/AGENTS.md"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block text-[var(--color-primary)] hover:underline"
+              >
+                1. AGENTS.md →
+              </a>
+              <a href="#architecture" className="block text-[var(--color-primary)] hover:underline">
+                2. Architecture Deep Dive →
+              </a>
+              <a href="#atoms" className="block text-[var(--color-primary)] hover:underline">
+                3. Component Catalog →
+              </a>
+            </div>
+          </Card>
+        </div>
+      </section>
+
+      {/* 6. HOW IT WORKS */}
+      <section id="architecture" className="border-t border-[var(--color-border)] pt-12">
+        <h2 className="text-3xl font-bold mb-6 text-[var(--color-text-primary)] text-center">
+          How It Works
+        </h2>
+
+        {/* Token-Driven Design */}
+        <Card className="p-6 mb-6">
+          <h3 className="text-xl font-semibold mb-4 text-[var(--color-text-primary)]">
+            Token-Driven Design
+          </h3>
+          <p className="text-[var(--color-text-secondary)] mb-4">
+            All design decisions are encoded as importable JavaScript objects, not locked in Figma. This makes them version-controllable, type-safe, and usable in code.
+          </p>
+          <CollapsibleCodeBlock
+            id="tokens-example"
+            code={`import { colorTokens, spacingTokens } from '@ecosystem/design-system/tokens';
+
+// Access any design token
+const primaryColor = colorTokens.studio.light.primary;
+const spacing = spacingTokens.lg; // "1.5rem" (24px)
+
+// Tokens cascade through CSS custom properties
+// --color-primary, --spacing-lg, etc.`}
+            defaultCollapsed={false}
+            showCopy={true}
+          />
+        </Card>
+
+        {/* Atomic Methodology */}
+        <Card className="p-6 mb-6">
+          <h3 className="text-xl font-semibold mb-4 text-[var(--color-text-primary)]">
+            Atomic Methodology
+          </h3>
+          <p className="text-[var(--color-text-secondary)] mb-4">
+            Components are organized by complexity, from raw values to complete page layouts.
           </p>
           <div className="space-y-3 pl-4 border-l-2 border-[var(--color-border)]">
             <div>
@@ -171,80 +607,192 @@ export function ThemeSwitcher() {
               <span className="text-[var(--color-text-secondary)]"> — Page layouts and structural blueprints</span>
             </div>
           </div>
-          <p className="text-sm text-[var(--color-text-secondary)] mt-4 italic">
-            Built with React 18, TypeScript, Framer Motion, Zustand, Tailwind CSS, and bundled with tsup.
+        </Card>
+
+        {/* File Structure */}
+        <Card className="p-6">
+          <h3 className="text-xl font-semibold mb-4 text-[var(--color-text-primary)]">
+            File Structure
+          </h3>
+          <p className="text-[var(--color-text-secondary)] mb-4">
+            Everything lives in a monorepo with clear separation between the design system package and consuming applications.
           </p>
+          <CollapsibleCodeBlock
+            id="file-structure"
+            code={`ecosystem/
+├── packages/
+│   └── design-system/          # The design system package
+│       ├── src/
+│       │   ├── tokens/         # Design tokens (colors, spacing, etc.)
+│       │   ├── atoms/          # Atomic components (Button, Input, etc.)
+│       │   ├── molecules/      # Molecule components (TextField, etc.)
+│       │   ├── organisms/      # Organism components (Header, Footer, etc.)
+│       │   ├── hooks/          # React hooks (useTheme, useMotion, etc.)
+│       │   ├── features/       # Feature modules (syntax parser, etc.)
+│       │   └── providers/      # Context providers
+│       └── tsup.config.ts      # Build configuration
+│
+└── apps/
+    ├── sage-design-studio/     # This documentation site
+    └── portfolio/              # Example consumer app`}
+            defaultCollapsed={false}
+            showCopy={true}
+          />
         </Card>
       </section>
 
-      {/* Theme System */}
-      <section>
-        <h2 className="text-2xl font-bold mb-4 text-[var(--color-text-primary)]">
-          Theme System
+      {/* 7. GET STARTED IN 5 MINUTES */}
+      <section id="quick-start" className="border-t border-[var(--color-border)] pt-12">
+        <h2 className="text-3xl font-bold mb-6 text-[var(--color-text-primary)] text-center">
+          Get Started in 5 Minutes
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <Card className="p-4">
-            <h3 className="font-semibold mb-1 text-[var(--color-text-primary)]">Studio</h3>
-            <p className="text-sm text-[var(--color-text-secondary)] mb-2">Professional, balanced, modern</p>
-            <p className="text-xs text-[var(--color-text-muted)]">Geist Sans, Geist Mono</p>
+
+        <div className="space-y-6">
+          {/* Step 1: Installation */}
+          <Card className="p-6">
+            <div className="flex items-start gap-4 mb-3">
+              <div className="flex items-center justify-center w-8 h-8 rounded-full bg-[var(--color-primary)] text-[var(--color-primary-foreground)] font-bold flex-shrink-0">
+                1
+              </div>
+              <div className="flex-1">
+                <h3 className="text-lg font-semibold text-[var(--color-text-primary)] mb-2">
+                  Install the package
+                </h3>
+                <CollapsibleCodeBlock
+                  id="installation"
+                  code={`pnpm add @ecosystem/design-system
+# or
+npm install @ecosystem/design-system
+# or
+yarn add @ecosystem/design-system`}
+                  defaultCollapsed={false}
+                  showCopy={true}
+                />
+              </div>
+            </div>
           </Card>
-          <Card className="p-4">
-            <h3 className="font-semibold mb-1 text-[var(--color-text-primary)]">Sage</h3>
-            <p className="text-sm text-[var(--color-text-secondary)] mb-2">Calm, organic, thoughtful</p>
-            <p className="text-xs text-[var(--color-text-muted)]">Lora, Instrument Sans</p>
+
+          {/* Step 2: Basic Usage */}
+          <Card className="p-6">
+            <div className="flex items-start gap-4 mb-3">
+              <div className="flex items-center justify-center w-8 h-8 rounded-full bg-[var(--color-primary)] text-[var(--color-primary-foreground)] font-bold flex-shrink-0">
+                2
+              </div>
+              <div className="flex-1">
+                <h3 className="text-lg font-semibold text-[var(--color-text-primary)] mb-2">
+                  Import and use components
+                </h3>
+                <CollapsibleCodeBlock
+                  id="basic-usage-example"
+                  code={`import { Button, Card, Badge } from '@ecosystem/design-system';
+
+export function MyComponent() {
+  return (
+    <Card>
+      <h2>Hello, Sage!</h2>
+      <Badge variant="success">New</Badge>
+      <Button variant="primary" size="lg">
+        Get Started
+      </Button>
+    </Card>
+  );
+}`}
+                  defaultCollapsed={false}
+                  showCopy={true}
+                />
+              </div>
+            </div>
           </Card>
-          <Card className="p-4">
-            <h3 className="font-semibold mb-1 text-[var(--color-text-primary)]">Volt</h3>
-            <p className="text-sm text-[var(--color-text-secondary)] mb-2">Bold, electric, energetic</p>
-            <p className="text-xs text-[var(--color-text-muted)]">Space Grotesk</p>
+
+          {/* Step 3: Add Theme Provider */}
+          <Card className="p-6">
+            <div className="flex items-start gap-4 mb-3">
+              <div className="flex items-center justify-center w-8 h-8 rounded-full bg-[var(--color-primary)] text-[var(--color-primary-foreground)] font-bold flex-shrink-0">
+                3
+              </div>
+              <div className="flex-1">
+                <h3 className="text-lg font-semibold text-[var(--color-text-primary)] mb-2">
+                  Wrap your app with ThemeProvider
+                </h3>
+                <CollapsibleCodeBlock
+                  id="theme-provider-example"
+                  code={`import { ThemeProvider } from '@ecosystem/design-system/providers';
+
+export default function App({ children }) {
+  return (
+    <ThemeProvider defaultTheme="studio" defaultMode="light">
+      {children}
+    </ThemeProvider>
+  );
+}`}
+                  defaultCollapsed={false}
+                  showCopy={true}
+                />
+              </div>
+            </div>
+          </Card>
+
+          {/* Step 4: Use Hooks */}
+          <Card className="p-6">
+            <div className="flex items-start gap-4 mb-3">
+              <div className="flex items-center justify-center w-8 h-8 rounded-full bg-[var(--color-primary)] text-[var(--color-primary-foreground)] font-bold flex-shrink-0">
+                4
+              </div>
+              <div className="flex-1">
+                <h3 className="text-lg font-semibold text-[var(--color-text-primary)] mb-2">
+                  Control themes and motion
+                </h3>
+                <CollapsibleCodeBlock
+                  id="hooks-example"
+                  code={`import { useTheme, useMotion } from '@ecosystem/design-system/hooks';
+
+export function Controls() {
+  const { theme, setTheme, mode, setMode } = useTheme();
+  const { motionLevel, setMotionLevel } = useMotion();
+
+  return (
+    <div>
+      <button onClick={() => setTheme('sage')}>Sage Theme</button>
+      <button onClick={() => setMode('dark')}>Dark Mode</button>
+      <button onClick={() => setMotionLevel(5)}>Moderate Motion</button>
+    </div>
+  );
+}`}
+                  defaultCollapsed={false}
+                  showCopy={true}
+                />
+              </div>
+            </div>
           </Card>
         </div>
-        <Card className="p-6 mt-4">
-          <p className="text-sm text-[var(--color-text-primary)]">
-            All components automatically adapt to the active theme using CSS custom properties.
-            Themes share the same component API but express different visual personalities through tokens.
-            Switch themes at runtime with <code className="px-2 py-0.5 bg-[var(--color-surface)] rounded text-[var(--color-primary)]">setTheme()</code>.
-          </p>
-        </Card>
       </section>
 
-      {/* Key Principles */}
-      <section>
-        <h2 className="text-2xl font-bold mb-4 text-[var(--color-text-primary)]">
-          Key Principles
-        </h2>
-        <Card className="p-6">
-          <ul className="space-y-3">
-            <li className="flex items-start gap-3">
-              <span className="text-[var(--color-primary)] flex-shrink-0 mt-1">→</span>
-              <div>
-                <strong className="text-[var(--color-text-primary)]">Accessibility first:</strong>
-                <span className="text-[var(--color-text-secondary)]"> All components respect <code className="text-xs px-1.5 py-0.5 bg-[var(--color-surface)] rounded">prefers-reduced-motion</code> and follow semantic HTML patterns</span>
-              </div>
-            </li>
-            <li className="flex items-start gap-3">
-              <span className="text-[var(--color-primary)] flex-shrink-0 mt-1">→</span>
-              <div>
-                <strong className="text-[var(--color-text-primary)]">Single source of truth:</strong>
-                <span className="text-[var(--color-text-secondary)]"> Design tokens cascade through all themes, ensuring consistency</span>
-              </div>
-            </li>
-            <li className="flex items-start gap-3">
-              <span className="text-[var(--color-primary)] flex-shrink-0 mt-1">→</span>
-              <div>
-                <strong className="text-[var(--color-text-primary)]">Developer experience:</strong>
-                <span className="text-[var(--color-text-secondary)]"> Full TypeScript support, clear prop interfaces, and comprehensive examples</span>
-              </div>
-            </li>
-            <li className="flex items-start gap-3">
-              <span className="text-[var(--color-primary)] flex-shrink-0 mt-1">→</span>
-              <div>
-                <strong className="text-[var(--color-text-primary)]">Human-centered design:</strong>
-                <span className="text-[var(--color-text-secondary)]"> Every component encodes thoughtful defaults and respects user agency</span>
-              </div>
-            </li>
-          </ul>
-        </Card>
+      {/* FINAL CTA */}
+      <section className="border-t border-[var(--color-border)] pt-12 text-center">
+        <div className="max-w-3xl mx-auto">
+          <h2 className="text-3xl font-bold mb-4 text-[var(--color-text-primary)]">
+            Ready to Build?
+          </h2>
+          <p className="text-lg text-[var(--color-text-secondary)] mb-8">
+            The design system is open source and MIT licensed. Fork it, extend it, make it yours.
+          </p>
+          <div className="flex items-center justify-center gap-4">
+            <a
+              href="https://github.com/shalom-ormsby/ecosystem"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Button variant="primary" size="lg">
+                View on GitHub
+              </Button>
+            </a>
+            <a href="#atoms">
+              <Button variant="secondary" size="lg">
+                Browse Components
+              </Button>
+            </a>
+          </div>
+        </div>
       </section>
     </div>
   );
