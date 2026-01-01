@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Card } from '@ecosystem/design-system';
+import { Card, Code } from '@ecosystem/design-system';
 import { typographySystem } from '@ecosystem/design-system';
 
 // Font CSS variable mapping for each theme
@@ -144,12 +144,9 @@ export function TypographyTab() {
                   {currentThemeFonts.usage.heading}
                 </p>
                 <p className="text-xs text-[var(--color-text-muted)]">
-                  CSS Variable: <code
-                    className="px-1 py-0.5 bg-[var(--color-background)] rounded text-[var(--color-primary)]"
-                    style={{ fontFamily: currentFontVars.mono }}
-                  >
+                  CSS Variable: <Code className="text-xs">
                     --font-{selectedTheme}-heading
-                  </code>
+                  </Code>
                 </p>
               </div>
             </Card>
@@ -171,12 +168,9 @@ export function TypographyTab() {
                   {currentThemeFonts.usage.body}
                 </p>
                 <p className="text-xs text-[var(--color-text-muted)]">
-                  CSS Variable: <code
-                    className="px-1 py-0.5 bg-[var(--color-background)] rounded text-[var(--color-primary)]"
-                    style={{ fontFamily: currentFontVars.mono }}
-                  >
+                  CSS Variable: <Code className="text-xs">
                     --font-{selectedTheme}-body
-                  </code>
+                  </Code>
                 </p>
               </div>
             </Card>
@@ -198,12 +192,9 @@ export function TypographyTab() {
                   {currentThemeFonts.usage.mono}
                 </p>
                 <p className="text-xs text-[var(--color-text-muted)]">
-                  CSS Variable: <code
-                    className="px-1 py-0.5 bg-[var(--color-background)] rounded text-[var(--color-primary)]"
-                    style={{ fontFamily: currentFontVars.mono }}
-                  >
+                  CSS Variable: <Code className="text-xs">
                     --font-mono
-                  </code>
+                  </Code>
                 </p>
               </div>
             </Card>
@@ -236,9 +227,9 @@ export function TypographyTab() {
                   </p>
                 </div>
                 <div className="flex items-center gap-4 text-xs">
-                  <code className="font-mono text-[var(--color-primary)] px-2 py-1 bg-[var(--color-surface)] rounded">
+                  <Code className="text-sm">
                     {name}
-                  </code>
+                  </Code>
                   <span className="text-[var(--color-text-secondary)]">
                     Base: {size.base}
                   </span>
@@ -276,7 +267,7 @@ export function TypographyTab() {
                 </p>
                 <div className="flex items-center gap-2 text-xs">
                   <span className="text-[var(--color-text-muted)]">{value}</span>
-                  <code className="font-mono text-[var(--color-text-muted)]">font-{name}</code>
+                  <Code className="text-xs">font-{name}</Code>
                 </div>
               </div>
             ))}
@@ -297,9 +288,9 @@ export function TypographyTab() {
             {Object.entries(typographySystem.lineHeights).map(([name, value]) => (
               <div key={name} className="border-b border-[var(--color-border)] pb-4 last:border-0">
                 <div className="flex items-center justify-between mb-2">
-                  <code className="text-sm font-mono text-[var(--color-primary)] px-2 py-1 bg-[var(--color-surface)] rounded">
+                  <Code className="text-sm">
                     {name}
-                  </code>
+                  </Code>
                   <span className="text-sm text-[var(--color-text-muted)]">{value}</span>
                 </div>
                 <p
@@ -339,7 +330,7 @@ export function TypographyTab() {
                   LETTER SPACING EXAMPLE
                 </p>
                 <div className="flex items-center gap-2 text-xs">
-                  <code className="font-mono text-[var(--color-primary)]">{name}</code>
+                  <Code className="text-xs">{name}</Code>
                   <span className="text-[var(--color-text-muted)]">{value}</span>
                 </div>
               </div>

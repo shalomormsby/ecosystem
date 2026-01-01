@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Card, Badge } from '@ecosystem/design-system';
+import { Card, Badge, Code } from '@ecosystem/design-system';
 import { useTheme } from '@ecosystem/design-system/hooks';
 import { colorTokens, semanticColors, getContrastRatio, meetsContrastRequirements } from '@ecosystem/design-system/utils';
 
@@ -163,9 +163,11 @@ export function ColorsTab() {
                       />
 
                       {/* Variable Name */}
-                      <p className="font-mono text-sm font-medium mb-1 text-[var(--color-text-primary)]">
-                        {token.name}
-                      </p>
+                      <div className="mb-1">
+                        <Code className="text-sm font-medium">
+                          {token.name}
+                        </Code>
+                      </div>
 
                       {/* Description */}
                       <p className="text-xs text-[var(--color-text-secondary)] mb-2">
@@ -173,9 +175,13 @@ export function ColorsTab() {
                       </p>
 
                       {/* Value */}
-                      <p className="text-xs font-mono text-[var(--color-text-muted)]">
-                        {copiedColor === token.name ? '✓ Copied!' : (colorValue || '...')}
-                      </p>
+                      <div className="text-xs">
+                        {copiedColor === token.name ? (
+                          <span className="text-[var(--color-text-muted)]">✓ Copied!</span>
+                        ) : (
+                          <Code className="text-xs">{colorValue || '...'}</Code>
+                        )}
+                      </div>
                     </Card>
                   </button>
                 );
@@ -210,8 +216,12 @@ export function ColorsTab() {
                   {type.charAt(0).toUpperCase() + type.slice(1)}
                 </div>
                 <div className="text-xs space-y-1">
-                  <p className="font-mono text-[var(--color-text-secondary)]">bg: var(--color-{type})</p>
-                  <p className="font-mono text-[var(--color-text-secondary)]">fg: var(--color-{type}-foreground)</p>
+                  <div className="text-[var(--color-text-secondary)]">
+                    bg: <Code className="text-xs">var(--color-{type})</Code>
+                  </div>
+                  <div className="text-[var(--color-text-secondary)]">
+                    fg: <Code className="text-xs">var(--color-{type}-foreground)</Code>
+                  </div>
                 </div>
               </Card>
             ))}
@@ -234,8 +244,12 @@ export function ColorsTab() {
                   {type.charAt(0).toUpperCase() + type.slice(1)}
                 </div>
                 <div className="text-xs space-y-1">
-                  <p className="font-mono text-[var(--color-text-secondary)]">bg: var(--color-{type})</p>
-                  <p className="font-mono text-[var(--color-text-secondary)]">fg: var(--color-{type}-foreground)</p>
+                  <div className="text-[var(--color-text-secondary)]">
+                    bg: <Code className="text-xs">var(--color-{type})</Code>
+                  </div>
+                  <div className="text-[var(--color-text-secondary)]">
+                    fg: <Code className="text-xs">var(--color-{type}-foreground)</Code>
+                  </div>
                 </div>
               </Card>
             ))}
@@ -297,27 +311,27 @@ export function ColorsTab() {
               Available Utilities
             </h4>
             <p className="text-sm text-[var(--color-text-secondary)] mb-4">
-              Import from <code className="px-1 py-0.5 bg-[var(--color-surface)] rounded text-[var(--color-primary)]">@ecosystem/design-system/utils</code>
+              Import from <Code>@ecosystem/design-system/utils</Code>
             </p>
             <div className="space-y-3 text-sm">
               <div>
-                <code className="text-xs font-mono text-[var(--color-primary)]">getCSSVariable(name)</code>
+                <Code className="text-xs">getCSSVariable(name)</Code>
                 <p className="text-xs text-[var(--color-text-secondary)] mt-1">Get computed CSS variable value</p>
               </div>
               <div>
-                <code className="text-xs font-mono text-[var(--color-primary)]">getContrastRatio(hex1, hex2)</code>
+                <Code className="text-xs">getContrastRatio(hex1, hex2)</Code>
                 <p className="text-xs text-[var(--color-text-secondary)] mt-1">Calculate WCAG contrast ratio</p>
               </div>
               <div>
-                <code className="text-xs font-mono text-[var(--color-primary)]">meetsContrastRequirements(fg, bg)</code>
+                <Code className="text-xs">meetsContrastRequirements(fg, bg)</Code>
                 <p className="text-xs text-[var(--color-text-secondary)] mt-1">Check AA/AAA compliance</p>
               </div>
               <div>
-                <code className="text-xs font-mono text-[var(--color-primary)]">getSemanticColorPair(type)</code>
+                <Code className="text-xs">getSemanticColorPair(type)</Code>
                 <p className="text-xs text-[var(--color-text-secondary)] mt-1">Get matching bg/fg colors</p>
               </div>
               <div>
-                <code className="text-xs font-mono text-[var(--color-primary)]">hexToRgb(hex)</code>
+                <Code className="text-xs">hexToRgb(hex)</Code>
                 <p className="text-xs text-[var(--color-text-secondary)] mt-1">Convert hex to RGB values</p>
               </div>
             </div>

@@ -1,6 +1,6 @@
 'use client';
 
-import { Card } from '@ecosystem/design-system';
+import { Card, Code } from '@ecosystem/design-system';
 
 /**
  * SpacingTab Component
@@ -118,7 +118,7 @@ export function SpacingTab() {
           <div className="mt-4 p-4 bg-[var(--color-background)] rounded border border-[var(--color-border)]">
             <p className="text-sm text-[var(--color-text-muted)]">
               <strong className="text-[var(--color-text-primary)]">Formula:</strong>{' '}
-              Each spacing value = base unit (8px) × multiplier. For example, <code className="px-1 py-0.5 bg-[var(--color-surface)] rounded text-[var(--color-primary)]">lg</code> = 8px × 3 = 24px.
+              Each spacing value = base unit (8px) × multiplier. For example, <Code>lg</Code> = 8px × 3 = 24px.
             </p>
           </div>
         </div>
@@ -134,9 +134,9 @@ export function SpacingTab() {
             <div key={token.name} className="space-y-3">
               {/* Token Header */}
               <div className="flex items-baseline gap-4">
-                <code className="text-sm font-mono px-2 py-1 bg-[var(--color-surface)] rounded text-[var(--color-primary)] min-w-[4rem]">
+                <Code className="text-sm min-w-[4rem]">
                   {token.name}
-                </code>
+                </Code>
                 <div className="flex gap-4 text-sm">
                   <span className="text-[var(--color-text-secondary)]">
                     {token.value}
@@ -197,58 +197,58 @@ export function SpacingTab() {
             </thead>
             <tbody className="text-[var(--color-text-secondary)]">
               <tr className="border-b border-[var(--color-border)]">
-                <td className="py-2 px-4"><code className="text-[var(--color-primary)]">xs</code></td>
-                <td className="py-2 px-4"><code>p-1, m-1, gap-1</code></td>
+                <td className="py-2 px-4"><Code>xs</Code></td>
+                <td className="py-2 px-4"><Code>p-1, m-1, gap-1</Code></td>
                 <td className="py-2 px-4">4px</td>
-                <td className="py-2 px-4"><code className="text-xs">className="p-1"</code></td>
+                <td className="py-2 px-4"><Code className="text-xs">className="p-1"</Code></td>
               </tr>
               <tr className="border-b border-[var(--color-border)]">
-                <td className="py-2 px-4"><code className="text-[var(--color-primary)]">sm</code></td>
-                <td className="py-2 px-4"><code>p-2, m-2, gap-2</code></td>
+                <td className="py-2 px-4"><Code>sm</Code></td>
+                <td className="py-2 px-4"><Code>p-2, m-2, gap-2</Code></td>
                 <td className="py-2 px-4">8px</td>
-                <td className="py-2 px-4"><code className="text-xs">className="gap-2"</code></td>
+                <td className="py-2 px-4"><Code className="text-xs">className="gap-2"</Code></td>
               </tr>
               <tr className="border-b border-[var(--color-border)]">
-                <td className="py-2 px-4"><code className="text-[var(--color-primary)]">md</code></td>
-                <td className="py-2 px-4"><code>p-4, m-4, gap-4</code></td>
+                <td className="py-2 px-4"><Code>md</Code></td>
+                <td className="py-2 px-4"><Code>p-4, m-4, gap-4</Code></td>
                 <td className="py-2 px-4">16px</td>
-                <td className="py-2 px-4"><code className="text-xs">className="p-4"</code></td>
+                <td className="py-2 px-4"><Code className="text-xs">className="p-4"</Code></td>
               </tr>
               <tr className="border-b border-[var(--color-border)]">
-                <td className="py-2 px-4"><code className="text-[var(--color-primary)]">lg</code></td>
-                <td className="py-2 px-4"><code>p-6, m-6, gap-6</code></td>
+                <td className="py-2 px-4"><Code>lg</Code></td>
+                <td className="py-2 px-4"><Code>p-6, m-6, gap-6</Code></td>
                 <td className="py-2 px-4">24px</td>
-                <td className="py-2 px-4"><code className="text-xs">className="p-6"</code></td>
+                <td className="py-2 px-4"><Code className="text-xs">className="p-6"</Code></td>
               </tr>
               <tr className="border-b border-[var(--color-border)]">
-                <td className="py-2 px-4"><code className="text-[var(--color-primary)]">xl</code></td>
-                <td className="py-2 px-4"><code>p-8, m-8, gap-8</code></td>
+                <td className="py-2 px-4"><Code>xl</Code></td>
+                <td className="py-2 px-4"><Code>p-8, m-8, gap-8</Code></td>
                 <td className="py-2 px-4">32px</td>
-                <td className="py-2 px-4"><code className="text-xs">className="gap-8"</code></td>
+                <td className="py-2 px-4"><Code className="text-xs">className="gap-8"</Code></td>
               </tr>
               <tr className="border-b border-[var(--color-border)]">
-                <td className="py-2 px-4"><code className="text-[var(--color-primary)]">2xl</code></td>
-                <td className="py-2 px-4"><code>p-12, m-12, gap-12</code></td>
+                <td className="py-2 px-4"><Code>2xl</Code></td>
+                <td className="py-2 px-4"><Code>p-12, m-12, gap-12</Code></td>
                 <td className="py-2 px-4">48px</td>
-                <td className="py-2 px-4"><code className="text-xs">className="py-12"</code></td>
+                <td className="py-2 px-4"><Code className="text-xs">className="py-12"</Code></td>
               </tr>
               <tr className="border-b border-[var(--color-border)]">
-                <td className="py-2 px-4"><code className="text-[var(--color-primary)]">3xl</code></td>
-                <td className="py-2 px-4"><code>p-16, m-16, gap-16</code></td>
+                <td className="py-2 px-4"><Code>3xl</Code></td>
+                <td className="py-2 px-4"><Code>p-16, m-16, gap-16</Code></td>
                 <td className="py-2 px-4">64px</td>
-                <td className="py-2 px-4"><code className="text-xs">className="mb-16"</code></td>
+                <td className="py-2 px-4"><Code className="text-xs">className="mb-16"</Code></td>
               </tr>
               <tr className="border-b border-[var(--color-border)]">
-                <td className="py-2 px-4"><code className="text-[var(--color-primary)]">4xl</code></td>
-                <td className="py-2 px-4"><code>p-24, m-24, gap-24</code></td>
+                <td className="py-2 px-4"><Code>4xl</Code></td>
+                <td className="py-2 px-4"><Code>p-24, m-24, gap-24</Code></td>
                 <td className="py-2 px-4">96px</td>
-                <td className="py-2 px-4"><code className="text-xs">className="py-24"</code></td>
+                <td className="py-2 px-4"><Code className="text-xs">className="py-24"</Code></td>
               </tr>
               <tr>
-                <td className="py-2 px-4"><code className="text-[var(--color-primary)]">5xl</code></td>
-                <td className="py-2 px-4"><code>p-32, m-32, gap-32</code></td>
+                <td className="py-2 px-4"><Code>5xl</Code></td>
+                <td className="py-2 px-4"><Code>p-32, m-32, gap-32</Code></td>
                 <td className="py-2 px-4">128px</td>
-                <td className="py-2 px-4"><code className="text-xs">className="py-32"</code></td>
+                <td className="py-2 px-4"><Code className="text-xs">className="py-32"</Code></td>
               </tr>
             </tbody>
           </table>
@@ -276,7 +276,7 @@ export function SpacingTab() {
             </h4>
             <p className="text-sm">
               Maintain consistent spacing between elements on the same hierarchy level. For example, if one
-              section uses <code className="px-1 py-0.5 bg-[var(--color-background)] rounded text-[var(--color-primary)]">mb-8</code>,
+              section uses <Code>mb-8</Code>,
               all peer sections should use the same spacing.
             </p>
           </div>
@@ -294,7 +294,7 @@ export function SpacingTab() {
               4. Avoid Arbitrary Values
             </h4>
             <p className="text-sm">
-              Stick to the defined spacing scale. Avoid arbitrary pixel values like <code className="px-1 py-0.5 bg-[var(--color-background)] rounded line-through">p-[13px]</code>.
+              Stick to the defined spacing scale. Avoid arbitrary pixel values like <Code className="line-through">p-[13px]</Code>.
               If a spacing value doesn't exist in the scale, choose the closest one or consider if it's truly needed.
             </p>
           </div>

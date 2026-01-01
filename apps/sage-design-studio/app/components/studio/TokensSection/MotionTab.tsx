@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Card, Button } from '@ecosystem/design-system';
+import { Card, Button, Code } from '@ecosystem/design-system';
 import { baseTokens, motion } from '@ecosystem/design-system/tokens';
 import { VariableWeightText } from '@ecosystem/design-system';
 
@@ -88,8 +88,8 @@ export function MotionTab() {
                 </h3>
                 <Card className="p-6">
                     <p className="text-sm text-[var(--color-text-secondary)] mb-4">
-                        For variable fonts (like <strong>Clash Display</strong>), use the <code className="px-2 py-1 bg-[var(--color-surface)] rounded text-[var(--color-primary)]">VariableWeightText</code> component to create a silky-smooth "breathing" effect that animates font weight.
-                        This animation uses <code className="px-2 py-1 bg-[var(--color-surface)] rounded text-[var(--color-primary)]">font-variation-settings</code> for true variable font interpolation.
+                        For variable fonts (like <strong>Clash Display</strong>), use the <Code>VariableWeightText</Code> component to create a silky-smooth "breathing" effect that animates font weight.
+                        This animation uses <Code>font-variation-settings</Code> for true variable font interpolation.
                     </p>
                     <div className="mb-6 p-4 bg-[var(--color-background)] rounded border border-[var(--color-border)]">
                         <p className="text-xs text-[var(--color-text-muted)] mb-2">
@@ -97,8 +97,8 @@ export function MotionTab() {
                         </p>
                         <ul className="text-xs text-[var(--color-text-muted)] space-y-1">
                             <li>✓ Uses true variable font (continuous weight axis from 200-700)</li>
-                            <li>✓ GPU-accelerated with <code className="px-1 py-0.5 bg-[var(--color-surface)] rounded text-[var(--color-primary)]">will-change</code></li>
-                            <li>✓ Custom easing curve <code className="px-1 py-0.5 bg-[var(--color-surface)] rounded text-[var(--color-primary)]">[0.45, 0, 0.55, 1]</code> for ultra-smooth motion</li>
+                            <li>✓ GPU-accelerated with <Code>will-change</Code></li>
+                            <li>✓ Custom easing curve <Code>[0.45, 0, 0.55, 1]</Code> for ultra-smooth motion</li>
                             <li>✓ Font smoothing (antialiased) for crisp rendering</li>
                             <li>✓ Centered to prevent layout shifts during weight changes</li>
                         </ul>
@@ -129,7 +129,7 @@ export function MotionTab() {
 
                     <div className="mt-4 p-3 bg-[var(--color-surface)] rounded border border-[var(--color-border)]">
                         <p className="text-xs text-[var(--color-text-muted)]">
-                            <strong>Note:</strong> The VariableWeightText component defaults to using Clash Display, but you can override with the <code className="px-1 py-0.5 bg-[var(--color-background)] rounded text-[var(--color-primary)]">fontFamily</code> prop to use any variable font.
+                            <strong>Note:</strong> The VariableWeightText component defaults to using Clash Display, but you can override with the <Code>fontFamily</Code> prop to use any variable font.
                         </p>
                     </div>
                 </Card>
@@ -149,9 +149,9 @@ export function MotionTab() {
                             <div key={name} className="border-b border-[var(--color-border)] pb-4 last:border-0">
                                 <div className="flex items-center justify-between mb-3">
                                     <div>
-                                        <code className="text-sm font-mono text-[var(--color-primary)] px-2 py-1 bg-[var(--color-surface)] rounded">
+                                        <Code className="text-sm">
                                             {name}
-                                        </code>
+                                        </Code>
                                         <span className="ml-3 text-sm text-[var(--color-text-muted)]">{value}</span>
                                     </div>
                                     <span className="text-xs text-[var(--color-text-muted)]">
@@ -187,9 +187,9 @@ export function MotionTab() {
                             <div key={name} className="border-b border-[var(--color-border)] pb-4 last:border-0">
                                 <div className="flex items-center justify-between mb-3">
                                     <div>
-                                        <code className="text-sm font-mono text-[var(--color-primary)] px-2 py-1 bg-[var(--color-surface)] rounded">
+                                        <Code className="text-sm">
                                             {name}
-                                        </code>
+                                        </Code>
                                     </div>
                                     <span className="text-xs text-[var(--color-text-muted)]">
                                         {name === 'default' && 'Natural, decelerating motion'}
@@ -197,9 +197,9 @@ export function MotionTab() {
                                         {name === 'linear' && 'Constant speed'}
                                     </span>
                                 </div>
-                                <code className="text-xs font-mono text-[var(--color-text-muted)] block mb-3">
+                                <Code className="text-xs block mb-3">
                                     {value}
-                                </code>
+                                </Code>
                                 <MotionExample
                                     duration={baseTokens.duration.normal}
                                     easing={value}
@@ -453,7 +453,7 @@ tl.to('.hero', { opacity: 1, duration: 0.5 })
                     Accessibility: Respecting User Preferences
                 </h3>
                 <p className="text-sm text-[var(--color-text-secondary)] mb-4">
-                    Always respect the <code className="px-1 py-0.5 bg-[var(--color-background)] rounded text-[var(--color-primary)]">prefers-reduced-motion</code> media query.
+                    Always respect the <Code>prefers-reduced-motion</Code> media query.
                     Some users experience motion sickness or find animations distracting.
                 </p>
                 <div className="bg-[var(--color-background)] p-4 rounded border border-[var(--color-border)] overflow-x-auto">
@@ -493,9 +493,9 @@ function MyComponent() {
                 </h3>
                 <p className="text-sm text-[var(--color-text-secondary)] mb-6">
                     Pre-built animation variants and presets for Framer Motion. Import from{' '}
-                    <code className="px-1 py-0.5 bg-[var(--color-surface)] rounded text-[var(--color-primary)]">
+                    <Code>
                         @ecosystem/design-system/utils
-                    </code>
+                    </Code>
                 </p>
 
                 {/* Animation Variants Grid */}
@@ -645,19 +645,19 @@ function MyComponent() {
                             </p>
                             <div className="grid grid-cols-2 gap-2 text-sm">
                                 <div className="flex items-center gap-2">
-                                    <code className="text-[var(--color-primary)] font-mono">presets.fade</code>
+                                    <Code>presets.fade</Code>
                                 </div>
                                 <div className="flex items-center gap-2">
-                                    <code className="text-[var(--color-primary)] font-mono">presets.slideUp</code>
+                                    <Code>presets.slideUp</Code>
                                 </div>
                                 <div className="flex items-center gap-2">
-                                    <code className="text-[var(--color-primary)] font-mono">presets.scale</code>
+                                    <Code>presets.scale</Code>
                                 </div>
                                 <div className="flex items-center gap-2">
-                                    <code className="text-[var(--color-primary)] font-mono">presets.modal</code>
+                                    <Code>presets.modal</Code>
                                 </div>
                                 <div className="flex items-center gap-2">
-                                    <code className="text-[var(--color-primary)] font-mono">presets.list</code>
+                                    <Code>presets.list</Code>
                                 </div>
                             </div>
                         </div>
@@ -690,7 +690,7 @@ function MyComponent() {
                 <Card className="p-6 mt-6">
                     <h4 className="font-medium text-[var(--color-text-primary)] mb-3">Create Custom Animations</h4>
                     <p className="text-sm text-[var(--color-text-secondary)] mb-4">
-                        Use the <code className="px-1 py-0.5 bg-[var(--color-surface)] rounded text-[var(--color-primary)]">createAnimation</code> helper to build custom variants:
+                        Use the <Code>createAnimation</Code> helper to build custom variants:
                     </p>
                     <div className="bg-[var(--color-surface)] p-4 rounded text-sm font-mono overflow-x-auto">
                         <pre className="text-[var(--color-text-secondary)]">{`import { createAnimation, transitions, easings } from '@ecosystem/design-system/utils';
