@@ -2,7 +2,112 @@
 
 All notable changes to this project will be documented in this file.
 
-**Last updated:** 2025-12-17
+**Last updated:** 2025-12-31
+
+## 2025-12-31
+
+### Added - Automatic Syntax Parser & Documentation Enhancement
+
+#### New Feature: Lightweight Syntax Parser for Code Highlighting
+- **Built-in automatic code tokenization** for TypeScript/JavaScript/JSX syntax highlighting
+- **Zero-configuration** - just pass plain code strings to `CollapsibleCodeBlock`
+- **Lightweight implementation** - ~2KB regex-based parser with O(n) performance
+- **14 token types**: comment, keyword, function, string, number, boolean, operator, property, className, tag, attribute, variable, punctuation, plain
+- **Theme-aware colors** - syntax highlighting adapts to light/dark mode with WCAG AA contrast
+- **No external dependencies** - completely self-contained within design system
+
+#### Core Components
+- **`parseCode()` utility** (`design-system/utils/syntax-parser/`) - Automatic tokenization function
+  ```typescript
+  import { parseCode } from '@ecosystem/design-system/utils'
+  const tokens = parseCode(`const greeting = "Hello World";`)
+  ```
+- **`CollapsibleCodeBlock` organism** - Enhanced with automatic syntax highlighting when `code` prop is a string
+- **`Code` atom** - Simple inline/block code display without syntax highlighting
+- **14 syntax color tokens** - CSS variables for manual styling (e.g., `var(--syntax-keyword)`)
+
+#### Implementation Details
+```typescript
+// Auto-parsing happens automatically in CollapsibleCodeBlock
+const tokens = useMemo(() => {
+  return typeof code === 'string' ? parseCode(code) : code;
+}, [code]);
+
+// Supports both automatic and manual tokenization
+<CollapsibleCodeBlock
+  code={`your code string`}  // Auto-tokenizes
+/>
+<CollapsibleCodeBlock
+  code={manualTokens}  // Or pass pre-tokenized array
+/>
+```
+
+### Fixed - Comprehensive Code Block Documentation Update
+
+#### Problem
+Code blocks throughout Sage Design Studio lacked multi-color syntax highlighting despite the parser being built. All code examples used `Code inline={false}` which only applies single-color styling.
+
+#### Solution
+**Systematically replaced 36 instances** of `Code inline={false}` with `CollapsibleCodeBlock` across 6 documentation files:
+
+| File | Instances Fixed | Code Block IDs |
+|------|----------------|----------------|
+| `OverviewSection.tsx` | 2 | basic-usage, theme-switching |
+| `CommonPatternsSection.tsx` | 8 | pattern-1 to pattern-8 |
+| `HooksSection.tsx` | 7 | hook-1 to hook-7 |
+| `AddingComponentsSection.tsx` | 12 | add-comp-1 to add-comp-12 |
+| `ArchitectureSection.tsx` | 1 | arch-1 |
+| `OrganismsSection.tsx` | 6 | org-usage-1 to org-usage-6 |
+
+**Transformation pattern**:
+```typescript
+// Before (single-color)
+<Code inline={false} syntax="plain">{`code here`}</Code>
+
+// After (multi-color with auto-parsing)
+<CollapsibleCodeBlock
+  id="unique-id"
+  code={`code here`}
+  defaultCollapsed={false}
+  showCopy={true}
+/>
+```
+
+#### Documentation Additions
+- **Design System README** - Added comprehensive "Syntax Highlighting & Code Display" section with:
+  - Quick example and feature overview
+  - 14 syntax token types with CSS variable names
+  - Manual usage examples for `parseCode()` utility
+  - Component comparison guide (when to use `Code` vs `CollapsibleCodeBlock`)
+  - Updated package exports to include syntax parser utilities
+
+- **Sage Design Studio README** - Added "Syntax Highlighting" feature section highlighting:
+  - Zero-configuration automatic parsing
+  - Lightweight implementation details
+  - Theme-aware color system
+  - Reference to live documentation
+
+- **Ecosystem Root README** - Added syntax parser to design system feature list
+
+- **SyntaxTab.tsx** - Added "Automatic Syntax Parser" overview card documenting:
+  - Three key features (Automatic, Lightweight, 14 Token Types)
+  - Live code example with actual syntax highlighting
+  - Usage examples (auto-parsing, manual tokenization, CSS variables)
+
+### Results
+- ✅ All code blocks in Sage Design Studio now have multi-color syntax highlighting
+- ✅ Comprehensive documentation across all README files
+- ✅ Live examples visible at https://studio.shalomormsby.com/ (Design Tokens > Syntax)
+- ✅ Build verified successfully (sage-design-studio compiled in 6.5s)
+- ✅ Zero external dependencies added
+- ✅ WCAG AA contrast maintained in both light and dark modes
+
+### Technical Details
+- **Parser location**: `design-system/utils/syntax-parser/`
+- **Token types**: Exported from `design-system/utils/syntax-parser/types.ts`
+- **Color definitions**: `design-system/tokens/syntax.ts`
+- **Auto-parsing logic**: `CollapsibleCodeBlock.tsx:71-73`
+- **CSS variables**: Applied in ThemeProvider and available globally
 
 ## 2025-12-17
 

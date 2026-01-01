@@ -11,8 +11,22 @@ Sage Design Studio is a living, interactive showcase of the design system that p
 - **Interactive Component Playground**: Explore components with live prop controls
 - **Token Visualization**: See all design tokens (colors, typography, spacing, motion) across three themes
 - **Theme Switching**: Preview components in Studio, Sage, and Volt themes
-- **Code Snippets**: Copy-paste ready code for every component
+- **Automatic Syntax Highlighting**: Multi-color code examples powered by a built-in lightweight parser (~2KB)
+- **Copy-Paste Ready Code**: Every code example includes syntax highlighting and one-click copying
 - **Responsive Design**: Works beautifully on mobile, tablet, and desktop
+
+### Syntax Highlighting
+
+The Studio uses the design system's automatic syntax parser to provide beautiful, theme-aware code highlighting throughout the documentation. Every code example is automatically tokenized into 14 syntax types with colors that adapt to light/dark mode.
+
+**What makes it special:**
+- Zero configuration - just pass plain code strings
+- Lightweight (~2KB) regex-based implementation
+- 14 token types: comment, keyword, function, string, number, boolean, operator, property, className, tag, attribute, variable, punctuation, plain
+- WCAG AA contrast ratios in both light and dark modes
+- Based on VS Code Dark+ theme colors
+
+See the **Design Tokens > Syntax** section for live examples and documentation.
 
 ## Development
 

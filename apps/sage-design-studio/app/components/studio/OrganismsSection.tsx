@@ -928,7 +928,9 @@ export function Button({ variant, onClick }: ButtonProps) {
             Usage Example
           </h4>
           <Card className="p-6 bg-[var(--color-surface)]">
-            <Code inline={false} syntax="plain">{`import { CollapsibleCodeBlock, parseCode } from '@ecosystem/design-system';
+            <CollapsibleCodeBlock
+              id="org-collapsible-usage"
+              code={`import { CollapsibleCodeBlock, parseCode } from '@ecosystem/design-system';
 
 // ✨ NEW: Automatic syntax highlighting - just pass a string!
 <CollapsibleCodeBlock
@@ -959,7 +961,10 @@ const customTokens: SyntaxToken[] = [
 <CollapsibleCodeBlock
   id="manual-tokens"
   code={customTokens}
-/>`}</Code>
+/>`}
+              defaultCollapsed={false}
+              showCopy={true}
+            />
           </Card>
         </div>
 

@@ -64,6 +64,7 @@ The heart of this ecosystem. Every app imports from it.
 - Three distinct themes (Studio, Sage, Volt) with unique personalities
 - User-controlled motion system (0-10 scale, respects `prefers-reduced-motion`)
 - Built-in Customizer for runtime theme/motion adjustments
+- Automatic syntax parser for code highlighting (lightweight, zero dependencies)
 - Zustand + localStorage for persistent preferences
 - WCAG AA accessible by default
 

@@ -15,6 +15,97 @@ export function CommonPatternsSection() {
         </p>
       </div>
 
+      {/* Displaying Code Examples */}
+      <section>
+        <h2 className="text-2xl font-bold mb-4 text-[var(--color-text-primary)]">
+          Displaying Code Examples
+        </h2>
+        <Card className="p-6">
+          <h3 className="font-semibold mb-3 text-[var(--color-text-primary)]">
+            Quick Decision Guide
+          </h3>
+          <div className="mb-6 p-4 bg-[var(--color-surface)] rounded-md border border-[var(--color-border)] font-mono text-sm">
+            <div className="text-[var(--color-text-primary)]">
+              Need to show code?<br/>
+              ├─ Inline snippet? → <Code>&lt;Code&gt;</Code><br/>
+              └─ Multi-line block?<br/>
+              &nbsp;&nbsp;&nbsp;├─ No syntax colors needed? → <Code>&lt;Code inline=&#123;false&#125;&gt;</Code><br/>
+              &nbsp;&nbsp;&nbsp;└─ With syntax highlighting? → <Code>&lt;CollapsibleCodeBlock&gt;</Code> ✨
+            </div>
+          </div>
+
+          <h3 className="font-semibold mb-3 text-[var(--color-text-primary)] mt-6">
+            ✅ Correct - Multi-Color Syntax Highlighting
+          </h3>
+          <CollapsibleCodeBlock
+            id="pattern-code-correct"
+            code={`import { CollapsibleCodeBlock } from '@ecosystem/design-system';
+
+// ✅ RECOMMENDED: Automatic syntax highlighting
+<CollapsibleCodeBlock
+  id="unique-id"
+  code={\`const greeting = "Hello World";
+console.log(greeting);\`}
+  defaultCollapsed={false}
+  showCopy={true}
+/>`}
+            defaultCollapsed={false}
+            showCopy={true}
+          />
+
+          <h3 className="font-semibold mb-3 text-[var(--color-text-primary)] mt-6">
+            ❌ Avoid - Single Color, No Highlighting
+          </h3>
+          <CollapsibleCodeBlock
+            id="pattern-code-wrong"
+            code={`import { Code } from '@ecosystem/design-system';
+
+// ❌ AVOID: Single-color text, no syntax highlighting
+<Code inline={false}>{\`const greeting = "Hello World";
+console.log(greeting);\`}</Code>`}
+            defaultCollapsed={false}
+            showCopy={true}
+          />
+
+          <h3 className="font-semibold mb-3 text-[var(--color-text-primary)] mt-6">
+            When to Use Each
+          </h3>
+          <div className="space-y-3">
+            <div className="p-3 bg-[var(--color-surface)] rounded border border-[var(--color-border)]">
+              <div className="flex items-start gap-2">
+                <Code>&lt;Code&gt;</Code>
+                <span className="text-sm text-[var(--color-text-secondary)]">
+                  - Inline code snippets like <Code>useState</Code> or single-line commands like <Code>pnpm install</Code>
+                </span>
+              </div>
+            </div>
+            <div className="p-3 bg-[var(--color-surface)] rounded border border-[var(--color-border)]">
+              <div className="flex items-start gap-2">
+                <Code>&lt;Code inline=&#123;false&#125;&gt;</Code>
+                <span className="text-sm text-[var(--color-text-secondary)]">
+                  - Plain text blocks where syntax highlighting isn't needed (configs, plain text output)
+                </span>
+              </div>
+            </div>
+            <div className="p-3 bg-[var(--color-surface)] rounded border border-[var(--color-border)]">
+              <div className="flex items-start gap-2">
+                <Code>&lt;CollapsibleCodeBlock&gt;</Code>
+                <span className="text-sm text-[var(--color-text-secondary)]">
+                  - Multi-line code examples that benefit from syntax highlighting, copy button, and collapsible UI
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-6 p-4 bg-[var(--color-primary)] bg-opacity-10 rounded-md border border-[var(--color-primary)]">
+            <p className="text-sm text-[var(--color-text-primary)]">
+              <strong>Pro tip:</strong> <Code>CollapsibleCodeBlock</Code> automatically tokenizes string code for syntax highlighting.
+              Just pass your code as a string - no manual tokenization needed! Each block needs a unique <Code>id</Code> prop.
+            </p>
+          </div>
+        </Card>
+      </section>
+
       {/* Using Design Tokens */}
       <section>
         <h2 className="text-2xl font-bold mb-4 text-[var(--color-text-primary)]">

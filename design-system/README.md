@@ -485,6 +485,153 @@ import { VariableWeightText } from '@ecosystem/design-system'
 
 ---
 
+## Syntax Highlighting & Code Display
+
+### Automatic Syntax Parser
+
+The design system includes a lightweight, automatic syntax parser that tokenizes TypeScript/JavaScript/JSX code for multi-color syntax highlighting. Just pass plain code strings—no manual tokenization required!
+
+**Key Features:**
+- **Automatic**: Zero-configuration parsing of plain code strings
+- **Lightweight**: ~2KB regex-based implementation with O(n) performance
+- **Comprehensive**: 14 token types for TS/JS/JSX syntax elements
+- **Theme-Aware**: Syntax colors adapt to light/dark mode with WCAG AA contrast
+- **Zero Dependencies**: No external syntax highlighting libraries needed
+
+#### Quick Example
+
+```typescript
+import { CollapsibleCodeBlock } from '@ecosystem/design-system'
+
+// Automatic tokenization - just pass the code string!
+<CollapsibleCodeBlock
+  id="my-code"
+  code={`import { useState } from 'react';
+
+function Counter() {
+  const [count, setCount] = useState(0);
+  return <button onClick={() => setCount(count + 1)}>{count}</button>;
+}`}
+  defaultCollapsed={false}
+  showCopy={true}
+/>
+```
+
+The parser automatically tokenizes your code into 14 syntax types: `comment`, `keyword`, `function`, `string`, `number`, `boolean`, `operator`, `property`, `className`, `tag`, `attribute`, `variable`, `punctuation`, and `plain`.
+
+#### Syntax Colors
+
+Theme-aware syntax highlighting colors based on VS Code Dark+ theme. These tokens automatically switch between light and dark modes to ensure optimal contrast and readability (WCAG AA 4.5:1).
+
+```typescript
+// Available as CSS variables
+--syntax-comment      // Comments
+--syntax-keyword      // Keywords (const, function, import)
+--syntax-function     // Function names
+--syntax-string       // String literals
+--syntax-number       // Numeric values
+--syntax-boolean      // Boolean values
+--syntax-operator     // Operators (=, +, -, etc.)
+--syntax-property     // Object properties
+--syntax-className    // Class/type names
+--syntax-tag          // HTML/JSX tags
+--syntax-attribute    // HTML/JSX attributes
+--syntax-variable     // Variable names
+--syntax-punctuation  // Punctuation ({}, [], ())
+--syntax-plain        // Default text color
+```
+
+#### Manual Usage
+
+For advanced use cases, you can use the `parseCode` utility directly:
+
+```typescript
+import { parseCode } from '@ecosystem/design-system/utils'
+
+const tokens = parseCode(`const greeting = "Hello World";`)
+// Returns: [
+//   { text: 'const', type: 'keyword' },
+//   { text: ' greeting ', type: 'plain' },
+//   { text: '=', type: 'operator' },
+//   { text: ' "Hello World"', type: 'string' },
+//   { text: ';', type: 'punctuation' }
+// ]
+```
+
+Or manually specify token types for fine-grained control:
+
+```typescript
+<CollapsibleCodeBlock
+  id="my-code"
+  code={[
+    { text: 'const', type: 'keyword' },
+    { text: ' example ', type: 'plain' },
+    { text: '=', type: 'operator' },
+    { text: ' "value"', type: 'string' },
+  ]}
+/>
+```
+
+#### Components
+
+**CollapsibleCodeBlock** - Full-featured code display organism with syntax highlighting:
+
+```typescript
+import { CollapsibleCodeBlock } from '@ecosystem/design-system'
+
+<CollapsibleCodeBlock
+  id="example-code"
+  title="Example Component"
+  code={`your code here`}
+  defaultCollapsed={false}
+  showCopy={true}
+  className="custom-class"
+/>
+
+// Props
+id: string                        // Required: unique identifier
+code: string | SyntaxToken[]      // Code to display (string auto-tokenizes)
+title?: string                    // Optional title above code block
+defaultCollapsed?: boolean        // Start collapsed (default: true)
+showCopy?: boolean               // Show copy button (default: true)
+className?: string               // Additional CSS classes
+```
+
+Features:
+- Automatic syntax highlighting when `code` is a string
+- Collapsible with smooth animations
+- Copy-to-clipboard button
+- Preview mode showing first ~3 lines
+- Theme-aware colors
+- Respects motion preferences
+
+**Code** - Simple inline/block code display atom:
+
+```typescript
+import { Code } from '@ecosystem/design-system'
+
+// Inline code
+<Code>const example = "value"</Code>
+
+// Block code (single color, no syntax highlighting)
+<Code inline={false}>
+  {`function hello() {
+    console.log("Hello");
+  }`}
+</Code>
+
+// Props
+inline?: boolean      // Inline vs block display (default: true)
+syntax?: string      // Syntax language hint (optional)
+className?: string   // Additional CSS classes
+```
+
+**When to Use Each:**
+- Use `Code` for simple inline code snippets or when you don't need syntax highlighting
+- Use `CollapsibleCodeBlock` for multi-line code examples that need syntax highlighting, copy functionality, or collapsible UI
+
+---
+
 ## Components
 
 ### Atoms
@@ -1136,15 +1283,16 @@ Theme changes trigger smooth CSS variable transitions managed by the ThemeProvid
 
 ```typescript
 // Main export (everything)
-import { Button, TextField, FormField, useTheme } from '@ecosystem/design-system'
+import { Button, TextField, FormField, useTheme, CollapsibleCodeBlock } from '@ecosystem/design-system'
 
 // Scoped exports
 import { spacing, typography } from '@ecosystem/design-system/tokens'
-import { Button, Card, TextField, Checkbox } from '@ecosystem/design-system/atoms'
+import { Button, Card, TextField, Checkbox, Code } from '@ecosystem/design-system/atoms'
 import { FormField, SearchBar, RadioGroup } from '@ecosystem/design-system/molecules'
-import { Header, Footer } from '@ecosystem/design-system/organisms'
+import { Header, Footer, CollapsibleCodeBlock } from '@ecosystem/design-system/organisms'
 import { useMotionPreference, useTheme } from '@ecosystem/design-system/hooks'
 import { CustomizerPanel } from '@ecosystem/design-system/features'
+import { parseCode, type SyntaxToken } from '@ecosystem/design-system/utils'
 ```
 
 ---

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Card, Code } from '@ecosystem/design-system';
+import { Card, Code, CollapsibleCodeBlock } from '@ecosystem/design-system';
 import { syntaxColors } from '@ecosystem/design-system/tokens';
 
 export function SyntaxTab() {
@@ -251,7 +251,9 @@ export function SyntaxTab() {
             <p className="text-sm text-[var(--color-text-secondary)] mb-3">
               Simply pass a plain code string - the parser automatically tokenizes it!
             </p>
-            <Code inline={false}>{`import { CollapsibleCodeBlock, parseCode } from '@ecosystem/design-system';
+            <CollapsibleCodeBlock
+              id="syntax-usage-1"
+              code={`import { CollapsibleCodeBlock, parseCode } from '@ecosystem/design-system';
 
 // Automatic tokenization - just pass the code string!
 <CollapsibleCodeBlock
@@ -267,7 +269,10 @@ const tokens = parseCode(\`
     const [count, setCount] = useState(0);
     return <button onClick={() => setCount(count + 1)}>{count}</button>;
   }
-\`);`}</Code>
+\`);`}
+              defaultCollapsed={false}
+              showCopy={true}
+            />
           </div>
 
           <div>
@@ -277,7 +282,9 @@ const tokens = parseCode(\`
             <p className="text-sm text-[var(--color-text-secondary)] mb-3">
               For fine-grained control, you can manually specify token types.
             </p>
-            <Code inline={false}>{`// Manual tokenization for custom control
+            <CollapsibleCodeBlock
+              id="syntax-usage-2"
+              code={`// Manual tokenization for custom control
 <CollapsibleCodeBlock
   id="my-code"
   code={[
@@ -286,7 +293,10 @@ const tokens = parseCode(\`
     { text: '=', type: 'operator' },
     { text: ' "value"', type: 'string' },
   ]}
-/>`}</Code>
+/>`}
+              defaultCollapsed={false}
+              showCopy={true}
+            />
           </div>
 
           <div>
@@ -296,11 +306,16 @@ const tokens = parseCode(\`
             <p className="text-sm text-[var(--color-text-secondary)] mb-3">
               Use CSS custom properties for manual styling.
             </p>
-            <Code inline={false}>{`// CSS approach with manual spans
+            <CollapsibleCodeBlock
+              id="syntax-usage-3"
+              code={`// CSS approach with manual spans
 <span className="text-[var(--syntax-keyword)]">const</span>
 <span className="text-[var(--syntax-plain)]"> example </span>
 <span className="text-[var(--syntax-operator)]">=</span>
-<span className="text-[var(--syntax-string)]"> "value"</span>`}</Code>
+<span className="text-[var(--syntax-string)]"> "value"</span>`}
+              defaultCollapsed={false}
+              showCopy={true}
+            />
           </div>
         </div>
       </Card>
