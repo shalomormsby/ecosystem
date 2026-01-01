@@ -1,7 +1,7 @@
 'use client';
 
-import { useState } from 'react';
-import { Card, Button, Code } from '@ecosystem/design-system';
+import { useState, useRef, useEffect } from 'react';
+import { Card, Button, Code, CollapsibleCodeBlock } from '@ecosystem/design-system';
 import { baseTokens, motion } from '@ecosystem/design-system/tokens';
 import { VariableWeightText } from '@ecosystem/design-system';
 
@@ -18,6 +18,24 @@ function MotionExample({
     label: string;
 }) {
     const [isAnimating, setIsAnimating] = useState(false);
+    const containerRef = useRef<HTMLDivElement>(null);
+    const [maxDistance, setMaxDistance] = useState(0);
+
+    useEffect(() => {
+        const updateMaxDistance = () => {
+            if (containerRef.current) {
+                // Calculate max travel distance: container width - element width - padding
+                const containerWidth = containerRef.current.offsetWidth;
+                const elementWidth = 48; // w-12 = 48px
+                const padding = 16; // p-4 = 16px on each side
+                setMaxDistance(containerWidth - elementWidth - (padding * 2));
+            }
+        };
+
+        updateMaxDistance();
+        window.addEventListener('resize', updateMaxDistance);
+        return () => window.removeEventListener('resize', updateMaxDistance);
+    }, []);
 
     const handleAnimate = () => {
         setIsAnimating(true);
@@ -26,11 +44,11 @@ function MotionExample({
 
     return (
         <div className="flex items-center gap-4">
-            <div className="flex-1 bg-[var(--color-background)] rounded-lg p-4 overflow-hidden">
+            <div ref={containerRef} className="flex-1 bg-[var(--color-background)] rounded-lg p-4 overflow-hidden">
                 <div
                     className="w-12 h-12 bg-[var(--color-primary)] rounded-lg"
                     style={{
-                        transform: isAnimating ? 'translateX(200px)' : 'translateX(0)',
+                        transform: isAnimating ? `translateX(${maxDistance}px)` : 'translateX(0)',
                         transition: `transform ${duration} ${easing}`,
                     }}
                 />
@@ -117,15 +135,16 @@ export function MotionTab() {
                     </div>
 
                     {/* Code Example */}
-                    <div className="bg-[var(--color-background)] p-4 rounded border border-[var(--color-border)] overflow-x-auto">
-                        <pre className="text-sm font-mono text-[var(--color-text-primary)]">
-                            {`import { VariableWeightText } from '@ecosystem/design-system';
+                    <CollapsibleCodeBlock
+                        id="variable-weight-text-example"
+                        code={`import { VariableWeightText } from '@ecosystem/design-system';
 
 <VariableWeightText minWeight={200} maxWeight={700}>
   Clash Display
 </VariableWeightText>`}
-                        </pre>
-                    </div>
+                        defaultCollapsed={false}
+                        showCopy={true}
+                    />
 
                     <div className="mt-4 p-3 bg-[var(--color-surface)] rounded border border-[var(--color-border)]">
                         <p className="text-xs text-[var(--color-text-muted)]">
@@ -298,9 +317,9 @@ export function MotionTab() {
                         <p className="text-sm text-[var(--color-text-secondary)] mb-4">
                             For simple transitions and states, use CSS transitions with our motion tokens.
                         </p>
-                        <div className="bg-[var(--color-background)] p-4 rounded border border-[var(--color-border)] overflow-x-auto">
-                            <pre className="text-sm font-mono text-[var(--color-text-primary)]">
-                                {`/* Using CSS custom properties */
+                        <CollapsibleCodeBlock
+                            id="css-tailwind-example"
+                            code={`/* Using CSS custom properties */
 .button {
   transition: all var(--duration-normal) var(--ease-default);
 }
@@ -309,8 +328,9 @@ export function MotionTab() {
 <button className="transition-all duration-300 ease-out hover:scale-105">
   Hover me
 </button>`}
-                            </pre>
-                        </div>
+                            defaultCollapsed={false}
+                            showCopy={true}
+                        />
                     </Card>
 
                     {/* Framer Motion */}
@@ -350,9 +370,9 @@ export function MotionTab() {
                                     <li>• When you need React-aware animations</li>
                                 </ul>
                             </div>
-                            <div className="bg-[var(--color-background)] p-4 rounded border border-[var(--color-border)] overflow-x-auto">
-                                <pre className="text-sm font-mono text-[var(--color-text-primary)]">
-                                    {`import { motion } from 'framer-motion';
+                            <CollapsibleCodeBlock
+                                id="framer-motion-basic"
+                                code={`import { motion } from 'framer-motion';
 
 // Basic animation
 <motion.div
@@ -377,8 +397,9 @@ export function MotionTab() {
 >
   Click me
 </motion.button>`}
-                                </pre>
-                            </div>
+                                defaultCollapsed={false}
+                                showCopy={true}
+                            />
                         </div>
                     </Card>
 
@@ -419,9 +440,9 @@ export function MotionTab() {
                                     <li>• Framework-agnostic animations</li>
                                 </ul>
                             </div>
-                            <div className="bg-[var(--color-background)] p-4 rounded border border-[var(--color-border)] overflow-x-auto">
-                                <pre className="text-sm font-mono text-[var(--color-text-primary)]">
-                                    {`import { gsap } from 'gsap';
+                            <CollapsibleCodeBlock
+                                id="gsap-example"
+                                code={`import { gsap } from 'gsap';
 
 // Basic animation
 gsap.to('.element', {
@@ -440,8 +461,9 @@ tl.to('.hero', { opacity: 1, duration: 0.5 })
     stagger: 0.1, // Stagger items
     duration: 0.3
   });`}
-                                </pre>
-                            </div>
+                                defaultCollapsed={false}
+                                showCopy={true}
+                            />
                         </div>
                     </Card>
                 </div>
@@ -456,9 +478,9 @@ tl.to('.hero', { opacity: 1, duration: 0.5 })
                     Always respect the <Code>prefers-reduced-motion</Code> media query.
                     Some users experience motion sickness or find animations distracting.
                 </p>
-                <div className="bg-[var(--color-background)] p-4 rounded border border-[var(--color-border)] overflow-x-auto">
-                    <pre className="text-sm font-mono text-[var(--color-text-primary)]">
-                        {`/* CSS approach */
+                <CollapsibleCodeBlock
+                    id="accessibility-motion"
+                    code={`/* CSS approach */
 @media (prefers-reduced-motion: reduce) {
   * {
     animation-duration: 0.01ms !important;
@@ -482,8 +504,9 @@ function MyComponent() {
     </motion.div>
   );
 }`}
-                    </pre>
-                </div>
+                    defaultCollapsed={false}
+                    showCopy={true}
+                />
             </Card>
 
             {/* Animation Presets */}
@@ -506,8 +529,9 @@ function MyComponent() {
                         <p className="text-sm text-[var(--color-text-secondary)] mb-3">
                             Simple opacity transitions
                         </p>
-                        <div className="bg-[var(--color-surface)] p-3 rounded text-xs font-mono overflow-x-auto">
-                            <pre className="text-[var(--color-text-secondary)]">{`import { fadeVariants } from '@ecosystem/design-system/utils';
+                        <CollapsibleCodeBlock
+                            id="fade-variants"
+                            code={`import { fadeVariants } from '@ecosystem/design-system/utils';
 
 <motion.div
   initial="hidden"
@@ -515,8 +539,10 @@ function MyComponent() {
   variants={fadeVariants}
 >
   Content
-</motion.div>`}</pre>
-                        </div>
+</motion.div>`}
+                            defaultCollapsed={true}
+                            showCopy={true}
+                        />
                     </Card>
 
                     {/* Slide Variants */}
@@ -525,8 +551,9 @@ function MyComponent() {
                         <p className="text-sm text-[var(--color-text-secondary)] mb-3">
                             Slide in from: Left, Right, Top, Bottom
                         </p>
-                        <div className="bg-[var(--color-surface)] p-3 rounded text-xs font-mono overflow-x-auto">
-                            <pre className="text-[var(--color-text-secondary)]">{`import { slideVariants } from '@ecosystem/design-system/utils';
+                        <CollapsibleCodeBlock
+                            id="slide-variants"
+                            code={`import { slideVariants } from '@ecosystem/design-system/utils';
 
 <motion.div
   initial="hidden"
@@ -534,8 +561,10 @@ function MyComponent() {
   variants={slideVariants.fromBottom}
 >
   Content
-</motion.div>`}</pre>
-                        </div>
+</motion.div>`}
+                            defaultCollapsed={true}
+                            showCopy={true}
+                        />
                     </Card>
 
                     {/* Scale Variants */}
@@ -544,8 +573,9 @@ function MyComponent() {
                         <p className="text-sm text-[var(--color-text-secondary)] mb-3">
                             Default, Grow, Pop effects
                         </p>
-                        <div className="bg-[var(--color-surface)] p-3 rounded text-xs font-mono overflow-x-auto">
-                            <pre className="text-[var(--color-text-secondary)]">{`import { scaleVariants } from '@ecosystem/design-system/utils';
+                        <CollapsibleCodeBlock
+                            id="scale-variants"
+                            code={`import { scaleVariants } from '@ecosystem/design-system/utils';
 
 <motion.div
   initial="hidden"
@@ -553,8 +583,10 @@ function MyComponent() {
   variants={scaleVariants.pop}
 >
   Content
-</motion.div>`}</pre>
-                        </div>
+</motion.div>`}
+                            defaultCollapsed={true}
+                            showCopy={true}
+                        />
                     </Card>
 
                     {/* Modal Variants */}
@@ -563,15 +595,18 @@ function MyComponent() {
                         <p className="text-sm text-[var(--color-text-secondary)] mb-3">
                             Overlay + Content animations
                         </p>
-                        <div className="bg-[var(--color-surface)] p-3 rounded text-xs font-mono overflow-x-auto">
-                            <pre className="text-[var(--color-text-secondary)]">{`import { modalVariants } from '@ecosystem/design-system/utils';
+                        <CollapsibleCodeBlock
+                            id="modal-variants"
+                            code={`import { modalVariants } from '@ecosystem/design-system/utils';
 
 <motion.div variants={modalVariants.overlay}>
   <motion.div variants={modalVariants.content}>
     Modal content
   </motion.div>
-</motion.div>`}</pre>
-                        </div>
+</motion.div>`}
+                            defaultCollapsed={true}
+                            showCopy={true}
+                        />
                     </Card>
 
                     {/* Rotate Variants */}
@@ -580,8 +615,9 @@ function MyComponent() {
                         <p className="text-sm text-[var(--color-text-secondary)] mb-3">
                             Rotation animations with fade
                         </p>
-                        <div className="bg-[var(--color-surface)] p-3 rounded text-xs font-mono overflow-x-auto">
-                            <pre className="text-[var(--color-text-secondary)]">{`import { rotateVariants } from '@ecosystem/design-system/utils';
+                        <CollapsibleCodeBlock
+                            id="rotate-variants"
+                            code={`import { rotateVariants } from '@ecosystem/design-system/utils';
 
 <motion.div
   initial="hidden"
@@ -589,8 +625,10 @@ function MyComponent() {
   variants={rotateVariants}
 >
   Content
-</motion.div>`}</pre>
-                        </div>
+</motion.div>`}
+                            defaultCollapsed={true}
+                            showCopy={true}
+                        />
                     </Card>
 
                     {/* Drawer Variants */}
@@ -599,8 +637,9 @@ function MyComponent() {
                         <p className="text-sm text-[var(--color-text-secondary)] mb-3">
                             Slide-out panels from: Left, Right, Top, Bottom
                         </p>
-                        <div className="bg-[var(--color-surface)] p-3 rounded text-xs font-mono overflow-x-auto">
-                            <pre className="text-[var(--color-text-secondary)]">{`import { drawerVariants } from '@ecosystem/design-system/utils';
+                        <CollapsibleCodeBlock
+                            id="drawer-variants"
+                            code={`import { drawerVariants } from '@ecosystem/design-system/utils';
 
 <motion.div
   initial="hidden"
@@ -608,8 +647,10 @@ function MyComponent() {
   variants={drawerVariants.fromRight}
 >
   Drawer content
-</motion.div>`}</pre>
-                        </div>
+</motion.div>`}
+                            defaultCollapsed={true}
+                            showCopy={true}
+                        />
                     </Card>
 
                     {/* Collapse Variants */}
@@ -618,8 +659,9 @@ function MyComponent() {
                         <p className="text-sm text-[var(--color-text-secondary)] mb-3">
                             Height-based expand/collapse for accordions
                         </p>
-                        <div className="bg-[var(--color-surface)] p-3 rounded text-xs font-mono overflow-x-auto">
-                            <pre className="text-[var(--color-text-secondary)]">{`import { collapseVariants } from '@ecosystem/design-system/utils';
+                        <CollapsibleCodeBlock
+                            id="collapse-variants"
+                            code={`import { collapseVariants } from '@ecosystem/design-system/utils';
 
 <motion.div
   initial="collapsed"
@@ -627,8 +669,10 @@ function MyComponent() {
   variants={collapseVariants}
 >
   Collapsible content
-</motion.div>`}</pre>
-                        </div>
+</motion.div>`}
+                            defaultCollapsed={true}
+                            showCopy={true}
+                        />
                     </Card>
                 </div>
 
@@ -661,8 +705,9 @@ function MyComponent() {
                                 </div>
                             </div>
                         </div>
-                        <div className="bg-[var(--color-surface)] p-4 rounded text-sm font-mono overflow-x-auto">
-                            <pre className="text-[var(--color-text-secondary)]">{`import { presets } from '@ecosystem/design-system/utils';
+                        <CollapsibleCodeBlock
+                            id="complete-presets"
+                            code={`import { presets } from '@ecosystem/design-system/utils';
 
 // Simple fade animation
 <motion.div {...presets.fade}>
@@ -681,8 +726,10 @@ function MyComponent() {
       {item.name}
     </motion.li>
   ))}
-</motion.ul>`}</pre>
-                        </div>
+</motion.ul>`}
+                            defaultCollapsed={true}
+                            showCopy={true}
+                        />
                     </div>
                 </Card>
 
@@ -692,8 +739,9 @@ function MyComponent() {
                     <p className="text-sm text-[var(--color-text-secondary)] mb-4">
                         Use the <Code>createAnimation</Code> helper to build custom variants:
                     </p>
-                    <div className="bg-[var(--color-surface)] p-4 rounded text-sm font-mono overflow-x-auto">
-                        <pre className="text-[var(--color-text-secondary)]">{`import { createAnimation, transitions, easings } from '@ecosystem/design-system/utils';
+                    <CollapsibleCodeBlock
+                        id="custom-animation-helper"
+                        code={`import { createAnimation, transitions, easings } from '@ecosystem/design-system/utils';
 
 const customAnimation = createAnimation(
   {
@@ -705,8 +753,10 @@ const customAnimation = createAnimation(
 
 <motion.div {...customAnimation}>
   Custom bouncy fade-in with rotation
-</motion.div>`}</pre>
-                    </div>
+</motion.div>`}
+                        defaultCollapsed={true}
+                        showCopy={true}
+                    />
                 </Card>
             </div>
         </div>

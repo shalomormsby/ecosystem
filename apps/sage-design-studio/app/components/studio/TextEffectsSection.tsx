@@ -1,6 +1,6 @@
 'use client';
 
-import { Card } from '@ecosystem/design-system';
+import { Card, CollapsibleCodeBlock } from '@ecosystem/design-system';
 import { VariableWeightText } from '@ecosystem/design-system';
 
 export function TextEffectsSection() {
@@ -67,15 +67,16 @@ export function TextEffectsSection() {
         </div>
 
         {/* Code Example */}
-        <div className="bg-[var(--color-background)] p-4 rounded border border-[var(--color-border)] overflow-x-auto">
-          <pre className="text-sm font-mono text-[var(--color-text-primary)]">
-            {`import { VariableWeightText } from '@ecosystem/design-system';
+        <CollapsibleCodeBlock
+          id="variable-weight-text-code"
+          code={`import { VariableWeightText } from '@ecosystem/design-system';
 
 <VariableWeightText minWeight={200} maxWeight={700}>
   Clash Display
 </VariableWeightText>`}
-          </pre>
-        </div>
+          defaultCollapsed={false}
+          showCopy={true}
+        />
 
         <div className="mt-4 p-3 bg-[var(--color-surface)] rounded border border-[var(--color-border)]">
           <p className="text-xs text-[var(--color-text-muted)]">
