@@ -1,22 +1,7 @@
 'use client';
 
 import { ReactNode, useState } from 'react';
-
-export type SyntaxType =
-  | 'comment'
-  | 'keyword'
-  | 'function'
-  | 'string'
-  | 'number'
-  | 'boolean'
-  | 'operator'
-  | 'property'
-  | 'className'
-  | 'tag'
-  | 'attribute'
-  | 'variable'
-  | 'punctuation'
-  | 'plain';
+import type { SyntaxType } from '../../utils/syntax-parser';
 
 export interface CodeProps {
   /** The code content to display */

@@ -217,17 +217,43 @@ export function SyntaxTab() {
       {/* Usage Example */}
       <Card className="p-6">
         <h3 className="text-xl font-semibold mb-3 text-[var(--color-text-primary)]">
-          Usage Example
+          Usage Examples
         </h3>
-        <Code inline={false}>{`// CSS approach
-<span className="text-[var(--syntax-keyword)]">const</span>
-<span className="text-[var(--syntax-plain)]"> example </span>
-<span className="text-[var(--syntax-operator)]">=</span>
-<span className="text-[var(--syntax-string)]"> "value"</span>
+        <div className="space-y-4">
+          <div>
+            <h4 className="text-sm font-semibold text-[var(--color-text-primary)] mb-2">
+              Auto-Parsing (Recommended)
+            </h4>
+            <p className="text-sm text-[var(--color-text-secondary)] mb-3">
+              Simply pass a plain code string - the parser automatically tokenizes it!
+            </p>
+            <Code inline={false}>{`import { CollapsibleCodeBlock, parseCode } from '@ecosystem/design-system';
 
-// CollapsibleCodeBlock approach
-import { CollapsibleCodeBlock } from '@ecosystem/design-system';
+// Automatic tokenization - just pass the code string!
+<CollapsibleCodeBlock
+  id="my-code"
+  code='const greeting = "Hello World";'
+/>
 
+// Or use parseCode utility directly
+const tokens = parseCode(\`
+  import { useState } from 'react';
+
+  function Counter() {
+    const [count, setCount] = useState(0);
+    return <button onClick={() => setCount(count + 1)}>{count}</button>;
+  }
+\`);`}</Code>
+          </div>
+
+          <div>
+            <h4 className="text-sm font-semibold text-[var(--color-text-primary)] mb-2">
+              Manual Tokenization (Advanced)
+            </h4>
+            <p className="text-sm text-[var(--color-text-secondary)] mb-3">
+              For fine-grained control, you can manually specify token types.
+            </p>
+            <Code inline={false}>{`// Manual tokenization for custom control
 <CollapsibleCodeBlock
   id="my-code"
   code={[
@@ -237,6 +263,22 @@ import { CollapsibleCodeBlock } from '@ecosystem/design-system';
     { text: ' "value"', type: 'string' },
   ]}
 />`}</Code>
+          </div>
+
+          <div>
+            <h4 className="text-sm font-semibold text-[var(--color-text-primary)] mb-2">
+              CSS Variables (Low-Level)
+            </h4>
+            <p className="text-sm text-[var(--color-text-secondary)] mb-3">
+              Use CSS custom properties for manual styling.
+            </p>
+            <Code inline={false}>{`// CSS approach with manual spans
+<span className="text-[var(--syntax-keyword)]">const</span>
+<span className="text-[var(--syntax-plain)]"> example </span>
+<span className="text-[var(--syntax-operator)]">=</span>
+<span className="text-[var(--syntax-string)]"> "value"</span>`}</Code>
+          </div>
+        </div>
       </Card>
     </div>
   );

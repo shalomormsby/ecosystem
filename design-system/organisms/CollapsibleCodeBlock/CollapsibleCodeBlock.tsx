@@ -1,13 +1,9 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { useTheme } from '../../hooks';
 import { syntaxColors } from '../../tokens/syntax';
-
-export interface SyntaxToken {
-  text: string;
-  type?: 'comment' | 'keyword' | 'function' | 'string' | 'number' | 'boolean' | 'operator' | 'property' | 'className' | 'tag' | 'attribute' | 'variable' | 'punctuation' | 'plain';
-}
+import { parseCode, type SyntaxToken } from '../../utils/syntax-parser';
 
 export interface CollapsibleCodeBlockProps {
   /** Unique identifier for the code block (required for animation) */
@@ -67,10 +63,13 @@ export function CollapsibleCodeBlock({
   // Get the appropriate color scheme based on current theme mode
   const colors = mode === 'dark' ? syntaxColors.dark : syntaxColors.light;
 
-  // Convert code to string for copying
-  const codeString = typeof code === 'string'
-    ? code
-    : code.map(token => token.text).join('');
+  // Auto-tokenize string code for syntax highlighting
+  const tokens = useMemo(() => {
+    return typeof code === 'string' ? parseCode(code) : code;
+  }, [code]);
+
+  // Convert tokens to string for copying
+  const codeString = tokens.map(token => token.text).join('');
 
   // Handle copy to clipboard
   const handleCopy = async () => {
@@ -114,12 +113,8 @@ export function CollapsibleCodeBlock({
   };
 
   // Render syntax-highlighted code with inline colors from tokens
-  const renderCode = (tokens: string | SyntaxToken[]) => {
-    if (typeof tokens === 'string') {
-      return <span style={{ color: colors.plain }}>{tokens}</span>;
-    }
-
-    return tokens.map((token, index) => {
+  const renderCode = (tokensToRender: SyntaxToken[]) => {
+    return tokensToRender.map((token, index) => {
       // Get color from syntax tokens based on token type
       const color = token.type ? colors[token.type] : colors.plain;
 
@@ -134,16 +129,21 @@ export function CollapsibleCodeBlock({
     });
   };
 
-  // Get preview tokens (first few lines)
-  const getPreviewTokens = (): string | SyntaxToken[] => {
-    if (typeof code === 'string') {
-      const lines = code.split('\n').slice(0, 3);
-      return lines.join('\n');
+  // Get preview tokens (first ~3 lines worth)
+  const previewTokens = useMemo(() => {
+    // Count characters to approximate 3 lines (~120 chars)
+    let charCount = 0;
+    const maxChars = 120;
+    const preview: SyntaxToken[] = [];
+
+    for (const token of tokens) {
+      if (charCount >= maxChars) break;
+      preview.push(token);
+      charCount += token.text.length;
     }
 
-    // For token arrays, we'll show all tokens but truncate with CSS
-    return code;
-  };
+    return preview;
+  }, [tokens]);
 
   return (
     <div className={className}>
@@ -211,7 +211,7 @@ export function CollapsibleCodeBlock({
       >
         <div className="relative">
           <pre className="text-sm font-mono">
-            <code>{renderCode(getPreviewTokens())}</code>
+            <code>{renderCode(previewTokens)}</code>
           </pre>
           <div className="absolute inset-x-0 bottom-0 h-6 bg-gradient-to-t from-[var(--color-background)] to-transparent pointer-events-none" />
         </div>
@@ -227,7 +227,7 @@ export function CollapsibleCodeBlock({
         }}
       >
         <pre className="text-sm font-mono overflow-x-auto">
-          <code>{renderCode(code)}</code>
+          <code>{renderCode(tokens)}</code>
         </pre>
       </div>
     </div>

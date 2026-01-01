@@ -867,148 +867,56 @@ function MyComponent() {
           </Card>
         </div>
 
-        {/* Live Example */}
+        {/* Live Example - Auto-Parsed */}
         <div>
           <h4 className="text-lg font-semibold mb-3 text-[var(--color-text-primary)]">
-            Live Example
+            Live Example - Automatic Syntax Highlighting
           </h4>
+          <p className="text-sm text-[var(--color-text-secondary)] mb-3">
+            Just pass a plain code string - the parser automatically applies multi-color syntax highlighting!
+          </p>
           <Card className="p-6">
             <CollapsibleCodeBlock
               id="live-example"
               title="TypeScript Component Example"
-              code={[
-                { text: 'import', type: 'keyword' },
-                { text: ' { ', type: 'plain' },
-                { text: 'useState', type: 'className' },
-                { text: ' } ', type: 'plain' },
-                { text: 'from', type: 'keyword' },
-                { text: ' ', type: 'plain' },
-                { text: "'react'", type: 'string' },
-                { text: ';', type: 'punctuation' },
-                { text: '\n\n', type: 'plain' },
-                { text: 'interface', type: 'keyword' },
-                { text: ' ', type: 'plain' },
-                { text: 'ButtonProps', type: 'className' },
-                { text: ' {', type: 'punctuation' },
-                { text: '\n  ', type: 'plain' },
-                { text: 'variant', type: 'property' },
-                { text: '?: ', type: 'punctuation' },
-                { text: "'primary'", type: 'string' },
-                { text: ' | ', type: 'operator' },
-                { text: "'secondary'", type: 'string' },
-                { text: ';', type: 'punctuation' },
-                { text: '\n  ', type: 'plain' },
-                { text: 'onClick', type: 'property' },
-                { text: '?: () => ', type: 'punctuation' },
-                { text: 'void', type: 'keyword' },
-                { text: ';', type: 'punctuation' },
-                { text: '\n}', type: 'punctuation' },
-                { text: '\n\n', type: 'plain' },
-                { text: 'export', type: 'keyword' },
-                { text: ' ', type: 'plain' },
-                { text: 'function', type: 'keyword' },
-                { text: ' ', type: 'plain' },
-                { text: 'Button', type: 'function' },
-                { text: '(', type: 'punctuation' },
-                { text: '{ ', type: 'punctuation' },
-                { text: 'variant', type: 'variable' },
-                { text: ', ', type: 'punctuation' },
-                { text: 'onClick', type: 'variable' },
-                { text: ' }', type: 'punctuation' },
-                { text: ': ', type: 'punctuation' },
-                { text: 'ButtonProps', type: 'className' },
-                { text: ') {', type: 'punctuation' },
-                { text: '\n  ', type: 'plain' },
-                { text: 'const', type: 'keyword' },
-                { text: ' [', type: 'punctuation' },
-                { text: 'isActive', type: 'variable' },
-                { text: ', ', type: 'punctuation' },
-                { text: 'setIsActive', type: 'variable' },
-                { text: '] = ', type: 'punctuation' },
-                { text: 'useState', type: 'function' },
-                { text: '(', type: 'punctuation' },
-                { text: 'false', type: 'boolean' },
-                { text: ');', type: 'punctuation' },
-                { text: '\n  ', type: 'plain' },
-                { text: 'return', type: 'keyword' },
-                { text: ' <', type: 'tag' },
-                { text: 'button', type: 'tag' },
-                { text: ' ', type: 'plain' },
-                { text: 'onClick', type: 'attribute' },
-                { text: '={', type: 'punctuation' },
-                { text: 'onClick', type: 'variable' },
-                { text: '}>', type: 'tag' },
-                { text: 'Click', type: 'plain' },
-                { text: '</button>', type: 'tag' },
-                { text: ';', type: 'punctuation' },
-                { text: '\n}', type: 'punctuation' },
-              ]}
+              code={`import { useState } from 'react';
+
+interface ButtonProps {
+  variant?: 'primary' | 'secondary';
+  onClick?: () => void;
+}
+
+export function Button({ variant, onClick }: ButtonProps) {
+  const [isActive, setIsActive] = useState(false);
+  return <button onClick={onClick}>Click</button>;
+}`}
               showCopy={true}
             />
           </Card>
         </div>
 
-        {/* CSS Styling Example */}
+        {/* JSX/React Example */}
         <div>
           <h4 className="text-lg font-semibold mb-3 text-[var(--color-text-primary)]">
-            CSS Styling Example
+            JSX/React Example
           </h4>
           <Card className="p-6">
             <CollapsibleCodeBlock
-              id="css-example"
-              title="CSS Styling with Design Tokens"
-              code={[
-                { text: '.', type: 'punctuation' },
-                { text: 'button', type: 'className' },
-                { text: ' {', type: 'punctuation' },
-                { text: '\n  ', type: 'plain' },
-                { text: 'padding', type: 'property' },
-                { text: ': ', type: 'punctuation' },
-                { text: '12px 24px', type: 'plain' },
-                { text: ';', type: 'punctuation' },
-                { text: '\n  ', type: 'plain' },
-                { text: 'background', type: 'property' },
-                { text: ': ', type: 'punctuation' },
-                { text: 'var(--color-primary)', type: 'function' },
-                { text: ';', type: 'punctuation' },
-                { text: '\n  ', type: 'plain' },
-                { text: 'color', type: 'property' },
-                { text: ': ', type: 'punctuation' },
-                { text: 'var(--color-primary-foreground)', type: 'function' },
-                { text: ';', type: 'punctuation' },
-                { text: '\n  ', type: 'plain' },
-                { text: 'border-radius', type: 'property' },
-                { text: ': ', type: 'punctuation' },
-                { text: '8px', type: 'plain' },
-                { text: ';', type: 'punctuation' },
-                { text: '\n  ', type: 'plain' },
-                { text: 'transition', type: 'property' },
-                { text: ': ', type: 'punctuation' },
-                { text: 'all ', type: 'plain' },
-                { text: '0.2s', type: 'plain' },
-                { text: ' ease', type: 'plain' },
-                { text: ';', type: 'punctuation' },
-                { text: '\n}', type: 'punctuation' },
-                { text: '\n\n', type: 'plain' },
-                { text: '.', type: 'punctuation' },
-                { text: 'button', type: 'className' },
-                { text: ':', type: 'punctuation' },
-                { text: 'hover', type: 'tag' },
-                { text: ' {', type: 'punctuation' },
-                { text: '\n  ', type: 'plain' },
-                { text: 'transform', type: 'property' },
-                { text: ': ', type: 'punctuation' },
-                { text: 'scale(', type: 'function' },
-                { text: '1.05', type: 'number' },
-                { text: ')', type: 'punctuation' },
-                { text: ';', type: 'punctuation' },
-                { text: '\n  ', type: 'plain' },
-                { text: 'box-shadow', type: 'property' },
-                { text: ': ', type: 'punctuation' },
-                { text: '0 4px 12px rgba(0, 0, 0, 0.1)', type: 'plain' },
-                { text: ';', type: 'punctuation' },
-                { text: '\n}', type: 'punctuation' },
-              ]}
+              id="jsx-example"
+              title="React Component with Hooks"
+              code={`function Counter() {
+  const [count, setCount] = useState(0);
+  const [isActive, setIsActive] = useState(true);
+
+  return (
+    <div className="counter">
+      <h1>Count: {count}</h1>
+      <button onClick={() => setCount(count + 1)}>
+        Increment
+      </button>
+    </div>
+  );
+}`}
               showCopy={true}
             />
           </Card>
@@ -1020,11 +928,28 @@ function MyComponent() {
             Usage Example
           </h4>
           <Card className="p-6 bg-[var(--color-surface)]">
-            <Code inline={false} syntax="plain">{`import { CollapsibleCodeBlock } from '@ecosystem/design-system';
+            <Code inline={false} syntax="plain">{`import { CollapsibleCodeBlock, parseCode } from '@ecosystem/design-system';
+
+// ✨ NEW: Automatic syntax highlighting - just pass a string!
+<CollapsibleCodeBlock
+  id="my-code"
+  title="React Component"
+  code={\`const greeting = "Hello World";
+console.log(greeting);\`}
+  showCopy={true}
+/>
+
+// Advanced: Use parseCode utility directly
+const tokens = parseCode('const example = 42;');
+<CollapsibleCodeBlock
+  id="parsed-code"
+  code={tokens}
+/>
+
+// Manual tokenization (for custom control)
 import type { SyntaxToken } from '@ecosystem/design-system';
 
-// With tokenized syntax highlighting
-const codeTokens: SyntaxToken[] = [
+const customTokens: SyntaxToken[] = [
   { text: 'const', type: 'keyword' },
   { text: ' example ', type: 'plain' },
   { text: '=', type: 'operator' },
@@ -1032,18 +957,8 @@ const codeTokens: SyntaxToken[] = [
 ];
 
 <CollapsibleCodeBlock
-  id="my-code"
-  title="Example Code"
-  code={codeTokens}
-  showCopy={true}
-/>
-
-// With plain string
-<CollapsibleCodeBlock
-  id="simple-code"
-  code="const example = 'Hello World';"
-  showCopy={true}
-  defaultCollapsed={false}
+  id="manual-tokens"
+  code={customTokens}
 />`}</Code>
           </Card>
         </div>
