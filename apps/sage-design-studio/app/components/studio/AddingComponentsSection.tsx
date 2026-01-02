@@ -1,8 +1,19 @@
 'use client';
 
-import { Card, Code, CollapsibleCodeBlock } from '@ecosystem/design-system';
+import { useState } from 'react';
+import { Card, Code, CollapsibleCodeBlock, SecondaryNav } from '@ecosystem/design-system';
 
 export function AddingComponentsSection() {
+  const [activeSection, setActiveSection] = useState('atoms');
+
+  const sections = [
+    { id: 'atoms', label: 'Adding Atoms' },
+    { id: 'molecules', label: 'Adding Molecules' },
+    { id: 'modifying', label: 'Modifying Components' },
+    { id: 'tokens', label: 'Adding Tokens' },
+    { id: 'troubleshooting', label: 'Troubleshooting' },
+  ];
+
   return (
     <div className="space-y-12">
       {/* Title */}
@@ -15,11 +26,19 @@ export function AddingComponentsSection() {
         </p>
       </div>
 
+      {/* Secondary Navigation */}
+      <SecondaryNav
+        items={sections}
+        activeId={activeSection}
+        onItemChange={setActiveSection}
+      />
+
       {/* Adding a New Atom */}
-      <section>
-        <h2 className="text-2xl font-bold mb-4 text-[var(--color-text-primary)]">
-          Adding a New Atom
-        </h2>
+      {activeSection === 'atoms' && (
+        <section>
+          <h2 className="text-2xl font-bold mb-4 text-[var(--color-text-primary)]">
+            Adding a New Atom
+          </h2>
         <Card className="p-6">
           <ol className="space-y-4">
             <li className="flex items-start gap-3">
@@ -97,13 +116,15 @@ export { ComponentName } from './atoms/ComponentName';`} defaultCollapsed={false
             </li>
           </ol>
         </Card>
-      </section>
+        </section>
+      )}
 
       {/* Adding a New Molecule */}
-      <section>
-        <h2 className="text-2xl font-bold mb-4 text-[var(--color-text-primary)]">
-          Adding a New Molecule
-        </h2>
+      {activeSection === 'molecules' && (
+        <section>
+          <h2 className="text-2xl font-bold mb-4 text-[var(--color-text-primary)]">
+            Adding a New Molecule
+          </h2>
         <Card className="p-6">
           <p className="text-sm text-[var(--color-text-secondary)] mb-4">
             Follow the same steps as adding an Atom, but place the file in:
@@ -125,13 +146,15 @@ export function SearchBar() {
 }`} defaultCollapsed={false} showCopy={true} />
           </div>
         </Card>
-      </section>
+        </section>
+      )}
 
       {/* Modifying an Existing Component */}
-      <section>
-        <h2 className="text-2xl font-bold mb-4 text-[var(--color-text-primary)]">
-          Modifying an Existing Component
-        </h2>
+      {activeSection === 'modifying' && (
+        <section>
+          <h2 className="text-2xl font-bold mb-4 text-[var(--color-text-primary)]">
+            Modifying an Existing Component
+          </h2>
         <Card className="p-6">
           <ol className="space-y-4">
             <li className="flex items-start gap-3">
@@ -183,13 +206,15 @@ export function SearchBar() {
             </li>
           </ol>
         </Card>
-      </section>
+        </section>
+      )}
 
       {/* Adding a New Design Token */}
-      <section>
-        <h2 className="text-2xl font-bold mb-4 text-[var(--color-text-primary)]">
-          Adding a New Design Token
-        </h2>
+      {activeSection === 'tokens' && (
+        <section>
+          <h2 className="text-2xl font-bold mb-4 text-[var(--color-text-primary)]">
+            Adding a New Design Token
+          </h2>
         <Card className="p-6">
           <ol className="space-y-4">
             <li className="flex items-start gap-3">
@@ -248,7 +273,127 @@ export const colors: ColorTokens = {
             </li>
           </ol>
         </Card>
-      </section>
+        </section>
+      )}
+
+      {/* Troubleshooting */}
+      {activeSection === 'troubleshooting' && (
+        <section>
+          <h2 className="text-2xl font-bold mb-4 text-[var(--color-text-primary)]">
+            Troubleshooting
+          </h2>
+
+          {/* Vercel Build Failures in Monorepo */}
+          <Card className="p-6 mb-6">
+            <h3 className="text-xl font-bold mb-4 text-[var(--color-text-primary)]">
+              Vercel Build Failures in Monorepo
+            </h3>
+
+            <div className="space-y-6">
+              {/* Problem */}
+              <div>
+                <h4 className="font-semibold mb-2 text-[var(--color-text-primary)]">Problem</h4>
+                <p className="text-sm text-[var(--color-text-secondary)] mb-3">
+                  Vercel build fails with error: <Code syntax="plain">error: unknown option '--filter=...'</Code>
+                </p>
+                <CollapsibleCodeBlock
+                  id="troubleshoot-1"
+                  code={`> @ecosystem/sage-design-studio@0.1.0 build
+> next build --filter=@ecosystem/sage-design-studio
+error: unknown option '--filter=@ecosystem/sage-design-studio'
+ELIFECYCLE Command failed with exit code 1.`}
+                  defaultCollapsed={false}
+                  showCopy={false}
+                />
+              </div>
+
+              {/* Root Cause */}
+              <div>
+                <h4 className="font-semibold mb-2 text-[var(--color-text-primary)]">Root Cause</h4>
+                <p className="text-sm text-[var(--color-text-secondary)] mb-3">
+                  When using <Code syntax="plain">pnpm build --filter=...</Code> in vercel.json, Vercel runs the <Code syntax="plain">build</Code> script
+                  from package.json and appends the filter flag. This results in <Code syntax="plain">next build --filter=...</Code>,
+                  but Next.js doesn't recognize the <Code syntax="plain">--filter</Code> flag (it's a Turborepo flag).
+                </p>
+                <div className="bg-[var(--color-surface)] p-4 rounded-md border border-[var(--color-border)]">
+                  <p className="text-xs text-[var(--color-text-muted)] mb-2">❌ Incorrect (runs through package.json):</p>
+                  <CollapsibleCodeBlock
+                    id="troubleshoot-2"
+                    code={`{
+  "buildCommand": "pnpm build --filter=@ecosystem/sage-design-studio"
+}`}
+                    defaultCollapsed={false}
+                    showCopy={false}
+                  />
+                </div>
+              </div>
+
+              {/* Solution */}
+              <div>
+                <h4 className="font-semibold mb-2 text-[var(--color-text-primary)]">Solution</h4>
+                <p className="text-sm text-[var(--color-text-secondary)] mb-3">
+                  Use <Code syntax="plain">turbo build</Code> directly instead of <Code syntax="plain">pnpm build</Code>.
+                  This invokes Turborepo's build orchestration, which will build the design-system package first, then the app.
+                </p>
+                <div className="bg-[var(--color-success)]/10 p-4 rounded-md border border-[var(--color-success)]/30">
+                  <p className="text-xs text-[var(--color-text-muted)] mb-2">✅ Correct (runs turbo directly):</p>
+                  <CollapsibleCodeBlock
+                    id="troubleshoot-3"
+                    code={`{
+  "buildCommand": "turbo build --filter=@ecosystem/sage-design-studio",
+  "installCommand": "pnpm install --frozen-lockfile"
+}`}
+                    defaultCollapsed={false}
+                    showCopy={true}
+                  />
+                </div>
+              </div>
+
+              {/* How It Works */}
+              <div>
+                <h4 className="font-semibold mb-2 text-[var(--color-text-primary)]">How It Works</h4>
+                <ol className="space-y-2 text-sm text-[var(--color-text-secondary)]">
+                  <li className="flex items-start gap-2">
+                    <span className="text-[var(--color-primary)] font-bold">1.</span>
+                    <span>Turbo reads the dependency graph from <Code syntax="plain">turbo.json</Code></span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-[var(--color-primary)] font-bold">2.</span>
+                    <span>Sees that sage-design-studio depends on design-system (via <Code syntax="plain">dependsOn: ["^build"]</Code>)</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-[var(--color-primary)] font-bold">3.</span>
+                    <span>Builds <Code syntax="plain">@ecosystem/design-system</Code> first (runs tsup to generate dist files)</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-[var(--color-primary)] font-bold">4.</span>
+                    <span>Then builds <Code syntax="plain">@ecosystem/sage-design-studio</Code> (runs next build)</span>
+                  </li>
+                </ol>
+              </div>
+
+              {/* Prevention */}
+              <div>
+                <h4 className="font-semibold mb-2 text-[var(--color-text-primary)]">Preventing This Issue</h4>
+                <ul className="space-y-2 text-sm text-[var(--color-text-secondary)]">
+                  <li className="flex items-start gap-2">
+                    <span className="text-[var(--color-primary)]">•</span>
+                    <span>Always use <Code syntax="plain">turbo</Code> directly for monorepo builds in Vercel</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-[var(--color-primary)]">•</span>
+                    <span>Test the vercel.json buildCommand locally before deploying</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-[var(--color-primary)]">•</span>
+                    <span>Remember: <Code syntax="plain">pnpm [script]</Code> looks for package.json scripts, <Code syntax="plain">turbo [task]</Code> uses Turborepo</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </Card>
+        </section>
+      )}
     </div>
   );
 }

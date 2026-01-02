@@ -4,7 +4,12 @@
     "main": "./dist/index.js",
     "types": "./dist/index.d.ts",
     "exports": {
-        ".": "./src/index.ts",
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.mjs",
+            "require": "./dist/index.js",
+            "default": "./dist/index.js"
+        },
         "./tokens": "./tokens/index.ts",
         "./atoms": "./atoms/index.ts",
         "./organisms": "./organisms/index.ts",
