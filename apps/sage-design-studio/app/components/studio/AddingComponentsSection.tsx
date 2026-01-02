@@ -15,9 +15,9 @@ export function AddingComponentsSection() {
   ];
 
   return (
-    <div className="space-y-12">
+    <>
       {/* Title */}
-      <div className="border-b border-[var(--color-border)] pb-6">
+      <div className="border-b border-[var(--color-border)] pb-6 mb-12">
         <h1 className="text-4xl font-bold mb-2 text-[var(--color-text-primary)]">
           Adding Components
         </h1>
@@ -26,12 +26,15 @@ export function AddingComponentsSection() {
         </p>
       </div>
 
-      {/* Secondary Navigation */}
+      {/* Secondary Navigation - Sticky below header */}
       <SecondaryNav
         items={sections}
         activeId={activeSection}
         onItemChange={setActiveSection}
       />
+
+      {/* Main Content */}
+      <div className="space-y-12">
 
       {/* Adding a New Atom */}
       {activeSection === 'atoms' && (
@@ -394,6 +397,7 @@ ELIFECYCLE Command failed with exit code 1.`}
           </Card>
         </section>
       )}
-    </div>
+      </div>
+    </>
   );
 }
