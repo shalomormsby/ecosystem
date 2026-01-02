@@ -6,6 +6,13 @@ export const moleculeRegistry: Record<string, ComponentConfig> = {
     component: Breadcrumbs,
     description: 'Navigation component showing page hierarchy with clickable links and customizable separators.',
     props: {
+      items: {
+        type: 'array',
+        typeDefinition: 'BreadcrumbItem[]',
+        required: true,
+        default: [],
+        description: 'Array of breadcrumb items from root to current page. Last item should omit href to indicate current page.',
+      },
       variant: {
         type: 'select',
         options: ['subtle', 'bold', 'underline'] as const,
@@ -87,6 +94,49 @@ export const moleculeRegistry: Record<string, ComponentConfig> = {
         children: null,
       },
     ],
+    codeExamples: [
+      {
+        title: 'Basic Usage',
+        code: `import { Breadcrumbs } from '@ecosystem/design-system';
+
+<Breadcrumbs
+  items={[
+    { label: 'Home', href: '/' },
+    { label: 'Products', href: '/products' },
+    { label: 'Laptop' }, // Current page (no href)
+  ]}
+/>`,
+        description: 'Simple breadcrumb navigation showing the page hierarchy',
+      },
+      {
+        title: 'With Custom Variant and Separator',
+        code: `<Breadcrumbs
+  variant="bold"
+  separator="›"
+  items={[
+    { label: 'Docs', href: '/docs' },
+    { label: 'Components', href: '/docs/components' },
+    { label: 'Breadcrumbs' },
+  ]}
+/>`,
+        description: 'Using bold variant with arrow separator',
+      },
+      {
+        title: 'TypeScript Interface',
+        code: `interface BreadcrumbItem {
+  label: string;
+  href?: string;  // Omit for current page
+  icon?: React.ReactNode;
+}
+
+const items: BreadcrumbItem[] = [
+  { label: 'Home', href: '/', icon: <HomeIcon /> },
+  { label: 'Products' },
+];`,
+        description: 'TypeScript definition for breadcrumb items',
+      },
+    ],
+    sourceUrl: 'https://github.com/shalom-ormsby/ecosystem/blob/main/design-system/molecules/Breadcrumbs/Breadcrumbs.tsx',
   },
 
   Dropdown: {

@@ -73,6 +73,15 @@ export function ComponentPlayground({ componentName, config }: ComponentPlaygrou
               <div key={propName}>
                 <label className="block text-sm font-medium mb-2 text-[var(--color-text-primary)]">
                   {propName}
+                  {propConfig.required && (
+                    <span className="text-xs text-red-500 ml-1">*required</span>
+                  )}
+                  {(propConfig.type === 'array' || propConfig.type === 'object' ||
+                    propConfig.type === 'interface' || propConfig.type === 'custom') && (
+                    <span className="text-xs font-mono text-[var(--color-text-muted)] ml-2">
+                      {propConfig.typeDefinition || propConfig.type}
+                    </span>
+                  )}
                   {propConfig.description && (
                     <span className="text-xs text-[var(--color-text-muted)] ml-2">
                       ({propConfig.description})

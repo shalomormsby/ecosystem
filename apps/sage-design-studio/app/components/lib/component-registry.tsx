@@ -1,10 +1,13 @@
 import { Button, Card, Code, Link, Badge, Avatar, Spinner, ProgressBar } from '@ecosystem/design-system';
 
 export interface PropConfig {
-  type: 'select' | 'boolean' | 'text';
+  type: 'select' | 'boolean' | 'text' | 'array' | 'object' | 'interface' | 'custom';
   options?: readonly string[];
   default: any;
   description?: string;
+  // For displaying complex TypeScript types
+  typeDefinition?: string; // e.g., "BreadcrumbItem[]", "{ id: string; label: string }[]"
+  required?: boolean; // Mark required props with visual indicator
 }
 
 export interface ComponentConfig {
@@ -16,6 +19,14 @@ export interface ComponentConfig {
     props: Record<string, any>;
     children?: React.ReactNode;
   }>;
+  // Code examples with CollapsibleCodeBlock
+  codeExamples?: Array<{
+    title: string;
+    code: string;
+    description?: string;
+  }>;
+  // GitHub source link for LLM navigation
+  sourceUrl?: string;
 }
 
 export const componentRegistry: Record<string, ComponentConfig> = {
