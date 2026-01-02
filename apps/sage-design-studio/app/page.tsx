@@ -38,6 +38,63 @@ export default function StudioPage() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
 
+  // Initialize from URL hash on mount
+  useEffect(() => {
+    const hash = window.location.hash.slice(1); // Remove '#'
+    if (!hash) return;
+
+    const [section, itemId] = hash.split('/');
+    const validSections: Section[] = [
+      'overview', 'architecture', 'adding-components', 'common-patterns',
+      'contributing', 'tokens', 'atoms', 'molecules', 'organisms',
+      'hooks', 'templates', 'motion'
+    ];
+
+    if (validSections.includes(section as Section)) {
+      setActiveSection(section as Section);
+      setActiveItemId(itemId || section);
+    }
+  }, []);
+
+  // Sync state to URL hash whenever navigation changes
+  useEffect(() => {
+    const hash = activeItemId && activeItemId !== activeSection
+      ? `#${activeSection}/${activeItemId}`
+      : `#${activeSection}`;
+
+    if (window.location.hash !== hash) {
+      window.history.replaceState(null, '', hash);
+    }
+  }, [activeSection, activeItemId]);
+
+  // Listen for hash changes (back/forward button, direct links)
+  useEffect(() => {
+    const handleHashChange = () => {
+      const hash = window.location.hash.slice(1);
+      if (!hash) {
+        setActiveSection('overview');
+        setActiveItemId('overview');
+        return;
+      }
+
+      const [section, itemId] = hash.split('/');
+      const validSections: Section[] = [
+        'overview', 'architecture', 'adding-components', 'common-patterns',
+        'contributing', 'tokens', 'atoms', 'molecules', 'organisms',
+        'hooks', 'templates', 'motion'
+      ];
+
+      if (validSections.includes(section as Section)) {
+        setActiveSection(section as Section);
+        setActiveItemId(itemId || section);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    };
+
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, []);
+
   // Open/close search with Cmd+K or Ctrl+K
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
