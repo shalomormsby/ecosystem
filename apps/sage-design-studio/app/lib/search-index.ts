@@ -126,6 +126,15 @@ export const searchIndex: SearchResult[] = [
 
   // Molecules
   {
+    id: 'breadcrumbs',
+    title: 'Breadcrumbs',
+    description: 'Navigation showing page hierarchy with clickable links',
+    type: 'component',
+    category: 'Molecules',
+    path: 'molecules-breadcrumbs',
+    keywords: ['navigation', 'breadcrumb', 'path', 'hierarchy', 'location', 'trail'],
+  },
+  {
     id: 'dropdown',
     title: 'Dropdown',
     description: 'A menu that appears when clicking a trigger element',

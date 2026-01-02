@@ -163,6 +163,17 @@ export const navigationTree: NavigationItem[] = [
         label: 'Molecules',
         children: [
           {
+            id: 'navigation-molecules',
+            label: 'Navigation',
+            children: [
+              {
+                id: 'breadcrumbs',
+                label: 'Breadcrumbs',
+                section: 'molecules',
+              },
+            ],
+          },
+          {
             id: 'forms',
             label: 'Forms',
             children: [
