@@ -93,11 +93,15 @@ function ModalDemo() {
 
 function CustomizerDemoFull() {
   const [isOpen, setIsOpen] = useState(true);
+  const [motion, setMotion] = useState(5);
+  const [theme, setTheme] = useState('studio');
+  const [mode, setMode] = useState('light');
+  const [xrayMode, setXrayMode] = useState(false);
 
   return (
-    <div className="relative min-h-[400px] bg-[var(--color-background)] rounded-lg border border-[var(--color-border)] p-4 flex items-center justify-center">
+    <div className="relative min-h-[500px] bg-[var(--color-background)] rounded-lg border border-[var(--color-border)] p-4 flex items-center justify-center">
       <p className="text-sm text-[var(--color-text-secondary)] text-center max-w-md">
-        This demo shows the full-featured Customizer with all controls: theme selection, light/dark mode, motion intensity, and X-ray mode.
+        Click the floating button to toggle the panel and explore all controls.
       </p>
       {!isOpen ? (
         <button
@@ -129,13 +133,119 @@ function CustomizerDemoFull() {
               </svg>
             </button>
           </div>
-          <div className="space-y-4">
-            <p className="text-xs text-[var(--color-text-secondary)]">
-              ✨ All controls are interactive. This is a live demo showing the full customizer experience with theme switching, motion control, and more.
-            </p>
-            <p className="text-xs text-[var(--color-text-muted)] italic">
-              Note: The actual component on this page is in the bottom-right corner. This demo is contained for documentation purposes.
-            </p>
+          <div className="space-y-6">
+            {/* Motion Intensity Slider */}
+            <div>
+              <div className="flex justify-between mb-2">
+                <label className="text-sm font-medium opacity-80">Motion Intensity</label>
+                <span className="text-sm opacity-60">{motion}</span>
+              </div>
+              <input
+                type="range"
+                min="0"
+                max="10"
+                value={motion}
+                onChange={(e) => setMotion(Number(e.target.value))}
+                className="w-full h-2 bg-[var(--color-surface)] rounded-lg appearance-none cursor-pointer accent-primary"
+              />
+            </div>
+
+            {/* Theme Selector */}
+            <div>
+              <label className="block text-sm font-medium opacity-80 mb-3">Theme</label>
+              <div className="grid grid-cols-3 gap-2 mb-3">
+                {[
+                  { id: 'studio', label: 'Studio', emoji: '🏢' },
+                  { id: 'sage', label: 'Sage', emoji: '🌿' },
+                  { id: 'volt', label: 'Volt', emoji: '⚡' },
+                ].map((t) => (
+                  <button
+                    key={t.id}
+                    onClick={() => setTheme(t.id)}
+                    className={`
+                      px-3 py-2.5 rounded-lg text-sm font-medium transition-all flex flex-col items-center gap-1 border
+                      ${theme === t.id
+                        ? 'shadow-md'
+                        : 'bg-background-secondary text-foreground opacity-60 hover:opacity-100 border-[var(--color-glass-border)]'
+                      }
+                    `}
+                    style={theme === t.id ? {
+                      backgroundColor: 'var(--color-primary)',
+                      color: 'var(--color-primary-foreground)',
+                      borderColor: 'var(--color-primary)'
+                    } : {}}
+                  >
+                    <span className="text-base">{t.emoji}</span>
+                    <span>{t.label}</span>
+                  </button>
+                ))}
+              </div>
+              {/* Typography Preview */}
+              <div className="text-xs opacity-60 space-y-1">
+                <div>
+                  <span className="font-heading">Heading:</span> {
+                    theme === 'studio' ? 'Outfit' :
+                    theme === 'sage' ? 'Lora' :
+                    'Space Grotesk'
+                  }
+                </div>
+                <div>
+                  <span className="font-body">Body:</span> {
+                    theme === 'studio' ? 'Manrope' :
+                    theme === 'sage' ? 'Instrument Sans' :
+                    'Space Grotesk'
+                  }
+                </div>
+              </div>
+            </div>
+
+            {/* Mode Selector */}
+            <div>
+              <label className="block text-sm font-medium opacity-80 mb-3">Mode</label>
+              <div className="grid grid-cols-2 gap-2">
+                {[
+                  { id: 'light', label: 'Light', emoji: '☀️' },
+                  { id: 'dark', label: 'Dark', emoji: '🌙' },
+                ].map((m) => (
+                  <button
+                    key={m.id}
+                    onClick={() => setMode(m.id)}
+                    className={`
+                      px-3 py-2.5 rounded-lg text-sm font-medium transition-all flex items-center justify-center gap-2 border
+                      ${mode === m.id
+                        ? 'shadow-md'
+                        : 'bg-background-secondary text-foreground opacity-60 hover:opacity-100 border-[var(--color-glass-border)]'
+                      }
+                    `}
+                    style={mode === m.id ? {
+                      backgroundColor: 'var(--color-primary)',
+                      color: 'var(--color-primary-foreground)',
+                      borderColor: 'var(--color-primary)'
+                    } : {}}
+                  >
+                    <span>{m.emoji}</span>
+                    <span>{m.label}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* X-Ray Mode Toggle */}
+            <button
+              onClick={() => setXrayMode(!xrayMode)}
+              className="w-full p-3 rounded-xl font-medium transition-all flex items-center justify-center gap-2 border shadow-md"
+              style={xrayMode ? {
+                backgroundColor: 'var(--color-accent)',
+                borderColor: 'var(--color-accent)',
+                color: 'var(--color-accent-foreground)'
+              } : {
+                backgroundColor: 'var(--color-foreground)',
+                borderColor: 'var(--color-foreground)',
+                color: 'var(--color-background)'
+              }}
+            >
+              {xrayMode ? 'Hide X-Ray Mode' : 'Reveal X-Ray Mode'}
+            </button>
           </div>
         </div>
       )}
@@ -145,11 +255,12 @@ function CustomizerDemoFull() {
 
 function CustomizerDemoLightweight() {
   const [isOpen, setIsOpen] = useState(true);
+  const [mode, setMode] = useState('light');
 
   return (
     <div className="relative min-h-[300px] bg-[var(--color-background)] rounded-lg border border-[var(--color-border)] p-4 flex items-center justify-center">
       <p className="text-sm text-[var(--color-text-secondary)] text-center max-w-md">
-        This demo shows the lightweight mode with only light/dark theme switching - perfect for production apps.
+        Click the floating button to toggle the panel - notice the simpler interface.
       </p>
       {!isOpen ? (
         <button
@@ -181,13 +292,37 @@ function CustomizerDemoLightweight() {
               </svg>
             </button>
           </div>
-          <div className="space-y-4">
-            <p className="text-xs text-[var(--color-text-secondary)]">
-              ✨ This lightweight mode shows only light/dark switching - simpler and more focused for end users.
-            </p>
-            <p className="text-xs text-[var(--color-text-muted)] italic">
-              Note: Click the buttons to toggle the panel open/closed in this demo.
-            </p>
+          <div className="space-y-6">
+            {/* Mode Selector - Only control in lightweight mode */}
+            <div>
+              <label className="block text-sm font-medium opacity-80 mb-3">Mode</label>
+              <div className="grid grid-cols-2 gap-2">
+                {[
+                  { id: 'light', label: 'Light', emoji: '☀️' },
+                  { id: 'dark', label: 'Dark', emoji: '🌙' },
+                ].map((m) => (
+                  <button
+                    key={m.id}
+                    onClick={() => setMode(m.id)}
+                    className={`
+                      px-3 py-2.5 rounded-lg text-sm font-medium transition-all flex items-center justify-center gap-2 border
+                      ${mode === m.id
+                        ? 'shadow-md'
+                        : 'bg-background-secondary text-foreground opacity-60 hover:opacity-100 border-[var(--color-glass-border)]'
+                      }
+                    `}
+                    style={mode === m.id ? {
+                      backgroundColor: 'var(--color-primary)',
+                      color: 'var(--color-primary-foreground)',
+                      borderColor: 'var(--color-primary)'
+                    } : {}}
+                  >
+                    <span>{m.emoji}</span>
+                    <span>{m.label}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       )}
