@@ -93,9 +93,26 @@ export const Breadcrumbs: React.FC<BreadcrumbsProps> = ({
     return null;
   }
 
+  // Truncate items for long paths: show first item + ... + last 2 items
+  const getDisplayItems = () => {
+    if (items.length <= 3) {
+      return items;
+    }
+
+    // For long paths: [first, ..., second-to-last, last]
+    return [
+      items[0],
+      { label: '...', href: undefined } as BreadcrumbItem, // Ellipsis
+      items[items.length - 2],
+      items[items.length - 1],
+    ];
+  };
+
+  const displayItems = getDisplayItems();
+
   // Get variant-specific styles
   const getVariantStyles = (isLink: boolean, isCurrent: boolean) => {
-    const baseStyles = 'text-sm transition-colors duration-200';
+    const baseStyles = 'text-sm transition-all duration-200';
 
     if (variant === 'subtle') {
       if (isCurrent) {
@@ -111,7 +128,7 @@ export const Breadcrumbs: React.FC<BreadcrumbsProps> = ({
         return `${baseStyles} text-[var(--color-text-primary)] font-semibold`;
       }
       if (isLink) {
-        return `${baseStyles} text-[var(--color-primary)] hover:opacity-80 font-medium px-2 py-1 -mx-2 -my-1 rounded`;
+        return `${baseStyles} text-[var(--color-primary)] hover:bg-[var(--color-text-primary)] hover:text-[var(--color-background)] font-medium px-2 py-1 -mx-2 -my-1 rounded`;
       }
     }
 
@@ -156,13 +173,14 @@ export const Breadcrumbs: React.FC<BreadcrumbsProps> = ({
 
   return (
     <nav aria-label={ariaLabel} className={className}>
-      <ol className="flex items-center flex-wrap list-none m-0 p-0">
-        {items.map((item, index) => {
-          const isLast = index === items.length - 1;
-          const isInteractive = item.href && !isLast;
+      <ol className="flex items-center flex-nowrap list-none m-0 p-0 overflow-hidden">
+        {displayItems.map((item, index) => {
+          const isLast = index === displayItems.length - 1;
+          const isEllipsis = item.label === '...';
+          const isInteractive = item.href && !isLast && !isEllipsis;
 
           return (
-            <li key={index} className="flex items-center">
+            <li key={index} className="flex items-center flex-shrink-0">
               {isInteractive ? (
                 <a
                   href={item.href}
@@ -178,7 +196,7 @@ export const Breadcrumbs: React.FC<BreadcrumbsProps> = ({
                 </a>
               ) : (
                 <span
-                  className={getVariantStyles(false, isLast)}
+                  className={isEllipsis ? 'text-sm text-[var(--color-text-muted)] px-1' : getVariantStyles(false, isLast)}
                   aria-current={isLast ? 'page' : undefined}
                 >
                   {item.icon && <span className="inline-flex mr-1.5">{item.icon}</span>}
