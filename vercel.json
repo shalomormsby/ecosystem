@@ -1,0 +1,4 @@
+{
+  "buildCommand": "pnpm build --filter=@ecosystem/sage-design-studio",
+  "installCommand": "pnpm install --frozen-lockfile"
+}
