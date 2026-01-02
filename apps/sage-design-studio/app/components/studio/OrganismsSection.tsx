@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { Card, Button, Header, SecondaryNav, TertiaryNav, Footer, Modal, ToastProvider, useToast, CollapsibleCodeBlock, Code } from '@ecosystem/design-system';
 import type { SyntaxToken } from '@ecosystem/design-system';
 
-type OrganismType = 'PrimaryNav' | 'FirstStack' | 'SecondStack' | 'Footer' | 'Toast' | 'Modal' | 'CollapsibleCodeBlock';
+type OrganismType = 'PrimaryNav' | 'SecondaryNav' | 'TertiaryNav' | 'FirstStack' | 'SecondStack' | 'Footer' | 'Toast' | 'Modal' | 'CollapsibleCodeBlock';
 
 interface OrganismsSectionProps {
   activeItemId?: string;
@@ -104,7 +104,7 @@ export function OrganismsSection({ activeItemId }: OrganismsSectionProps) {
         .map(word => word.charAt(0).toUpperCase() + word.slice(1))
         .join('') as OrganismType;
 
-      if (['PrimaryNav', 'FirstStack', 'SecondStack', 'Footer', 'Toast', 'Modal', 'CollapsibleCodeBlock'].includes(organismName)) {
+      if (['PrimaryNav', 'SecondaryNav', 'TertiaryNav', 'FirstStack', 'SecondStack', 'Footer', 'Toast', 'Modal', 'CollapsibleCodeBlock'].includes(organismName)) {
         setSelectedOrganism(organismName);
       }
     }
@@ -112,6 +112,8 @@ export function OrganismsSection({ activeItemId }: OrganismsSectionProps) {
 
   const organisms = [
     { id: 'PrimaryNav', label: 'Primary Nav' },
+    { id: 'SecondaryNav', label: 'Secondary Nav' },
+    { id: 'TertiaryNav', label: 'Tertiary Nav' },
     { id: 'FirstStack', label: '1st Stacking Row' },
     { id: 'SecondStack', label: '2nd Stacking Row' },
     { id: 'Footer', label: 'Footer' },
@@ -284,6 +286,335 @@ export function OrganismsSection({ activeItemId }: OrganismsSectionProps) {
                   <li><Code syntax="plain">z-50</Code> - Highest layer for primary navigation</li>
                   <li><Code syntax="plain">h-16 lg:h-20</Code> - Height: 64px mobile, 80px desktop</li>
                 </ul>
+              </div>
+            </div>
+          </Card>
+        </div>
+        </section>
+      )}
+
+      {/* Secondary Nav Component */}
+      {selectedOrganism === 'SecondaryNav' && (
+        <section className="space-y-6">
+        <div>
+          <h3 className="text-2xl font-semibold mb-2 text-[var(--color-text-primary)]">
+            Secondary Nav
+          </h3>
+          <Card className="p-6">
+            <p className="text-[var(--color-text-primary)] mb-4">
+              Tab-style navigation component designed to stack below a primary header. Used for section/tab navigation within a page, with sticky positioning that keeps it visible during scroll.
+            </p>
+            <div className="space-y-4">
+              <div className="text-sm text-[var(--color-text-secondary)]">
+                <strong>Key Features:</strong>
+                <ul className="list-disc list-inside mt-2 space-y-1">
+                  <li>Sticky positioning that automatically stacks below Header component</li>
+                  <li>Glass morphism effect with backdrop blur for modern aesthetic</li>
+                  <li>Active state highlighting with primary color background</li>
+                  <li>Horizontal scrollable on mobile for responsive design</li>
+                  <li>Tab-style buttons with smooth transitions</li>
+                  <li>Keyboard accessible with focus indicators and aria-current</li>
+                  <li>Theme-aware colors using CSS custom properties</li>
+                  <li>Z-index coordination (z-40) to sit below Header (z-50)</li>
+                </ul>
+              </div>
+              <div className="mt-4 p-3 bg-[var(--color-surface)] rounded border border-[var(--color-border)]">
+                <p className="text-xs text-[var(--color-text-muted)]">
+                  <strong>Sticky Positioning:</strong> Uses <Code syntax="plain">top-16 lg:top-20</Code> to position exactly below the Header's height (h-16 lg:h-20), creating a seamless double-stack navigation pattern. Content scrolls underneath both the Header and SecondaryNav.
+                </p>
+              </div>
+            </div>
+          </Card>
+        </div>
+
+        {/* Live Example */}
+        <div>
+          <h4 className="text-lg font-semibold mb-3 text-[var(--color-text-primary)]">
+            Live Example
+          </h4>
+          <Card className="p-0 overflow-hidden bg-[var(--color-background)]">
+            <SecondaryNav
+              items={[
+                { id: 'overview', label: 'Overview' },
+                { id: 'features', label: 'Features' },
+                { id: 'pricing', label: 'Pricing' },
+                { id: 'docs', label: 'Documentation' },
+                { id: 'support', label: 'Support' },
+              ]}
+              activeId="features"
+              onItemChange={() => {}}
+            />
+          </Card>
+        </div>
+
+        {/* Code Example */}
+        <div>
+          <h4 className="text-lg font-semibold mb-3 text-[var(--color-text-primary)]">
+            Code Example
+          </h4>
+          <Card className="p-6 bg-[var(--color-surface)]">
+            <CollapsibleCodeBlock id="secondary-nav-usage" code={`import { SecondaryNav } from '@ecosystem/design-system';
+import { useState } from 'react';
+
+function MyPage() {
+  const [activeSection, setActiveSection] = useState('overview');
+
+  const sections = [
+    { id: 'overview', label: 'Overview' },
+    { id: 'features', label: 'Features' },
+    { id: 'pricing', label: 'Pricing' },
+    { id: 'docs', label: 'Documentation' },
+  ];
+
+  return (
+    <>
+      {/* Primary Header would be here */}
+      <SecondaryNav
+        items={sections}
+        activeId={activeSection}
+        onItemChange={setActiveSection}
+      />
+      {/* Page content scrolls below both headers */}
+      <main>
+        {/* Content based on activeSection */}
+      </main>
+    </>
+  );
+}`} defaultCollapsed={false} showCopy={true} />
+          </Card>
+        </div>
+
+        {/* Scrolling Behavior */}
+        <div>
+          <h4 className="text-lg font-semibold mb-3 text-[var(--color-text-primary)]">
+            Sticky Header & Scrolling Behavior
+          </h4>
+          <Card className="p-6">
+            <p className="text-[var(--color-text-primary)] mb-4">
+              The SecondaryNav uses sticky positioning to remain visible at the top of the viewport while content scrolls underneath it. It automatically positions itself below the primary header.
+            </p>
+            <div className="space-y-4">
+              <div className="text-sm text-[var(--color-text-secondary)]">
+                <strong>How It Works:</strong>
+                <ul className="list-disc list-inside mt-2 space-y-1">
+                  <li><strong>Sticky Position:</strong> <Code syntax="plain">position: sticky</Code> keeps it visible during scroll</li>
+                  <li><strong>Top Offset:</strong> <Code syntax="plain">top-16 lg:top-20</Code> positions it below Header (64px mobile, 80px desktop)</li>
+                  <li><strong>Z-Index:</strong> <Code syntax="plain">z-40</Code> ensures it sits above page content but below Header (z-50)</li>
+                  <li><strong>Glass Effect:</strong> <Code syntax="plain">backdrop-blur-xl</Code> creates semi-transparent glass morphism</li>
+                  <li><strong>Content Flow:</strong> Page content scrolls normally, passing under both headers</li>
+                </ul>
+              </div>
+              <div className="mt-4 p-3 bg-[var(--color-surface)] rounded border border-[var(--color-border)]">
+                <p className="text-xs text-[var(--color-text-muted)]">
+                  <strong>Visual Stack:</strong> When scrolling, the visual hierarchy is: Header (top, z-50) → SecondaryNav (middle, z-40) → Page Content (bottom, z-auto). The glass morphism effect on SecondaryNav allows you to see content blurred underneath it as it scrolls.
+                </p>
+              </div>
+            </div>
+          </Card>
+        </div>
+
+        {/* Props Reference */}
+        <div>
+          <h4 className="text-lg font-semibold mb-3 text-[var(--color-text-primary)]">
+            Props Reference
+          </h4>
+          <Card className="p-6">
+            <div className="space-y-4">
+              <div className="p-4 bg-[var(--color-surface)] rounded border border-[var(--color-border)]">
+                <Code syntax="plain">items: SecondaryNavItem[]</Code>
+                <p className="text-sm text-[var(--color-text-secondary)] mt-2">
+                  Required. Array of navigation items with <Code syntax="plain">id</Code> and <Code syntax="plain">label</Code> properties.
+                </p>
+              </div>
+              <div className="p-4 bg-[var(--color-surface)] rounded border border-[var(--color-border)]">
+                <Code syntax="plain">activeId: string</Code>
+                <p className="text-sm text-[var(--color-text-secondary)] mt-2">
+                  Required. The ID of the currently active item.
+                </p>
+              </div>
+              <div className="p-4 bg-[var(--color-surface)] rounded border border-[var(--color-border)]">
+                <Code syntax="plain">onItemChange: (id: string) =&gt; void</Code>
+                <p className="text-sm text-[var(--color-text-secondary)] mt-2">
+                  Required. Callback function called when a navigation item is clicked.
+                </p>
+              </div>
+              <div className="p-4 bg-[var(--color-surface)] rounded border border-[var(--color-border)]">
+                <Code syntax="plain">className?: string</Code>
+                <p className="text-sm text-[var(--color-text-secondary)] mt-2">
+                  Optional. Additional CSS classes for customization.
+                </p>
+              </div>
+            </div>
+          </Card>
+        </div>
+        </section>
+      )}
+
+      {/* Tertiary Nav Component */}
+      {selectedOrganism === 'TertiaryNav' && (
+        <section className="space-y-6">
+        <div>
+          <h3 className="text-2xl font-semibold mb-2 text-[var(--color-text-primary)]">
+            Tertiary Nav
+          </h3>
+          <Card className="p-6">
+            <p className="text-[var(--color-text-primary)] mb-4">
+              Third-level navigation component designed to stack below SecondaryNav in a triple-stack pattern. Perfect for component selectors, sub-section navigation, or filtering options within a page section.
+            </p>
+            <div className="space-y-4">
+              <div className="text-sm text-[var(--color-text-secondary)]">
+                <strong>Key Features:</strong>
+                <ul className="list-disc list-inside mt-2 space-y-1">
+                  <li>Triple-stack sticky positioning below both Header and SecondaryNav</li>
+                  <li>Lighter background for clear visual hierarchy and depth perception</li>
+                  <li>Smaller text and padding to show visual subordination</li>
+                  <li>Horizontal scrollable on all screen sizes for many options</li>
+                  <li>Active state with primary color background and border styling</li>
+                  <li>Keyboard accessible with focus indicators and aria-current</li>
+                  <li>Theme-aware colors using CSS custom properties</li>
+                  <li>Z-index coordination (z-30) to sit below SecondaryNav (z-40) and Header (z-50)</li>
+                </ul>
+              </div>
+              <div className="mt-4 p-3 bg-[var(--color-surface)] rounded border border-[var(--color-border)]">
+                <p className="text-xs text-[var(--color-text-muted)]">
+                  <strong>Triple-Stack Math:</strong> Uses <Code syntax="plain">top-32 lg:top-36</Code> to position below Header (64/80px) + SecondaryNav (64px) = 128px mobile, 144px desktop. This creates a seamless triple-stack where all three navigation levels remain visible during scroll.
+                </p>
+              </div>
+            </div>
+          </Card>
+        </div>
+
+        {/* Live Example */}
+        <div>
+          <h4 className="text-lg font-semibold mb-3 text-[var(--color-text-primary)]">
+            Live Example
+          </h4>
+          <p className="text-sm text-[var(--color-text-secondary)] mb-3">
+            See this component in action on the <strong>Components &gt; Atoms</strong> page, where it provides navigation between Button, Card, Code, Link, and other atom components.
+          </p>
+          <Card className="p-0 overflow-hidden bg-[var(--color-background)]">
+            <TertiaryNav
+              items={[
+                { id: 'button', label: 'Button' },
+                { id: 'card', label: 'Card' },
+                { id: 'code', label: 'Code' },
+                { id: 'link', label: 'Link' },
+                { id: 'badge', label: 'Badge' },
+                { id: 'avatar', label: 'Avatar' },
+                { id: 'spinner', label: 'Spinner' },
+              ]}
+              activeId="card"
+              onItemChange={() => {}}
+            />
+          </Card>
+        </div>
+
+        {/* Code Example */}
+        <div>
+          <h4 className="text-lg font-semibold mb-3 text-[var(--color-text-primary)]">
+            Code Example
+          </h4>
+          <Card className="p-6 bg-[var(--color-surface)]">
+            <CollapsibleCodeBlock id="tertiary-nav-usage" code={`import { TertiaryNav } from '@ecosystem/design-system';
+import { useState } from 'react';
+
+function ComponentSelector() {
+  const [activeComponent, setActiveComponent] = useState('button');
+
+  const components = [
+    { id: 'button', label: 'Button' },
+    { id: 'card', label: 'Card' },
+    { id: 'code', label: 'Code' },
+    { id: 'link', label: 'Link' },
+    { id: 'badge', label: 'Badge' },
+  ];
+
+  return (
+    <>
+      {/* Header and SecondaryNav would be above */}
+      <TertiaryNav
+        items={components}
+        activeId={activeComponent}
+        onItemChange={setActiveComponent}
+      />
+      {/* Component display area */}
+      <main>
+        {activeComponent === 'button' && <ButtonDocs />}
+        {activeComponent === 'card' && <CardDocs />}
+        {/* ... other components */}
+      </main>
+    </>
+  );
+}`} defaultCollapsed={false} showCopy={true} />
+          </Card>
+        </div>
+
+        {/* Triple-Stack Behavior */}
+        <div>
+          <h4 className="text-lg font-semibold mb-3 text-[var(--color-text-primary)]">
+            Triple-Stack Sticky Behavior
+          </h4>
+          <Card className="p-6">
+            <p className="text-[var(--color-text-primary)] mb-4">
+              TertiaryNav creates a three-level sticky navigation hierarchy. All three levels remain visible at the top of the viewport as content scrolls underneath them.
+            </p>
+            <div className="space-y-4">
+              <div className="text-sm text-[var(--color-text-secondary)]">
+                <strong>Complete Stack Configuration:</strong>
+                <ul className="list-disc list-inside mt-2 space-y-1">
+                  <li><strong>Header (Primary Nav):</strong> <Code syntax="plain">top-0</Code>, <Code syntax="plain">z-50</Code>, <Code syntax="plain">h-16 lg:h-20</Code> (64/80px)</li>
+                  <li><strong>SecondaryNav:</strong> <Code syntax="plain">top-16 lg:top-20</Code>, <Code syntax="plain">z-40</Code>, <Code syntax="plain">h-16</Code> (64px)</li>
+                  <li><strong>TertiaryNav:</strong> <Code syntax="plain">top-32 lg:top-36</Code>, <Code syntax="plain">z-30</Code>, <Code syntax="plain">h-14</Code> (56px)</li>
+                </ul>
+              </div>
+              <div className="text-sm text-[var(--color-text-secondary)]">
+                <strong>Scrolling Behavior:</strong>
+                <ul className="list-disc list-inside mt-2 space-y-1">
+                  <li>Page content scrolls normally underneath all three navigation levels</li>
+                  <li>Each nav layer has decreasing z-index for proper stacking order</li>
+                  <li>Glass morphism effects show content blurred through the layers</li>
+                  <li>Total sticky header height: 184px mobile (46rem), 200px desktop (50rem)</li>
+                </ul>
+              </div>
+              <div className="mt-4 p-3 bg-[var(--color-surface)] rounded border border-[var(--color-border)]">
+                <p className="text-xs text-[var(--color-text-muted)]">
+                  <strong>Visual Hierarchy:</strong> Background opacity and padding decrease from Header → SecondaryNav → TertiaryNav, creating clear visual subordination. The lighter background on TertiaryNav (<Code syntax="plain">bg-background/95</Code> vs SecondaryNav's <Code syntax="plain">bg-surface/80</Code>) helps differentiate the levels.
+                </p>
+              </div>
+            </div>
+          </Card>
+        </div>
+
+        {/* Props Reference */}
+        <div>
+          <h4 className="text-lg font-semibold mb-3 text-[var(--color-text-primary)]">
+            Props Reference
+          </h4>
+          <Card className="p-6">
+            <div className="space-y-4">
+              <div className="p-4 bg-[var(--color-surface)] rounded border border-[var(--color-border)]">
+                <Code syntax="plain">items: TertiaryNavItem[]</Code>
+                <p className="text-sm text-[var(--color-text-secondary)] mt-2">
+                  Required. Array of navigation items with <Code syntax="plain">id</Code> and <Code syntax="plain">label</Code> properties.
+                </p>
+              </div>
+              <div className="p-4 bg-[var(--color-surface)] rounded border border-[var(--color-border)]">
+                <Code syntax="plain">activeId: string</Code>
+                <p className="text-sm text-[var(--color-text-secondary)] mt-2">
+                  Required. The ID of the currently active item.
+                </p>
+              </div>
+              <div className="p-4 bg-[var(--color-surface)] rounded border border-[var(--color-border)]">
+                <Code syntax="plain">onItemChange: (id: string) =&gt; void</Code>
+                <p className="text-sm text-[var(--color-text-secondary)] mt-2">
+                  Required. Callback function called when a navigation item is clicked.
+                </p>
+              </div>
+              <div className="p-4 bg-[var(--color-surface)] rounded border border-[var(--color-border)]">
+                <Code syntax="plain">className?: string</Code>
+                <p className="text-sm text-[var(--color-text-secondary)] mt-2">
+                  Optional. Additional CSS classes for customization.
+                </p>
               </div>
             </div>
           </Card>
