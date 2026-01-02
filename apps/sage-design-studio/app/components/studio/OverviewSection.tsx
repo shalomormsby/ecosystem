@@ -1,7 +1,125 @@
 'use client';
 
+import { useState } from 'react';
 import { Card, Code, CollapsibleCodeBlock, Button } from '@ecosystem/design-system';
 import { useTheme } from '@ecosystem/design-system/hooks';
+
+// Mini Customizer Demo for Overview
+function OverviewCustomizerPreview() {
+  const [isOpen, setIsOpen] = useState(false);
+  const [motion, setMotion] = useState(5);
+  const [demoTheme, setDemoTheme] = useState('studio');
+  const [demoMode, setDemoMode] = useState('light');
+
+  return (
+    <div className="relative w-full aspect-[4/3] bg-[var(--color-background)] rounded-lg border border-[var(--color-border)] overflow-hidden flex items-center justify-center">
+      <p className="text-xs text-[var(--color-text-muted)] px-4 text-center">
+        Interactive preview - click the button to explore
+      </p>
+      {!isOpen ? (
+        <button
+          onClick={() => setIsOpen(true)}
+          className="absolute bottom-2 right-2 bg-background text-foreground px-3 py-1.5 rounded-full shadow-lg border border-[var(--color-glass-border)] text-xs font-medium hover:opacity-80 transition-all flex items-center gap-1.5"
+          style={{ backdropFilter: 'var(--effect-blur-sm)' }}
+        >
+          <span>🎛️</span>
+          <span>Customizer</span>
+        </button>
+      ) : (
+        <div
+          className="absolute bottom-2 right-2 bg-background p-4 rounded-xl shadow-2xl border border-[var(--color-glass-border)] text-foreground w-64 max-h-[90%] overflow-y-auto"
+          style={{
+            boxShadow: 'var(--effect-shadow-xl)',
+            backdropFilter: 'var(--effect-blur-md)',
+            backgroundColor: 'var(--color-glass)'
+          }}
+        >
+          <div className="flex justify-between items-center mb-4">
+            <h4 className="font-bold text-sm">Experience Customizer</h4>
+            <button
+              onClick={() => setIsOpen(false)}
+              className="text-foreground opacity-60 hover:opacity-100 transition-opacity"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+            </button>
+          </div>
+          <div className="space-y-3 text-xs">
+            {/* Motion Slider */}
+            <div>
+              <div className="flex justify-between mb-1">
+                <label className="font-medium opacity-80">Motion</label>
+                <span className="opacity-60">{motion}</span>
+              </div>
+              <input
+                type="range"
+                min="0"
+                max="10"
+                value={motion}
+                onChange={(e) => setMotion(Number(e.target.value))}
+                className="w-full h-1.5 bg-[var(--color-surface)] rounded-lg appearance-none cursor-pointer accent-primary"
+              />
+            </div>
+            {/* Theme */}
+            <div>
+              <label className="block font-medium opacity-80 mb-2">Theme</label>
+              <div className="grid grid-cols-3 gap-1.5">
+                {[
+                  { id: 'studio', emoji: '🏢' },
+                  { id: 'sage', emoji: '🌿' },
+                  { id: 'volt', emoji: '⚡' },
+                ].map((t) => (
+                  <button
+                    key={t.id}
+                    onClick={() => setDemoTheme(t.id)}
+                    className={`px-2 py-1.5 rounded text-xs flex items-center justify-center border transition-all ${
+                      demoTheme === t.id ? 'shadow-sm' : 'opacity-60 hover:opacity-100'
+                    }`}
+                    style={demoTheme === t.id ? {
+                      backgroundColor: 'var(--color-primary)',
+                      color: 'var(--color-primary-foreground)',
+                      borderColor: 'var(--color-primary)'
+                    } : { borderColor: 'var(--color-glass-border)' }}
+                  >
+                    {t.emoji}
+                  </button>
+                ))}
+              </div>
+            </div>
+            {/* Mode */}
+            <div>
+              <label className="block font-medium opacity-80 mb-2">Mode</label>
+              <div className="grid grid-cols-2 gap-1.5">
+                {[
+                  { id: 'light', label: 'Light', emoji: '☀️' },
+                  { id: 'dark', label: 'Dark', emoji: '🌙' },
+                ].map((m) => (
+                  <button
+                    key={m.id}
+                    onClick={() => setDemoMode(m.id)}
+                    className={`px-2 py-1.5 rounded text-xs flex items-center justify-center gap-1 border transition-all ${
+                      demoMode === m.id ? 'shadow-sm' : 'opacity-60 hover:opacity-100'
+                    }`}
+                    style={demoMode === m.id ? {
+                      backgroundColor: 'var(--color-primary)',
+                      color: 'var(--color-primary-foreground)',
+                      borderColor: 'var(--color-primary)'
+                    } : { borderColor: 'var(--color-glass-border)' }}
+                  >
+                    <span>{m.emoji}</span>
+                    <span>{m.label}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
 
 export function OverviewSection() {
   const { theme, setTheme, mode, setMode } = useTheme();
@@ -426,36 +544,17 @@ export function ThemeSwitcher() {
                     <span>Two modes: full-featured or lightweight</span>
                   </div>
                 </div>
-                <p className="text-xs text-[var(--color-text-muted)] mt-4">
-                  → See full documentation in <strong className="text-[var(--color-text-primary)]">Components &gt; Organisms &gt; Customization &gt; Customizer</strong>
-                </p>
-              </div>
-              <div className="flex flex-col items-center justify-center p-6 bg-[var(--color-surface)] rounded-lg border border-[var(--color-border)] space-y-4">
-                <div className="relative w-full aspect-[4/3] bg-[var(--color-background)] rounded-lg border border-[var(--color-border)] overflow-hidden">
-                  <div className="absolute inset-0 flex items-center justify-center text-[var(--color-text-muted)] text-sm">
-                    Customizer Preview
-                  </div>
-                  <div className="absolute bottom-2 right-2 bg-background p-3 rounded-xl shadow-lg border border-[var(--color-border)] text-foreground w-28">
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="text-xs font-semibold">Theme</span>
-                      <span className="text-xs">✕</span>
-                    </div>
-                    <div className="space-y-1.5">
-                      <div className="h-6 bg-[var(--color-primary)] rounded text-[10px] flex items-center justify-center text-[var(--color-primary-foreground)]">
-                        ☀️ Light
-                      </div>
-                      <div className="h-6 bg-[var(--color-surface)] rounded text-[10px] flex items-center justify-center text-[var(--color-text-secondary)]">
-                        🌙 Dark
-                      </div>
-                    </div>
-                  </div>
+                <div className="mt-4 p-3 bg-[var(--color-surface)] rounded border border-[var(--color-border)]">
+                  <p className="text-xs text-[var(--color-text-muted)]">
+                    <strong>→ Full documentation:</strong> Navigate to <strong className="text-[var(--color-text-primary)]">Components &gt; Organisms &gt; Customization &gt; Customizer</strong> in the sidebar for interactive demos and code examples.
+                  </p>
                 </div>
-                <a
-                  href="#organisms"
-                  className="text-sm font-medium text-[var(--color-primary)] hover:underline flex items-center gap-1"
-                >
-                  View Interactive Demos →
-                </a>
+              </div>
+              <div className="flex flex-col items-center justify-center p-6 bg-[var(--color-surface)] rounded-lg border border-[var(--color-border)] space-y-3">
+                <OverviewCustomizerPreview />
+                <p className="text-xs text-[var(--color-text-muted)] text-center">
+                  Try the interactive preview above, then explore the full component documentation in the sidebar
+                </p>
               </div>
             </div>
           </Card>
