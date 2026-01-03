@@ -1,14 +1,16 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Card, Code, TertiaryNav, CollapsibleCodeBlock } from '@ecosystem/design-system';
+import { Card, Code, TertiaryNav, CollapsibleCodeBlock, Breadcrumbs, type BreadcrumbItem } from '@ecosystem/design-system';
 import { moleculeRegistry } from '../lib/molecule-registry';
 
 interface MoleculesSectionProps {
   activeItemId?: string;
+  breadcrumbs?: BreadcrumbItem[];
+  onItemChange?: (itemId: string) => void;
 }
 
-export function MoleculesSection({ activeItemId }: MoleculesSectionProps) {
+export function MoleculesSection({ activeItemId, breadcrumbs, onItemChange }: MoleculesSectionProps) {
   const moleculeKeys = Object.keys(moleculeRegistry);
   const [selectedMolecule, setSelectedMolecule] = useState<string>(moleculeKeys[0]);
 
@@ -26,6 +28,17 @@ export function MoleculesSection({ activeItemId }: MoleculesSectionProps) {
     }
   }, [activeItemId]);
 
+  // Handle molecule selection and notify parent
+  const handleMoleculeChange = (moleculeName: string) => {
+    setSelectedMolecule(moleculeName);
+    // Convert PascalCase to kebab-case for parent state (e.g., 'FormField' -> 'form-field')
+    const kebabCase = moleculeName
+      .replace(/([A-Z])/g, '-$1')
+      .toLowerCase()
+      .slice(1);
+    onItemChange?.(kebabCase);
+  };
+
   const molecules = moleculeKeys.map((key) => ({
     id: key,
     label: key,
@@ -39,6 +52,14 @@ export function MoleculesSection({ activeItemId }: MoleculesSectionProps) {
         <h2 className="text-3xl font-bold mb-2 text-[var(--color-text-primary)]">
           Molecules
         </h2>
+
+        {/* Breadcrumbs - positioned after title, before description */}
+        {breadcrumbs && breadcrumbs.length > 1 && (
+          <div className="mb-4">
+            <Breadcrumbs variant="subtle" items={breadcrumbs} />
+          </div>
+        )}
+
         <p className="text-lg text-[var(--color-text-secondary)] mb-2">
           <strong>Functional Bonding:</strong> Simple groups of atoms bonded together to perform a single, specific task. Often highly reusable and context-agnostic.
         </p>
@@ -52,7 +73,7 @@ export function MoleculesSection({ activeItemId }: MoleculesSectionProps) {
         <TertiaryNav
           items={molecules}
           activeId={selectedMolecule}
-          onItemChange={setSelectedMolecule}
+          onItemChange={handleMoleculeChange}
         />
       </div>
 

@@ -1,15 +1,17 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { TertiaryNav } from '@ecosystem/design-system';
+import { TertiaryNav, Breadcrumbs, type BreadcrumbItem } from '@ecosystem/design-system';
 import { ComponentPlayground } from './ComponentPlayground';
 import { componentRegistry } from '../../lib/component-registry';
 
 interface ComponentsSectionProps {
   activeItemId?: string;
+  breadcrumbs?: BreadcrumbItem[];
+  onItemChange?: (itemId: string) => void;
 }
 
-export function ComponentsSection({ activeItemId }: ComponentsSectionProps) {
+export function ComponentsSection({ activeItemId, breadcrumbs, onItemChange }: ComponentsSectionProps) {
   const [selectedComponent, setSelectedComponent] = useState<string>('Button');
 
   // Update selected component when activeItemId changes
@@ -23,6 +25,14 @@ export function ComponentsSection({ activeItemId }: ComponentsSectionProps) {
     }
   }, [activeItemId]);
 
+  // Handle component selection and notify parent
+  const handleComponentChange = (componentName: string) => {
+    setSelectedComponent(componentName);
+    // Convert PascalCase to lowercase for parent state (e.g., 'Button' -> 'button')
+    const lowercase = componentName.toLowerCase();
+    onItemChange?.(lowercase);
+  };
+
   const components = Object.keys(componentRegistry);
   const componentItems = components.map(name => ({ id: name, label: name }));
 
@@ -32,6 +42,14 @@ export function ComponentsSection({ activeItemId }: ComponentsSectionProps) {
         <h2 className="text-3xl font-bold mb-2 text-[var(--color-text-primary)]">
           Atoms
         </h2>
+
+        {/* Breadcrumbs - positioned after title, before description */}
+        {breadcrumbs && breadcrumbs.length > 1 && (
+          <div className="mb-4">
+            <Breadcrumbs variant="subtle" items={breadcrumbs} />
+          </div>
+        )}
+
         <p className="text-lg text-[var(--color-text-secondary)] mb-2">
           <strong>Elemental Independence:</strong> Elements that cannot be broken down further without losing their core identity or function.
         </p>
@@ -45,7 +63,7 @@ export function ComponentsSection({ activeItemId }: ComponentsSectionProps) {
         <TertiaryNav
           items={componentItems}
           activeId={selectedComponent}
-          onItemChange={setSelectedComponent}
+          onItemChange={handleComponentChange}
         />
       </div>
 

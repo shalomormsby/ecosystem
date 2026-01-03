@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Breadcrumbs, generateBreadcrumbs, type BreadcrumbItem, type RouteConfig } from '@ecosystem/design-system';
+import { generateBreadcrumbs, type BreadcrumbItem, type RouteConfig } from '@ecosystem/design-system';
 import { ModeSwitcher } from './components/ModeSwitcher';
 import { NavigationSidebar } from './components/NavigationSidebar';
 import { SearchCommandPalette } from './components/SearchCommandPalette';
@@ -276,21 +276,26 @@ export default function StudioPage() {
           {/* Content Area */}
           <div className="flex-1 flex">
             <div className="flex-1 px-4 sm:px-6 lg:px-8 py-8 max-w-7xl">
-              {/* Breadcrumbs - Regular scrolling element, only show when not on homepage */}
-              {breadcrumbs.length > 1 && (
-                <div className="mb-6">
-                  <Breadcrumbs variant="subtle" items={breadcrumbs} />
-                </div>
-              )}
-
               {activeSection === 'overview' && <OverviewSection />}
               {activeSection === 'architecture' && <ArchitectureSection />}
               {activeSection === 'adding-components' && <AddingComponentsSection />}
               {activeSection === 'common-patterns' && <CommonPatternsSection />}
               {activeSection === 'contributing' && <ContributingSection />}
               {activeSection === 'tokens' && <TokensSection activeItemId={activeItemId} />}
-              {activeSection === 'atoms' && <ComponentsSection activeItemId={activeItemId} />}
-              {activeSection === 'molecules' && <MoleculesSection activeItemId={activeItemId} />}
+              {activeSection === 'atoms' && (
+                <ComponentsSection
+                  activeItemId={activeItemId}
+                  breadcrumbs={breadcrumbs}
+                  onItemChange={(itemId) => setActiveItemId(itemId)}
+                />
+              )}
+              {activeSection === 'molecules' && (
+                <MoleculesSection
+                  activeItemId={activeItemId}
+                  breadcrumbs={breadcrumbs}
+                  onItemChange={(itemId) => setActiveItemId(itemId)}
+                />
+              )}
               {activeSection === 'organisms' && <OrganismsSection activeItemId={activeItemId} />}
               {activeSection === 'hooks' && <HooksSection activeItemId={activeItemId} />}
               {activeSection === 'templates' && <TemplatesSection />}
