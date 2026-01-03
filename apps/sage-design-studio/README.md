@@ -14,6 +14,8 @@ Sage Design Studio is a living, interactive showcase of the design system that p
 - **Automatic Syntax Highlighting**: Multi-color code examples powered by a built-in lightweight parser (~2KB)
 - **Copy-Paste Ready Code**: Every code example includes syntax highlighting and one-click copying
 - **Responsive Design**: Works beautifully on mobile, tablet, and desktop
+- **LLM-Optimized Documentation**: JSON-LD structured data for AI-powered documentation consumption
+- **Accessibility-First**: Comprehensive accessibility notes for every component
 
 ### Syntax Highlighting
 
@@ -27,6 +29,25 @@ The Studio uses the design system's automatic syntax parser to provide beautiful
 - Based on VS Code Dark+ theme colors
 
 See the **Design Tokens > Syntax** section for live examples and documentation.
+
+### LLM Optimization
+
+The Studio embeds **JSON-LD structured data** using Schema.org vocabulary to make component documentation machine-readable for LLMs and search engines:
+
+**What makes it special:**
+- Automatic metadata generation for all Atoms and Molecules
+- Schema.org `SoftwareSourceCode` and `PropertyValueSpecification` types
+- Dynamic updates when switching between components
+- Includes props, types, defaults, code examples, and accessibility notes
+- No API endpoint needed—LLMs can parse metadata directly from page source
+
+**Benefits:**
+- LLMs can generate correct component usage without reading source code
+- Search engines can index and display rich component information
+- AI coding assistants understand component APIs instantly
+- Supports semantic web and linked data standards
+
+See [PHASE-7-COMPLETION.md](./PHASE-7-COMPLETION.md) for implementation details.
 
 ## Development
 
@@ -84,17 +105,21 @@ import { CustomizerPanel } from '@ecosystem/design-system/features/customizer';
 app/
 ├── components/
 │   ├── studio/
-│   │   ├── StudioHero.tsx          # Landing section
-│   │   ├── SectionNav.tsx          # Navigation tabs
-│   │   ├── OverviewSection.tsx     # Philosophy & features
-│   │   ├── TokensSection/          # Token visualization
+│   │   ├── StudioHero.tsx              # Landing section
+│   │   ├── SectionNav.tsx              # Navigation tabs
+│   │   ├── OverviewSection.tsx         # Philosophy & features
+│   │   ├── TokensSection/              # Token visualization
 │   │   │   ├── ColorsTab.tsx
 │   │   │   └── TypographyTab.tsx
-│   │   └── ComponentsSection/      # Component playground
+│   │   └── ComponentsSection/          # Component playground
 │   │       ├── ComponentPlayground.tsx
 │   │       └── CodeSnippet.tsx
-│   └── lib/
-│       └── component-registry.ts   # Component metadata
+│   ├── lib/
+│   │   ├── component-registry.ts       # Atom metadata
+│   │   └── molecule-registry.ts        # Molecule metadata
+│   └── JsonLdMetadata.tsx              # JSON-LD injection component
+├── lib/
+│   └── metadata-generator.ts           # LLM metadata utilities
 ├── globals.css
 ├── layout.tsx
 └── page.tsx
@@ -104,7 +129,7 @@ app/
 
 To add a new component to the playground:
 
-1. **Register it** in `app/components/lib/component-registry.ts`:
+1. **Register it** in `app/components/lib/component-registry.ts` (Atoms) or `molecule-registry.ts` (Molecules):
 
 ```typescript
 export const componentRegistry: Record<string, ComponentConfig> = {
@@ -115,20 +140,35 @@ export const componentRegistry: Record<string, ComponentConfig> = {
     description: 'Description of what this component does',
     props: {
       propName: {
-        type: 'select', // or 'boolean' | 'text'
+        type: 'select', // or 'boolean' | 'text' | 'array' | 'object' | 'interface' | 'custom'
         options: ['option1', 'option2'],
         default: 'option1',
         description: 'What this prop controls',
+        required: false, // Mark true for required props
+        typeDefinition: 'string', // TypeScript type string for complex types
       },
     },
     examples: [
       { label: 'Default', props: { propName: 'option1' } },
     ],
+    codeExamples: [
+      {
+        title: 'Basic Usage',
+        code: '<YourComponent propName="option1" />',
+        description: 'Simple example showing default usage',
+      },
+    ],
+    sourceUrl: 'https://github.com/shalom-ormsby/ecosystem/blob/main/design-system/atoms/YourComponent/YourComponent.tsx',
+    accessibilityNotes: [
+      'Uses semantic HTML elements',
+      'Keyboard navigable with Tab/Enter',
+      'Screen reader accessible with proper ARIA attributes',
+    ],
   },
 };
 ```
 
-2. **It will automatically appear** in the Components section!
+2. **It will automatically appear** in the Components section with full documentation, JSON-LD metadata, and accessibility notes!
 
 ## Technology Stack
 
@@ -140,28 +180,31 @@ export const componentRegistry: Record<string, ComponentConfig> = {
 
 ## Roadmap
 
-### Phase 1 (MVP) ✅
-- Landing section with GitHub CTA
-- Overview section (philosophy, themes, features)
-- Tokens visualization (colors, typography)
-- Component playground (Button, Card, Header)
-- Theme switching
-- Basic code snippets
+### Phase 1-7 (Documentation Overhaul) ✅ COMPLETE
+- ✅ Enhanced registry type system for complex prop types
+- ✅ Code examples integration with CollapsibleCodeBlock
+- ✅ PageLayout organism for composition patterns
+- ✅ Breadcrumb generation utilities and global integration
+- ✅ Complete documentation audit (all components)
+- ✅ LLM optimization with JSON-LD structured data
+- ✅ Accessibility notes for all components
+- ✅ GitHub source links for all components
 
-### Phase 2 (Enhancement)
-- Spacing & motion token tabs
-- Syntax highlighting for code snippets (Shiki)
-- More components (Link, Motion)
+See [PHASE-7-COMPLETION.md](./PHASE-7-COMPLETION.md) for full details.
+
+### Phase 8 (Enhancement)
 - Search/filter functionality
 - Responsive preview modes
+- Component usage analytics
+- Version comparison tools
 
-### Phase 3 (Expansion)
+### Phase 9 (Expansion)
 - Brand guidelines section
 - Product design resources
 - Template downloads
 - Figma integration
 
-### Phase 4 (Productization)
+### Phase 10 (Productization)
 - Premium templates
 - Design kits
 - Community contributions
