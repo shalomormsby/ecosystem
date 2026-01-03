@@ -16,6 +16,11 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
      */
     size?: 'sm' | 'md' | 'lg';
     /**
+     * Shape of the button
+     * @default 'rounded'
+     */
+    shape?: 'pill' | 'rounded';
+    /**
      * Show loading spinner and disable button
      * @default false
      */
@@ -23,8 +28,13 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
 }
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-    ({ variant = 'primary', size = 'md', loading = false, children, className = '', disabled, ...props }, ref) => {
-        const baseStyles = "inline-flex items-center justify-center gap-2 rounded-full font-medium transition-all duration-200 active:scale-95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-focus)] disabled:opacity-50 disabled:cursor-not-allowed disabled:active:scale-100";
+    ({ variant = 'primary', size = 'md', shape = 'rounded', loading = false, children, className = '', disabled, ...props }, ref) => {
+        const baseStyles = "inline-flex items-center justify-center gap-2 font-medium transition-all duration-200 active:scale-95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-focus)] disabled:opacity-50 disabled:cursor-not-allowed disabled:active:scale-100";
+
+        const shapes = {
+            pill: "rounded-full",
+            rounded: "rounded-lg"
+        };
 
         const variants = {
             primary: "bg-[var(--color-primary)] text-[var(--color-primary-foreground)] hover:opacity-90 shadow-lg",
@@ -47,7 +57,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         return (
             <button
                 ref={ref}
-                className={`${baseStyles} ${variants[variant]} ${sizes[size]} ${className}`}
+                className={`${baseStyles} ${shapes[shape]} ${variants[variant]} ${sizes[size]} ${className}`}
                 disabled={disabled || loading}
                 {...props}
             >

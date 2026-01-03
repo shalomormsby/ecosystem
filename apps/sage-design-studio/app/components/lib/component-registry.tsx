@@ -48,6 +48,12 @@ export const componentRegistry: Record<string, ComponentConfig> = {
         default: 'md',
         description: 'Size variant - sm for compact spaces, md for standard use, lg for prominent actions',
       },
+      shape: {
+        type: 'select',
+        options: ['rounded', 'pill'] as const,
+        default: 'rounded',
+        description: 'Shape variant - rounded for rectangular buttons with rounded corners (primary style), pill for fully rounded (capsule) buttons',
+      },
       loading: {
         type: 'boolean',
         default: false,
@@ -60,15 +66,16 @@ export const componentRegistry: Record<string, ComponentConfig> = {
       },
     },
     examples: [
-      { label: 'Primary', props: { variant: 'primary', size: 'md' }, children: 'Primary Action' },
-      { label: 'Secondary', props: { variant: 'secondary', size: 'md' }, children: 'Secondary Action' },
-      { label: 'Ghost', props: { variant: 'ghost', size: 'md' }, children: 'Ghost Action' },
-      { label: 'Small', props: { variant: 'primary', size: 'sm' }, children: 'Small' },
-      { label: 'Large', props: { variant: 'primary', size: 'lg' }, children: 'Large Action' },
-      { label: 'Loading', props: { variant: 'primary', size: 'md', loading: true }, children: 'Loading...' },
-      { label: 'Disabled', props: { variant: 'primary', size: 'md', disabled: true }, children: 'Disabled' },
+      // Rounded (Primary Button Type)
+      { label: 'Primary', props: { variant: 'primary', size: 'md', shape: 'rounded' }, children: 'Primary Action' },
+      { label: 'Secondary', props: { variant: 'secondary', size: 'md', shape: 'rounded' }, children: 'Secondary Action' },
+      { label: 'Ghost', props: { variant: 'ghost', size: 'md', shape: 'rounded' }, children: 'Ghost Action' },
+      { label: 'Small', props: { variant: 'primary', size: 'sm', shape: 'rounded' }, children: 'Small' },
+      { label: 'Large', props: { variant: 'primary', size: 'lg', shape: 'rounded' }, children: 'Large Action' },
+      { label: 'Loading', props: { variant: 'primary', size: 'md', shape: 'rounded', loading: true }, children: 'Loading...' },
+      { label: 'Disabled', props: { variant: 'primary', size: 'md', shape: 'rounded', disabled: true }, children: 'Disabled' },
       {
-        label: 'With Icon', props: { variant: 'primary', size: 'md' }, children: (
+        label: 'With Icon', props: { variant: 'primary', size: 'md', shape: 'rounded' }, children: (
           <>
             <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
               <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0zM1.5 8a6.5 6.5 0 1 0 13 0 6.5 6.5 0 0 0-13 0z" />
@@ -79,7 +86,7 @@ export const componentRegistry: Record<string, ComponentConfig> = {
         )
       },
       {
-        label: 'Icon Right', props: { variant: 'secondary', size: 'md' }, children: (
+        label: 'Icon Right', props: { variant: 'secondary', size: 'md', shape: 'rounded' }, children: (
           <>
             Icon Right
             <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
@@ -88,6 +95,10 @@ export const componentRegistry: Record<string, ComponentConfig> = {
           </>
         )
       },
+      // Pill Variant
+      { label: 'Primary Pill', props: { variant: 'primary', size: 'md', shape: 'pill' }, children: 'Primary Pill' },
+      { label: 'Secondary Pill', props: { variant: 'secondary', size: 'md', shape: 'pill' }, children: 'Secondary Pill' },
+      { label: 'Ghost Pill', props: { variant: 'ghost', size: 'md', shape: 'pill' }, children: 'Ghost Pill' },
     ],
     codeExamples: [
       {
@@ -107,6 +118,25 @@ export const componentRegistry: Record<string, ComponentConfig> = {
   <Button variant="ghost">Ghost</Button>
 </div>`,
         description: 'Showcase of all three visual variants',
+      },
+      {
+        title: 'Button Shapes',
+        code: `<div className="flex flex-col gap-4">
+  {/* Rounded rectangular buttons (default) */}
+  <div className="flex gap-3">
+    <Button variant="primary">Primary</Button>
+    <Button variant="secondary">Secondary</Button>
+    <Button variant="ghost">Ghost</Button>
+  </div>
+
+  {/* Pill-shaped buttons */}
+  <div className="flex gap-3">
+    <Button variant="primary" shape="pill">Pill Primary</Button>
+    <Button variant="secondary" shape="pill">Pill Secondary</Button>
+    <Button variant="ghost" shape="pill">Pill Ghost</Button>
+  </div>
+</div>`,
+        description: 'Rectangular buttons with rounded corners are the default. Use shape="pill" for fully rounded capsule buttons.',
       },
       {
         title: 'With Icons',
