@@ -280,6 +280,46 @@ import { CheckIcon, ArrowRightIcon } from 'your-icon-library';
       { label: 'Block with Copy', props: { syntax: 'keyword', inline: false, showCopy: true }, children: 'import { useState } from "react";' },
       { label: 'Block No Copy', props: { syntax: 'string', inline: false, showCopy: false }, children: '"No copy button on this block"' },
     ],
+    codeExamples: [
+      {
+        title: 'Inline Code',
+        code: `import { Code } from '@ecosystem/design-system';
+
+<p>
+  Use the <Code syntax="keyword">useState</Code> hook to manage component state.
+</p>`,
+        description: 'Inline code for variables, functions, or keywords within text',
+      },
+      {
+        title: 'Syntax Highlighting',
+        code: `<p>
+  The <Code syntax="function">map()</Code> method creates a new array with results
+  of calling <Code syntax="keyword">function</Code> for every element.
+</p>`,
+        description: 'Different syntax highlighting for different code types',
+      },
+      {
+        title: 'Block Code',
+        code: `<Code inline={false} showCopy={true}>
+  {(\`const greeting = "Hello World";
+console.log(greeting);\`)}
+</Code>`,
+        description: 'Block code with copy button for multi-line snippets',
+      },
+      {
+        title: 'Code in Documentation',
+        code: `<div className="space-y-2">
+  <p>Import the component:</p>
+  <Code inline={false} syntax="keyword">
+    import {{ Button }} from '@ecosystem/design-system';
+  </Code>
+
+  <p>Then use it with <Code syntax="property">variant</Code> prop.</p>
+</div>`,
+        description: 'Combining inline and block code in documentation',
+      },
+    ],
+    sourceUrl: 'https://github.com/shalom-ormsby/ecosystem/blob/main/design-system/atoms/Code/Code.tsx',
   },
 
   Link: {
@@ -404,6 +444,52 @@ import { CheckIcon, ArrowRightIcon } from 'your-icon-library';
       { label: 'With Dot', props: { variant: 'success', size: 'md', dot: true }, children: 'Live' },
       { label: 'Small Count', props: { variant: 'primary', size: 'sm' }, children: '99+' },
     ],
+    codeExamples: [
+      {
+        title: 'Status Badges',
+        code: `import { Badge } from '@ecosystem/design-system';
+
+<div className="flex gap-2">
+  <Badge variant="success">Active</Badge>
+  <Badge variant="warning">Pending</Badge>
+  <Badge variant="error">Failed</Badge>
+  <Badge variant="info">Info</Badge>
+</div>`,
+        description: 'Different status indicators using semantic color variants',
+      },
+      {
+        title: 'Notification Counts',
+        code: `<div className="flex items-center gap-2">
+  <span>Inbox</span>
+  <Badge variant="primary" size="sm">99+</Badge>
+</div>
+
+<div className="flex items-center gap-2">
+  <span>Notifications</span>
+  <Badge variant="error" size="sm">3</Badge>
+</div>`,
+        description: 'Badge for displaying notification or message counts',
+      },
+      {
+        title: 'Live Indicator',
+        code: `<Badge variant="success" dot={true}>
+  Live Stream
+</Badge>`,
+        description: 'Animated dot indicator for live or active states',
+      },
+      {
+        title: 'Category Tags',
+        code: `<div className="flex flex-wrap gap-2">
+  {['React', 'TypeScript', 'TailwindCSS'].map((tag) => (
+    <Badge key={tag} variant="default">
+      {tag}
+    </Badge>
+  ))}
+</div>`,
+        description: 'Using badges as category or technology tags',
+      },
+    ],
+    sourceUrl: 'https://github.com/shalom-ormsby/ecosystem/blob/main/design-system/atoms/Badge/Badge.tsx',
   },
 
   Avatar: {
@@ -437,6 +523,59 @@ import { CheckIcon, ArrowRightIcon } from 'your-icon-library';
       { label: 'Large', props: { fallback: 'GH', size: 'lg', shape: 'circle' }, children: null },
       { label: 'Small', props: { fallback: 'IJ', size: 'sm', shape: 'circle' }, children: null },
     ],
+    codeExamples: [
+      {
+        title: 'With Image',
+        code: `import { Avatar } from '@ecosystem/design-system';
+
+<Avatar
+  src="/path/to/avatar.jpg"
+  alt="John Doe"
+  fallback="JD"
+/>`,
+        description: 'Avatar with image source and fallback initials',
+      },
+      {
+        title: 'Status Indicators',
+        code: `<div className="flex gap-4">
+  <Avatar fallback="JD" status="online" />
+  <Avatar fallback="AB" status="away" />
+  <Avatar fallback="CD" status="busy" />
+  <Avatar fallback="EF" status="offline" />
+</div>`,
+        description: 'Avatars with different status indicators for presence',
+      },
+      {
+        title: 'Different Sizes',
+        code: `<div className="flex items-center gap-4">
+  <Avatar size="xs" fallback="XS" />
+  <Avatar size="sm" fallback="SM" />
+  <Avatar size="md" fallback="MD" />
+  <Avatar size="lg" fallback="LG" />
+  <Avatar size="xl" fallback="XL" />
+</div>`,
+        description: 'Avatar sizes from extra small to extra large',
+      },
+      {
+        title: 'User Profile Header',
+        code: `<div className="flex items-center gap-3">
+  <Avatar
+    size="lg"
+    src="/user-avatar.jpg"
+    fallback="JD"
+    status="online"
+  />
+  <div>
+    <h3 className="font-semibold">John Doe</h3>
+    <p className="text-sm text-[var(--color-text-secondary)]">
+      Active now
+    </p>
+  </div>
+</div>`,
+        description: 'Avatar used in a user profile header with status',
+      },
+    ],
+    sourceUrl: 'https://github.com/shalom-ormsby/ecosystem/blob/main/design-system/atoms/Avatar/Avatar.tsx',
   },
 
   Spinner: {
@@ -462,6 +601,49 @@ import { CheckIcon, ArrowRightIcon } from 'your-icon-library';
       { label: 'Small', props: { size: 'sm', variant: 'primary' }, children: null },
       { label: 'Large', props: { size: 'lg', variant: 'primary' }, children: null },
     ],
+    codeExamples: [
+      {
+        title: 'Basic Loading State',
+        code: `import { Spinner } from '@ecosystem/design-system';
+
+<div className="flex justify-center p-8">
+  <Spinner />
+</div>`,
+        description: 'Simple centered loading spinner',
+      },
+      {
+        title: 'Inline with Text',
+        code: `<button disabled className="flex items-center gap-2">
+  <Spinner size="sm" variant="inherit" />
+  Loading...
+</button>`,
+        description: 'Small spinner inline with button text',
+      },
+      {
+        title: 'Different Sizes',
+        code: `<div className="flex items-center gap-4">
+  <Spinner size="xs" />
+  <Spinner size="sm" />
+  <Spinner size="md" />
+  <Spinner size="lg" />
+  <Spinner size="xl" />
+</div>`,
+        description: 'Spinner in all available sizes',
+      },
+      {
+        title: 'Loading Overlay',
+        code: `<div className="relative min-h-[200px]">
+  {isLoading && (
+    <div className="absolute inset-0 flex items-center justify-center bg-[var(--color-background)]/80 backdrop-blur-sm">
+      <Spinner size="lg" />
+    </div>
+  )}
+  <YourContent />
+</div>`,
+        description: 'Spinner as loading overlay for content area',
+      },
+    ],
+    sourceUrl: 'https://github.com/shalom-ormsby/ecosystem/blob/main/design-system/atoms/Spinner/Spinner.tsx',
   },
 
   ProgressBar: {
@@ -493,5 +675,62 @@ import { CheckIcon, ArrowRightIcon } from 'your-icon-library';
       { label: '100% Complete', props: { value: 100, variant: 'success', size: 'md', showLabel: true }, children: null },
       { label: 'Warning', props: { value: 40, variant: 'warning', size: 'md' }, children: null },
     ],
+    codeExamples: [
+      {
+        title: 'Upload Progress',
+        code: `import { ProgressBar } from '@ecosystem/design-system';
+
+const [uploadProgress, setUploadProgress] = useState(0);
+
+<div className="space-y-2">
+  <div className="flex justify-between text-sm">
+    <span>Uploading file.pdf</span>
+    <span>{uploadProgress}%</span>
+  </div>
+  <ProgressBar value={uploadProgress} variant="primary" showLabel={false} />
+</div>`,
+        description: 'Progress bar for file upload with custom label',
+      },
+      {
+        title: 'Task Completion',
+        code: `<div className="space-y-4">
+  <div>
+    <p className="text-sm mb-1">Profile Complete</p>
+    <ProgressBar value={75} variant="success" showLabel={true} />
+  </div>
+
+  <div>
+    <p className="text-sm mb-1">Storage Used</p>
+    <ProgressBar value={85} variant="warning" showLabel={true} />
+  </div>
+</div>`,
+        description: 'Multiple progress indicators with labels',
+      },
+      {
+        title: 'Status Variants',
+        code: `<div className="space-y-3">
+  <ProgressBar value={100} variant="success" showLabel />
+  <ProgressBar value={75} variant="info" showLabel />
+  <ProgressBar value={50} variant="warning" showLabel />
+  <ProgressBar value={25} variant="error" showLabel />
+</div>`,
+        description: 'Progress bars with semantic color variants',
+      },
+      {
+        title: 'Dynamic Progress',
+        code: `const [progress, setProgress] = useState(0);
+
+useEffect(() => {
+  const timer = setInterval(() => {
+    setProgress((prev) => (prev >= 100 ? 0 : prev + 10));
+  }, 500);
+  return () => clearInterval(timer);
+}, []);
+
+<ProgressBar value={progress} variant="primary" showLabel />`,
+        description: 'Animated progress bar that updates over time',
+      },
+    ],
+    sourceUrl: 'https://github.com/shalom-ormsby/ecosystem/blob/main/design-system/atoms/ProgressBar/ProgressBar.tsx',
   },
 };

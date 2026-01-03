@@ -407,12 +407,74 @@ const menuItems: DropdownItem[] = [
       { label: 'Small', props: { size: 'sm', showLabel: false }, children: null },
       { label: 'Large with Label', props: { size: 'lg', showLabel: true }, children: null },
     ],
+    codeExamples: [
+      {
+        title: 'Basic Theme Toggle',
+        code: `import { ThemeToggle } from '@ecosystem/design-system';
+
+<ThemeToggle />`,
+        description: 'Simple icon-only theme switcher',
+      },
+      {
+        title: 'With Label',
+        code: `<ThemeToggle showLabel={true} />`,
+        description: 'Theme toggle with text label showing current mode',
+      },
+      {
+        title: 'In Navigation Bar',
+        code: `<header className="flex items-center justify-between p-4">
+  <div className="flex items-center gap-4">
+    <Logo />
+    <Navigation />
+  </div>
+  <ThemeToggle size="md" />
+</header>`,
+        description: 'Theme toggle positioned in header navigation',
+      },
+      {
+        title: 'Settings Page',
+        code: `<div className="flex items-center justify-between p-4 border-b">
+  <div>
+    <h3 className="font-medium">Appearance</h3>
+    <p className="text-sm text-[var(--color-text-secondary)]">
+      Toggle between light and dark mode
+    </p>
+  </div>
+  <ThemeToggle size="lg" showLabel />
+</div>`,
+        description: 'Theme toggle in settings with description',
+      },
+    ],
+    sourceUrl: 'https://github.com/shalom-ormsby/ecosystem/blob/main/design-system/molecules/ThemeToggle/ThemeToggle.tsx',
   },
 
   FormField: {
     component: FormField,
     description: 'A wrapper component that provides label, error message, and help text for form inputs.',
-    props: {},
+    props: {
+      label: {
+        type: 'text',
+        required: true,
+        default: '',
+        description: 'Label text for the form field',
+      },
+      htmlFor: {
+        type: 'text',
+        required: true,
+        default: '',
+        description: 'ID of the input element this label is for',
+      },
+      error: {
+        type: 'text',
+        default: '',
+        description: 'Error message to display below the input',
+      },
+      helpText: {
+        type: 'text',
+        default: '',
+        description: 'Helper text to display below the input',
+      },
+    },
     examples: [
       {
         label: 'Basic Field',
@@ -441,12 +503,99 @@ const menuItems: DropdownItem[] = [
         children: <input type="text" id="username" className="w-full px-3 py-2 border border-[var(--color-error)] rounded bg-[var(--color-background)] text-[var(--color-text-primary)]" />,
       },
     ],
+    codeExamples: [
+      {
+        title: 'Basic Form Field',
+        code: `import { FormField } from '@ecosystem/design-system';
+
+<FormField label="Email Address" htmlFor="email">
+  <input
+    id="email"
+    type="email"
+    placeholder="you@example.com"
+    className="w-full px-3 py-2 border rounded"
+  />
+</FormField>`,
+        description: 'Simple form field with label and input',
+      },
+      {
+        title: 'With Validation Error',
+        code: `<FormField
+  label="Username"
+  htmlFor="username"
+  error="Username is already taken"
+>
+  <input id="username" type="text" className="w-full px-3 py-2 border border-error rounded" />
+</FormField>`,
+        description: 'Form field displaying validation error',
+      },
+      {
+        title: 'With Help Text',
+        code: `<FormField
+  label="Password"
+  htmlFor="password"
+  helpText="Must be at least 8 characters with numbers and symbols"
+>
+  <input id="password" type="password" className="w-full px-3 py-2 border rounded" />
+</FormField>`,
+        description: 'Form field with helper text for user guidance',
+      },
+      {
+        title: 'Complete Form Example',
+        code: `<form className="space-y-4">
+  <FormField label="Full Name" htmlFor="name">
+    <input id="name" type="text" className="w-full px-3 py-2 border rounded" />
+  </FormField>
+
+  <FormField
+    label="Email"
+    htmlFor="email"
+    error={emailError}
+  >
+    <input
+      id="email"
+      type="email"
+      value={email}
+      onChange={(e) => setEmail(e.target.value)}
+      className="w-full px-3 py-2 border rounded"
+    />
+  </FormField>
+
+  <button type="submit">Submit</button>
+</form>`,
+        description: 'Multiple form fields in a complete form',
+      },
+    ],
+    sourceUrl: 'https://github.com/shalom-ormsby/ecosystem/blob/main/design-system/molecules/FormField/FormField.tsx',
   },
 
   SearchBar: {
     component: SearchBar,
     description: 'A text input with search icon and debounced search functionality.',
-    props: {},
+    props: {
+      placeholder: {
+        type: 'text',
+        default: 'Search...',
+        description: 'Placeholder text for the search input',
+      },
+      onSearch: {
+        type: 'custom',
+        typeDefinition: '(query: string) => void',
+        required: true,
+        default: () => {},
+        description: 'Callback fired when search query changes (debounced)',
+      },
+      showClearButton: {
+        type: 'boolean',
+        default: true,
+        description: 'Show clear button when input has value',
+      },
+      debounceMs: {
+        type: 'text',
+        default: '300',
+        description: 'Debounce delay in milliseconds',
+      },
+    },
     examples: [
       {
         label: 'Default',
@@ -466,12 +615,102 @@ const menuItems: DropdownItem[] = [
         children: null,
       },
     ],
+    codeExamples: [
+      {
+        title: 'Basic Search',
+        code: `import { SearchBar } from '@ecosystem/design-system';
+
+const [results, setResults] = useState([]);
+
+<SearchBar
+  placeholder="Search products..."
+  onSearch={(query) => {
+    // Search logic here
+    fetchProducts(query).then(setResults);
+  }}
+/>`,
+        description: 'Simple search bar with callback',
+      },
+      {
+        title: 'With Debouncing',
+        code: `<SearchBar
+  placeholder="Search users..."
+  debounceMs={500}
+  onSearch={async (query) => {
+    if (query.length >= 3) {
+      const users = await searchUsers(query);
+      setSearchResults(users);
+    }
+  }}
+/>`,
+        description: 'Search with custom debounce delay',
+      },
+      {
+        title: 'Search with Results',
+        code: `const [query, setQuery] = useState('');
+const [results, setResults] = useState([]);
+
+<div className="relative">
+  <SearchBar
+    placeholder="Search documentation..."
+    onSearch={(q) => {
+      setQuery(q);
+      setResults(searchDocs(q));
+    }}
+  />
+
+  {results.length > 0 && (
+    <div className="absolute w-full mt-2 bg-white shadow-lg rounded">
+      {results.map((result) => (
+        <div key={result.id} className="p-2 hover:bg-gray-100">
+          {result.title}
+        </div>
+      ))}
+    </div>
+  )}
+</div>`,
+        description: 'Search bar with dropdown results',
+      },
+    ],
+    sourceUrl: 'https://github.com/shalom-ormsby/ecosystem/blob/main/design-system/molecules/SearchBar/SearchBar.tsx',
   },
 
   RadioGroup: {
     component: RadioGroup,
     description: 'A group of radio buttons for selecting a single option.',
-    props: {},
+    props: {
+      name: {
+        type: 'text',
+        required: true,
+        default: '',
+        description: 'Name attribute for all radio inputs in the group',
+      },
+      options: {
+        type: 'array',
+        typeDefinition: 'Array<{ value: string; label: string; disabled?: boolean }>',
+        required: true,
+        default: [],
+        description: 'Array of options to render as radio buttons',
+      },
+      value: {
+        type: 'text',
+        default: '',
+        description: 'Currently selected value',
+      },
+      onChange: {
+        type: 'custom',
+        typeDefinition: '(value: string) => void',
+        required: true,
+        default: () => {},
+        description: 'Callback when selection changes',
+      },
+      orientation: {
+        type: 'select',
+        options: ['vertical', 'horizontal'] as const,
+        default: 'vertical',
+        description: 'Layout orientation of radio buttons',
+      },
+    },
     examples: [
       {
         label: 'Vertical Layout',
@@ -503,12 +742,96 @@ const menuItems: DropdownItem[] = [
         children: null,
       },
     ],
+    codeExamples: [
+      {
+        title: 'Subscription Plan Selector',
+        code: `import { RadioGroup } from '@ecosystem/design-system';
+
+const [plan, setPlan] = useState('pro');
+
+<RadioGroup
+  name="subscription"
+  value={plan}
+  onChange={setPlan}
+  options={[
+    { value: 'free', label: 'Free - $0/month' },
+    { value: 'pro', label: 'Pro - $15/month' },
+    { value: 'enterprise', label: 'Enterprise - Custom pricing' },
+  ]}
+/>`,
+        description: 'Vertical radio group for plan selection',
+      },
+      {
+        title: 'Horizontal Size Selector',
+        code: `<RadioGroup
+  name="size"
+  value={selectedSize}
+  onChange={setSelectedSize}
+  orientation="horizontal"
+  options={[
+    { value: 'sm', label: 'S' },
+    { value: 'md', label: 'M' },
+    { value: 'lg', label: 'L' },
+    { value: 'xl', label: 'XL' },
+  ]}
+/>`,
+        description: 'Horizontal layout for size selection',
+      },
+      {
+        title: 'With Disabled Option',
+        code: `<RadioGroup
+  name="delivery"
+  value={delivery}
+  onChange={setDelivery}
+  options={[
+    { value: 'standard', label: 'Standard (3-5 days)' },
+    { value: 'express', label: 'Express (1-2 days)' },
+    { value: 'overnight', label: 'Overnight', disabled: true },
+  ]}
+/>`,
+        description: 'Radio group with disabled option',
+      },
+    ],
+    sourceUrl: 'https://github.com/shalom-ormsby/ecosystem/blob/main/design-system/molecules/RadioGroup/RadioGroup.tsx',
   },
 
   CheckboxGroup: {
     component: CheckboxGroup,
     description: 'A group of checkboxes for selecting multiple options.',
-    props: {},
+    props: {
+      name: {
+        type: 'text',
+        required: true,
+        default: '',
+        description: 'Name attribute for all checkbox inputs in the group',
+      },
+      options: {
+        type: 'array',
+        typeDefinition: 'Array<{ value: string; label: string; disabled?: boolean }>',
+        required: true,
+        default: [],
+        description: 'Array of options to render as checkboxes',
+      },
+      value: {
+        type: 'array',
+        typeDefinition: 'string[]',
+        default: [],
+        description: 'Array of currently selected values',
+      },
+      onChange: {
+        type: 'custom',
+        typeDefinition: '(values: string[]) => void',
+        required: true,
+        default: () => {},
+        description: 'Callback when selection changes',
+      },
+      orientation: {
+        type: 'select',
+        options: ['vertical', 'horizontal'] as const,
+        default: 'vertical',
+        description: 'Layout orientation of checkboxes',
+      },
+    },
     examples: [
       {
         label: 'Multiple Selection',
@@ -525,5 +848,65 @@ const menuItems: DropdownItem[] = [
         children: null,
       },
     ],
+    codeExamples: [
+      {
+        title: 'Feature Selection',
+        code: `import { CheckboxGroup } from '@ecosystem/design-system';
+
+const [features, setFeatures] = useState(['analytics', 'api']);
+
+<CheckboxGroup
+  name="features"
+  value={features}
+  onChange={setFeatures}
+  options={[
+    { value: 'analytics', label: 'Analytics Dashboard' },
+    { value: 'notifications', label: 'Email Notifications' },
+    { value: 'api', label: 'API Access' },
+    { value: 'export', label: 'Data Export' },
+  ]}
+/>`,
+        description: 'Multiple feature selection with checkboxes',
+      },
+      {
+        title: 'Interests Selection',
+        code: `const [interests, setInterests] = useState([]);
+
+<div className="space-y-2">
+  <label className="font-medium">Select your interests:</label>
+  <CheckboxGroup
+    name="interests"
+    value={interests}
+    onChange={setInterests}
+    options={[
+      { value: 'tech', label: 'Technology' },
+      { value: 'design', label: 'Design' },
+      { value: 'business', label: 'Business' },
+      { value: 'science', label: 'Science' },
+    ]}
+  />
+  <p className="text-sm text-muted">
+    {interests.length} interests selected
+  </p>
+</div>`,
+        description: 'Checkbox group with selection count',
+      },
+      {
+        title: 'Permissions Manager',
+        code: `<CheckboxGroup
+  name="permissions"
+  value={userPermissions}
+  onChange={setUserPermissions}
+  options={[
+    { value: 'read', label: 'Read Access' },
+    { value: 'write', label: 'Write Access' },
+    { value: 'delete', label: 'Delete Access' },
+    { value: 'admin', label: 'Admin Rights', disabled: !isOwner },
+  ]}
+/>`,
+        description: 'Permission checkboxes with conditional disabling',
+      },
+    ],
+    sourceUrl: 'https://github.com/shalom-ormsby/ecosystem/blob/main/design-system/molecules/CheckboxGroup/CheckboxGroup.tsx',
   },
 };
