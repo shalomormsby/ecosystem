@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { Breadcrumbs, generateBreadcrumbs, type BreadcrumbItem, type RouteConfig } from '@ecosystem/design-system';
 import { ModeSwitcher } from './components/ModeSwitcher';
 import { NavigationSidebar } from './components/NavigationSidebar';
 import { SearchCommandPalette } from './components/SearchCommandPalette';
@@ -32,11 +33,83 @@ type Section =
   | 'templates'
   | 'motion';
 
+// Route configuration for breadcrumb labels
+const routeConfig: RouteConfig = {
+  overview: { label: 'Overview' },
+  architecture: { label: 'Architecture' },
+  'adding-components': { label: 'Adding Components' },
+  'common-patterns': { label: 'Common Patterns' },
+  contributing: { label: 'Contributing' },
+  tokens: {
+    label: 'Design Tokens',
+    children: {
+      colors: { label: 'Colors' },
+      typography: { label: 'Typography' },
+      spacing: { label: 'Spacing' },
+      shadows: { label: 'Shadows' },
+      borders: { label: 'Borders' },
+    }
+  },
+  atoms: {
+    label: 'Components',
+    children: {
+      button: { label: 'Button' },
+      card: { label: 'Card' },
+      code: { label: 'Code' },
+      link: { label: 'Link' },
+      badge: { label: 'Badge' },
+      avatar: { label: 'Avatar' },
+      spinner: { label: 'Spinner' },
+      'progress-bar': { label: 'Progress Bar' },
+    }
+  },
+  molecules: {
+    label: 'Molecules',
+    children: {
+      breadcrumbs: { label: 'Breadcrumbs' },
+      dropdown: { label: 'Dropdown' },
+      tooltip: { label: 'Tooltip' },
+      'theme-toggle': { label: 'Theme Toggle' },
+      'form-field': { label: 'Form Field' },
+      'search-bar': { label: 'Search Bar' },
+      'radio-group': { label: 'Radio Group' },
+      'checkbox-group': { label: 'Checkbox Group' },
+    }
+  },
+  organisms: {
+    label: 'Organisms',
+    children: {
+      header: { label: 'Header' },
+      footer: { label: 'Footer' },
+      'secondary-nav': { label: 'Secondary Nav' },
+      'tertiary-nav': { label: 'Tertiary Nav' },
+      modal: { label: 'Modal' },
+      toast: { label: 'Toast' },
+      'collapsible-code-block': { label: 'Collapsible Code Block' },
+      'page-layout': { label: 'Page Layout' },
+    }
+  },
+  hooks: { label: 'Hooks' },
+  templates: { label: 'Templates' },
+  motion: {
+    label: 'Motion System',
+    children: {
+      'text-effects': { label: 'Text Effects' },
+      scroll: { label: 'Scroll Animations' },
+      loading: { label: 'Loading States' },
+      interactive: { label: 'Interactive Effects' },
+      transitions: { label: 'Transitions' },
+      'cursor-effects': { label: 'Cursor Effects' },
+    }
+  },
+};
+
 export default function StudioPage() {
   const [activeSection, setActiveSection] = useState<Section>('overview');
   const [activeItemId, setActiveItemId] = useState<string>('overview');
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
+  const [breadcrumbs, setBreadcrumbs] = useState<BreadcrumbItem[]>([]);
 
   // Initialize from URL hash on mount
   useEffect(() => {
@@ -106,6 +179,18 @@ export default function StudioPage() {
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
+  // Generate breadcrumbs from hash
+  useEffect(() => {
+    const updateBreadcrumbs = () => {
+      const hash = window.location.hash || '#overview';
+      setBreadcrumbs(generateBreadcrumbs(hash, routeConfig));
+    };
+
+    updateBreadcrumbs();
+    window.addEventListener('hashchange', updateBreadcrumbs);
+    return () => window.removeEventListener('hashchange', updateBreadcrumbs);
   }, []);
 
   // Handle navigation from search results
@@ -192,8 +277,20 @@ export default function StudioPage() {
             </svg>
           </button>
 
+          {/* Breadcrumbs - Sticky at top, only show when not on homepage */}
+          {breadcrumbs.length > 1 && (
+            <div
+              className="fixed left-0 lg:left-[280px] right-0 top-0 bg-[var(--color-background)]/95 backdrop-blur-sm border-b border-[var(--color-border)] transition-all duration-300"
+              style={{ zIndex: 45 }}
+            >
+              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+                <Breadcrumbs variant="subtle" items={breadcrumbs} />
+              </div>
+            </div>
+          )}
+
           {/* Content Area */}
-          <div className="flex-1 flex">
+          <div className={`flex-1 flex ${breadcrumbs.length > 1 ? 'pt-[52px]' : ''}`}>
             <div className="flex-1 px-4 sm:px-6 lg:px-8 py-8 max-w-7xl">
               {activeSection === 'overview' && <OverviewSection />}
               {activeSection === 'architecture' && <ArchitectureSection />}

@@ -18,3 +18,6 @@ export type { ModalProps } from './Modal';
 
 export { CollapsibleCodeBlock } from './CollapsibleCodeBlock';
 export type { CollapsibleCodeBlockProps } from './CollapsibleCodeBlock';
+
+export { PageLayout } from './PageLayout/PageLayout';
+export type { PageLayoutProps } from './PageLayout/PageLayout';

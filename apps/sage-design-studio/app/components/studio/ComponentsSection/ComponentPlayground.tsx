@@ -90,17 +90,17 @@ export function ComponentPlayground({ componentName, config }: ComponentPlaygrou
                 </label>
 
                 {propConfig.type === 'select' && propConfig.options && (
-                  <div className="flex gap-2">
+                  <div className="flex gap-2 flex-wrap">
                     {propConfig.options.map((option) => (
                       <button
                         key={option}
                         onClick={() => updateProp(propName, option)}
                         className={`
-                          px-3 py-1.5 rounded text-sm transition-all
+                          px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-200
                           ${
                             props[propName] === option
-                              ? 'bg-[var(--color-primary)] text-[var(--color-primary-foreground)]'
-                              : 'bg-[var(--color-surface)] text-[var(--color-text-secondary)] border border-[var(--color-border)] hover:text-[var(--color-text-primary)]'
+                              ? 'bg-[var(--color-primary)] text-[var(--color-primary-foreground)] shadow-md hover:opacity-90'
+                              : 'bg-[var(--color-surface)] text-[var(--color-text-secondary)] border border-[var(--color-border)] hover:text-[var(--color-text-primary)] hover:border-[var(--color-primary)]'
                           }
                         `}
                       >
@@ -114,11 +114,11 @@ export function ComponentPlayground({ componentName, config }: ComponentPlaygrou
                   <button
                     onClick={() => updateProp(propName, !props[propName])}
                     className={`
-                      px-4 py-2 rounded text-sm transition-all
+                      px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200
                       ${
                         props[propName]
-                          ? 'bg-[var(--color-primary)] text-[var(--color-primary-foreground)]'
-                          : 'bg-[var(--color-surface)] text-[var(--color-text-secondary)] border border-[var(--color-border)]'
+                          ? 'bg-[var(--color-primary)] text-[var(--color-primary-foreground)] shadow-md hover:opacity-90'
+                          : 'bg-[var(--color-surface)] text-[var(--color-text-secondary)] border border-[var(--color-border)] hover:text-[var(--color-text-primary)] hover:border-[var(--color-primary)]'
                       }
                     `}
                   >
