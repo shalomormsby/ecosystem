@@ -566,7 +566,7 @@ const menuItems: DropdownItem[] = [
         description: 'Multiple form fields in a complete form',
       },
     ],
-    sourceUrl: 'https://github.com/shalom-ormsby/ecosystem/blob/main/design-system/molecules/FormField/FormField.tsx',
+    sourceUrl: 'https://github.com/shalom-ormsby/ecosystem/blob/main/design-system/molecules/Form/FormField.tsx',
   },
 
   SearchBar: {
@@ -672,7 +672,7 @@ const [results, setResults] = useState([]);
         description: 'Search bar with dropdown results',
       },
     ],
-    sourceUrl: 'https://github.com/shalom-ormsby/ecosystem/blob/main/design-system/molecules/SearchBar/SearchBar.tsx',
+    sourceUrl: 'https://github.com/shalom-ormsby/ecosystem/blob/main/design-system/molecules/Form/SearchBar.tsx',
   },
 
   RadioGroup: {
@@ -792,7 +792,7 @@ const [plan, setPlan] = useState('pro');
         description: 'Radio group with disabled option',
       },
     ],
-    sourceUrl: 'https://github.com/shalom-ormsby/ecosystem/blob/main/design-system/molecules/RadioGroup/RadioGroup.tsx',
+    sourceUrl: 'https://github.com/shalom-ormsby/ecosystem/blob/main/design-system/molecules/Form/RadioGroup.tsx',
   },
 
   CheckboxGroup: {
@@ -907,6 +907,6 @@ const [features, setFeatures] = useState(['analytics', 'api']);
         description: 'Permission checkboxes with conditional disabling',
       },
     ],
-    sourceUrl: 'https://github.com/shalom-ormsby/ecosystem/blob/main/design-system/molecules/CheckboxGroup/CheckboxGroup.tsx',
+    sourceUrl: 'https://github.com/shalom-ormsby/ecosystem/blob/main/design-system/molecules/Form/CheckboxGroup.tsx',
   },
 };
