@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { TertiaryNav } from '@ecosystem/design-system';
+import { TertiaryNav, Breadcrumbs, type BreadcrumbItem } from '@ecosystem/design-system';
 import { ColorsTab } from './ColorsTab';
 import { TypographyTab } from './TypographyTab';
 import { SpacingTab } from './SpacingTab';
@@ -12,9 +12,11 @@ type TokenTab = 'colors' | 'typography' | 'spacing' | 'syntax' | 'motion';
 
 interface TokensSectionProps {
   activeItemId?: string;
+  breadcrumbs?: BreadcrumbItem[];
+  onItemChange?: (itemId: string) => void;
 }
 
-export function TokensSection({ activeItemId }: TokensSectionProps) {
+export function TokensSection({ activeItemId, breadcrumbs, onItemChange }: TokensSectionProps) {
   const [activeTab, setActiveTab] = useState<TokenTab>('colors');
 
   // Update active tab when activeItemId changes
@@ -23,6 +25,12 @@ export function TokensSection({ activeItemId }: TokensSectionProps) {
       setActiveTab(activeItemId as TokenTab);
     }
   }, [activeItemId]);
+
+  // Handle tab selection and notify parent
+  const handleTabChange = (id: string) => {
+    setActiveTab(id as TokenTab);
+    onItemChange?.(id);
+  };
 
   // Available tabs for TertiaryNav
   const availableTabs = [
@@ -39,6 +47,14 @@ export function TokensSection({ activeItemId }: TokensSectionProps) {
         <h2 className="text-3xl font-bold mb-2 text-[var(--color-text-primary)]">
           Design Tokens
         </h2>
+
+        {/* Breadcrumbs - positioned after title, before description */}
+        {breadcrumbs && breadcrumbs.length > 1 && (
+          <div className="mb-4">
+            <Breadcrumbs variant="subtle" items={breadcrumbs} />
+          </div>
+        )}
+
         <p className="text-lg text-[var(--color-text-secondary)]">
           The foundation of the design system. All visual properties reference these tokens.
         </p>
@@ -49,7 +65,7 @@ export function TokensSection({ activeItemId }: TokensSectionProps) {
         <TertiaryNav
           items={availableTabs}
           activeId={activeTab}
-          onItemChange={(id) => setActiveTab(id as TokenTab)}
+          onItemChange={handleTabChange}
         />
       </div>
 

@@ -1,8 +1,12 @@
 'use client';
 
-import { Card } from '@ecosystem/design-system';
+import { Card, Breadcrumbs, type BreadcrumbItem } from '@ecosystem/design-system';
 
-export function ContributingSection() {
+interface ContributingSectionProps {
+  breadcrumbs?: BreadcrumbItem[];
+}
+
+export function ContributingSection({ breadcrumbs }: ContributingSectionProps) {
   return (
     <div className="space-y-12">
       {/* Title */}
@@ -10,6 +14,14 @@ export function ContributingSection() {
         <h1 className="text-4xl font-bold mb-2 text-[var(--color-text-primary)]">
           Contributing Guide
         </h1>
+
+        {/* Breadcrumbs - positioned after title, before description */}
+        {breadcrumbs && breadcrumbs.length > 1 && (
+          <div className="mt-3 mb-2">
+            <Breadcrumbs variant="subtle" items={breadcrumbs} />
+          </div>
+        )}
+
         <p className="text-sm text-[var(--color-text-muted)]">
           Checklist-driven guide for making pull requests
         </p>

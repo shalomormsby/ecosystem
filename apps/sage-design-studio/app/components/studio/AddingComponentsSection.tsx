@@ -1,9 +1,13 @@
 'use client';
 
 import { useState } from 'react';
-import { Card, Code, CollapsibleCodeBlock, SecondaryNav } from '@ecosystem/design-system';
+import { Card, Code, CollapsibleCodeBlock, SecondaryNav, Breadcrumbs, type BreadcrumbItem } from '@ecosystem/design-system';
 
-export function AddingComponentsSection() {
+interface AddingComponentsSectionProps {
+  breadcrumbs?: BreadcrumbItem[];
+}
+
+export function AddingComponentsSection({ breadcrumbs }: AddingComponentsSectionProps) {
   const [activeSection, setActiveSection] = useState('atoms');
 
   const sections = [
@@ -21,6 +25,14 @@ export function AddingComponentsSection() {
         <h1 className="text-4xl font-bold mb-2 text-[var(--color-text-primary)]">
           Adding Components
         </h1>
+
+        {/* Breadcrumbs - positioned after title, before description */}
+        {breadcrumbs && breadcrumbs.length > 1 && (
+          <div className="mt-3 mb-2">
+            <Breadcrumbs variant="subtle" items={breadcrumbs} />
+          </div>
+        )}
+
         <p className="text-sm text-[var(--color-text-muted)]">
           Step-by-step workflows for extending the design system
         </p>

@@ -1,12 +1,26 @@
 'use client';
 
-export function TemplatesSection() {
+import { Breadcrumbs, type BreadcrumbItem } from '@ecosystem/design-system';
+
+interface TemplatesSectionProps {
+  breadcrumbs?: BreadcrumbItem[];
+}
+
+export function TemplatesSection({ breadcrumbs }: TemplatesSectionProps) {
   return (
     <div className="space-y-8">
       <div>
         <h2 className="text-3xl font-bold mb-2 text-[var(--color-text-primary)]">
           Templates
         </h2>
+
+        {/* Breadcrumbs - positioned after title, before description */}
+        {breadcrumbs && breadcrumbs.length > 1 && (
+          <div className="mb-4">
+            <Breadcrumbs variant="subtle" items={breadcrumbs} />
+          </div>
+        )}
+
         <p className="text-lg text-[var(--color-text-secondary)] mb-2">
           <strong>Content Structure:</strong> Layouts that define how organisms and components fit together without specific content. They act as the "blueprint" or wireframe for a page.
         </p>

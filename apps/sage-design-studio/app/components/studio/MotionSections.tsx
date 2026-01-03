@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { TertiaryNav } from '@ecosystem/design-system';
+import { TertiaryNav, Breadcrumbs, type BreadcrumbItem } from '@ecosystem/design-system';
 import { MotionFoundationsSection } from './MotionFoundationsSection';
 import { TextEffectsSection } from './TextEffectsSection';
 import { ScrollSection } from './ScrollSection';
@@ -14,9 +14,11 @@ type MotionTab = 'motion-foundations' | 'text-effects' | 'scroll' | 'loading' | 
 
 interface MotionSectionsProps {
   activeItemId?: string;
+  breadcrumbs?: BreadcrumbItem[];
+  onItemChange?: (itemId: string) => void;
 }
 
-export function MotionSections({ activeItemId }: MotionSectionsProps) {
+export function MotionSections({ activeItemId, breadcrumbs, onItemChange }: MotionSectionsProps) {
   const [activeTab, setActiveTab] = useState<MotionTab>('motion-foundations');
 
   // Update active tab when activeItemId changes
@@ -33,6 +35,12 @@ export function MotionSections({ activeItemId }: MotionSectionsProps) {
       setActiveTab(activeItemId as MotionTab);
     }
   }, [activeItemId]);
+
+  // Handle tab selection and notify parent
+  const handleTabChange = (id: string) => {
+    setActiveTab(id as MotionTab);
+    onItemChange?.(id);
+  };
 
   // Available tabs for TertiaryNav
   const availableTabs = [
@@ -51,6 +59,14 @@ export function MotionSections({ activeItemId }: MotionSectionsProps) {
         <h2 className="text-3xl font-bold mb-2 text-[var(--color-text-primary)]">
           Motion
         </h2>
+
+        {/* Breadcrumbs - positioned after title, before description */}
+        {breadcrumbs && breadcrumbs.length > 1 && (
+          <div className="mb-4">
+            <Breadcrumbs variant="subtle" items={breadcrumbs} />
+          </div>
+        )}
+
         <p className="text-lg text-[var(--color-text-secondary)]">
           Bring your interfaces to life with purposeful animations and transitions.
         </p>
@@ -61,7 +77,7 @@ export function MotionSections({ activeItemId }: MotionSectionsProps) {
         <TertiaryNav
           items={availableTabs}
           activeId={activeTab}
-          onItemChange={(id) => setActiveTab(id as MotionTab)}
+          onItemChange={handleTabChange}
         />
       </div>
 

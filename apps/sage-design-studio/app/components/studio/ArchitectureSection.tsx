@@ -1,8 +1,12 @@
 'use client';
 
-import { Card, Code, CollapsibleCodeBlock } from '@ecosystem/design-system';
+import { Card, Code, CollapsibleCodeBlock, Breadcrumbs, type BreadcrumbItem } from '@ecosystem/design-system';
 
-export function ArchitectureSection() {
+interface ArchitectureSectionProps {
+  breadcrumbs?: BreadcrumbItem[];
+}
+
+export function ArchitectureSection({ breadcrumbs }: ArchitectureSectionProps) {
   return (
     <div className="space-y-12">
       {/* Title */}
@@ -10,6 +14,14 @@ export function ArchitectureSection() {
         <h1 className="text-4xl font-bold mb-2 text-[var(--color-text-primary)]">
           Architecture Overview
         </h1>
+
+        {/* Breadcrumbs - positioned after title, before description */}
+        {breadcrumbs && breadcrumbs.length > 1 && (
+          <div className="mt-3 mb-2">
+            <Breadcrumbs variant="subtle" items={breadcrumbs} />
+          </div>
+        )}
+
         <p className="text-sm text-[var(--color-text-muted)]">
           Understanding the structure and decision-making framework
         </p>

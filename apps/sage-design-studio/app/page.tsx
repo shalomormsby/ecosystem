@@ -280,11 +280,17 @@ export default function StudioPage() {
           <div className="flex-1 flex">
             <div className="flex-1 px-4 sm:px-6 lg:px-8 py-8 max-w-7xl">
               {activeSection === 'overview' && <OverviewSection />}
-              {activeSection === 'architecture' && <ArchitectureSection />}
-              {activeSection === 'adding-components' && <AddingComponentsSection />}
-              {activeSection === 'common-patterns' && <CommonPatternsSection />}
-              {activeSection === 'contributing' && <ContributingSection />}
-              {activeSection === 'tokens' && <TokensSection activeItemId={activeItemId} />}
+              {activeSection === 'architecture' && <ArchitectureSection breadcrumbs={breadcrumbs} />}
+              {activeSection === 'adding-components' && <AddingComponentsSection breadcrumbs={breadcrumbs} />}
+              {activeSection === 'common-patterns' && <CommonPatternsSection breadcrumbs={breadcrumbs} />}
+              {activeSection === 'contributing' && <ContributingSection breadcrumbs={breadcrumbs} />}
+              {activeSection === 'tokens' && (
+                <TokensSection
+                  activeItemId={activeItemId}
+                  breadcrumbs={breadcrumbs}
+                  onItemChange={(itemId) => setActiveItemId(itemId)}
+                />
+              )}
               {activeSection === 'atoms' && (
                 <ComponentsSection
                   activeItemId={activeItemId}
@@ -306,9 +312,21 @@ export default function StudioPage() {
                   onItemChange={(itemId) => setActiveItemId(itemId)}
                 />
               )}
-              {activeSection === 'hooks' && <HooksSection activeItemId={activeItemId} />}
-              {activeSection === 'templates' && <TemplatesSection />}
-              {activeSection === 'motion' && <MotionSections activeItemId={activeItemId} />}
+              {activeSection === 'hooks' && (
+                <HooksSection
+                  activeItemId={activeItemId}
+                  breadcrumbs={breadcrumbs}
+                  onItemChange={(itemId) => setActiveItemId(itemId)}
+                />
+              )}
+              {activeSection === 'templates' && <TemplatesSection breadcrumbs={breadcrumbs} />}
+              {activeSection === 'motion' && (
+                <MotionSections
+                  activeItemId={activeItemId}
+                  breadcrumbs={breadcrumbs}
+                  onItemChange={(itemId) => setActiveItemId(itemId)}
+                />
+              )}
             </div>
 
             {/* Table of Contents */}

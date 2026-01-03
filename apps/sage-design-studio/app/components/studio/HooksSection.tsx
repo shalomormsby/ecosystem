@@ -1,14 +1,16 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Card, Button, TextField, TertiaryNav, Badge, Code, CollapsibleCodeBlock } from '@ecosystem/design-system';
+import { Card, Button, TextField, TertiaryNav, Badge, Code, CollapsibleCodeBlock, Breadcrumbs, type BreadcrumbItem } from '@ecosystem/design-system';
 import { useForm, useTheme, useToast } from '@ecosystem/design-system';
 
 interface HooksSectionProps {
   activeItemId?: string;
+  breadcrumbs?: BreadcrumbItem[];
+  onItemChange?: (itemId: string) => void;
 }
 
-export function HooksSection({ activeItemId }: HooksSectionProps) {
+export function HooksSection({ activeItemId, breadcrumbs, onItemChange }: HooksSectionProps) {
   const [activeHook, setActiveHook] = useState<string>('useForm');
 
   // Update active hook when activeItemId changes
@@ -29,6 +31,14 @@ export function HooksSection({ activeItemId }: HooksSectionProps) {
     }
   }, [activeItemId]);
 
+  // Handle hook selection and notify parent
+  const handleHookChange = (id: string) => {
+    setActiveHook(id);
+    // Convert camelCase to kebab-case for parent state (e.g., 'useForm' -> 'use-form')
+    const kebabCase = id.replace(/([A-Z])/g, '-$1').toLowerCase();
+    onItemChange?.(kebabCase);
+  };
+
   const hooks = [
     { id: 'useForm', label: 'useForm' },
     { id: 'useTheme', label: 'useTheme' },
@@ -42,6 +52,14 @@ export function HooksSection({ activeItemId }: HooksSectionProps) {
         <h2 className="text-3xl font-bold mb-2 text-[var(--color-text-primary)]">
           Hooks
         </h2>
+
+        {/* Breadcrumbs - positioned after title, before description */}
+        {breadcrumbs && breadcrumbs.length > 1 && (
+          <div className="mb-4">
+            <Breadcrumbs variant="subtle" items={breadcrumbs} />
+          </div>
+        )}
+
         <p className="text-lg text-[var(--color-text-secondary)] mb-2">
           <strong>React Hooks:</strong> Reusable stateful logic for forms, theming, notifications, and animations.
         </p>
@@ -55,7 +73,7 @@ export function HooksSection({ activeItemId }: HooksSectionProps) {
         <TertiaryNav
           items={hooks}
           activeId={activeHook}
-          onItemChange={setActiveHook}
+          onItemChange={handleHookChange}
         />
       </div>
 
