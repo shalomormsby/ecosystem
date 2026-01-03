@@ -181,17 +181,13 @@ export default function StudioPage() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
-  // Generate breadcrumbs from hash
+  // Generate breadcrumbs from active section/item (syncs with state, not hash events)
   useEffect(() => {
-    const updateBreadcrumbs = () => {
-      const hash = window.location.hash || '#overview';
-      setBreadcrumbs(generateBreadcrumbs(hash, routeConfig));
-    };
-
-    updateBreadcrumbs();
-    window.addEventListener('hashchange', updateBreadcrumbs);
-    return () => window.removeEventListener('hashchange', updateBreadcrumbs);
-  }, []);
+    const hash = activeItemId && activeItemId !== activeSection
+      ? `#${activeSection}/${activeItemId}`
+      : `#${activeSection}`;
+    setBreadcrumbs(generateBreadcrumbs(hash, routeConfig));
+  }, [activeSection, activeItemId]);
 
   // Handle navigation from search results
   const handleSearchNavigate = (path: string) => {
@@ -277,21 +273,16 @@ export default function StudioPage() {
             </svg>
           </button>
 
-          {/* Breadcrumbs - Sticky at top, only show when not on homepage */}
-          {breadcrumbs.length > 1 && (
-            <div
-              className="fixed left-0 lg:left-[280px] right-0 top-0 bg-[var(--color-background)]/95 backdrop-blur-sm border-b border-[var(--color-border)] transition-all duration-300"
-              style={{ zIndex: 45 }}
-            >
-              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
-                <Breadcrumbs variant="subtle" items={breadcrumbs} />
-              </div>
-            </div>
-          )}
-
           {/* Content Area */}
-          <div className={`flex-1 flex ${breadcrumbs.length > 1 ? 'pt-[52px]' : ''}`}>
+          <div className="flex-1 flex">
             <div className="flex-1 px-4 sm:px-6 lg:px-8 py-8 max-w-7xl">
+              {/* Breadcrumbs - Regular scrolling element, only show when not on homepage */}
+              {breadcrumbs.length > 1 && (
+                <div className="mb-6">
+                  <Breadcrumbs variant="subtle" items={breadcrumbs} />
+                </div>
+              )}
+
               {activeSection === 'overview' && <OverviewSection />}
               {activeSection === 'architecture' && <ArchitectureSection />}
               {activeSection === 'adding-components' && <AddingComponentsSection />}
