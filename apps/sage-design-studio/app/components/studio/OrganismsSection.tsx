@@ -1,13 +1,15 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Card, Button, Header, SecondaryNav, TertiaryNav, Footer, Modal, ToastProvider, useToast, CollapsibleCodeBlock, Code, CustomizerPanel } from '@ecosystem/design-system';
+import { Card, Button, Header, SecondaryNav, TertiaryNav, Footer, Modal, ToastProvider, useToast, CollapsibleCodeBlock, Code, CustomizerPanel, Breadcrumbs, type BreadcrumbItem } from '@ecosystem/design-system';
 import type { SyntaxToken } from '@ecosystem/design-system';
 
 type OrganismType = 'PrimaryNav' | 'SecondaryNav' | 'TertiaryNav' | 'FirstStack' | 'SecondStack' | 'Footer' | 'Toast' | 'Modal' | 'CollapsibleCodeBlock' | 'Customizer';
 
 interface OrganismsSectionProps {
   activeItemId?: string;
+  breadcrumbs?: BreadcrumbItem[];
+  onItemChange?: (itemId: string) => void;
 }
 
 function ToastDemo() {
@@ -330,7 +332,7 @@ function CustomizerDemoLightweight() {
   );
 }
 
-export function OrganismsSection({ activeItemId }: OrganismsSectionProps) {
+export function OrganismsSection({ activeItemId, breadcrumbs, onItemChange }: OrganismsSectionProps) {
   const [selectedOrganism, setSelectedOrganism] = useState<OrganismType>('PrimaryNav');
 
   // Update selected organism when activeItemId changes
@@ -348,6 +350,17 @@ export function OrganismsSection({ activeItemId }: OrganismsSectionProps) {
       }
     }
   }, [activeItemId]);
+
+  // Handle organism selection and notify parent
+  const handleOrganismChange = (id: OrganismType) => {
+    setSelectedOrganism(id);
+    // Convert PascalCase to kebab-case for parent state (e.g., 'PrimaryNav' -> 'primary-nav')
+    const kebabCase = id
+      .replace(/([A-Z])/g, '-$1')
+      .toLowerCase()
+      .slice(1);
+    onItemChange?.(kebabCase);
+  };
 
   const organisms = [
     { id: 'PrimaryNav', label: 'Primary Nav' },
@@ -368,6 +381,14 @@ export function OrganismsSection({ activeItemId }: OrganismsSectionProps) {
         <h2 className="text-3xl font-bold mb-2 text-[var(--color-text-primary)]">
           Organisms
         </h2>
+
+        {/* Breadcrumbs - positioned after title, before description */}
+        {breadcrumbs && breadcrumbs.length > 1 && (
+          <div className="mb-4">
+            <Breadcrumbs variant="subtle" items={breadcrumbs} />
+          </div>
+        )}
+
         <p className="text-lg text-[var(--color-text-secondary)] mb-2">
           <strong>Distinct Sections:</strong> Complex compositions of molecules and/or atoms that form a discrete, functional section of an interface. Often manage state or layout for children.
         </p>
@@ -381,7 +402,7 @@ export function OrganismsSection({ activeItemId }: OrganismsSectionProps) {
         <TertiaryNav
           items={organisms}
           activeId={selectedOrganism}
-          onItemChange={(id) => setSelectedOrganism(id as OrganismType)}
+          onItemChange={(id) => handleOrganismChange(id as OrganismType)}
         />
       </div>
 

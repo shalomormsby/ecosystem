@@ -79,13 +79,16 @@ const routeConfig: RouteConfig = {
   organisms: {
     label: 'Organisms',
     children: {
-      header: { label: 'Header' },
-      footer: { label: 'Footer' },
+      'primary-nav': { label: 'Primary Nav' },
       'secondary-nav': { label: 'Secondary Nav' },
       'tertiary-nav': { label: 'Tertiary Nav' },
-      modal: { label: 'Modal' },
+      'first-stack': { label: '1st Stacking Row' },
+      'second-stack': { label: '2nd Stacking Row' },
+      footer: { label: 'Footer' },
       toast: { label: 'Toast' },
+      modal: { label: 'Modal' },
       'collapsible-code-block': { label: 'Collapsible Code Block' },
+      customizer: { label: 'Customizer' },
       'page-layout': { label: 'Page Layout' },
     }
   },
@@ -296,7 +299,13 @@ export default function StudioPage() {
                   onItemChange={(itemId) => setActiveItemId(itemId)}
                 />
               )}
-              {activeSection === 'organisms' && <OrganismsSection activeItemId={activeItemId} />}
+              {activeSection === 'organisms' && (
+                <OrganismsSection
+                  activeItemId={activeItemId}
+                  breadcrumbs={breadcrumbs}
+                  onItemChange={(itemId) => setActiveItemId(itemId)}
+                />
+              )}
               {activeSection === 'hooks' && <HooksSection activeItemId={activeItemId} />}
               {activeSection === 'templates' && <TemplatesSection />}
               {activeSection === 'motion' && <MotionSections activeItemId={activeItemId} />}
