@@ -4,6 +4,8 @@ import { useState } from 'react';
 import { Card } from '@ecosystem/design-system';
 import type { ComponentConfig } from '../../lib/component-registry';
 import { CodeSnippet } from './CodeSnippet';
+import { JsonLdMetadata } from '../../JsonLdMetadata';
+import { generateComponentMetadata } from '../../../lib/metadata-generator';
 
 interface ComponentPlaygroundProps {
   componentName: string;
@@ -11,6 +13,8 @@ interface ComponentPlaygroundProps {
 }
 
 export function ComponentPlayground({ componentName, config }: ComponentPlaygroundProps) {
+  // Generate JSON-LD metadata for this component
+  const metadata = generateComponentMetadata(config, componentName);
   const [props, setProps] = useState<Record<string, any>>(
     Object.fromEntries(
       Object.entries(config.props).map(([key, propConfig]) => [key, propConfig.default])
@@ -45,6 +49,9 @@ export function ComponentPlayground({ componentName, config }: ComponentPlaygrou
 
   return (
     <div className="space-y-6">
+      {/* JSON-LD Metadata for LLM optimization */}
+      <JsonLdMetadata data={metadata} />
+
       {/* Description */}
       <Card className="p-6">
         <p className="text-[var(--color-text-primary)]">{config.description}</p>

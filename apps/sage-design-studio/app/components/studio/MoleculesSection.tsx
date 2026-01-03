@@ -3,6 +3,8 @@
 import { useState, useEffect } from 'react';
 import { Card, Code, TertiaryNav, CollapsibleCodeBlock, Breadcrumbs, type BreadcrumbItem } from '@ecosystem/design-system';
 import { moleculeRegistry } from '../lib/molecule-registry';
+import { JsonLdMetadata } from '../JsonLdMetadata';
+import { generateComponentMetadata } from '../../lib/metadata-generator';
 
 interface MoleculesSectionProps {
   activeItemId?: string;
@@ -46,6 +48,9 @@ export function MoleculesSection({ activeItemId, breadcrumbs, onItemChange }: Mo
 
   const currentMolecule = moleculeRegistry[selectedMolecule];
 
+  // Generate JSON-LD metadata for this molecule
+  const metadata = currentMolecule ? generateComponentMetadata(currentMolecule, selectedMolecule) : null;
+
   return (
     <div className="space-y-8">
       <div>
@@ -81,6 +86,9 @@ export function MoleculesSection({ activeItemId, breadcrumbs, onItemChange }: Mo
       <div className="mt-4">
         {currentMolecule && (
           <section className="space-y-6">
+          {/* JSON-LD Metadata for LLM optimization */}
+          {metadata && <JsonLdMetadata data={metadata} />}
+
           <div>
             <div className="flex items-center justify-between mb-2">
               <h3 className="text-2xl font-semibold text-[var(--color-text-primary)]">
