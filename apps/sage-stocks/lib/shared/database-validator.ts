@@ -112,7 +112,7 @@ export async function validateDatabaseConfig(
       field: 'stockAnalysesDbId',
       code: errorCode,
       message: `Stock Analyses database not accessible: ${error.message}`,
-      helpUrl: 'https://sagestocks.vercel.app/setup',
+      helpUrl: 'https://stocks.shalomormsby.com/setup',
     });
     details.stockAnalysesDb = { accessible: false };
     log(LogLevel.ERROR, 'Stock Analyses DB validation failed', {
@@ -142,7 +142,7 @@ export async function validateDatabaseConfig(
       field: 'stockHistoryDbId',
       code: errorCode,
       message: `Stock History database not accessible: ${error.message}`,
-      helpUrl: 'https://sagestocks.vercel.app/setup',
+      helpUrl: 'https://stocks.shalomormsby.com/setup',
     });
     details.stockHistoryDb = { accessible: false };
     log(LogLevel.ERROR, 'Stock History DB validation failed', {
@@ -172,7 +172,7 @@ export async function validateDatabaseConfig(
       field: 'marketContextDbId',
       code: errorCode,
       message: `Market Context database not accessible: ${error.message}`,
-      helpUrl: 'https://sagestocks.vercel.app/setup',
+      helpUrl: 'https://stocks.shalomormsby.com/setup',
     });
     details.marketContextDb = { accessible: false };
     log(LogLevel.ERROR, 'Market Context DB validation failed', {
@@ -202,7 +202,7 @@ export async function validateDatabaseConfig(
       field: 'stockEventsDbId',
       code: errorCode,
       message: `Stock Events database not accessible: ${error.message}`,
-      helpUrl: 'https://sagestocks.vercel.app/setup',
+      helpUrl: 'https://stocks.shalomormsby.com/setup',
     });
     details.stockEventsDb = { accessible: false };
     log(LogLevel.ERROR, 'Stock Events DB validation failed', {
@@ -233,7 +233,7 @@ export async function validateDatabaseConfig(
       field: 'sageStocksPageId',
       code: errorCode,
       message: `Sage Stocks page not accessible: ${error.message}`,
-      helpUrl: 'https://sagestocks.vercel.app/setup',
+      helpUrl: 'https://stocks.shalomormsby.com/setup',
     });
     details.sageStocksPage = { accessible: false };
     log(LogLevel.ERROR, 'Sage Stocks Page validation failed', {
@@ -380,7 +380,7 @@ export async function assertDatabasesValid(
   if (!result.valid) {
     const errorMessages = result.errors.map((e) => `  - ${e.field}: ${e.message}`).join('\n');
     throw new Error(
-      `Database configuration invalid:\n${errorMessages}\n\nPlease re-run setup at https://sagestocks.vercel.app/setup`
+      `Database configuration invalid:\n${errorMessages}\n\nPlease re-run setup at https://stocks.shalomormsby.com/setup`
     );
   }
 

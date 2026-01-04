@@ -369,7 +369,7 @@ export default async function handler(
     if (!stockHistoryDbId) missingDatabases.push('Stock History');
 
     if (missingDatabases.length > 0) {
-      const errorMessage = `Setup incomplete: ${missingDatabases.join(', ')} database${missingDatabases.length > 1 ? 's' : ''} not configured. Please complete setup at https://sagestocks.vercel.app/`;
+      const errorMessage = `Setup incomplete: ${missingDatabases.join(', ')} database${missingDatabases.length > 1 ? 's' : ''} not configured. Please complete setup at https://stocks.shalomormsby.com/`;
 
       console.error('❌ Database configuration validation failed:', {
         userId: user.id,
@@ -388,7 +388,7 @@ export default async function handler(
         details: {
           missingDatabases,
           setupRequired: true,
-          setupUrl: 'https://sagestocks.vercel.app/',
+          setupUrl: 'https://stocks.shalomormsby.com/',
         }
       });
       return;

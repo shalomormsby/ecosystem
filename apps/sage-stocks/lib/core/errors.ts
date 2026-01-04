@@ -206,7 +206,7 @@ export class RateLimitError extends SageStocksError {
     super(
       `User rate limit exceeded - limit will reset at ${resetTime}`,
       'USER_RATE_LIMIT_EXCEEDED',
-      `💪 Superuser alert! 🤩\n\nYou just hit our freebie limit (10 analyses a day on the house).\n\nWanna power up? View plans at https://shalomormsby.com/analyze/pricing to run more analyses per day.\n\n[Settings](https://sagestocks.vercel.app/settings.html)`,
+      `💪 Superuser alert! 🤩\n\nYou just hit our freebie limit (10 analyses a day on the house).\n\nWanna power up? View plans at https://shalomormsby.com/analyze/pricing to run more analyses per day.\n\n[Settings](https://stocks.shalomormsby.com/settings.html)`,
       429
     );
 

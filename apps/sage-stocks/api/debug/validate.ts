@@ -38,7 +38,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       return res.status(503).json({
         valid: false,
         error: 'Setup incomplete',
-        message: 'All database IDs must be configured. Please complete setup at https://sagestocks.vercel.app/setup',
+        message: 'All database IDs must be configured. Please complete setup at https://stocks.shalomormsby.com/setup',
         configuration: {
           stockAnalysesDbId: !!user.stockAnalysesDbId,
           stockHistoryDbId: !!user.stockHistoryDbId,
@@ -76,7 +76,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
           stockEventsDbId: user.stockEventsDbId,
           sageStocksPageId: user.sageStocksPageId,
         },
-        helpUrl: 'https://sagestocks.vercel.app/setup',
+        helpUrl: 'https://stocks.shalomormsby.com/setup',
         message: 'Database configuration is invalid. See errors for details. A bug report has been automatically created.',
       });
     }
