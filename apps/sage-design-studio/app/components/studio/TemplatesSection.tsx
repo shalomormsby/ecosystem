@@ -39,19 +39,23 @@ export function TemplatesSection({ breadcrumbs, activeItemId, onItemChange }: Te
         </p>
       </div>
 
-      {/* Template Navigation */}
-      <TertiaryNav
-        items={[
-          { id: 'templates-overview', label: 'Overview' },
-          { id: 'page-template', label: 'Page Template' },
-        ]}
-        activeId={selectedTemplate}
-        onItemChange={handleTemplateChange}
-      />
+      {/* Template Navigation - Sticky wrapper matching TokensSection pattern */}
+      <div className="sticky top-0 z-10 bg-[var(--color-background)] pb-4 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 mb-4">
+        <TertiaryNav
+          items={[
+            { id: 'templates-overview', label: 'Overview' },
+            { id: 'page-template', label: 'Page Template' },
+          ]}
+          activeId={selectedTemplate}
+          onItemChange={handleTemplateChange}
+        />
+      </div>
 
       {/* Template Content */}
-      {selectedTemplate === 'templates-overview' && <OverviewContent />}
-      {selectedTemplate === 'page-template' && <PageTemplateContent />}
+      <div className="mt-4">
+        {selectedTemplate === 'templates-overview' && <OverviewContent />}
+        {selectedTemplate === 'page-template' && <PageTemplateContent />}
+      </div>
     </div>
   );
 }

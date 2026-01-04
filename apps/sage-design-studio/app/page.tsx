@@ -319,7 +319,13 @@ export default function StudioPage() {
                   onItemChange={(itemId) => setActiveItemId(itemId)}
                 />
               )}
-              {activeSection === 'templates' && <TemplatesSection breadcrumbs={breadcrumbs} />}
+              {activeSection === 'templates' && (
+                <TemplatesSection
+                  activeItemId={activeItemId}
+                  breadcrumbs={breadcrumbs}
+                  onItemChange={(itemId) => setActiveItemId(itemId)}
+                />
+              )}
               {activeSection === 'motion' && (
                 <MotionSections
                   activeItemId={activeItemId}
