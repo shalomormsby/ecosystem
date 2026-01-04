@@ -41,7 +41,8 @@
       "schedule": "0 12 * * 0"
     }
   ],
-  "buildCommand": "npm run type-check",
+  "buildCommand": "cd ../.. && pnpm turbo run build --filter=@ecosystem/sage-stocks",
+  "installCommand": "cd ../.. && pnpm install",
   "rewrites": [
     {
       "source": "/pages/analyze.html",
