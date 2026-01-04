@@ -1,5 +1,6 @@
 'use client';
 
+// Cosmograph navigation with breadcrumbs
 import NextLink from 'next/link';
 import { Header, Breadcrumbs } from '@ecosystem/design-system';
 import { ecosystemNavigation } from '@/lib/navigation';
