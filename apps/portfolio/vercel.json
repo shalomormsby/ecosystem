@@ -1,0 +1,4 @@
+{
+  "buildCommand": "pnpm turbo run build --filter=portfolio",
+  "installCommand": "pnpm install"
+}
