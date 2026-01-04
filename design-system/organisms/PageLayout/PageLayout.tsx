@@ -7,6 +7,18 @@ export interface PageLayoutProps {
   /** Optional breadcrumbs */
   breadcrumbs?: React.ReactNode;
 
+  /** Breadcrumbs position: 'top' (sticky below header) or 'below-title' (static below title) */
+  breadcrumbsPosition?: 'top' | 'below-title';
+
+  /** Optional page title - rendered in content-width container */
+  title?: React.ReactNode;
+
+  /** Optional page subtitle - rendered below title */
+  subtitle?: React.ReactNode;
+
+  /** Apply Swiss Grid Design spacing to title/subtitle area */
+  swissGridSpacing?: boolean;
+
   /** Optional secondary navigation (first stack) */
   secondaryNav?: React.ReactNode;
 
@@ -32,21 +44,32 @@ export interface PageLayoutProps {
  * Features:
  * - Automatic z-index stacking (50 → 45 → 40 → 30)
  * - Dynamic sticky positioning calculations
+ * - Optional title/subtitle slots with Swiss Grid spacing
+ * - Flexible breadcrumb positioning (sticky top or static below title)
  * - Optional composition (all props optional)
  * - Handles full-height layouts
  * - Theme-aware styling
  *
  * Z-Index Stack:
  * - Header: z-50, h-16 lg:h-20
- * - Breadcrumbs: z-45, sticky below header
+ * - Breadcrumbs (if position='top'): z-45, sticky below header
  * - SecondaryNav: z-40, first navigation stack
  * - TertiaryNav: z-30, second navigation stack
+ *
+ * Swiss Grid Design:
+ * - Title/subtitle area uses structured spacing (48-96px sections)
+ * - Typography hierarchy: text-4xl/5xl title, text-lg subtitle
+ * - Content-width container (max-w-7xl) for proper alignment
  *
  * Example:
  * ```tsx
  * <PageLayout
  *   header={<Header logo={logo} navLinks={links} />}
+ *   title={<h1>Page Title</h1>}
+ *   subtitle={<p>Page subtitle</p>}
  *   breadcrumbs={<Breadcrumbs items={breadcrumbItems} />}
+ *   breadcrumbsPosition="below-title"
+ *   swissGridSpacing
  *   secondaryNav={<SecondaryNav items={sections} />}
  * >
  *   <article>Your content here</article>
@@ -56,19 +79,33 @@ export interface PageLayoutProps {
 export function PageLayout({
   header,
   breadcrumbs,
+  breadcrumbsPosition = 'top',
+  title,
+  subtitle,
+  swissGridSpacing = false,
   secondaryNav,
   tertiaryNav,
   footer,
   children,
   className = '',
 }: PageLayoutProps) {
+  // Determine if breadcrumbs should be at the top (sticky) or below title (static)
+  const showBreadcrumbsAtTop = breadcrumbsPosition === 'top';
+  const showBreadcrumbsBelowTitle = breadcrumbsPosition === 'below-title';
+
+  // Swiss Grid spacing classes
+  const titleAreaSpacing = swissGridSpacing ? 'py-12 lg:py-16' : 'py-8';
+  const titleBottomMargin = swissGridSpacing ? 'mb-4' : 'mb-3';
+  const subtitleBottomMargin = swissGridSpacing ? 'mb-6' : 'mb-4';
+  const breadcrumbsTopMargin = swissGridSpacing ? 'mt-6' : 'mt-4';
+
   return (
     <div className="min-h-screen flex flex-col">
       {/* Header - z-50, h-16 lg:h-20 */}
       {header}
 
-      {/* Breadcrumbs - z-45, sticky below header */}
-      {breadcrumbs && (
+      {/* Breadcrumbs - z-45, sticky below header (only if position='top') */}
+      {breadcrumbs && showBreadcrumbsAtTop && (
         <div
           className="
             sticky bg-[var(--color-background)]/95 backdrop-blur-sm
@@ -80,6 +117,34 @@ export function PageLayout({
         >
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
             {breadcrumbs}
+          </div>
+        </div>
+      )}
+
+      {/* Title/Subtitle Area - Swiss Grid Design */}
+      {(title || subtitle) && (
+        <div className={`${titleAreaSpacing} bg-[var(--color-background)]`}>
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            {/* Title */}
+            {title && (
+              <div className={titleBottomMargin}>
+                {title}
+              </div>
+            )}
+
+            {/* Subtitle */}
+            {subtitle && (
+              <div className={subtitleBottomMargin}>
+                {subtitle}
+              </div>
+            )}
+
+            {/* Breadcrumbs below title (only if position='below-title') */}
+            {breadcrumbs && showBreadcrumbsBelowTitle && (
+              <div className={breadcrumbsTopMargin}>
+                {breadcrumbs}
+              </div>
+            )}
           </div>
         </div>
       )}

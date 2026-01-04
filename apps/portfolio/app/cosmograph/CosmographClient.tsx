@@ -1,8 +1,7 @@
 'use client';
 
-// Cosmograph navigation with breadcrumbs
 import NextLink from 'next/link';
-import { Header, Breadcrumbs } from '@ecosystem/design-system';
+import { PageTemplate } from '@ecosystem/design-system';
 import { ecosystemNavigation } from '@/lib/navigation';
 import { NavigationFallback } from '@/components/cosmograph/NavigationFallback';
 import type { Node } from '@/lib/content/types';
@@ -13,27 +12,26 @@ interface CosmographClientProps {
 
 export function CosmographClient({ nodes }: CosmographClientProps) {
   return (
-    <main className="min-h-screen bg-background flex flex-col">
-      <Header
-        logo={
+    <PageTemplate
+      header={{
+        logo: (
           <NextLink href="/" className="font-header font-bold text-lg text-foreground">
             Shalom Ormsby
           </NextLink>
-        }
-        navLinks={ecosystemNavigation}
-      />
-      <div className="flex-grow">
-        <div className="container mx-auto px-6 py-12">
-          <Breadcrumbs
-            items={[
-              { label: 'Home', href: '/' },
-              { label: 'Cosmograph' }
-            ]}
-            className="mb-8"
-          />
-          <NavigationFallback nodes={nodes} />
-        </div>
-      </div>
-    </main>
+        ),
+        navLinks: ecosystemNavigation,
+        sticky: true,
+      }}
+      title="Cosmograph"
+      subtitle="Interactive network visualization exploring connections between thoughts, projects, and ideas"
+      breadcrumbs={[
+        { label: 'Home', href: '/' },
+        { label: 'Cosmograph' },
+      ]}
+      showCustomizer={false}
+      variant="wide"
+    >
+      <NavigationFallback nodes={nodes} />
+    </PageTemplate>
   );
 }

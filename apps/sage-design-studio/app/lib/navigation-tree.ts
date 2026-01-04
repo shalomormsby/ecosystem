@@ -356,7 +356,12 @@ export const navigationTree: NavigationItem[] = [
     children: [
       {
         id: 'templates-overview',
-        label: 'Coming Soon',
+        label: 'Overview',
+        section: 'templates',
+      },
+      {
+        id: 'page-template',
+        label: 'Page Template',
         section: 'templates',
       },
     ],

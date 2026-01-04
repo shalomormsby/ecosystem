@@ -349,6 +349,15 @@ export const searchIndex: SearchResult[] = [
     path: 'templates',
     keywords: ['template', 'pattern', 'layout', 'page', 'composition'],
   },
+  {
+    id: 'page-template',
+    title: 'Page Template',
+    description: 'Swiss Grid-based page layout template with header, title, breadcrumbs, and content',
+    type: 'component',
+    category: 'Templates',
+    path: 'templates-page-template',
+    keywords: ['template', 'page', 'layout', 'swiss grid', 'header', 'breadcrumbs', 'title', 'subtitle', 'structure', 'composition'],
+  },
 ];
 
 // Fuzzy search function
