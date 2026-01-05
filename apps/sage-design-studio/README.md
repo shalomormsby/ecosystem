@@ -212,9 +212,29 @@ See [PHASE-7-COMPLETION.md](./PHASE-7-COMPLETION.md) for full details.
 
 ## Related Documentation
 
-- [Strategic Vision](../../design-system/docs/SAGE-DESIGN-STUDIO.md) - Comprehensive strategy doc
-- [Design System README](../../design-system/README.md) - Design system documentation
-- [Design Philosophy](/DESIGN-PHILOSOPHY.md) - Core principles
+### Design System Documentation
+
+The Sage Design Studio documents and showcases the design system. For comprehensive information about the design system itself:
+
+**For Users (Building with the Design System):**
+- [Usage Guide](../../design-system/docs/USAGE_GUIDE.md) - Complete guide to using components, component-first philosophy, patterns, and examples
+
+**For Contributors (Extending the Design System):**
+- [Component Workflow](../../design-system/docs/COMPONENT_WORKFLOW.md) - How to create/modify components
+- [Architecture Guide](../../design-system/docs/ARCHITECTURE-GUIDE.md) - Where code belongs (design system vs. apps)
+
+**For Troubleshooting:**
+- [Unresolved Issues](../../design-system/docs/UNRESOLVED_ISSUES.md) - Current known issues with full context
+
+**Strategic & Philosophy:**
+- [Sage Design Studio Strategy](../../design-system/docs/SAGE-DESIGN-STUDIO.md) - Strategic vision for this documentation platform
+- [Design System README](../../design-system/README.md) - Design system overview and API reference
+- [Design Philosophy](/DESIGN-PHILOSOPHY.md) - Core principles and values
+
+### Studio-Specific Documentation
+
+- [PHASE-7-COMPLETION.md](./PHASE-7-COMPLETION.md) - Documentation overhaul completion details
+- [CHANGELOG.md](./CHANGELOG.md) - Version history and changes
 
 ---
 
