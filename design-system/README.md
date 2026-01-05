@@ -2,6 +2,8 @@
 
 > **The heart of the ecosystem.** This design system is how we make our design philosophy tangible.
 
+**This design system is built as a scalable component-based architecture that encapsulates design tokens and follows atomic design principles.** Components automatically handle theming, dark mode, responsive behavior, and accessibility—so you can focus on building features, not managing CSS variables.
+
 Every token, component, and pattern here exists to serve one purpose: helping us build products that make people feel *seen*, *capable*, and *empowered*. If a component doesn't contribute to that goal, it doesn't belong here.
 
 ---
@@ -1597,11 +1599,50 @@ See Tokens > Spacing in Sage Design Studio for full documentation.
 
 ---
 
-## Related Documentation
+## Documentation
 
-- [DESIGN-PHILOSOPHY.md](/DESIGN-PHILOSOPHY.md) — The North Star (read this first)
-- [AGENTS.md](/AGENTS.md) — Technical setup and agent guidelines
-- [Component Workflow Guide](docs/COMPONENT_WORKFLOW.md) — Step-by-step component creation checklist
+This design system has comprehensive documentation organized by purpose:
+
+### For Users (Building with the Design System)
+
+- **[Usage Guide](docs/USAGE_GUIDE.md)** — **Start here!** Complete guide to using components, the component-first philosophy, common patterns, and examples
+  - How to build pages without writing CSS variables
+  - Component inventory with usage examples
+  - Common patterns (blog, dashboard, documentation pages)
+  - Mistakes to avoid
+
+### For Contributors (Extending the Design System)
+
+- **[Component Workflow](docs/COMPONENT_WORKFLOW.md)** — Step-by-step guide for creating and modifying components
+  - Where to put files
+  - How to export components
+  - How to add to documentation
+  - Build commands and testing
+
+- **[Architecture Guide](docs/ARCHITECTURE-GUIDE.md)** — Where code belongs (design system package vs. apps)
+  - Design system vs. Studio app separation
+  - Decision tree for file placement
+  - Common architectural mistakes to avoid
+
+### For Troubleshooting
+
+- **[Unresolved Issues](docs/UNRESOLVED_ISSUES.md)** — Current known issues, root cause analysis, and context for fixes
+  - Mobile rendering problems
+  - SecondaryNav preview issues
+  - Missing components
+  - Full diagnostic information
+
+### Strategic Documentation
+
+- **[Sage Design Studio](docs/SAGE-DESIGN-STUDIO.md)** — Vision and implementation plan for the interactive documentation site
+  - Strategic positioning
+  - Information architecture
+  - Phased implementation plan
+
+### Foundational Philosophy
+
+- **[DESIGN-PHILOSOPHY.md](/DESIGN-PHILOSOPHY.md)** — The North Star (read this to understand *why*)
+- **[AGENTS.md](/AGENTS.md)** — Technical setup and agent guidelines for LLMs
 
 ---
 
