@@ -40,7 +40,7 @@ export interface TextProps {
  * Text Component
  *
  * Semantic text with automatic token-based styling.
- * No need to manually apply `text-[var(--color-...)]` classes.
+ * No need to manually apply CSS variable text color classes.
  *
  * **What it handles automatically:**
  * - Theme-aware text colors

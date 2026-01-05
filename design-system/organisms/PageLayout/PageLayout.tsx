@@ -168,7 +168,9 @@ export function PageLayout({
 
       {/* Main Content - flexible, fills remaining space */}
       <main className={`flex-1 ${className}`}>
-        {children}
+        <div className={`${contentMaxWidth} mx-auto px-4 sm:px-6 lg:px-8 py-12`}>
+          {children}
+        </div>
       </main>
 
       {/* Footer */}

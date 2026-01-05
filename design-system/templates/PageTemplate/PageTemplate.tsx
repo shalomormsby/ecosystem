@@ -147,9 +147,7 @@ export function PageTemplate({
         swissGridSpacing
         contentMaxWidth={maxWidthClass}
       >
-        <Container variant={variant} className="py-12">
-          {children}
-        </Container>
+        {children}
       </PageLayout>
 
       {/* Customizer - Swiss Grid: sticky overlay, bottom right */}
