@@ -126,6 +126,7 @@ export function PageTemplate({
             sticky={header.sticky ?? true}
           />
         }
+        stickyHeader={header.sticky ?? true}
         breadcrumbsPosition="below-title"
         breadcrumbs={<Breadcrumbs items={breadcrumbs} variant="subtle" />}
         title={

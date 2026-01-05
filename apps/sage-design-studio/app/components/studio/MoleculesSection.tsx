@@ -58,19 +58,19 @@ export function MoleculesSection({ activeItemId, breadcrumbs, onItemChange }: Mo
           Molecules
         </h2>
 
-        {/* Breadcrumbs - positioned after title, before description */}
-        {breadcrumbs && breadcrumbs.length > 1 && (
-          <div className="mb-4">
-            <Breadcrumbs variant="subtle" items={breadcrumbs} />
-          </div>
-        )}
-
         <p className="text-lg text-[var(--color-text-secondary)] mb-2">
           <strong>Functional Bonding:</strong> Simple groups of atoms bonded together to perform a single, specific task. Often highly reusable and context-agnostic.
         </p>
-        <p className="text-base text-[var(--color-text-muted)]">
+        <p className="text-base text-[var(--color-text-muted)] mb-4">
           Self-contained units with singular purpose, like search bars and form fields.
         </p>
+
+        {/* Breadcrumbs - positioned after title and description */}
+        {breadcrumbs && breadcrumbs.length > 1 && (
+          <div className="mt-6">
+            <Breadcrumbs variant="subtle" items={breadcrumbs} />
+          </div>
+        )}
       </div>
 
       {/* Sticky Tertiary Navigation for Molecule Selector */}

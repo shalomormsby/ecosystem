@@ -53,19 +53,19 @@ export function HooksSection({ activeItemId, breadcrumbs, onItemChange }: HooksS
           Hooks
         </h2>
 
-        {/* Breadcrumbs - positioned after title, before description */}
-        {breadcrumbs && breadcrumbs.length > 1 && (
-          <div className="mb-4">
-            <Breadcrumbs variant="subtle" items={breadcrumbs} />
-          </div>
-        )}
-
         <p className="text-lg text-[var(--color-text-secondary)] mb-2">
           <strong>React Hooks:</strong> Reusable stateful logic for forms, theming, notifications, and animations.
         </p>
-        <p className="text-base text-[var(--color-text-muted)]">
+        <p className="text-base text-[var(--color-text-muted)] mb-4">
           Import from @ecosystem/design-system or @ecosystem/design-system/hooks
         </p>
+
+        {/* Breadcrumbs - positioned after title and description */}
+        {breadcrumbs && breadcrumbs.length > 1 && (
+          <div className="mt-6">
+            <Breadcrumbs variant="subtle" items={breadcrumbs} />
+          </div>
+        )}
       </div>
 
       {/* Sticky Tertiary Navigation for Hook Selector */}

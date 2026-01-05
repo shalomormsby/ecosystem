@@ -15,16 +15,16 @@ export function ArchitectureSection({ breadcrumbs }: ArchitectureSectionProps) {
           Architecture Overview
         </h1>
 
-        {/* Breadcrumbs - positioned after title, before description */}
+        <p className="text-sm text-[var(--color-text-muted)] mb-4">
+          Understanding the structure and decision-making framework
+        </p>
+
+        {/* Breadcrumbs - positioned after title and description */}
         {breadcrumbs && breadcrumbs.length > 1 && (
-          <div className="mt-3 mb-2">
+          <div className="mt-6">
             <Breadcrumbs variant="subtle" items={breadcrumbs} />
           </div>
         )}
-
-        <p className="text-sm text-[var(--color-text-muted)]">
-          Understanding the structure and decision-making framework
-        </p>
       </div>
 
       {/* Component Hierarchy */}

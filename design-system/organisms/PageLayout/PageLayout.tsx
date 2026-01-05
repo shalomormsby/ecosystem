@@ -4,10 +4,13 @@ export interface PageLayoutProps {
   /** Optional header configuration */
   header?: React.ReactNode;
 
+  /** Whether the header is sticky (adds top padding to first content element) */
+  stickyHeader?: boolean;
+
   /** Optional breadcrumbs */
   breadcrumbs?: React.ReactNode;
 
-  /** Breadcrumbs position: 'top' (sticky below header) or 'below-title' (static below title) */
+  /** Breadcrumbs position: 'top' (sticky below header) or 'below-title' (static below title+subtitle) */
   breadcrumbsPosition?: 'top' | 'below-title';
 
   /** Optional page title - rendered in content-width container */
@@ -78,6 +81,7 @@ export interface PageLayoutProps {
  */
 export function PageLayout({
   header,
+  stickyHeader = false,
   breadcrumbs,
   breadcrumbsPosition = 'top',
   title,
@@ -93,11 +97,13 @@ export function PageLayout({
   const showBreadcrumbsAtTop = breadcrumbsPosition === 'top';
   const showBreadcrumbsBelowTitle = breadcrumbsPosition === 'below-title';
 
+  // Sticky header spacing - add top padding to first content element
+  const stickyHeaderSpacing = stickyHeader ? 'pt-16 lg:pt-20' : '';
+
   // Swiss Grid spacing classes
   const titleAreaSpacing = swissGridSpacing ? 'py-12 lg:py-16' : 'py-8';
   const titleBottomMargin = swissGridSpacing ? 'mb-4' : 'mb-3';
-  const subtitleBottomMargin = swissGridSpacing ? 'mb-6' : 'mb-4';
-  const breadcrumbsTopMargin = swissGridSpacing ? 'mt-6' : 'mt-4';
+  const breadcrumbsAreaSpacing = swissGridSpacing ? 'py-6' : 'py-4';
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -107,12 +113,13 @@ export function PageLayout({
       {/* Breadcrumbs - z-45, sticky below header (only if position='top') */}
       {breadcrumbs && showBreadcrumbsAtTop && (
         <div
-          className="
+          className={`
             sticky bg-[var(--color-background)]/95 backdrop-blur-sm
             border-b border-[var(--color-border)]
             transition-all duration-300
             top-16 lg:top-20
-          "
+            ${stickyHeaderSpacing}
+          `}
           style={{ zIndex: 45 }}
         >
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
@@ -123,7 +130,7 @@ export function PageLayout({
 
       {/* Title/Subtitle Area - Swiss Grid Design */}
       {(title || subtitle) && (
-        <div className={`${titleAreaSpacing} bg-[var(--color-background)]`}>
+        <div className={`${titleAreaSpacing} ${!showBreadcrumbsAtTop ? stickyHeaderSpacing : ''} bg-[var(--color-background)]`}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             {/* Title */}
             {title && (
@@ -133,18 +140,16 @@ export function PageLayout({
             )}
 
             {/* Subtitle */}
-            {subtitle && (
-              <div className={subtitleBottomMargin}>
-                {subtitle}
-              </div>
-            )}
+            {subtitle && <div>{subtitle}</div>}
+          </div>
+        </div>
+      )}
 
-            {/* Breadcrumbs below title (only if position='below-title') */}
-            {breadcrumbs && showBreadcrumbsBelowTitle && (
-              <div className={breadcrumbsTopMargin}>
-                {breadcrumbs}
-              </div>
-            )}
+      {/* Breadcrumbs below title+subtitle (only if position='below-title') */}
+      {breadcrumbs && showBreadcrumbsBelowTitle && (
+        <div className={`${breadcrumbsAreaSpacing} bg-[var(--color-background)]`}>
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            {breadcrumbs}
           </div>
         </div>
       )}

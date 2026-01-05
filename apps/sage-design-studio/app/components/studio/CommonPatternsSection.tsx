@@ -15,16 +15,16 @@ export function CommonPatternsSection({ breadcrumbs }: CommonPatternsSectionProp
           Common Patterns
         </h1>
 
-        {/* Breadcrumbs - positioned after title, before description */}
+        <p className="text-sm text-[var(--color-text-muted)] mb-4">
+          Code examples library for typical tasks
+        </p>
+
+        {/* Breadcrumbs - positioned after title and description */}
         {breadcrumbs && breadcrumbs.length > 1 && (
-          <div className="mt-3 mb-2">
+          <div className="mt-6">
             <Breadcrumbs variant="subtle" items={breadcrumbs} />
           </div>
         )}
-
-        <p className="text-sm text-[var(--color-text-muted)]">
-          Code examples library for typical tasks
-        </p>
       </div>
 
       {/* Displaying Code Examples */}

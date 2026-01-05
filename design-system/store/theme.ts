@@ -29,7 +29,7 @@ export const useThemeStore = create<ThemeState>()(
     (set, get) => ({
       // Defaults
       theme: 'studio',
-      mode: 'light',
+      mode: 'dark',
 
       // Actions
       setTheme: (theme) => set({ theme }),

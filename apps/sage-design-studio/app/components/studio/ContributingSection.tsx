@@ -15,16 +15,16 @@ export function ContributingSection({ breadcrumbs }: ContributingSectionProps) {
           Contributing Guide
         </h1>
 
-        {/* Breadcrumbs - positioned after title, before description */}
+        <p className="text-sm text-[var(--color-text-muted)] mb-4">
+          Checklist-driven guide for making pull requests
+        </p>
+
+        {/* Breadcrumbs - positioned after title and description */}
         {breadcrumbs && breadcrumbs.length > 1 && (
-          <div className="mt-3 mb-2">
+          <div className="mt-6">
             <Breadcrumbs variant="subtle" items={breadcrumbs} />
           </div>
         )}
-
-        <p className="text-sm text-[var(--color-text-muted)]">
-          Checklist-driven guide for making pull requests
-        </p>
       </div>
 
       {/* Before You Start */}

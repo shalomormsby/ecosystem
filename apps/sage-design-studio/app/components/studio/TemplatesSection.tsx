@@ -31,19 +31,19 @@ export function TemplatesSection({ breadcrumbs, activeItemId, onItemChange }: Te
           Templates
         </h2>
 
-        {/* Breadcrumbs - positioned after title, before description */}
-        {breadcrumbs && breadcrumbs.length > 1 && (
-          <div className="mb-4">
-            <Breadcrumbs variant="subtle" items={breadcrumbs} />
-          </div>
-        )}
-
         <p className="text-lg text-[var(--color-text-secondary)] mb-2">
           <strong>Content Structure:</strong> Layouts that define how organisms and components fit together without specific content. They act as the "blueprint" or wireframe for a page.
         </p>
-        <p className="text-base text-[var(--color-text-muted)]">
+        <p className="text-base text-[var(--color-text-muted)] mb-4">
           Page-level layouts and structural blueprints for consistent experiences.
         </p>
+
+        {/* Breadcrumbs - positioned after title and description, before navigation */}
+        {breadcrumbs && breadcrumbs.length > 1 && (
+          <div className="mt-6">
+            <Breadcrumbs variant="subtle" items={breadcrumbs} />
+          </div>
+        )}
       </div>
 
       {/* Template Navigation - Sticky wrapper matching TokensSection pattern */}
@@ -105,6 +105,8 @@ function OverviewContent() {
 }
 
 function PageTemplateContent() {
+  const [activeSection, setActiveSection] = useState('overview');
+
   const basicUsageCode = `import { PageTemplate } from '@ecosystem/design-system';
 
 function MyPage() {
@@ -223,6 +225,25 @@ function MyPage() {
                   { label: 'Category', href: '#' },
                   { label: 'Current Page' },
                 ]}
+                secondaryNav={{
+                  items: [
+                    { id: 'overview', label: 'Overview' },
+                    { id: 'features', label: 'Features' },
+                    { id: 'documentation', label: 'Documentation' },
+                    { id: 'examples', label: 'Examples' },
+                  ],
+                  activeId: activeSection,
+                  onItemChange: setActiveSection,
+                }}
+                footer={
+                  <footer className="bg-[var(--color-surface)] border-t border-[var(--color-border)] py-8">
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                      <p className="text-sm text-[var(--color-text-secondary)] text-center">
+                        © 2026 Example Company. Built with Swiss Grid Design principles.
+                      </p>
+                    </div>
+                  </footer>
+                }
                 showCustomizer={false}
               >
                 <div className="space-y-8">

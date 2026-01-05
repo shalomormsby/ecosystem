@@ -383,19 +383,19 @@ export function OrganismsSection({ activeItemId, breadcrumbs, onItemChange }: Or
           Organisms
         </h2>
 
-        {/* Breadcrumbs - positioned after title, before description */}
-        {breadcrumbs && breadcrumbs.length > 1 && (
-          <div className="mb-4">
-            <Breadcrumbs variant="subtle" items={breadcrumbs} />
-          </div>
-        )}
-
         <p className="text-lg text-[var(--color-text-secondary)] mb-2">
           <strong>Distinct Sections:</strong> Complex compositions of molecules and/or atoms that form a discrete, functional section of an interface. Often manage state or layout for children.
         </p>
-        <p className="text-base text-[var(--color-text-muted)]">
+        <p className="text-base text-[var(--color-text-muted)] mb-4">
           Comprehensive, interactive sections that compose multiple components together.
         </p>
+
+        {/* Breadcrumbs - positioned after title and description */}
+        {breadcrumbs && breadcrumbs.length > 1 && (
+          <div className="mt-6">
+            <Breadcrumbs variant="subtle" items={breadcrumbs} />
+          </div>
+        )}
       </div>
 
       {/* Sticky Tertiary Navigation for Organism Selector */}

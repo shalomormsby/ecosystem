@@ -60,16 +60,16 @@ export function MotionSections({ activeItemId, breadcrumbs, onItemChange }: Moti
           Motion
         </h2>
 
-        {/* Breadcrumbs - positioned after title, before description */}
+        <p className="text-lg text-[var(--color-text-secondary)] mb-4">
+          Bring your interfaces to life with purposeful animations and transitions.
+        </p>
+
+        {/* Breadcrumbs - positioned after title and description */}
         {breadcrumbs && breadcrumbs.length > 1 && (
-          <div className="mb-4">
+          <div className="mt-6">
             <Breadcrumbs variant="subtle" items={breadcrumbs} />
           </div>
         )}
-
-        <p className="text-lg text-[var(--color-text-secondary)]">
-          Bring your interfaces to life with purposeful animations and transitions.
-        </p>
       </div>
 
       {/* Sticky Tertiary Navigation for Motion Tabs */}
