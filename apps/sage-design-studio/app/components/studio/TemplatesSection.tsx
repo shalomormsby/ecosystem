@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Breadcrumbs, TertiaryNav, CollapsibleCodeBlock, Card, PageTemplate, Footer, type BreadcrumbItem } from '@ecosystem/design-system';
+import { Breadcrumbs, TertiaryNav, CollapsibleCodeBlock, Card, PageTemplate, Footer, Brand, type BreadcrumbItem } from '@ecosystem/design-system';
 
 interface TemplatesSectionProps {
   breadcrumbs?: BreadcrumbItem[];
@@ -107,13 +107,13 @@ function OverviewContent() {
 function PageTemplateContent() {
   const [activeSection, setActiveSection] = useState('overview');
 
-  const basicUsageCode = `import { PageTemplate } from '@ecosystem/design-system';
+  const basicUsageCode = `import { PageTemplate, Brand, Footer } from '@ecosystem/design-system';
 
 function MyPage() {
   return (
     <PageTemplate
       header={{
-        logo: <Link href="/">Brand</Link>,
+        logo: <Brand href="/">Brand Name</Brand>,
         navLinks: [
           { label: 'Home', href: '/' },
           { label: 'About', href: '/about' },
@@ -126,6 +126,13 @@ function MyPage() {
         { label: 'Home', href: '/' },
         { label: 'Platform' },
       ]}
+      footer={
+        <Footer
+          logo={<Brand>Brand Name</Brand>}
+          sections={[...]}
+          copyright="© 2026 Company"
+        />
+      }
     >
       <article>Your content here</article>
     </PageTemplate>
@@ -209,7 +216,7 @@ function MyPage() {
             <div style={{ transform: 'scale(0.75)', transformOrigin: 'top left', width: '133.33%', height: '133.33%' }}>
               <PageTemplate
                 header={{
-                  logo: <span className="font-bold">Logo</span>,
+                  logo: <Brand href="#">Brand Name</Brand>,
                   navLinks: [
                     { label: 'Home', href: '#' },
                     { label: 'About', href: '#' },
@@ -237,7 +244,7 @@ function MyPage() {
                 }}
                 footer={
                   <Footer
-                    logo="Example Brand"
+                    logo={<Brand>Example Brand</Brand>}
                     sections={[
                       {
                         title: 'Product',

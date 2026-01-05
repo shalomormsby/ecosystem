@@ -1,7 +1,7 @@
 'use client';
 
 import NextLink from 'next/link';
-import { PageTemplate, Footer } from '@ecosystem/design-system';
+import { PageTemplate, Footer, Brand } from '@ecosystem/design-system';
 import { ecosystemNavigation } from '@/lib/navigation';
 import { NavigationFallback } from '@/components/cosmograph/NavigationFallback';
 import type { Node } from '@/lib/content/types';
@@ -15,9 +15,11 @@ export function CosmographClient({ nodes }: CosmographClientProps) {
     <PageTemplate
       header={{
         logo: (
-          <NextLink href="/" className="font-header font-bold text-lg text-[var(--color-text-primary)]">
-            Shalom Ormsby
-          </NextLink>
+          <Brand>
+            <NextLink href="/" className="font-header">
+              Shalom Ormsby
+            </NextLink>
+          </Brand>
         ),
         navLinks: ecosystemNavigation,
         sticky: true,
@@ -33,9 +35,11 @@ export function CosmographClient({ nodes }: CosmographClientProps) {
       footer={
         <Footer
           logo={
-            <NextLink href="/" className="font-header font-bold text-lg text-[var(--color-text-primary)]">
-              Shalom Ormsby
-            </NextLink>
+            <Brand>
+              <NextLink href="/" className="font-header">
+                Shalom Ormsby
+              </NextLink>
+            </Brand>
           }
           sections={[
             {
