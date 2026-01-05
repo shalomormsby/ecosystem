@@ -3,6 +3,8 @@ export { Card } from './Card/Card';
 export * from './Code';
 export { Link } from './Link/Link';
 export * from './Brand';
+export * from './Container';
+export * from './Typography';
 export * from './Motion';
 export * from './Icon';
 export * from './Input';

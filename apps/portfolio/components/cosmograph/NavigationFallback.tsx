@@ -2,21 +2,13 @@
 
 import { useState, useMemo } from 'react';
 import Link from 'next/link';
-import { Card, Badge } from '@ecosystem/design-system';
+import { Card, Badge, Heading, Text } from '@ecosystem/design-system';
 import type { Node, Cluster } from '@/lib/content/types';
 
 /**
  * Navigation Fallback (Graph-Off Mode)
  *
- * Semantic HTML navigation that works without the Cosmograph.
- * Essential for accessibility, mobile, and users who prefer traditional navigation.
- *
- * Features:
- * - Organized by clusters
- * - Search functionality
- * - Keyboard navigable
- * - Works without JavaScript
- * - Mobile-first design
+ * Now uses design system components for perfect consistency!
  */
 
 interface NavigationFallbackProps {
@@ -62,7 +54,6 @@ export function NavigationFallback({
   const [searchQuery, setSearchQuery] = useState('');
   const [activeCluster, setActiveCluster] = useState<Cluster | 'all'>('all');
 
-  // Group nodes by cluster
   const nodesByCluster = useMemo(() => {
     const grouped: Record<Cluster, Node[]> = {
       work: [],
@@ -78,7 +69,6 @@ export function NavigationFallback({
       }
     });
 
-    // Sort nodes within each cluster by date (newest first)
     Object.keys(grouped).forEach((cluster) => {
       grouped[cluster as Cluster].sort(
         (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
@@ -88,7 +78,6 @@ export function NavigationFallback({
     return grouped;
   }, [nodes]);
 
-  // Filter nodes by search query
   const filteredNodes = useMemo(() => {
     if (!searchQuery) return nodesByCluster;
 
@@ -113,50 +102,41 @@ export function NavigationFallback({
     return filtered;
   }, [nodesByCluster, searchQuery]);
 
-  // Get clusters to display
   const clustersToShow =
     activeCluster === 'all'
       ? (['work', 'play', 'philosophy', 'meta', 'connections'] as Cluster[])
       : [activeCluster];
 
   return (
-    <div className={`max-w-4xl mx-auto ${className}`}>
-      {/* Header */}
+    <div className={className}>
       <header className="mb-8">
-        <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-2">
+        <Heading level={1} className="mb-2">
           Explore Shalom's Digital World
-        </h1>
-        <p className="text-lg text-foreground opacity-70">
+        </Heading>
+        <Text size="lg" variant="secondary">
           Navigate through work, creative experiments, philosophy, and more.
-        </p>
+        </Text>
       </header>
 
-      {/* Search */}
       <div className="mb-6">
-        <label htmlFor="search" className="sr-only">
-          Search content
-        </label>
+        <label htmlFor="search" className="sr-only">Search content</label>
         <input
           type="search"
           id="search"
           placeholder="Search by title, theme, or keyword..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="w-full px-4 py-3 rounded-lg border border-foreground/20 bg-background text-foreground placeholder:text-foreground/50 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+          className="w-full px-4 py-3 rounded-lg border border-[var(--color-border)] bg-[var(--color-background)] text-[var(--color-text-primary)] placeholder:text-[var(--color-text-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--color-focus)] focus:border-transparent"
         />
       </div>
 
-      {/* Cluster Filters */}
-      <nav
-        className="flex flex-wrap gap-2 mb-8"
-        aria-label="Filter by category"
-      >
+      <nav className="flex flex-wrap gap-2 mb-8" aria-label="Filter by category">
         <button
           onClick={() => setActiveCluster('all')}
           className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
             activeCluster === 'all'
-              ? 'bg-primary text-white'
-              : 'bg-foreground/10 text-foreground hover:bg-foreground/20'
+              ? 'bg-[var(--color-primary)] text-[var(--color-primary-foreground)]'
+              : 'bg-[var(--color-surface)] text-[var(--color-text-primary)] hover:bg-[var(--color-hover)]'
           }`}
         >
           All
@@ -167,8 +147,8 @@ export function NavigationFallback({
             onClick={() => setActiveCluster(cluster)}
             className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
               activeCluster === cluster
-                ? 'bg-primary text-white'
-                : 'bg-foreground/10 text-foreground hover:bg-foreground/20'
+                ? 'bg-[var(--color-primary)] text-[var(--color-primary-foreground)]'
+                : 'bg-[var(--color-surface)] text-[var(--color-text-primary)] hover:bg-[var(--color-hover)]'
             }`}
           >
             {CLUSTER_CONFIG[cluster].icon} {CLUSTER_CONFIG[cluster].title}
@@ -176,59 +156,47 @@ export function NavigationFallback({
         ))}
       </nav>
 
-      {/* Content Clusters */}
       <div className="space-y-8">
         {clustersToShow.map((cluster) => {
           const clusterNodes = filteredNodes[cluster];
           if (clusterNodes.length === 0) return null;
-
           const config = CLUSTER_CONFIG[cluster];
 
           return (
             <section key={cluster} id={cluster}>
-              <h2 className="text-2xl font-bold text-foreground mb-1">
+              <Heading level={2} className="mb-1">
                 {config.icon} {config.title}
-              </h2>
-              <p className="text-foreground opacity-60 mb-4">
+              </Heading>
+              <Text variant="secondary" className="mb-4">
                 {config.description}
-              </p>
+              </Text>
 
               <div className="space-y-3">
                 {clusterNodes.map((node) => (
-                  <Card
-                    key={node.id}
-                    hoverEffect={true}
-                    className="p-4 transition-all hover:shadow-lg"
-                  >
+                  <Card key={node.id} hoverEffect={true} className="p-4 transition-all hover:shadow-lg">
                     <article>
                       <Link
                         href={`/node/${node.slug}`}
-                        className="block group focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded"
+                        className="block group focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus)] focus-visible:ring-offset-2 rounded"
                       >
                         <div className="flex items-start justify-between gap-4">
                           <div className="flex-1">
-                            <h3 className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors mb-1">
+                            <h3 className="text-lg font-semibold text-[var(--color-text-primary)] group-hover:text-[var(--color-primary)] transition-colors mb-1">
                               {node.title}
                             </h3>
                             {node.summary && (
-                              <p className="text-foreground opacity-70 text-sm mb-2">
+                              <Text variant="secondary" size="sm" className="mb-2">
                                 {node.summary}
-                              </p>
+                              </Text>
                             )}
                             <div className="flex flex-wrap gap-2 items-center">
-                              <time
-                                dateTime={node.date}
-                                className="text-xs text-foreground opacity-50"
-                              >
-                                {new Date(node.date).toLocaleDateString(
-                                  'en-US',
-                                  {
-                                    year: 'numeric',
-                                    month: 'short',
-                                    day: 'numeric',
-                                  }
-                                )}
-                              </time>
+                              <Text as="time" variant="muted" size="xs">
+                                {new Date(node.date).toLocaleDateString('en-US', {
+                                  year: 'numeric',
+                                  month: 'short',
+                                  day: 'numeric',
+                                })}
+                              </Text>
                               {node.themes.length > 0 && (
                                 <div className="flex flex-wrap gap-1">
                                   {node.themes.slice(0, 3).map((theme) => (
@@ -240,21 +208,9 @@ export function NavigationFallback({
                               )}
                             </div>
                           </div>
-                          <div className="text-primary opacity-50 group-hover:opacity-100 transition-opacity">
-                            <svg
-                              width="20"
-                              height="20"
-                              viewBox="0 0 20 20"
-                              fill="none"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                d="M7.5 15L12.5 10L7.5 5"
-                                stroke="currentColor"
-                                strokeWidth="2"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                              />
+                          <div className="text-[var(--color-primary)] opacity-50 group-hover:opacity-100 transition-opacity">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                              <path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                             </svg>
                           </div>
                         </div>
@@ -268,21 +224,19 @@ export function NavigationFallback({
         })}
       </div>
 
-      {/* No Results */}
-      {searchQuery &&
-        Object.values(filteredNodes).every((nodes) => nodes.length === 0) && (
-          <div className="text-center py-12">
-            <p className="text-foreground opacity-60 text-lg">
-              No content found matching "{searchQuery}"
-            </p>
-            <button
-              onClick={() => setSearchQuery('')}
-              className="mt-4 text-primary hover:underline"
-            >
-              Clear search
-            </button>
-          </div>
-        )}
+      {searchQuery && Object.values(filteredNodes).every((nodes) => nodes.length === 0) && (
+        <div className="text-center py-12">
+          <Text size="lg" variant="secondary">
+            No content found matching "{searchQuery}"
+          </Text>
+          <button
+            onClick={() => setSearchQuery('')}
+            className="mt-4 text-[var(--color-primary)] hover:underline"
+          >
+            Clear search
+          </button>
+        </div>
+      )}
     </div>
   );
 }

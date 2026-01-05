@@ -21,6 +21,11 @@ export interface SecondaryNavProps {
      */
     onItemChange: (id: string) => void;
     /**
+     * Maximum width for content container (should match page variant)
+     * @default 'max-w-7xl'
+     */
+    maxWidth?: 'max-w-7xl' | 'max-w-[1440px]' | 'max-w-4xl';
+    /**
      * Additional className for customization
      */
     className?: string;
@@ -62,7 +67,7 @@ export interface SecondaryNavProps {
  * ```
  */
 export const SecondaryNav = React.forwardRef<HTMLElement, SecondaryNavProps>(
-    ({ items, activeId, onItemChange, className = '' }, ref) => {
+    ({ items, activeId, onItemChange, maxWidth = 'max-w-7xl', className = '' }, ref) => {
         return (
             <nav
                 ref={ref}
@@ -74,7 +79,7 @@ export const SecondaryNav = React.forwardRef<HTMLElement, SecondaryNavProps>(
                 `}
                 aria-label="Secondary navigation"
             >
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className={`${maxWidth} mx-auto px-4 sm:px-6 lg:px-8`}>
                     <div className="flex items-center gap-1 overflow-x-auto py-4 scrollbar-hide">
                         {items.map((item) => (
                             <button

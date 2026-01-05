@@ -6,6 +6,7 @@ import { Breadcrumbs, type BreadcrumbItem } from '../../molecules/Breadcrumbs/Br
 import { SecondaryNav, type SecondaryNavItem } from '../../organisms/SecondaryNav/SecondaryNav';
 import { PageLayout } from '../../organisms/PageLayout/PageLayout';
 import { CustomizerPanel } from '../../features/customizer/CustomizerPanel';
+import { Heading, Text, Container } from '../../atoms';
 
 export interface PageTemplateHeaderConfig {
   /** Logo or brand element */
@@ -130,24 +131,15 @@ export function PageTemplate({
         stickyHeader={header.sticky ?? true}
         breadcrumbsPosition="below-title"
         breadcrumbs={<Breadcrumbs items={breadcrumbs} variant="subtle" />}
-        title={
-          <h1 className="text-4xl lg:text-5xl font-bold text-[var(--color-text-primary)]">
-            {title}
-          </h1>
-        }
-        subtitle={
-          subtitle ? (
-            <p className="text-lg text-[var(--color-text-secondary)]">
-              {subtitle}
-            </p>
-          ) : undefined
-        }
+        title={<Heading level={1}>{title}</Heading>}
+        subtitle={subtitle ? <Text size="lg" variant="secondary">{subtitle}</Text> : undefined}
         secondaryNav={
           secondaryNav ? (
             <SecondaryNav
               items={secondaryNav.items}
               activeId={secondaryNav.activeId}
               onItemChange={secondaryNav.onItemChange}
+              maxWidth={maxWidthClass}
             />
           ) : undefined
         }
@@ -155,9 +147,9 @@ export function PageTemplate({
         swissGridSpacing
         contentMaxWidth={maxWidthClass}
       >
-        <div className={`${maxWidthClass} mx-auto px-4 sm:px-6 lg:px-8 py-12`}>
+        <Container variant={variant} className="py-12">
           {children}
-        </div>
+        </Container>
       </PageLayout>
 
       {/* Customizer - Swiss Grid: sticky overlay, bottom right */}
