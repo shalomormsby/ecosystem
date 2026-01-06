@@ -8,7 +8,7 @@ interface ArchitectureSectionProps {
 
 export function ArchitectureSection({ breadcrumbs }: ArchitectureSectionProps) {
   return (
-    <div className="space-y-12">
+    <div className="space-y-12 w-full min-w-0">
       {/* Title */}
       <div className="border-b border-[var(--color-border)] pb-6">
         <h1 className="text-4xl font-bold mb-2 text-[var(--color-text-primary)]">

@@ -52,7 +52,7 @@ export function MoleculesSection({ activeItemId, breadcrumbs, onItemChange }: Mo
   const metadata = currentMolecule ? generateComponentMetadata(currentMolecule, selectedMolecule) : null;
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 w-full min-w-0">
       <div>
         <h2 className="text-3xl font-bold mb-2 text-[var(--color-text-primary)]">
           Molecules

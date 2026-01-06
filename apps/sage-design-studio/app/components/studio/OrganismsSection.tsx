@@ -377,7 +377,7 @@ export function OrganismsSection({ activeItemId, breadcrumbs, onItemChange }: Or
   ];
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 w-full min-w-0">
       <div>
         <h2 className="text-3xl font-bold mb-2 text-[var(--color-text-primary)]">
           Organisms

@@ -47,7 +47,7 @@ export function HooksSection({ activeItemId, breadcrumbs, onItemChange }: HooksS
   ];
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 w-full min-w-0">
       <div>
         <h2 className="text-3xl font-bold mb-2 text-[var(--color-text-primary)]">
           Hooks
@@ -81,171 +81,171 @@ export function HooksSection({ activeItemId, breadcrumbs, onItemChange }: HooksS
       <div className="mt-4">
         {/* useForm Hook */}
         {activeHook === 'useForm' && (
-        <section className="space-y-6">
-          <div>
-            <h3 className="text-2xl font-semibold mb-2 text-[var(--color-text-primary)]">
-              useForm
-            </h3>
-            <Card className="p-6">
-              <p className="text-[var(--color-text-primary)] mb-4">
-                A lightweight form state management hook with built-in validation, dirty state tracking, and submit handling.
-              </p>
-              <div className="space-y-4">
-                <div className="text-sm text-[var(--color-text-secondary)]">
-                  <strong>Key Features:</strong>
-                  <ul className="list-disc list-inside mt-2 space-y-1">
-                    <li>Field-level validation with configurable timing (onChange, onBlur, onSubmit)</li>
-                    <li>Built-in validation patterns (email, URL, phone, etc.)</li>
-                    <li>TypeScript generics for type-safe form values</li>
-                    <li>Dirty state tracking</li>
-                    <li>Submit loading state</li>
-                    <li>Helper function getFieldProps for spreading to inputs</li>
-                  </ul>
-                </div>
-              </div>
-            </Card>
-          </div>
-
-          {/* Live Demo */}
-          <UseFormDemo />
-
-          {/* API Documentation */}
-          <div>
-            <h4 className="text-lg font-semibold mb-3 text-[var(--color-text-primary)]">
-              API Reference
-            </h4>
-            <Card className="p-6">
-              <div className="space-y-6">
-                {/* Options */}
-                <div>
-                  <h5 className="font-medium text-[var(--color-text-primary)] mb-3">Options</h5>
-                  <div className="space-y-3 text-sm">
-                    <div className="border-l-2 border-[var(--color-primary)] pl-3">
-                      <Code syntax="plain">initialValues: T</Code>
-                      <p className="text-[var(--color-text-secondary)] mt-1">Initial form values (required)</p>
-                    </div>
-                    <div className="border-l-2 border-[var(--color-border)] pl-3">
-                      <Code syntax="plain">validations?: Partial&lt;Record&lt;keyof T, FieldValidation&gt;&gt;</Code>
-                      <p className="text-[var(--color-text-secondary)] mt-1">Validation rules for each field</p>
-                    </div>
-                    <div className="border-l-2 border-[var(--color-border)] pl-3">
-                      <Code syntax="plain">onSubmit?: (values: T) =&gt; void | Promise&lt;void&gt;</Code>
-                      <p className="text-[var(--color-text-secondary)] mt-1">Callback fired when form is submitted and valid</p>
-                    </div>
-                    <div className="border-l-2 border-[var(--color-border)] pl-3">
-                      <Code syntax="plain">validateOn?: 'onChange' | 'onBlur' | 'onSubmit'</Code>
-                      <p className="text-[var(--color-text-secondary)] mt-1">When to validate fields (default: 'onBlur')</p>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Return Value */}
-                <div>
-                  <h5 className="font-medium text-[var(--color-text-primary)] mb-3">Return Value</h5>
-                  <div className="space-y-2 text-sm">
-                    <div className="flex gap-2">
-                      <Code syntax="plain">values</Code>
-                      <span className="text-[var(--color-text-secondary)]">Current form values</span>
-                    </div>
-                    <div className="flex gap-2">
-                      <Code syntax="plain">errors</Code>
-                      <span className="text-[var(--color-text-secondary)]">Current form errors</span>
-                    </div>
-                    <div className="flex gap-2">
-                      <Code syntax="plain">isSubmitting</Code>
-                      <span className="text-[var(--color-text-secondary)]">Whether form is submitting</span>
-                    </div>
-                    <div className="flex gap-2">
-                      <Code syntax="plain">isDirty</Code>
-                      <span className="text-[var(--color-text-secondary)]">Whether form has been modified</span>
-                    </div>
-                    <div className="flex gap-2">
-                      <Code syntax="plain">handleSubmit()</Code>
-                      <span className="text-[var(--color-text-secondary)]">Form submit handler</span>
-                    </div>
-                    <div className="flex gap-2">
-                      <Code syntax="plain">getFieldProps(name)</Code>
-                      <span className="text-[var(--color-text-secondary)]">Get props for a field</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </Card>
-          </div>
-
-          {/* Validation Utilities */}
-          <div>
-            <h4 className="text-lg font-semibold mb-3 text-[var(--color-text-primary)]">
-              Validation Utilities
-            </h4>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              {/* Built-in Patterns */}
+          <section className="space-y-6">
+            <div>
+              <h3 className="text-2xl font-semibold mb-2 text-[var(--color-text-primary)]">
+                useForm
+              </h3>
               <Card className="p-6">
-                <h5 className="font-medium text-[var(--color-text-primary)] mb-3">Built-in Patterns</h5>
-                <p className="text-sm text-[var(--color-text-secondary)] mb-4">
-                  Import from <Code syntax="plain">@ecosystem/design-system/utils</Code>
+                <p className="text-[var(--color-text-primary)] mb-4">
+                  A lightweight form state management hook with built-in validation, dirty state tracking, and submit handling.
                 </p>
-                <div className="space-y-2 text-sm">
-                  <div className="flex justify-between items-center">
-                    <Code syntax="plain">patterns.email</Code>
-                    <Badge variant="default" size="sm">Regex</Badge>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <Code syntax="plain">patterns.url</Code>
-                    <Badge variant="default" size="sm">Regex</Badge>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <Code syntax="plain">patterns.phone</Code>
-                    <Badge variant="default" size="sm">Regex</Badge>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <Code syntax="plain">patterns.number</Code>
-                    <Badge variant="default" size="sm">Regex</Badge>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <Code syntax="plain">patterns.alphanumeric</Code>
-                    <Badge variant="default" size="sm">Regex</Badge>
-                  </div>
-                </div>
-              </Card>
-
-              {/* Validation Rules */}
-              <Card className="p-6">
-                <h5 className="font-medium text-[var(--color-text-primary)] mb-3">Validation Rules</h5>
-                <div className="space-y-3 text-sm">
-                  <div>
-                    <Code syntax="plain">required</Code>
-                    <p className="text-[var(--color-text-secondary)] mt-1">Field must have a value</p>
-                  </div>
-                  <div>
-                    <Code syntax="plain">minLength / maxLength</Code>
-                    <p className="text-[var(--color-text-secondary)] mt-1">String length constraints</p>
-                  </div>
-                  <div>
-                    <Code syntax="plain">pattern</Code>
-                    <p className="text-[var(--color-text-secondary)] mt-1">Regex validation</p>
-                  </div>
-                  <div>
-                    <Code syntax="plain">custom</Code>
-                    <p className="text-[var(--color-text-secondary)] mt-1">Custom validation function</p>
+                <div className="space-y-4">
+                  <div className="text-sm text-[var(--color-text-secondary)]">
+                    <strong>Key Features:</strong>
+                    <ul className="list-disc list-inside mt-2 space-y-1">
+                      <li>Field-level validation with configurable timing (onChange, onBlur, onSubmit)</li>
+                      <li>Built-in validation patterns (email, URL, phone, etc.)</li>
+                      <li>TypeScript generics for type-safe form values</li>
+                      <li>Dirty state tracking</li>
+                      <li>Submit loading state</li>
+                      <li>Helper function getFieldProps for spreading to inputs</li>
+                    </ul>
                   </div>
                 </div>
               </Card>
             </div>
-          </div>
 
-          {/* Standalone Validation Functions */}
-          <div>
-            <h4 className="text-lg font-semibold mb-3 text-[var(--color-text-primary)]">
-              Standalone Validation Functions
-            </h4>
-            <div className="space-y-4">
+            {/* Live Demo */}
+            <UseFormDemo />
+
+            {/* API Documentation */}
+            <div>
+              <h4 className="text-lg font-semibold mb-3 text-[var(--color-text-primary)]">
+                API Reference
+              </h4>
               <Card className="p-6">
-                <h5 className="font-medium text-[var(--color-text-primary)] mb-3">validateField()</h5>
-                <p className="text-sm text-[var(--color-text-secondary)] mb-4">
-                  Validate a single field value against a set of validation rules. Returns an error message string or null if valid.
-                </p>
-                <CollapsibleCodeBlock id="hook-1" code={`import { validateField, patterns } from '@ecosystem/design-system/utils';
+                <div className="space-y-6">
+                  {/* Options */}
+                  <div>
+                    <h5 className="font-medium text-[var(--color-text-primary)] mb-3">Options</h5>
+                    <div className="space-y-3 text-sm">
+                      <div className="border-l-2 border-[var(--color-primary)] pl-3">
+                        <Code syntax="plain">initialValues: T</Code>
+                        <p className="text-[var(--color-text-secondary)] mt-1">Initial form values (required)</p>
+                      </div>
+                      <div className="border-l-2 border-[var(--color-border)] pl-3">
+                        <Code syntax="plain">validations?: Partial&lt;Record&lt;keyof T, FieldValidation&gt;&gt;</Code>
+                        <p className="text-[var(--color-text-secondary)] mt-1">Validation rules for each field</p>
+                      </div>
+                      <div className="border-l-2 border-[var(--color-border)] pl-3">
+                        <Code syntax="plain">onSubmit?: (values: T) =&gt; void | Promise&lt;void&gt;</Code>
+                        <p className="text-[var(--color-text-secondary)] mt-1">Callback fired when form is submitted and valid</p>
+                      </div>
+                      <div className="border-l-2 border-[var(--color-border)] pl-3">
+                        <Code syntax="plain">validateOn?: 'onChange' | 'onBlur' | 'onSubmit'</Code>
+                        <p className="text-[var(--color-text-secondary)] mt-1">When to validate fields (default: 'onBlur')</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Return Value */}
+                  <div>
+                    <h5 className="font-medium text-[var(--color-text-primary)] mb-3">Return Value</h5>
+                    <div className="space-y-2 text-sm">
+                      <div className="flex gap-2">
+                        <Code syntax="plain">values</Code>
+                        <span className="text-[var(--color-text-secondary)]">Current form values</span>
+                      </div>
+                      <div className="flex gap-2">
+                        <Code syntax="plain">errors</Code>
+                        <span className="text-[var(--color-text-secondary)]">Current form errors</span>
+                      </div>
+                      <div className="flex gap-2">
+                        <Code syntax="plain">isSubmitting</Code>
+                        <span className="text-[var(--color-text-secondary)]">Whether form is submitting</span>
+                      </div>
+                      <div className="flex gap-2">
+                        <Code syntax="plain">isDirty</Code>
+                        <span className="text-[var(--color-text-secondary)]">Whether form has been modified</span>
+                      </div>
+                      <div className="flex gap-2">
+                        <Code syntax="plain">handleSubmit()</Code>
+                        <span className="text-[var(--color-text-secondary)]">Form submit handler</span>
+                      </div>
+                      <div className="flex gap-2">
+                        <Code syntax="plain">getFieldProps(name)</Code>
+                        <span className="text-[var(--color-text-secondary)]">Get props for a field</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </Card>
+            </div>
+
+            {/* Validation Utilities */}
+            <div>
+              <h4 className="text-lg font-semibold mb-3 text-[var(--color-text-primary)]">
+                Validation Utilities
+              </h4>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                {/* Built-in Patterns */}
+                <Card className="p-6">
+                  <h5 className="font-medium text-[var(--color-text-primary)] mb-3">Built-in Patterns</h5>
+                  <p className="text-sm text-[var(--color-text-secondary)] mb-4">
+                    Import from <Code syntax="plain">@ecosystem/design-system/utils</Code>
+                  </p>
+                  <div className="space-y-2 text-sm">
+                    <div className="flex justify-between items-center">
+                      <Code syntax="plain">patterns.email</Code>
+                      <Badge variant="default" size="sm">Regex</Badge>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <Code syntax="plain">patterns.url</Code>
+                      <Badge variant="default" size="sm">Regex</Badge>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <Code syntax="plain">patterns.phone</Code>
+                      <Badge variant="default" size="sm">Regex</Badge>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <Code syntax="plain">patterns.number</Code>
+                      <Badge variant="default" size="sm">Regex</Badge>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <Code syntax="plain">patterns.alphanumeric</Code>
+                      <Badge variant="default" size="sm">Regex</Badge>
+                    </div>
+                  </div>
+                </Card>
+
+                {/* Validation Rules */}
+                <Card className="p-6">
+                  <h5 className="font-medium text-[var(--color-text-primary)] mb-3">Validation Rules</h5>
+                  <div className="space-y-3 text-sm">
+                    <div>
+                      <Code syntax="plain">required</Code>
+                      <p className="text-[var(--color-text-secondary)] mt-1">Field must have a value</p>
+                    </div>
+                    <div>
+                      <Code syntax="plain">minLength / maxLength</Code>
+                      <p className="text-[var(--color-text-secondary)] mt-1">String length constraints</p>
+                    </div>
+                    <div>
+                      <Code syntax="plain">pattern</Code>
+                      <p className="text-[var(--color-text-secondary)] mt-1">Regex validation</p>
+                    </div>
+                    <div>
+                      <Code syntax="plain">custom</Code>
+                      <p className="text-[var(--color-text-secondary)] mt-1">Custom validation function</p>
+                    </div>
+                  </div>
+                </Card>
+              </div>
+            </div>
+
+            {/* Standalone Validation Functions */}
+            <div>
+              <h4 className="text-lg font-semibold mb-3 text-[var(--color-text-primary)]">
+                Standalone Validation Functions
+              </h4>
+              <div className="space-y-4">
+                <Card className="p-6">
+                  <h5 className="font-medium text-[var(--color-text-primary)] mb-3">validateField()</h5>
+                  <p className="text-sm text-[var(--color-text-secondary)] mb-4">
+                    Validate a single field value against a set of validation rules. Returns an error message string or null if valid.
+                  </p>
+                  <CollapsibleCodeBlock id="hook-1" code={`import { validateField, patterns } from '@ecosystem/design-system/utils';
 
 const emailError = validateField('invalid-email', {
   required: true,
@@ -261,14 +261,14 @@ const passwordError = validateField('abc', {
   minLength: { value: 8, message: 'Min 8 characters' }
 });
 // Returns: 'Min 8 characters'`} defaultCollapsed={false} showCopy={true} />
-              </Card>
+                </Card>
 
-              <Card className="p-6">
-                <h5 className="font-medium text-[var(--color-text-primary)] mb-3">validateForm()</h5>
-                <p className="text-sm text-[var(--color-text-secondary)] mb-4">
-                  Validate an entire form object against validation rules. Returns an object with field names as keys and error messages as values.
-                </p>
-                <CollapsibleCodeBlock id="hook-2" code={`import { validateForm, patterns } from '@ecosystem/design-system/utils';
+                <Card className="p-6">
+                  <h5 className="font-medium text-[var(--color-text-primary)] mb-3">validateForm()</h5>
+                  <p className="text-sm text-[var(--color-text-secondary)] mb-4">
+                    Validate an entire form object against validation rules. Returns an object with field names as keys and error messages as values.
+                  </p>
+                  <CollapsibleCodeBlock id="hook-2" code={`import { validateForm, patterns } from '@ecosystem/design-system/utils';
 
 const values = {
   email: 'invalid-email',
@@ -295,17 +295,17 @@ const errors = validateForm(values, validations);
 //   email: 'Invalid email format',
 //   password: 'Min 8 characters'
 // }`} defaultCollapsed={false} showCopy={true} />
-              </Card>
+                </Card>
+              </div>
             </div>
-          </div>
 
-          {/* Code Example */}
-          <div>
-            <h4 className="text-lg font-semibold mb-3 text-[var(--color-text-primary)]">
-              Code Example
-            </h4>
-            <Card className="p-6">
-              <CollapsibleCodeBlock id="hook-3" code={`import { useForm, patterns } from '@ecosystem/design-system';
+            {/* Code Example */}
+            <div>
+              <h4 className="text-lg font-semibold mb-3 text-[var(--color-text-primary)]">
+                Code Example
+              </h4>
+              <Card className="p-6">
+                <CollapsibleCodeBlock id="hook-3" code={`import { useForm, patterns } from '@ecosystem/design-system';
 
 function LoginForm() {
   const form = useForm({
@@ -339,25 +339,25 @@ function LoginForm() {
     </form>
   );
 }`} defaultCollapsed={false} showCopy={true} />
-            </Card>
-          </div>
-        </section>
-      )}
+              </Card>
+            </div>
+          </section>
+        )}
 
-      {/* useTheme Hook */}
-      {activeHook === 'useTheme' && (
-        <UseThemeSection />
-      )}
+        {/* useTheme Hook */}
+        {activeHook === 'useTheme' && (
+          <UseThemeSection />
+        )}
 
-      {/* useToast Hook */}
-      {activeHook === 'useToast' && (
-        <UseToastSection />
-      )}
+        {/* useToast Hook */}
+        {activeHook === 'useToast' && (
+          <UseToastSection />
+        )}
 
-      {/* useMotionPreference Hook */}
-      {activeHook === 'useMotionPreference' && (
-        <UseMotionPreferenceSection />
-      )}
+        {/* useMotionPreference Hook */}
+        {activeHook === 'useMotionPreference' && (
+          <UseMotionPreferenceSection />
+        )}
       </div>
     </div>
   );

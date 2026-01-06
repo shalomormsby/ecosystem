@@ -7,6 +7,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.1] - 2026-01-05
+
+### Fixed
+- **Mobile Responsive Layout**
+  - **Issue:** Severe horizontal scrolling and content overflow on mobile viewports due to unconstrained flex containers and code blocks.
+  - **Root Cause:** Deeply nested flex containers in section components (`AddingComponentsSection`, `OrganismsSection`, etc.) were missing `min-w-0` and `w-full` constraints, causing them to expand beyond the viewport width driven by wide children (like `<pre>` blocks). The main page wrapper repair was insufficient because inner components forced the width open.
+  - **Fix:** Systemically applied the "Flatten & Clamp" strategy:
+    - Added `w-full min-w-0` to the root container of all studio sections:
+      - `AddingComponentsSection`
+      - `ArchitectureSection`
+      - `CommonPatternsSection`
+      - `HooksSection`
+      - `MoleculesSection`
+      - `OrganismsSection`
+      - `TemplatesSection`
+      - `TokensSection`
+    - Constrained `CollapsibleCodeBlock` containers with `max-w-full`.
+    - Added `overflow-x-hidden` to the main page layout to prevent global scroll leaks.
+  - **Outcome:** Zero horizontal scroll on mobile, correct stacking of cards, and properly constrained code blocks that scroll internally.
+
 ## [2.0.0] - 2026-01-02
 
 ### Added - Phase 7: LLM Optimization & Accessibility

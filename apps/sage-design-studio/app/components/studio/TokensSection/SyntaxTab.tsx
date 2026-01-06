@@ -33,7 +33,7 @@ export function SyntaxTab() {
   };
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 w-full min-w-0">
       {/* Syntax Parser Overview */}
       <Card className="p-6">
         <h3 className="text-xl font-semibold mb-3 text-[var(--color-text-primary)]">

@@ -8,7 +8,7 @@ interface CommonPatternsSectionProps {
 
 export function CommonPatternsSection({ breadcrumbs }: CommonPatternsSectionProps) {
   return (
-    <div className="space-y-12">
+    <div className="space-y-12 w-full min-w-0">
       {/* Title */}
       <div className="border-b border-[var(--color-border)] pb-6">
         <h1 className="text-4xl font-bold mb-2 text-[var(--color-text-primary)]">
@@ -38,10 +38,10 @@ export function CommonPatternsSection({ breadcrumbs }: CommonPatternsSectionProp
           </h3>
           <div className="mb-6 p-4 bg-[var(--color-surface)] rounded-md border border-[var(--color-border)] font-mono text-sm">
             <div className="text-[var(--color-text-primary)]">
-              Need to show code?<br/>
-              ├─ Inline snippet? → <Code>&lt;Code&gt;</Code><br/>
-              └─ Multi-line block?<br/>
-              &nbsp;&nbsp;&nbsp;├─ No syntax colors needed? → <Code>&lt;Code inline=&#123;false&#125;&gt;</Code><br/>
+              Need to show code?<br />
+              ├─ Inline snippet? → <Code>&lt;Code&gt;</Code><br />
+              └─ Multi-line block?<br />
+              &nbsp;&nbsp;&nbsp;├─ No syntax colors needed? → <Code>&lt;Code inline=&#123;false&#125;&gt;</Code><br />
               &nbsp;&nbsp;&nbsp;└─ With syntax highlighting? → <Code>&lt;CollapsibleCodeBlock&gt;</Code> ✨
             </div>
           </div>

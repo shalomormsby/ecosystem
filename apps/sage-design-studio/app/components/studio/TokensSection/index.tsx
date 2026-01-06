@@ -42,7 +42,7 @@ export function TokensSection({ activeItemId, breadcrumbs, onItemChange }: Token
   ];
 
   return (
-    <div>
+    <div className="w-full min-w-0">
       <div className="mb-8">
         <h2 className="text-3xl font-bold mb-2 text-[var(--color-text-primary)]">
           Design Tokens
