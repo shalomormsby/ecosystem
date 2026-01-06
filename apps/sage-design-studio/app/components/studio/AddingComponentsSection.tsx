@@ -58,7 +58,7 @@ export function AddingComponentsSection({ breadcrumbs }: AddingComponentsSection
               <ol className="space-y-4">
                 <li className="flex items-start gap-3">
                   <span className="flex-shrink-0 w-6 h-6 rounded-full bg-[var(--color-primary)] text-[var(--color-primary-foreground)] flex items-center justify-center text-sm font-semibold">1</span>
-                  <div className="flex-1">
+                  <div className="flex-1 min-w-0">
                     <h3 className="font-semibold mb-2 text-[var(--color-text-primary)]">Create component file</h3>
                     <div className="w-full min-w-0 max-w-full">
                       <CollapsibleCodeBlock id="add-comp-1" code="packages/design-system/src/components/atoms/ComponentName.tsx" defaultCollapsed={false} showCopy={true} />
@@ -68,7 +68,7 @@ export function AddingComponentsSection({ breadcrumbs }: AddingComponentsSection
 
                 <li className="flex items-start gap-3">
                   <span className="flex-shrink-0 w-6 h-6 rounded-full bg-[var(--color-primary)] text-[var(--color-primary-foreground)] flex items-center justify-center text-sm font-semibold">2</span>
-                  <div className="flex-1">
+                  <div className="flex-1 min-w-0">
                     <h3 className="font-semibold mb-2 text-[var(--color-text-primary)]">Define interface with required props</h3>
                     <CollapsibleCodeBlock id="add-comp-2" code={`interface ComponentNameProps {
   variant?: 'primary' | 'secondary';
@@ -81,7 +81,7 @@ export function AddingComponentsSection({ breadcrumbs }: AddingComponentsSection
 
                 <li className="flex items-start gap-3">
                   <span className="flex-shrink-0 w-6 h-6 rounded-full bg-[var(--color-primary)] text-[var(--color-primary-foreground)] flex items-center justify-center text-sm font-semibold">3</span>
-                  <div className="flex-1">
+                  <div className="flex-1 min-w-0">
                     <h3 className="font-semibold mb-2 text-[var(--color-text-primary)]">Implement with design tokens</h3>
                     <CollapsibleCodeBlock id="add-comp-3" code={`export function ComponentName({
   variant = 'primary',
@@ -107,7 +107,7 @@ export function AddingComponentsSection({ breadcrumbs }: AddingComponentsSection
 
                 <li className="flex items-start gap-3">
                   <span className="flex-shrink-0 w-6 h-6 rounded-full bg-[var(--color-primary)] text-[var(--color-primary-foreground)] flex items-center justify-center text-sm font-semibold">4</span>
-                  <div className="flex-1">
+                  <div className="flex-1 min-w-0">
                     <h3 className="font-semibold mb-2 text-[var(--color-text-primary)]">Add to exports</h3>
                     <CollapsibleCodeBlock id="add-comp-4" code={`// packages/design-system/src/components/index.ts
 export { ComponentName } from './atoms/ComponentName';`} defaultCollapsed={false} showCopy={true} />
@@ -116,7 +116,7 @@ export { ComponentName } from './atoms/ComponentName';`} defaultCollapsed={false
 
                 <li className="flex items-start gap-3">
                   <span className="flex-shrink-0 w-6 h-6 rounded-full bg-[var(--color-primary)] text-[var(--color-primary-foreground)] flex items-center justify-center text-sm font-semibold">5</span>
-                  <div className="flex-1">
+                  <div className="flex-1 min-w-0">
                     <h3 className="font-semibold mb-2 text-[var(--color-text-primary)]">Build the package</h3>
                     <CollapsibleCodeBlock id="add-comp-5" code="pnpm --filter @ecosystem/design-system build" defaultCollapsed={false} showCopy={true} />
                   </div>
@@ -236,7 +236,7 @@ export function SearchBar() {
               <ol className="space-y-4">
                 <li className="flex items-start gap-3">
                   <span className="flex-shrink-0 w-6 h-6 rounded-full bg-[var(--color-primary)] text-[var(--color-primary-foreground)] flex items-center justify-center text-sm font-semibold">1</span>
-                  <div className="flex-1">
+                  <div className="flex-1 min-w-0">
                     <h3 className="font-semibold mb-2 text-[var(--color-text-primary)]">Locate token file</h3>
                     <CollapsibleCodeBlock id="add-comp-9" code="packages/design-system/src/tokens/[theme]/[category].ts" defaultCollapsed={false} showCopy={true} />
                     <p className="text-xs text-[var(--color-text-muted)] mt-2">
@@ -247,7 +247,7 @@ export function SearchBar() {
 
                 <li className="flex items-start gap-3">
                   <span className="flex-shrink-0 w-6 h-6 rounded-full bg-[var(--color-primary)] text-[var(--color-primary-foreground)] flex items-center justify-center text-sm font-semibold">2</span>
-                  <div className="flex-1">
+                  <div className="flex-1 min-w-0">
                     <h3 className="font-semibold mb-2 text-[var(--color-text-primary)]">Add token to interface</h3>
                     <CollapsibleCodeBlock id="add-comp-10" code={`export interface ColorTokens {
   // ... existing tokens
@@ -258,7 +258,7 @@ export function SearchBar() {
 
                 <li className="flex items-start gap-3">
                   <span className="flex-shrink-0 w-6 h-6 rounded-full bg-[var(--color-primary)] text-[var(--color-primary-foreground)] flex items-center justify-center text-sm font-semibold">3</span>
-                  <div className="flex-1">
+                  <div className="flex-1 min-w-0">
                     <h3 className="font-semibold mb-2 text-[var(--color-text-primary)]">Implement in all three themes</h3>
                     <p className="text-sm text-[var(--color-text-secondary)] mb-2">
                       Add the token value to Studio, Sage, and Volt theme files
