@@ -209,8 +209,8 @@ export function CollapsibleCodeBlock({
         className={`bg-[var(--color-background)] p-4 rounded border border-[var(--color-border)] overflow-hidden mb-4 w-full max-w-full ${isCollapsed ? '' : 'hidden'}`}
         style={{ height: '6.6rem' }}
       >
-        <div className="relative">
-          <pre className="text-sm font-mono">
+        <div className="relative w-full max-w-full min-w-0">
+          <pre className="text-sm font-mono overflow-x-auto w-full max-w-full whitespace-pre">
             <code>{renderCode(previewTokens)}</code>
           </pre>
           <div className="absolute inset-x-0 bottom-0 h-6 bg-gradient-to-t from-[var(--color-background)] to-transparent pointer-events-none" />
@@ -226,7 +226,7 @@ export function CollapsibleCodeBlock({
           transition: 'max-height 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)',
         }}
       >
-        <pre className="text-sm font-mono overflow-x-auto max-w-full">
+        <pre className="text-sm font-mono overflow-x-auto w-full max-w-full whitespace-pre">
           <code>{renderCode(tokens)}</code>
         </pre>
       </div>
