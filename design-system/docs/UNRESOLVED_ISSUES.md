@@ -42,7 +42,15 @@ The Sage Design System has three critical issues preventing it from meeting prod
   - [PageLayout.tsx:171-173](design-system/organisms/PageLayout/PageLayout.tsx#L171-L173)
   - [PageTemplate.tsx:150](design-system/templates/PageTemplate/PageTemplate.tsx#L150)
 
-**Status:** Build succeeds but mobile issues persist
+**Status:** Implemented fix for theme toggling and layout; awaiting verification.
+
+**Attempted Solutions:**
+- **Theme Logic:** Updated `ThemeProvider.tsx` to toggle `.dark` class on `<html>` element, ensuring Tailwind `dark:` modifiers working correctly with the `data-mode` attribute.
+- **Tailwind Config:** Updated `tailwind.config.ts` in apps to use `darkMode: 'class'`.
+- **Layout:** Confirmed sticky header logic.
+
+**Next Validation:**
+- Verify on mobile device if the "simultaneous theme" issue is resolved by the `ThemeProvider` fix.
 
 **Evidence:**
 ```tsx
@@ -191,47 +199,13 @@ The component itself is fine. **The preview container breaks sticky positioning.
 
 ### Solutions to Try
 
-#### Option A: Remove Transform, Use Iframe
-```tsx
-<iframe
-  srcDoc={`
-    <!DOCTYPE html>
-    <html>
-      <body>
-        <PageTemplate {...props} />
-      </body>
-    </html>
-  `}
-  style={{ width: '100%', height: '600px', border: 'none' }}
-/>
-```
+#### Solution Implemented: Placeholder with External Link
+Replaced the broken live preview with a static "Interactive Preview" placeholder card.
+- **Why:** `transform: scale()` breaks `position: sticky` fundamentally.
+- **The Fix:** Display a high-fidelity CSS placeholder + "Open Live Demo" button.
+- **Link:** Points to production (or relevant demo page) to show true behavior.
 
-**Pros:** Real viewport, sticky works correctly
-**Cons:** More complex, needs full HTML document with styles
-
-#### Option B: Document the Limitation
-Add notice to preview:
-```tsx
-<p className="text-yellow-600 mb-2">
-  ⚠️ Note: Sticky navigation behavior is limited in this scaled preview.
-  For full sticky functionality, view the component in a real page context.
-</p>
-```
-
-**Pros:** Honest, simple
-**Cons:** Doesn't fix the problem
-
-#### Option C: Screenshot/Video Instead
-Replace live preview with high-quality recording showing sticky behavior
-
-**Pros:** Shows correct behavior
-**Cons:** Not interactive
-
-#### Recommended: Combination of B + Video
-1. Keep the scaled preview for basic structure visualization
-2. Add disclaimer about sticky behavior
-3. Include short video/GIF showing actual sticky behavior
-4. Link to live example page
+**Status:** ✅ Resolved (by design change)
 
 ### Missing Components
 

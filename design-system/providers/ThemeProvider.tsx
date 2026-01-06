@@ -157,9 +157,16 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
       root.style.setProperty(key, value);
     });
 
-    // Set data attributes for theme and mode (useful for theme-specific styles)
+    // Set data attributes for theme and mode
     root.setAttribute('data-theme', theme);
     root.setAttribute('data-mode', mode);
+
+    // Toggle 'dark' class for Tailwind dark: modifier support
+    if (mode === 'dark') {
+      root.classList.add('dark');
+    } else {
+      root.classList.remove('dark');
+    }
 
     // End transition after animation completes
     const timeout = setTimeout(() => {

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { Breadcrumbs, TertiaryNav, CollapsibleCodeBlock, Card, PageTemplate, Footer, Brand, type BreadcrumbItem } from '@ecosystem/design-system';
+import { ExternalLink, Layout } from 'lucide-react';
 
 interface TemplatesSectionProps {
   breadcrumbs?: BreadcrumbItem[];
@@ -211,129 +212,63 @@ function MyPage() {
           Interactive example showing the PageTemplate structure with all elements. Scroll within the preview to see sticky behavior.
         </p>
 
-        <Card className="p-0 overflow-hidden border-2 border-[var(--color-border)]">
-          <div className="h-[600px] overflow-auto bg-[var(--color-background)]">
-            <div style={{ transform: 'scale(0.75)', transformOrigin: 'top left', width: '133.33%', height: '133.33%' }}>
-              <PageTemplate
-                header={{
-                  logo: <Brand href="#">Brand Name</Brand>,
-                  navLinks: [
-                    { label: 'Home', href: '#' },
-                    { label: 'About', href: '#' },
-                    { label: 'Services', href: '#' },
-                    { label: 'Contact', href: '#' },
-                  ],
-                  sticky: true,
-                }}
-                title="Example Page Title"
-                subtitle="This is a descriptive subtitle that provides context about the page content"
-                breadcrumbs={[
-                  { label: 'Home', href: '#' },
-                  { label: 'Category', href: '#' },
-                  { label: 'Current Page' },
-                ]}
-                secondaryNav={{
-                  items: [
-                    { id: 'overview', label: 'Overview' },
-                    { id: 'features', label: 'Features' },
-                    { id: 'documentation', label: 'Documentation' },
-                    { id: 'examples', label: 'Examples' },
-                  ],
-                  activeId: activeSection,
-                  onItemChange: setActiveSection,
-                }}
-                footer={
-                  <Footer
-                    logo={<Brand>Example Brand</Brand>}
-                    sections={[
-                      {
-                        title: 'Product',
-                        links: [
-                          { label: 'Features', href: '#' },
-                          { label: 'Pricing', href: '#' },
-                        ],
-                      },
-                      {
-                        title: 'Company',
-                        links: [
-                          { label: 'About', href: '#' },
-                          { label: 'Contact', href: '#' },
-                        ],
-                      },
-                    ]}
-                    copyright="© 2026 Example Company. Built with Swiss Grid Design principles."
-                  />
-                }
-                showCustomizer={false}
-              >
-                <div className="space-y-8">
-                  <section>
-                    <h2 className="text-2xl font-bold mb-4 text-[var(--color-text-primary)]">
-                      Lorem Ipsum Dolor Sit Amet
-                    </h2>
-                    <p className="text-[var(--color-text-secondary)] mb-4">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                      Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                    </p>
-                    <p className="text-[var(--color-text-secondary)]">
-                      Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                      Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                    </p>
-                  </section>
-
-                  <section>
-                    <h2 className="text-2xl font-bold mb-4 text-[var(--color-text-primary)]">
-                      Structured Content Section
-                    </h2>
-                    <div className="grid md:grid-cols-2 gap-6">
-                      <Card className="p-4">
-                        <h3 className="font-semibold mb-2 text-[var(--color-text-primary)]">Feature One</h3>
-                        <p className="text-sm text-[var(--color-text-secondary)]">
-                          Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                        </p>
-                      </Card>
-                      <Card className="p-4">
-                        <h3 className="font-semibold mb-2 text-[var(--color-text-primary)]">Feature Two</h3>
-                        <p className="text-sm text-[var(--color-text-secondary)]">
-                          Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.
-                        </p>
-                      </Card>
-                    </div>
-                  </section>
-
-                  <section>
-                    <h2 className="text-2xl font-bold mb-4 text-[var(--color-text-primary)]">
-                      Additional Content
-                    </h2>
-                    <p className="text-[var(--color-text-secondary)] mb-4">
-                      Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium,
-                      totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
-                    </p>
-                    <ul className="list-disc list-inside space-y-2 text-[var(--color-text-secondary)]">
-                      <li>Nemo enim ipsam voluptatem quia voluptas sit aspernatur</li>
-                      <li>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet</li>
-                      <li>Consectetur, adipisci velit, sed quia non numquam eius modi tempora</li>
-                    </ul>
-                  </section>
-
-                  <section>
-                    <h2 className="text-2xl font-bold mb-4 text-[var(--color-text-primary)]">
-                      Final Section
-                    </h2>
-                    <p className="text-[var(--color-text-secondary)]">
-                      At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti
-                      quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia
-                      deserunt mollitia animi, id est laborum et dolorum fuga.
-                    </p>
-                  </section>
+        <Card className="relative overflow-hidden border-2 border-[var(--color-border)] bg-[var(--color-surface)]">
+          {/* Abstract "Screenshot" Placeholder */}
+          <div className="h-[400px] flex flex-col opacity-50 blur-[2px] select-none pointer-events-none" aria-hidden="true">
+            {/* Fake Header */}
+            <div className="h-16 border-b border-[var(--color-border)] bg-[var(--color-background)] flex items-center px-8 gap-8">
+              <div className="w-8 h-8 rounded-full bg-[var(--color-border)]"></div>
+              <div className="flex gap-4">
+                <div className="w-20 h-4 rounded bg-[var(--color-border)]"></div>
+                <div className="w-20 h-4 rounded bg-[var(--color-border)]"></div>
+                <div className="w-20 h-4 rounded bg-[var(--color-border)]"></div>
+              </div>
+            </div>
+            {/* Fake Content */}
+            <div className="flex-1 p-8 grid grid-cols-12 gap-8">
+              <div className="col-span-3 h-full rounded border border-[var(--color-border)] bg-[var(--color-background)]"></div>
+              <div className="col-span-9 space-y-4">
+                <div className="w-3/4 h-12 rounded bg-[var(--color-border)] mb-8"></div>
+                <div className="space-y-2">
+                  <div className="w-full h-4 rounded bg-[var(--color-border)]"></div>
+                  <div className="w-full h-4 rounded bg-[var(--color-border)]"></div>
+                  <div className="w-2/3 h-4 rounded bg-[var(--color-border)]"></div>
                 </div>
-              </PageTemplate>
+              </div>
+            </div>
+          </div>
+
+          {/* Overlay */}
+          <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center bg-[var(--color-background)]/60 backdrop-blur-sm">
+            <div className="max-w-md space-y-6 p-8 rounded-2xl bg-[var(--color-surface)] border border-[var(--color-border)] shadow-xl">
+              <div className="flex justify-center mb-2">
+                <Layout className="w-12 h-12 text-[var(--color-primary)]" strokeWidth={1.5} />
+              </div>
+
+              <div className="space-y-2">
+                <h3 className="text-xl font-bold text-[var(--color-text-primary)]">
+                  Experience the Live Interaction
+                </h3>
+                <p className="text-[var(--color-text-secondary)]">
+                  The page template features complex sticky positioning and responsive behaviors that are best experienced in a full browser window.
+                </p>
+              </div>
+
+              <a
+                href="https://www.shalomormsby.com/cosmograph"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[var(--color-primary)] text-[var(--color-primary-foreground)] font-medium hover:opacity-90 transition-opacity"
+              >
+                <span>Open Live Demo</span>
+                <ExternalLink className="w-4 h-4" />
+              </a>
             </div>
           </div>
         </Card>
 
         <p className="text-sm text-[var(--color-text-muted)] mt-3">
-          💡 Scroll within the preview to see the header's sticky behavior and Swiss Grid spacing in action.
+          💡 The live demo opens in a new tab to demonstrate full sticky scrolling and mobile responsiveness.
         </p>
       </section>
 

@@ -7,6 +7,7 @@ const config: Config = {
         "../../design-system/**/*.{js,ts,jsx,tsx}",
         "!../../design-system/docs/**",
     ],
+    darkMode: 'class',
     theme: {
         extend: {
             colors: {

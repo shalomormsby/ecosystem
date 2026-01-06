@@ -15,6 +15,7 @@ const config: Config = {
     "../../design-system/providers/**/*.{ts,tsx}",
     "../../design-system/features/**/*.{ts,tsx}",
   ],
+  darkMode: 'class',
   theme: {
     extend: {},
   },
