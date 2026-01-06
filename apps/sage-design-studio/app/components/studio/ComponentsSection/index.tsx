@@ -59,11 +59,12 @@ export function ComponentsSection({ activeItemId, breadcrumbs, onItemChange }: C
       </div>
 
       {/* Sticky Tertiary Navigation for Component Selector */}
-      <div className="sticky top-0 z-10 bg-[var(--color-background)] pb-4 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 mb-4">
+      <div className="sticky top-0 z-10 -mx-4 sm:-mx-6 lg:-mx-8 mb-4">
         <TertiaryNav
           items={componentItems}
           activeId={selectedComponent}
           onItemChange={handleComponentChange}
+          top="top-0"
         />
       </div>
 

@@ -394,11 +394,12 @@ export function OrganismsSection({ activeItemId, breadcrumbs, onItemChange }: Or
       </div>
 
       {/* Sticky Tertiary Navigation for Organism Selector */}
-      <div className="sticky top-0 z-10 bg-[var(--color-background)] pb-4 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 mb-4">
+      <div className="sticky top-0 z-10 -mx-4 sm:-mx-6 lg:-mx-8 mb-4">
         <TertiaryNav
           items={organisms}
           activeId={selectedOrganism}
           onItemChange={(id) => handleOrganismChange(id as OrganismType)}
+          top="top-0"
         />
       </div>
 
