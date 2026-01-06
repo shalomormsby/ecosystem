@@ -30,6 +30,11 @@ export interface SecondaryNavProps {
      * Additional className for customization
      */
     className?: string;
+    /**
+     * Top offset for sticky positioning
+     * @default 'top-16 lg:top-20'
+     */
+    top?: string;
 }
 
 /**
@@ -54,26 +59,20 @@ export interface SecondaryNavProps {
  *
  * Usage:
  * ```tsx
- * const [activeSection, setActiveSection] = useState('overview');
- * const sections = [
- *   { id: 'overview', label: 'Overview' },
- *   { id: 'details', label: 'Details' },
- * ];
- *
- * <SecondaryNav
- *   items={sections}
- *   activeId={activeSection}
- *   onItemChange={setActiveSection}
- * />
+ * // Default (below header)
+ * <SecondaryNav items={...} />
+ * 
+ * // Custom stickiness (e.g. top of page)
+ * <SecondaryNav items={...} top="top-0" />
  * ```
  */
 export const SecondaryNav = React.forwardRef<HTMLElement, SecondaryNavProps>(
-    ({ items, activeId, onItemChange, maxWidth = 'max-w-7xl', className = '' }, ref) => {
+    ({ items, activeId, onItemChange, maxWidth = 'max-w-7xl', top = 'top-16 lg:top-20', className = '' }, ref) => {
         return (
             <nav
                 ref={ref}
                 className={`
-                    sticky top-16 lg:top-20 z-40
+                    sticky ${top} z-40
                     bg-[var(--color-surface)]/80 backdrop-blur-xl
                     border-b border-[var(--color-border)]
                     ${className}

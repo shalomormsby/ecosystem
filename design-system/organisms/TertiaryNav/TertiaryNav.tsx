@@ -25,6 +25,11 @@ export interface TertiaryNavProps {
      * Additional className for customization
      */
     className?: string;
+    /**
+     * Top offset for sticky positioning
+     * @default 'top-32 lg:top-36'
+     */
+    top?: string;
 }
 
 /**
@@ -55,26 +60,20 @@ export interface TertiaryNavProps {
  *
  * Usage:
  * ```tsx
- * const [activeComponent, setActiveComponent] = useState('button');
- * const components = [
- *   { id: 'button', label: 'Button' },
- *   { id: 'card', label: 'Card' },
- * ];
- *
- * <TertiaryNav
- *   items={components}
- *   activeId={activeComponent}
- *   onItemChange={setActiveComponent}
- * />
+ * // Default (below SecondaryNav)
+ * <TertiaryNav items={...} />
+ * 
+ * // Custom stickiness (e.g. top of viewport)
+ * <TertiaryNav items={...} top="top-0" />
  * ```
  */
 export const TertiaryNav = React.forwardRef<HTMLElement, TertiaryNavProps>(
-    ({ items, activeId, onItemChange, className = '' }, ref) => {
+    ({ items, activeId, onItemChange, top = 'top-32 lg:top-36', className = '' }, ref) => {
         return (
             <nav
                 ref={ref}
                 className={`
-                    sticky top-32 lg:top-36 z-30
+                    sticky ${top} z-30
                     bg-[var(--color-background)]/95 backdrop-blur-sm
                     border-b border-[var(--color-border)]
                     ${className}

@@ -47,8 +47,8 @@ export function TemplatesSection({ breadcrumbs, activeItemId, onItemChange }: Te
         )}
       </div>
 
-      {/* Template Navigation - Sticky wrapper matching TokensSection pattern */}
-      <div className="sticky top-0 z-10 bg-[var(--color-background)] pb-4 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 mb-4">
+      {/* Template Navigation */}
+      <div className="bg-[var(--color-background)] pb-4 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 mb-4">
         <TertiaryNav
           items={[
             { id: 'templates-overview', label: 'Overview' },
@@ -56,6 +56,7 @@ export function TemplatesSection({ breadcrumbs, activeItemId, onItemChange }: Te
           ]}
           activeId={selectedTemplate}
           onItemChange={handleTemplateChange}
+          top="top-0"
         />
       </div>
 
