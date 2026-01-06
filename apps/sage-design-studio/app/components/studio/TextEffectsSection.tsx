@@ -2,6 +2,7 @@
 
 import { Card, CollapsibleCodeBlock } from '@ecosystem/design-system';
 import { VariableWeightText } from '@ecosystem/design-system';
+import { Check } from 'lucide-react';
 
 export function TextEffectsSection() {
   return (
@@ -46,11 +47,11 @@ export function TextEffectsSection() {
             <strong>Performance Optimizations:</strong>
           </p>
           <ul className="text-xs text-[var(--color-text-muted)] space-y-1">
-            <li>✓ Uses true variable font (continuous weight axis from 200-700)</li>
-            <li>✓ GPU-accelerated with <code className="px-1 py-0.5 bg-[var(--color-surface)] rounded text-[var(--color-primary)]">will-change</code></li>
-            <li>✓ Custom easing curve <code className="px-1 py-0.5 bg-[var(--color-surface)] rounded text-[var(--color-primary)]">[0.45, 0, 0.55, 1]</code> for ultra-smooth motion</li>
-            <li>✓ Font smoothing (antialiased) for crisp rendering</li>
-            <li>✓ Centered to prevent layout shifts during weight changes</li>
+            <li className="flex items-center gap-2"><Check className="w-3 h-3 text-[var(--color-primary)]" /> Uses true variable font (continuous weight axis from 200-700)</li>
+            <li className="flex items-center gap-2"><Check className="w-3 h-3 text-[var(--color-primary)]" /> GPU-accelerated with <code className="px-1 py-0.5 bg-[var(--color-surface)] rounded text-[var(--color-primary)]">will-change</code></li>
+            <li className="flex items-center gap-2"><Check className="w-3 h-3 text-[var(--color-primary)]" /> Custom easing curve <code className="px-1 py-0.5 bg-[var(--color-surface)] rounded text-[var(--color-primary)]">[0.45, 0, 0.55, 1]</code> for ultra-smooth motion</li>
+            <li className="flex items-center gap-2"><Check className="w-3 h-3 text-[var(--color-primary)]" /> Font smoothing (antialiased) for crisp rendering</li>
+            <li className="flex items-center gap-2"><Check className="w-3 h-3 text-[var(--color-primary)]" /> Centered to prevent layout shifts during weight changes</li>
           </ul>
         </div>
 

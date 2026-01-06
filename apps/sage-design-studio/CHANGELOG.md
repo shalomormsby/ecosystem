@@ -13,9 +13,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Icon System Migration**
   - Replaced all direct emoji usage with `lucide-react` icons for consistency and accessibility.
   - **Sidebar:** Updated navigation icons (BookOpen, Palette, Component, Webhook, LayoutTemplate).
-  - **Documentation:** Replaced status emojis (✅/❌) with CheckCircle/XCircle.
+  - **Documentation:** Replaced status flags (✅/❌) with CheckCircle/XCircle in `MotionFoundationsSection`.
   - **Accessibility:** Replaced wheelchair emoji (♿) with Accessibility icon.
+  - **Component Demos:** Replaced emojis in `TypographyTab`, `OrganismsSection`, `TextEffectsSection`.
   - **Architecture:** Replaced text arrows with proper ArrowRight icons.
+  - **Sections Updated:** `OverviewSection`, `ContributingSection`, `TemplatesSection`, `TypographyTab`, `OrganismsSection`, `TextEffectsSection`, `MotionFoundationsSection`.
 
 ### Fixed
 - **Mobile Responsive Layout**

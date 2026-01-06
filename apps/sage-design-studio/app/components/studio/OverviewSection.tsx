@@ -3,6 +3,10 @@
 import { useState } from 'react';
 import { Card, Code, CollapsibleCodeBlock, Button } from '@ecosystem/design-system';
 import { useTheme } from '@ecosystem/design-system/hooks';
+import {
+  Sliders, Building2, Leaf, Zap, Sun, Moon, Laptop, Palette, Bot, BookOpen,
+  Construction, XCircle, CheckCircle, Heart, Search, Sprout, Check
+} from 'lucide-react';
 
 // Mini Customizer Demo for Overview
 function OverviewCustomizerPreview() {
@@ -22,7 +26,7 @@ function OverviewCustomizerPreview() {
           className="absolute bottom-2 right-2 bg-background text-foreground px-3 py-1.5 rounded-full shadow-lg border border-[var(--color-glass-border)] text-xs font-medium hover:opacity-80 transition-all flex items-center gap-1.5"
           style={{ backdropFilter: 'var(--effect-blur-sm)' }}
         >
-          <span>🎛️</span>
+          <Sliders className="w-4 h-4" />
           <span>Customizer</span>
         </button>
       ) : (
@@ -67,23 +71,22 @@ function OverviewCustomizerPreview() {
               <label className="block font-medium opacity-80 mb-2">Theme</label>
               <div className="grid grid-cols-3 gap-1.5">
                 {[
-                  { id: 'studio', emoji: '🏢' },
-                  { id: 'sage', emoji: '🌿' },
-                  { id: 'volt', emoji: '⚡' },
+                  { id: 'studio', icon: <Building2 className="w-3 h-3" /> },
+                  { id: 'sage', icon: <Leaf className="w-3 h-3" /> },
+                  { id: 'volt', icon: <Zap className="w-3 h-3" /> },
                 ].map((t) => (
                   <button
                     key={t.id}
                     onClick={() => setDemoTheme(t.id)}
-                    className={`px-2 py-1.5 rounded text-xs flex items-center justify-center border transition-all ${
-                      demoTheme === t.id ? 'shadow-sm' : 'opacity-60 hover:opacity-100'
-                    }`}
+                    className={`px-2 py-1.5 rounded text-xs flex items-center justify-center border transition-all ${demoTheme === t.id ? 'shadow-sm' : 'opacity-60 hover:opacity-100'
+                      }`}
                     style={demoTheme === t.id ? {
                       backgroundColor: 'var(--color-primary)',
                       color: 'var(--color-primary-foreground)',
                       borderColor: 'var(--color-primary)'
                     } : { borderColor: 'var(--color-glass-border)' }}
                   >
-                    {t.emoji}
+                    {t.icon}
                   </button>
                 ))}
               </div>
@@ -93,22 +96,21 @@ function OverviewCustomizerPreview() {
               <label className="block font-medium opacity-80 mb-2">Mode</label>
               <div className="grid grid-cols-2 gap-1.5">
                 {[
-                  { id: 'light', label: 'Light', emoji: '☀️' },
-                  { id: 'dark', label: 'Dark', emoji: '🌙' },
+                  { id: 'light', label: 'Light', icon: <Sun className="w-3 h-3" /> },
+                  { id: 'dark', label: 'Dark', icon: <Moon className="w-3 h-3" /> },
                 ].map((m) => (
                   <button
                     key={m.id}
                     onClick={() => setDemoMode(m.id)}
-                    className={`px-2 py-1.5 rounded text-xs flex items-center justify-center gap-1 border transition-all ${
-                      demoMode === m.id ? 'shadow-sm' : 'opacity-60 hover:opacity-100'
-                    }`}
+                    className={`px-2 py-1.5 rounded text-xs flex items-center justify-center gap-1 border transition-all ${demoMode === m.id ? 'shadow-sm' : 'opacity-60 hover:opacity-100'
+                      }`}
                     style={demoMode === m.id ? {
                       backgroundColor: 'var(--color-primary)',
                       color: 'var(--color-primary-foreground)',
                       borderColor: 'var(--color-primary)'
                     } : { borderColor: 'var(--color-glass-border)' }}
                   >
-                    <span>{m.emoji}</span>
+                    <span>{m.icon}</span>
                     <span>{m.label}</span>
                   </button>
                 ))}
@@ -146,7 +148,9 @@ export function OverviewSection() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {/* Developers */}
           <Card className="p-6">
-            <div className="text-4xl mb-4">💻</div>
+            <div className="mb-4 text-[var(--color-primary)]">
+              <Laptop className="w-10 h-10" />
+            </div>
             <h3 className="text-lg font-semibold mb-2 text-[var(--color-text-primary)]">
               Developers
             </h3>
@@ -160,7 +164,9 @@ export function OverviewSection() {
 
           {/* Designers */}
           <Card className="p-6">
-            <div className="text-4xl mb-4">🎨</div>
+            <div className="mb-4 text-[var(--color-primary)]">
+              <Palette className="w-10 h-10" />
+            </div>
             <h3 className="text-lg font-semibold mb-2 text-[var(--color-text-primary)]">
               Designers
             </h3>
@@ -174,7 +180,9 @@ export function OverviewSection() {
 
           {/* AI Agents */}
           <Card className="p-6">
-            <div className="text-4xl mb-4">🤖</div>
+            <div className="mb-4 text-[var(--color-primary)]">
+              <Bot className="w-10 h-10" />
+            </div>
             <h3 className="text-lg font-semibold mb-2 text-[var(--color-text-primary)]">
               AI Agents
             </h3>
@@ -196,7 +204,9 @@ export function OverviewSection() {
 
           {/* Learners */}
           <Card className="p-6">
-            <div className="text-4xl mb-4">📚</div>
+            <div className="mb-4 text-[var(--color-primary)]">
+              <BookOpen className="w-10 h-10" />
+            </div>
             <h3 className="text-lg font-semibold mb-2 text-[var(--color-text-primary)]">
               Learners
             </h3>
@@ -222,7 +232,9 @@ export function OverviewSection() {
         {/* Component-First Architecture Callout */}
         <Card className="p-6 mb-8 border-2 border-[var(--color-primary)]/20 bg-[var(--color-primary)]/5">
           <div className="flex items-start gap-4">
-            <div className="text-3xl">🏗️</div>
+            <div className="text-[var(--color-primary)]">
+              <Construction className="w-8 h-8" />
+            </div>
             <div>
               <h3 className="text-lg font-semibold text-[var(--color-text-primary)] mb-2">
                 Component-First Architecture
@@ -232,11 +244,17 @@ export function OverviewSection() {
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
                 <div className="p-3 bg-red-500/10 border border-red-500/20 rounded">
-                  <p className="font-semibold text-red-600 dark:text-red-400 mb-1">❌ Don't do this:</p>
+                  <p className="font-semibold text-red-600 dark:text-red-400 mb-1 flex items-center gap-1.5">
+                    <XCircle className="w-4 h-4" />
+                    Don't do this:
+                  </p>
                   <Code className="text-xs block">{`<span className="text-[var(--color-text-primary)]">Text</span>`}</Code>
                 </div>
                 <div className="p-3 bg-green-500/10 border border-green-500/20 rounded">
-                  <p className="font-semibold text-green-600 dark:text-green-400 mb-1">✅ Do this instead:</p>
+                  <p className="font-semibold text-green-600 dark:text-green-400 mb-1 flex items-center gap-1.5">
+                    <CheckCircle className="w-4 h-4" />
+                    Do this instead:
+                  </p>
                   <Code className="text-xs block">{`<Text>Text</Text>`}</Code>
                 </div>
               </div>
@@ -260,7 +278,9 @@ export function OverviewSection() {
           {/* Principle 1: Emotionally Resonant */}
           <Card className="p-6">
             <div className="flex items-start gap-4 mb-4">
-              <div className="text-3xl">💚</div>
+              <div className="text-[var(--color-primary)]">
+                <Heart className="w-8 h-8" />
+              </div>
               <div>
                 <h3 className="text-lg font-semibold text-[var(--color-text-primary)] mb-1">
                   Emotionally Resonant
@@ -283,7 +303,9 @@ export function OverviewSection() {
           {/* Principle 2: User Control & Freedom */}
           <Card className="p-6">
             <div className="flex items-start gap-4 mb-4">
-              <div className="text-3xl">🎛️</div>
+              <div className="text-[var(--color-primary)]">
+                <Sliders className="w-8 h-8" />
+              </div>
               <div>
                 <h3 className="text-lg font-semibold text-[var(--color-text-primary)] mb-1">
                   User Control & Freedom
@@ -306,7 +328,9 @@ export function OverviewSection() {
           {/* Principle 3: Transparent by Design */}
           <Card className="p-6">
             <div className="flex items-start gap-4 mb-4">
-              <div className="text-3xl">🔍</div>
+              <div className="text-[var(--color-primary)]">
+                <Search className="w-8 h-8" />
+              </div>
               <div>
                 <h3 className="text-lg font-semibold text-[var(--color-text-primary)] mb-1">
                   Transparent by Design
@@ -337,7 +361,9 @@ export function OverviewSection() {
           {/* Principle 4: Generous by Design */}
           <Card className="p-6">
             <div className="flex items-start gap-4 mb-4">
-              <div className="text-3xl">🌱</div>
+              <div className="text-[var(--color-primary)]">
+                <Sprout className="w-8 h-8" />
+              </div>
               <div>
                 <h3 className="text-lg font-semibold text-[var(--color-text-primary)] mb-1">
                   Generous by Design
@@ -389,15 +415,15 @@ export function OverviewSection() {
                 </p>
                 <div className="space-y-2 text-sm text-[var(--color-text-secondary)]">
                   <div className="flex items-start gap-2">
-                    <span className="text-[var(--color-primary)]">✓</span>
+                    <Check className="w-4 h-4 text-[var(--color-primary)] mt-0.5" />
                     <span>Automatically detects TypeScript, JavaScript, JSX, TSX</span>
                   </div>
                   <div className="flex items-start gap-2">
-                    <span className="text-[var(--color-primary)]">✓</span>
+                    <Check className="w-4 h-4 text-[var(--color-primary)] mt-0.5" />
                     <span>Theme-aware colors adapt to light/dark mode</span>
                   </div>
                   <div className="flex items-start gap-2">
-                    <span className="text-[var(--color-primary)]">✓</span>
+                    <Check className="w-4 h-4 text-[var(--color-primary)] mt-0.5" />
                     <span>Built-in copy button and collapsible code blocks</span>
                   </div>
                 </div>
@@ -432,15 +458,15 @@ const tokens = parseCode(code, 'typescript');
                 </p>
                 <div className="space-y-2 text-sm text-[var(--color-text-secondary)]">
                   <div className="flex items-start gap-2">
-                    <span className="text-[var(--color-primary)]">✓</span>
+                    <Check className="w-4 h-4 text-[var(--color-primary)] mt-0.5" />
                     <span>System preference override (0 = respects OS setting)</span>
                   </div>
                   <div className="flex items-start gap-2">
-                    <span className="text-[var(--color-primary)]">✓</span>
+                    <Check className="w-4 h-4 text-[var(--color-primary)] mt-0.5" />
                     <span>Granular control from subtle (1-3) to playful (8-10)</span>
                   </div>
                   <div className="flex items-start gap-2">
-                    <span className="text-[var(--color-primary)]">✓</span>
+                    <Check className="w-4 h-4 text-[var(--color-primary)] mt-0.5" />
                     <span>Accessible by default, customizable by choice</span>
                   </div>
                 </div>
@@ -482,13 +508,14 @@ export function MyComponent() {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
                 <button
                   onClick={() => setTheme('studio')}
-                  className={`p-4 rounded-lg border-2 transition-all ${
-                    theme === 'studio'
+                  className={`p-4 rounded-lg border-2 transition-all ${theme === 'studio'
                       ? 'border-[var(--color-primary)] bg-[var(--color-primary)]/10'
                       : 'border-[var(--color-border)] hover:border-[var(--color-primary)]/50'
-                  }`}
+                    }`}
                 >
-                  <div className="text-2xl mb-2">🏢</div>
+                  <div className="mb-2 text-[var(--color-primary)]">
+                    <Building2 className="w-6 h-6" />
+                  </div>
                   <h4 className="font-semibold text-[var(--color-text-primary)]">Studio</h4>
                   <p className="text-xs text-[var(--color-text-secondary)]">
                     Professional, balanced, modern
@@ -497,13 +524,14 @@ export function MyComponent() {
 
                 <button
                   onClick={() => setTheme('sage')}
-                  className={`p-4 rounded-lg border-2 transition-all ${
-                    theme === 'sage'
+                  className={`p-4 rounded-lg border-2 transition-all ${theme === 'sage'
                       ? 'border-[var(--color-primary)] bg-[var(--color-primary)]/10'
                       : 'border-[var(--color-border)] hover:border-[var(--color-primary)]/50'
-                  }`}
+                    }`}
                 >
-                  <div className="text-2xl mb-2">🌿</div>
+                  <div className="mb-2 text-[var(--color-primary)]">
+                    <Leaf className="w-6 h-6" />
+                  </div>
                   <h4 className="font-semibold text-[var(--color-text-primary)]">Sage</h4>
                   <p className="text-xs text-[var(--color-text-secondary)]">
                     Calm, organic, thoughtful
@@ -512,13 +540,14 @@ export function MyComponent() {
 
                 <button
                   onClick={() => setTheme('volt')}
-                  className={`p-4 rounded-lg border-2 transition-all ${
-                    theme === 'volt'
+                  className={`p-4 rounded-lg border-2 transition-all ${theme === 'volt'
                       ? 'border-[var(--color-primary)] bg-[var(--color-primary)]/10'
                       : 'border-[var(--color-border)] hover:border-[var(--color-primary)]/50'
-                  }`}
+                    }`}
                 >
-                  <div className="text-2xl mb-2">⚡</div>
+                  <div className="mb-2 text-[var(--color-primary)]">
+                    <Zap className="w-6 h-6" />
+                  </div>
                   <h4 className="font-semibold text-[var(--color-text-primary)]">Volt</h4>
                   <p className="text-xs text-[var(--color-text-secondary)]">
                     Bold, electric, energetic
@@ -558,19 +587,19 @@ export function ThemeSwitcher() {
                 </p>
                 <div className="space-y-2 text-sm text-[var(--color-text-secondary)]">
                   <div className="flex items-start gap-2">
-                    <span className="text-[var(--color-primary)]">✓</span>
+                    <Check className="w-4 h-4 text-[var(--color-primary)] mt-0.5" />
                     <span>Live theme and mode switching</span>
                   </div>
                   <div className="flex items-start gap-2">
-                    <span className="text-[var(--color-primary)]">✓</span>
+                    <Check className="w-4 h-4 text-[var(--color-primary)] mt-0.5" />
                     <span>Motion scale control with instant feedback</span>
                   </div>
                   <div className="flex items-start gap-2">
-                    <span className="text-[var(--color-primary)]">✓</span>
+                    <Check className="w-4 h-4 text-[var(--color-primary)] mt-0.5" />
                     <span>Preferences saved across sessions</span>
                   </div>
                   <div className="flex items-start gap-2">
-                    <span className="text-[var(--color-primary)]">✓</span>
+                    <Check className="w-4 h-4 text-[var(--color-primary)] mt-0.5" />
                     <span>Two modes: full-featured or lightweight</span>
                   </div>
                 </div>

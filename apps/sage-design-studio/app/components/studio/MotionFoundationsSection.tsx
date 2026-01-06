@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from 'react';
 import { Card, Button, CollapsibleCodeBlock } from '@ecosystem/design-system';
 import type { SyntaxToken } from '@ecosystem/design-system';
 import { baseTokens, motion } from '@ecosystem/design-system/tokens';
+import { CheckCircle, XCircle } from 'lucide-react';
 
 /**
  * Interactive example component for motion demonstrations
@@ -101,7 +102,10 @@ export function MotionFoundationsSection() {
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="p-4 bg-[var(--color-surface)] rounded border border-[var(--color-border)]">
-            <h3 className="font-semibold text-[var(--color-text-primary)] mb-3">✓ Good Uses</h3>
+            <h3 className="font-semibold text-[var(--color-text-primary)] mb-3 flex items-center gap-2">
+              <CheckCircle className="w-5 h-5 text-[var(--color-success)]" />
+              Good Uses
+            </h3>
             <ul className="space-y-2 text-sm text-[var(--color-text-secondary)]">
               <li>• State changes (hover, active, disabled)</li>
               <li>• Page transitions and navigation</li>
@@ -112,7 +116,10 @@ export function MotionFoundationsSection() {
             </ul>
           </div>
           <div className="p-4 bg-[var(--color-surface)] rounded border border-[var(--color-border)]">
-            <h3 className="font-semibold text-[var(--color-text-primary)] mb-3">✗ Avoid</h3>
+            <h3 className="font-semibold text-[var(--color-text-primary)] mb-3 flex items-center gap-2">
+              <XCircle className="w-5 h-5 text-[var(--color-error)]" />
+              Avoid
+            </h3>
             <ul className="space-y-2 text-sm text-[var(--color-text-secondary)]">
               <li>• Gratuitous animations without purpose</li>
               <li>• Blocking critical content with motion</li>

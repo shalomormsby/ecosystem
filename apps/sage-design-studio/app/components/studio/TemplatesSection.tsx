@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { Breadcrumbs, TertiaryNav, CollapsibleCodeBlock, Card, PageTemplate, Footer, Brand, type BreadcrumbItem } from '@ecosystem/design-system';
-import { ExternalLink, Layout } from 'lucide-react';
+import { ExternalLink, Layout, Ruler, Type, LayoutGrid, Scale, Sparkles, ArrowDown, Lightbulb } from 'lucide-react';
 
 interface TemplatesSectionProps {
   breadcrumbs?: BreadcrumbItem[];
@@ -182,23 +182,23 @@ function MyPage() {
           <h4 className="font-semibold mb-3 text-[var(--color-text-primary)]">Swiss Grid Design Principles</h4>
           <ul className="space-y-2 text-[var(--color-text-secondary)]">
             <li className="flex items-start">
-              <span className="mr-2">📐</span>
+              <span className="mr-2 mt-1"><Ruler className="w-4 h-4 text-[var(--color-primary)]" /></span>
               <span><strong>Structured Spacing:</strong> 48-96px between major sections for clear visual hierarchy</span>
             </li>
             <li className="flex items-start">
-              <span className="mr-2">📏</span>
+              <span className="mr-2 mt-1"><Type className="w-4 h-4 text-[var(--color-primary)]" /></span>
               <span><strong>Typography Hierarchy:</strong> 36-48px titles, 18px subtitles, consistent ratios</span>
             </li>
             <li className="flex items-start">
-              <span className="mr-2">📊</span>
+              <span className="mr-2 mt-1"><LayoutGrid className="w-4 h-4 text-[var(--color-primary)]" /></span>
               <span><strong>Grid-Based Alignment:</strong> 12-column Tailwind grid with consistent content widths</span>
             </li>
             <li className="flex items-start">
-              <span className="mr-2">⚖️</span>
+              <span className="mr-2 mt-1"><Scale className="w-4 h-4 text-[var(--color-primary)]" /></span>
               <span><strong>Generous Whitespace:</strong> Breathing room for content to shine</span>
             </li>
             <li className="flex items-start">
-              <span className="mr-2">✨</span>
+              <span className="mr-2 mt-1"><Sparkles className="w-4 h-4 text-[var(--color-primary)]" /></span>
               <span><strong>Minimal Aesthetic:</strong> Functional, clean design without unnecessary decoration</span>
             </li>
           </ul>
@@ -267,8 +267,9 @@ function MyPage() {
           </div>
         </Card>
 
-        <p className="text-sm text-[var(--color-text-muted)] mt-3">
-          💡 The live demo opens in a new tab to demonstrate full sticky scrolling and mobile responsiveness.
+        <p className="text-sm text-[var(--color-text-muted)] mt-3 flex items-center gap-2">
+          <Lightbulb className="w-4 h-4 text-yellow-500" />
+          The live demo opens in a new tab to demonstrate full sticky scrolling and mobile responsiveness.
         </p>
       </section>
 
@@ -381,15 +382,15 @@ function MyPage() {
         <Card className="p-6 bg-[var(--color-surface)] font-mono text-sm">
           <div className="space-y-1 text-[var(--color-text-secondary)]">
             <div>1. Header (z-50, sticky if enabled)</div>
-            <div className="ml-4">↓</div>
+            <div className="ml-4"><ArrowDown className="w-3 h-3" /></div>
             <div>2. Title + Subtitle (Swiss Grid spacing: 48-96px vertical)</div>
-            <div className="ml-4">↓</div>
+            <div className="ml-4"><ArrowDown className="w-3 h-3" /></div>
             <div>3. Breadcrumbs (static, below title)</div>
-            <div className="ml-4">↓</div>
+            <div className="ml-4"><ArrowDown className="w-3 h-3" /></div>
             <div>4. Secondary Nav (z-40, always sticky)</div>
-            <div className="ml-4">↓</div>
+            <div className="ml-4"><ArrowDown className="w-3 h-3" /></div>
             <div>5. Main Content (flex-1, fills space)</div>
-            <div className="ml-4">↓</div>
+            <div className="ml-4"><ArrowDown className="w-3 h-3" /></div>
             <div>6. Footer (optional)</div>
             <div className="mt-4 pt-4 border-t border-[var(--color-border)]">
               <div>+ Customizer (sticky overlay, bottom-right)</div>

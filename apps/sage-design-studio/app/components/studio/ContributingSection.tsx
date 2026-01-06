@@ -1,6 +1,7 @@
 'use client';
 
 import { Card, Breadcrumbs, type BreadcrumbItem } from '@ecosystem/design-system';
+import { ArrowRight } from 'lucide-react';
 
 interface ContributingSectionProps {
   breadcrumbs?: BreadcrumbItem[];
@@ -38,7 +39,7 @@ export function ContributingSection({ breadcrumbs }: ContributingSectionProps) {
               <h3 className="font-semibold mb-2 text-[var(--color-text-primary)]">Clone the repository</h3>
               <pre className="bg-[var(--color-surface)] p-4 rounded-md text-sm overflow-x-auto border border-[var(--color-border)]">
                 <code className="text-[var(--color-text-primary)]">git clone https://github.com/shalom-ormsby/ecosystem.git
-cd ecosystem</code>
+                  cd ecosystem</code>
               </pre>
             </div>
 
@@ -46,7 +47,7 @@ cd ecosystem</code>
               <h3 className="font-semibold mb-2 text-[var(--color-text-primary)]">Enable Corepack and install dependencies</h3>
               <pre className="bg-[var(--color-surface)] p-4 rounded-md text-sm overflow-x-auto border border-[var(--color-border)]">
                 <code className="text-[var(--color-text-primary)]">corepack enable
-pnpm install</code>
+                  pnpm install</code>
               </pre>
               <p className="text-sm text-[var(--color-text-muted)] mt-2">
                 This project uses pnpm as the package manager. Corepack ensures you're using the correct version.
@@ -57,7 +58,7 @@ pnpm install</code>
               <h3 className="font-semibold mb-2 text-[var(--color-text-primary)]">Verify setup</h3>
               <pre className="bg-[var(--color-surface)] p-4 rounded-md text-sm overflow-x-auto border border-[var(--color-border)]">
                 <code className="text-[var(--color-text-primary)]">pnpm --filter @ecosystem/design-system build
-pnpm --filter sage-design-studio dev</code>
+                  pnpm --filter sage-design-studio dev</code>
               </pre>
               <p className="text-sm text-[var(--color-text-muted)] mt-2">
                 This builds the design system and starts the studio app at localhost:3000
@@ -103,7 +104,7 @@ pnpm --filter sage-design-studio dev</code>
                 <h3 className="font-semibold mb-2 text-[var(--color-text-primary)]">Test locally in studio app</h3>
                 <pre className="bg-[var(--color-surface)] p-4 rounded-md text-sm overflow-x-auto border border-[var(--color-border)]">
                   <code className="text-[var(--color-text-primary)]">pnpm --filter @ecosystem/design-system build
-pnpm --filter sage-design-studio dev</code>
+                    pnpm --filter sage-design-studio dev</code>
                 </pre>
                 <p className="text-sm text-[var(--color-text-muted)] mt-2">
                   Verify your changes work across all three themes (Studio, Sage, Volt)
@@ -198,7 +199,7 @@ pnpm --filter sage-design-studio dev</code>
               <h3 className="font-semibold mb-2 text-[var(--color-text-primary)]">Commit your changes</h3>
               <pre className="bg-[var(--color-surface)] p-4 rounded-md text-sm overflow-x-auto border border-[var(--color-border)]">
                 <code className="text-[var(--color-text-primary)]">git add .
-git commit -m "feat: add NewComponent to design system"</code>
+                  git commit -m "feat: add NewComponent to design system"</code>
               </pre>
               <p className="text-sm text-[var(--color-text-muted)] mt-2">
                 Use conventional commit format: <code className="px-1.5 py-0.5 bg-[var(--color-surface)] rounded text-[var(--color-primary)]">feat:</code>, <code className="px-1.5 py-0.5 bg-[var(--color-surface)] rounded text-[var(--color-primary)]">fix:</code>, <code className="px-1.5 py-0.5 bg-[var(--color-surface)] rounded text-[var(--color-primary)]">docs:</code>, etc.
@@ -271,15 +272,15 @@ This component embodies [principle from DESIGN-PHILOSOPHY.md]
                   <span>Maintainers will review your code for quality, consistency, and adherence to design principles</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="text-[var(--color-primary)]">→</span>
+                  <ArrowRight className="w-4 h-4 text-[var(--color-primary)] mt-0.5" />
                   <span>Feedback may include requests for changes or improvements</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="text-[var(--color-primary)]">→</span>
+                  <ArrowRight className="w-4 h-4 text-[var(--color-primary)] mt-0.5" />
                   <span>Be responsive to feedback and iterate on your changes</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="text-[var(--color-primary)]">→</span>
+                  <ArrowRight className="w-4 h-4 text-[var(--color-primary)] mt-0.5" />
                   <span>Once approved, your PR will be merged into the main branch</span>
                 </li>
               </ul>

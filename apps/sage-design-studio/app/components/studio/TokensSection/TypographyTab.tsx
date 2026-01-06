@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { Card, Code } from '@ecosystem/design-system';
 import { typographySystem } from '@ecosystem/design-system';
+import { Building2, Leaf, Zap } from 'lucide-react';
 
 // Font CSS variable mapping for each theme
 const themeFontVars = {
@@ -27,9 +28,9 @@ export function TypographyTab() {
   const [selectedTheme, setSelectedTheme] = useState<'studio' | 'sage' | 'volt'>('studio');
 
   const themes = [
-    { id: 'studio' as const, label: 'Studio', emoji: '🏢' },
-    { id: 'sage' as const, label: 'Sage', emoji: '🌿' },
-    { id: 'volt' as const, label: 'Volt', emoji: '⚡' },
+    { id: 'studio' as const, label: 'Studio', icon: <Building2 className="w-5 h-5" /> },
+    { id: 'sage' as const, label: 'Sage', icon: <Leaf className="w-5 h-5" /> },
+    { id: 'volt' as const, label: 'Volt', icon: <Zap className="w-5 h-5" /> },
   ];
 
   const currentThemeFonts = typographySystem.families[selectedTheme];
@@ -70,7 +71,7 @@ export function TypographyTab() {
                       <tr key={theme.id} className="border-b border-[var(--color-border)] last:border-0">
                         <td className="py-3 px-4">
                           <div className="flex items-center gap-2">
-                            <span>{theme.emoji}</span>
+                            <span>{theme.icon}</span>
                             <strong className="text-[var(--color-text-primary)]">{theme.label}</strong>
                           </div>
                         </td>
@@ -102,14 +103,13 @@ export function TypographyTab() {
               onClick={() => setSelectedTheme(theme.id)}
               className={`
                 px-4 py-3 rounded-lg text-sm font-medium transition-all flex flex-col items-center gap-2 border
-                ${
-                  selectedTheme === theme.id
-                    ? 'bg-[var(--color-primary)] text-[var(--color-primary-foreground)] shadow-md border-[var(--color-primary)]'
-                    : 'bg-[var(--color-surface)] text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] border-[var(--color-border)]'
+                ${selectedTheme === theme.id
+                  ? 'bg-[var(--color-primary)] text-[var(--color-primary-foreground)] shadow-md border-[var(--color-primary)]'
+                  : 'bg-[var(--color-surface)] text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] border-[var(--color-border)]'
                 }
               `}
             >
-              <span className="text-xl">{theme.emoji}</span>
+              <span className="text-xl flex items-center justify-center">{theme.icon}</span>
               <span>{theme.label}</span>
             </button>
           ))}

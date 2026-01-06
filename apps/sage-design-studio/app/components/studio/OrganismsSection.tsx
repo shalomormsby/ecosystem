@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { Card, Button, Header, SecondaryNav, TertiaryNav, Footer, Modal, ToastProvider, useToast, CollapsibleCodeBlock, Code, CustomizerPanel, Breadcrumbs, PageLayout, type BreadcrumbItem } from '@ecosystem/design-system';
+import { SlidersHorizontal, Sun, Moon, SunMoon, Building2, Leaf, Zap, X } from 'lucide-react';
 import type { SyntaxToken } from '@ecosystem/design-system';
 
 type OrganismType = 'PageLayout' | 'PrimaryNav' | 'SecondaryNav' | 'TertiaryNav' | 'FirstStack' | 'SecondStack' | 'Footer' | 'Toast' | 'Modal' | 'CollapsibleCodeBlock' | 'Customizer';
@@ -111,7 +112,7 @@ function CustomizerDemoFull() {
           className="absolute bottom-4 right-4 bg-background text-foreground px-4 py-2 rounded-full shadow-lg border border-[var(--color-glass-border)] font-medium hover:opacity-80 transition-all flex items-center gap-2"
           style={{ backdropFilter: 'var(--effect-blur-sm)' }}
         >
-          <span className="text-lg">🎛️</span>
+          <span className="text-lg"><SlidersHorizontal className="w-5 h-5" /></span>
           Customizer
         </button>
       ) : (
@@ -129,10 +130,7 @@ function CustomizerDemoFull() {
               onClick={() => setIsOpen(false)}
               className="text-foreground opacity-60 hover:opacity-100 transition-opacity p-1"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <line x1="18" y1="6" x2="6" y2="18"></line>
-                <line x1="6" y1="6" x2="18" y2="18"></line>
-              </svg>
+              <X className="w-5 h-5" />
             </button>
           </div>
           <div className="space-y-6">
@@ -157,9 +155,9 @@ function CustomizerDemoFull() {
               <label className="block text-sm font-medium opacity-80 mb-3">Theme</label>
               <div className="grid grid-cols-3 gap-2 mb-3">
                 {[
-                  { id: 'studio', label: 'Studio', emoji: '🏢' },
-                  { id: 'sage', label: 'Sage', emoji: '🌿' },
-                  { id: 'volt', label: 'Volt', emoji: '⚡' },
+                  { id: 'studio', label: 'Studio', icon: <Building2 className="w-4 h-4" /> },
+                  { id: 'sage', label: 'Sage', icon: <Leaf className="w-4 h-4" /> },
+                  { id: 'volt', label: 'Volt', icon: <Zap className="w-4 h-4" /> },
                 ].map((t) => (
                   <button
                     key={t.id}
@@ -177,7 +175,7 @@ function CustomizerDemoFull() {
                       borderColor: 'var(--color-primary)'
                     } : {}}
                   >
-                    <span className="text-base">{t.emoji}</span>
+                    <span className="text-base">{t.icon}</span>
                     <span>{t.label}</span>
                   </button>
                 ))}
@@ -206,8 +204,8 @@ function CustomizerDemoFull() {
               <label className="block text-sm font-medium opacity-80 mb-3">Mode</label>
               <div className="grid grid-cols-2 gap-2">
                 {[
-                  { id: 'light', label: 'Light', emoji: '☀️' },
-                  { id: 'dark', label: 'Dark', emoji: '🌙' },
+                  { id: 'light', label: 'Light', icon: <Sun className="w-4 h-4" /> },
+                  { id: 'dark', label: 'Dark', icon: <Moon className="w-4 h-4" /> },
                 ].map((m) => (
                   <button
                     key={m.id}
@@ -225,7 +223,7 @@ function CustomizerDemoFull() {
                       borderColor: 'var(--color-primary)'
                     } : {}}
                   >
-                    <span>{m.emoji}</span>
+                    <span>{m.icon}</span>
                     <span>{m.label}</span>
                   </button>
                 ))}
@@ -270,7 +268,7 @@ function CustomizerDemoLightweight() {
           className="absolute bottom-4 right-4 bg-background text-foreground px-4 py-2 rounded-full shadow-lg border border-[var(--color-glass-border)] font-medium hover:opacity-80 transition-all flex items-center gap-2"
           style={{ backdropFilter: 'var(--effect-blur-sm)' }}
         >
-          <span className="text-lg">🌓</span>
+          <span className="text-lg"><SunMoon className="w-5 h-5" /></span>
           Theme
         </button>
       ) : (
@@ -288,10 +286,7 @@ function CustomizerDemoLightweight() {
               onClick={() => setIsOpen(false)}
               className="text-foreground opacity-60 hover:opacity-100 transition-opacity p-1"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <line x1="18" y1="6" x2="6" y2="18"></line>
-                <line x1="6" y1="6" x2="18" y2="18"></line>
-              </svg>
+              <X className="w-5 h-5" />
             </button>
           </div>
           <div className="space-y-6">
@@ -300,8 +295,8 @@ function CustomizerDemoLightweight() {
               <label className="block text-sm font-medium opacity-80 mb-3">Mode</label>
               <div className="grid grid-cols-2 gap-2">
                 {[
-                  { id: 'light', label: 'Light', emoji: '☀️' },
-                  { id: 'dark', label: 'Dark', emoji: '🌙' },
+                  { id: 'light', label: 'Light', icon: <Sun className="w-4 h-4" /> },
+                  { id: 'dark', label: 'Dark', icon: <Moon className="w-4 h-4" /> },
                 ].map((m) => (
                   <button
                     key={m.id}
@@ -319,7 +314,7 @@ function CustomizerDemoLightweight() {
                       borderColor: 'var(--color-primary)'
                     } : {}}
                   >
-                    <span>{m.emoji}</span>
+                    <span>{m.icon}</span>
                     <span>{m.label}</span>
                   </button>
                 ))}
@@ -1595,7 +1590,7 @@ export function Button({ variant, onClick }: ButtonProps) {
                   id="org-collapsible-usage"
                   code={`import { CollapsibleCodeBlock, parseCode } from '@ecosystem/design-system';
 
-// ✨ NEW: Automatic syntax highlighting - just pass a string!
+// [New]: Automatic syntax highlighting - just pass a string!
 <CollapsibleCodeBlock
   id="my-code"
   title="React Component"
