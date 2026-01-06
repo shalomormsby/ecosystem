@@ -2,7 +2,8 @@
 
 import { useState, useMemo } from 'react';
 import Link from 'next/link';
-import { Card, Badge, Heading, Text } from '@ecosystem/design-system';
+import { Card, Badge, Heading, Text, SearchInput, FilterButton } from '@ecosystem/design-system';
+import { ChevronRight } from 'lucide-react';
 import type { Node, Cluster } from '@/lib/content/types';
 
 /**
@@ -118,41 +119,32 @@ export function NavigationFallback({
         </Text>
       </header>
 
-      <div className="mb-6">
+      <div className="mb-8">
         <label htmlFor="search" className="sr-only">Search content</label>
-        <input
-          type="search"
+        <SearchInput
           id="search"
-          placeholder="Search by title, theme, or keyword..."
           value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          className="w-full px-4 py-3 rounded-lg border border-[var(--color-border)] bg-[var(--color-background)] text-[var(--color-text-primary)] placeholder:text-[var(--color-text-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--color-focus)] focus:border-transparent"
+          onChange={setSearchQuery}
+          onClear={() => setSearchQuery('')}
+          placeholder="Search by title, theme, or keyword..."
         />
       </div>
 
       <nav className="flex flex-wrap gap-2 mb-8" aria-label="Filter by category">
-        <button
+        <FilterButton
+          active={activeCluster === 'all'}
           onClick={() => setActiveCluster('all')}
-          className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-            activeCluster === 'all'
-              ? 'bg-[var(--color-primary)] text-[var(--color-primary-foreground)]'
-              : 'bg-[var(--color-surface)] text-[var(--color-text-primary)] hover:bg-[var(--color-hover)]'
-          }`}
         >
           All
-        </button>
+        </FilterButton>
         {(Object.keys(CLUSTER_CONFIG) as Cluster[]).map((cluster) => (
-          <button
+          <FilterButton
             key={cluster}
+            active={activeCluster === cluster}
             onClick={() => setActiveCluster(cluster)}
-            className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-              activeCluster === cluster
-                ? 'bg-[var(--color-primary)] text-[var(--color-primary-foreground)]'
-                : 'bg-[var(--color-surface)] text-[var(--color-text-primary)] hover:bg-[var(--color-hover)]'
-            }`}
           >
             {CLUSTER_CONFIG[cluster].icon} {CLUSTER_CONFIG[cluster].title}
-          </button>
+          </FilterButton>
         ))}
       </nav>
 
@@ -209,9 +201,7 @@ export function NavigationFallback({
                             </div>
                           </div>
                           <div className="text-[var(--color-primary)] opacity-50 group-hover:opacity-100 transition-opacity">
-                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                              <path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                            </svg>
+                            <ChevronRight className="w-5 h-5" />
                           </div>
                         </div>
                       </Link>

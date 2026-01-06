@@ -42,15 +42,12 @@ The Sage Design System has three critical issues preventing it from meeting prod
   - [PageLayout.tsx:171-173](design-system/organisms/PageLayout/PageLayout.tsx#L171-L173)
   - [PageTemplate.tsx:150](design-system/templates/PageTemplate/PageTemplate.tsx#L150)
 
-**Status:** Implemented fix for theme toggling and layout; awaiting verification.
+**Status:** ✅ Resolved (Fixed ThemeProvider logic, Layout Constraints, and Customizer responsiveness)
 
-**Attempted Solutions:**
-- **Theme Logic:** Updated `ThemeProvider.tsx` to toggle `.dark` class on `<html>` element, ensuring Tailwind `dark:` modifiers working correctly with the `data-mode` attribute.
-- **Tailwind Config:** Updated `tailwind.config.ts` in apps to use `darkMode: 'class'`.
-- **Layout:** Confirmed sticky header logic.
-
-**Next Validation:**
-- Verify on mobile device if the "simultaneous theme" issue is resolved by the `ThemeProvider` fix.
+**Solution Implemented:**
+- **Theme Logic:** Updated `ThemeProvider.tsx` to toggle `.dark` class on `<html>`, fixing Tailwind dark mode on mobile.
+- **Layout Constraints:** Added responsive width to `CustomizerPanel`, `overflow-x-auto` to `Breadcrumbs`, and `overflow-x-hidden` to root layout logic.
+- **Preview:** Replaced broken PageTemplate preview.
 
 **Evidence:**
 ```tsx
@@ -164,11 +161,24 @@ The Sage Design System has three critical issues preventing it from meeting prod
 **Problem 2: Fixed Height Container**
 - The `h-[600px]` height on line 215 creates artificial viewport
 - Sticky elements stick to this container, not the actual viewport
-- May appear broken because sticky behavior is confined
+-   The `h-[600px]` height on line 215 creates artificial viewport
+-   Sticky elements stick to this container, not the actual viewport
+-   May appear broken because sticky behavior is confined
 
 **Problem 3: Nested Overflow**
-- `overflow-auto` on line 215 creates scrollable container
-- Sticky elements within may not behave as expected
+-   `overflow-auto` on line 215 creates scrollable container
+-   Sticky elements within may not behave as expected
+
+#### Phase 2: Atomic Architecture (In Progress)
+- [x] **Create Atoms:** `SearchInput`, `FilterButton`, `NavLink` created.
+- [x] **Refactor NavigationFallback:** Updated to use new atoms and Lucide icons.
+- [x] **Refactor Header:** Updated to use `headerNavLink` and `NavLink` atom with Lucide icons.
+- [ ] **Refactor SecondaryNav:** Pending (minor priority).
+- [ ] **Full Icon Audit:** Continue replacing emojis/SVGs in other files.
+
+### 2. Header / SecondaryNav
+**Problem:** Hardcoded links and older SVG icons.
+**Status:** ✅ Header Refactored. SecondaryNav pending.
 
 #### Why Secondary Nav Appears Broken
 

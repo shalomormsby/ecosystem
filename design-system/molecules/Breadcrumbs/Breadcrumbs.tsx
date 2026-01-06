@@ -173,7 +173,7 @@ export const Breadcrumbs: React.FC<BreadcrumbsProps> = ({
 
   return (
     <nav aria-label={ariaLabel} className={className}>
-      <ol className="flex items-center flex-nowrap list-none m-0 p-0 overflow-hidden">
+      <ol className="flex items-center flex-nowrap list-none m-0 p-0 overflow-x-auto scrollbar-hide">
         {displayItems.map((item, index) => {
           const isLast = index === displayItems.length - 1;
           const isEllipsis = item.label === '...';

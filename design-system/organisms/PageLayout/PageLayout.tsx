@@ -112,7 +112,7 @@ export function PageLayout({
   const breadcrumbsAreaSpacing = swissGridSpacing ? 'pt-4 pb-8' : 'pt-3 pb-6';
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col overflow-x-hidden">
       {/* Header - z-50, h-16 lg:h-20 */}
       {header}
 

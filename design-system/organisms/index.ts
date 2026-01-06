@@ -1,5 +1,5 @@
 export { Header } from './Header/Header';
-export type { HeaderProps, NavLink } from './Header/Header';
+export type { HeaderProps, HeaderNavLink } from './Header/Header';
 
 export { SecondaryNav } from './SecondaryNav/SecondaryNav';
 export type { SecondaryNavProps, SecondaryNavItem } from './SecondaryNav/SecondaryNav';

@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Header, type NavLink } from '../../organisms/Header/Header';
+import { Header, type HeaderNavLink } from '../../organisms/Header/Header';
 import { Breadcrumbs, type BreadcrumbItem } from '../../molecules/Breadcrumbs/Breadcrumbs';
 import { SecondaryNav, type SecondaryNavItem } from '../../organisms/SecondaryNav/SecondaryNav';
 import { PageLayout } from '../../organisms/PageLayout/PageLayout';
@@ -12,7 +12,7 @@ export interface PageTemplateHeaderConfig {
   /** Logo or brand element */
   logo: React.ReactNode;
   /** Navigation links with optional dropdowns */
-  navLinks?: NavLink[];
+  navLinks?: HeaderNavLink[];
   /** Actions (e.g., Sign In button, CTA) */
   actions?: React.ReactNode;
   /** Whether header should be sticky (default: true) */

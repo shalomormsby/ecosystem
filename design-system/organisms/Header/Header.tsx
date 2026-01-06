@@ -2,8 +2,10 @@
 
 import React, { useState, useEffect } from 'react';
 import { useMotionPreference } from '../../hooks';
+import { NavLink } from '../../atoms';
+import { Menu, X, ChevronDown } from 'lucide-react';
 
-export interface NavLink {
+export interface HeaderNavLink {
     label: string;
     href?: string;
     /**
@@ -29,7 +31,7 @@ export interface HeaderProps {
     /**
      * Array of navigation links
      */
-    navLinks?: NavLink[];
+    navLinks?: HeaderNavLink[];
     /**
      * Content for the right side (e.g., Sign In, CTA buttons)
      */
@@ -171,10 +173,9 @@ export const Header = React.forwardRef<HTMLElement, HeaderProps>(
                                                             focus-visible:outline-[var(--color-focus)]
                                                             rounded-sm
                                                             ${shouldAnimate ? 'transition-colors duration-200' : ''}
-                                                            ${
-                                                                link.active
-                                                                    ? 'text-[var(--color-text-primary)] font-medium after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-[var(--color-primary)] after:rounded-full'
-                                                                    : 'text-[var(--color-text-secondary)] hover:text-[var(--color-primary)]'
+                                                            ${link.active
+                                                                ? 'text-[var(--color-text-primary)] font-medium after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-[var(--color-primary)] after:rounded-full'
+                                                                : 'text-[var(--color-text-secondary)] hover:text-[var(--color-primary)]'
                                                             }
                                                         `}
                                                         style={{ fontFamily }}
@@ -182,19 +183,7 @@ export const Header = React.forwardRef<HTMLElement, HeaderProps>(
                                                         aria-haspopup="true"
                                                     >
                                                         {link.label}
-                                                        <svg
-                                                            width="12"
-                                                            height="12"
-                                                            viewBox="0 0 12 12"
-                                                            fill="none"
-                                                            stroke="currentColor"
-                                                            strokeWidth="2"
-                                                            strokeLinecap="round"
-                                                            strokeLinejoin="round"
-                                                            className={`${shouldAnimate ? 'transition-transform duration-200' : ''} ${isOpen ? 'rotate-180' : ''}`}
-                                                        >
-                                                            <polyline points="2 4 6 8 10 4" />
-                                                        </svg>
+                                                        <ChevronDown className={`w-3 h-3 ${shouldAnimate ? 'transition-transform duration-200' : ''} ${isOpen ? 'rotate-180' : ''}`} />
                                                     </button>
                                                     {/* Invisible bridge to prevent dropdown from closing */}
                                                     {isOpen && <div className="absolute top-full left-1/2 -translate-x-1/2 w-[200px] h-2" />}
@@ -202,26 +191,19 @@ export const Header = React.forwardRef<HTMLElement, HeaderProps>(
                                                         <div className={`
                                                             absolute top-full left-1/2 -translate-x-1/2 mt-2 min-w-[200px] z-50
                                                             bg-[var(--color-surface)] border border-[var(--color-border)]
-                                                            rounded-lg shadow-lg py-2
+                                                            rounded-lg shadow-lg py-1 p-1
                                                             ${shouldAnimate ? 'animate-fade-in' : ''}
                                                         `}>
                                                             {link.children?.map((child) => (
-                                                                <a
+                                                                <NavLink
                                                                     key={child.label}
                                                                     href={child.href}
-                                                                    className={`
-                                                                        block px-4 py-2 text-sm
-                                                                        ${shouldAnimate ? 'transition-colors duration-200' : ''}
-                                                                        ${
-                                                                            child.active
-                                                                                ? 'text-[var(--color-text-primary)] font-medium bg-[var(--color-surface)]'
-                                                                                : 'text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-background)]'
-                                                                        }
-                                                                    `}
-                                                                    aria-current={child.active ? 'page' : undefined}
+                                                                    active={child.active}
+                                                                    variant="pill"
+                                                                    className="w-full"
                                                                 >
                                                                     {child.label}
-                                                                </a>
+                                                                </NavLink>
                                                             ))}
                                                         </div>
                                                     )}
@@ -230,30 +212,16 @@ export const Header = React.forwardRef<HTMLElement, HeaderProps>(
                                         }
 
                                         return (
-                                            <a
+                                            <NavLink
                                                 key={link.label}
                                                 href={link.href}
-                                                aria-current={link.active ? 'page' : undefined}
-                                                className={`
-                                                    ${navLinkSize}
-                                                    relative
-                                                    pb-1
-                                                    focus-visible:outline
-                                                    focus-visible:outline-2
-                                                    focus-visible:outline-offset-4
-                                                    focus-visible:outline-[var(--color-focus)]
-                                                    rounded-sm
-                                                    ${shouldAnimate ? 'transition-colors duration-200' : ''}
-                                                    ${
-                                                        link.active
-                                                            ? 'text-[var(--color-text-primary)] font-medium after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-[var(--color-primary)] after:rounded-full'
-                                                            : 'text-[var(--color-text-secondary)] hover:text-[var(--color-primary)]'
-                                                    }
-                                                `}
+                                                active={link.active}
+                                                variant="minimal"
+                                                className={navLinkSize}
                                                 style={{ fontFamily }}
                                             >
                                                 {link.label}
-                                            </a>
+                                            </NavLink>
                                         );
                                     })}
                                 </nav>
@@ -285,36 +253,9 @@ export const Header = React.forwardRef<HTMLElement, HeaderProps>(
                                 aria-expanded={isMenuOpen}
                             >
                                 {isMenuOpen ? (
-                                    <svg
-                                        width="24"
-                                        height="24"
-                                        viewBox="0 0 24 24"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        strokeWidth="2"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        aria-hidden="true"
-                                    >
-                                        <line x1="18" y1="6" x2="6" y2="18" />
-                                        <line x1="6" y1="6" x2="18" y2="18" />
-                                    </svg>
+                                    <X className="w-6 h-6" />
                                 ) : (
-                                    <svg
-                                        width="24"
-                                        height="24"
-                                        viewBox="0 0 24 24"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        strokeWidth="2"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        aria-hidden="true"
-                                    >
-                                        <line x1="3" y1="12" x2="21" y2="12" />
-                                        <line x1="3" y1="6" x2="21" y2="6" />
-                                        <line x1="3" y1="18" x2="21" y2="18" />
-                                    </svg>
+                                    <Menu className="w-6 h-6" />
                                 )}
                             </button>
                         </div>
@@ -353,10 +294,9 @@ export const Header = React.forwardRef<HTMLElement, HeaderProps>(
                                                     focus-visible:outline-[var(--color-focus)]
                                                     rounded-sm
                                                     ${shouldAnimate ? 'transition-all duration-200' : ''}
-                                                    ${
-                                                        link.active
-                                                            ? 'text-[var(--color-primary)] font-semibold'
-                                                            : 'text-[var(--color-text-primary)] hover:text-[var(--color-text-secondary)]'
+                                                    ${link.active
+                                                        ? 'text-[var(--color-primary)] font-semibold'
+                                                        : 'text-[var(--color-text-primary)] hover:text-[var(--color-text-secondary)]'
                                                     }
                                                 `}
                                                 style={
@@ -380,17 +320,16 @@ export const Header = React.forwardRef<HTMLElement, HeaderProps>(
                                                             href={child.href}
                                                             onClick={() => setIsMenuOpen(false)}
                                                             className={`
-                                                                text-xl
+                                                                text-xl text-center block
                                                                 focus-visible:outline
                                                                 focus-visible:outline-2
                                                                 focus-visible:outline-offset-4
                                                                 focus-visible:outline-[var(--color-focus)]
                                                                 rounded-sm
                                                                 ${shouldAnimate ? 'transition-colors duration-200' : ''}
-                                                                ${
-                                                                    child.active
-                                                                        ? 'text-[var(--color-primary)] font-medium'
-                                                                        : 'text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]'
+                                                                ${child.active
+                                                                    ? 'text-[var(--color-primary)] font-medium'
+                                                                    : 'text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]'
                                                                 }
                                                             `}
                                                             aria-current={child.active ? 'page' : undefined}
@@ -418,10 +357,9 @@ export const Header = React.forwardRef<HTMLElement, HeaderProps>(
                                             focus-visible:outline-[var(--color-focus)]
                                             rounded-sm
                                             ${shouldAnimate ? 'transition-all duration-200' : ''}
-                                            ${
-                                                link.active
-                                                    ? 'text-[var(--color-primary)] font-semibold'
-                                                    : 'text-[var(--color-text-primary)] hover:text-[var(--color-text-secondary)]'
+                                            ${link.active
+                                                ? 'text-[var(--color-primary)] font-semibold'
+                                                : 'text-[var(--color-text-primary)] hover:text-[var(--color-text-secondary)]'
                                             }
                                         `}
                                         style={
@@ -480,3 +418,4 @@ export const Header = React.forwardRef<HTMLElement, HeaderProps>(
 );
 
 Header.displayName = 'Header';
+

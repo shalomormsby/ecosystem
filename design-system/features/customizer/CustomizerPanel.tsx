@@ -4,13 +4,13 @@ import { useCustomizer } from './store';
 import { useThemeStore } from '../../store/theme';
 
 export interface CustomizerPanelProps {
-  /**
-   * Mode of the customizer:
-   * - "full": Shows all controls (theme, mode, motion, x-ray)
-   * - "lightweight": Shows only light/dark mode toggle
-   * @default "full"
-   */
-  mode?: 'full' | 'lightweight';
+    /**
+     * Mode of the customizer:
+     * - "full": Shows all controls (theme, mode, motion, x-ray)
+     * - "lightweight": Shows only light/dark mode toggle
+     * @default "full"
+     */
+    mode?: 'full' | 'lightweight';
 }
 
 export const CustomizerPanel = ({ mode = 'full' }: CustomizerPanelProps) => {
@@ -40,7 +40,13 @@ export const CustomizerPanel = ({ mode = 'full' }: CustomizerPanelProps) => {
 
     return (
         <div
-            className={`fixed bottom-4 right-4 bg-background p-6 rounded-2xl shadow-2xl border border-[var(--color-glass-border)] z-50 text-foreground ${mode === 'lightweight' ? 'w-64' : 'w-80'}`}
+            className={`
+                fixed bottom-4 right-4 z-50 
+                bg-background p-6 rounded-2xl shadow-2xl border border-[var(--color-glass-border)] 
+                text-foreground
+                left-4 sm:left-auto
+                w-auto sm:w-80
+            `}
             style={{
                 boxShadow: 'var(--effect-shadow-xl)',
                 backdropFilter: 'var(--effect-blur-md)',
@@ -115,15 +121,15 @@ export const CustomizerPanel = ({ mode = 'full' }: CustomizerPanelProps) => {
                             <div>
                                 <span className="font-heading">Heading:</span> {
                                     theme === 'studio' ? 'Outfit' :
-                                    theme === 'sage' ? 'Lora' :
-                                    'Space Grotesk'
+                                        theme === 'sage' ? 'Lora' :
+                                            'Space Grotesk'
                                 }
                             </div>
                             <div>
                                 <span className="font-body">Body:</span> {
                                     theme === 'studio' ? 'Manrope' :
-                                    theme === 'sage' ? 'Instrument Sans' :
-                                    'Space Grotesk'
+                                        theme === 'sage' ? 'Instrument Sans' :
+                                            'Space Grotesk'
                                 }
                             </div>
                         </div>

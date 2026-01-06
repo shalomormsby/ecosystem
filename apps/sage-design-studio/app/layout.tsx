@@ -16,7 +16,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={allFontVariables}>
-      <body>
+      <body className="overflow-x-hidden">
         <ThemeProvider>
           <ToastProvider position="bottom-right">
             {children}
