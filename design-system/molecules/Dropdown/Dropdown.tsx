@@ -164,7 +164,8 @@ export const Dropdown: React.FC<DropdownProps> = ({
           className={`
             absolute top-full mt-2 ${alignClasses[align]}
             min-w-[200px]
-            bg-[var(--color-surface)]
+            bg-[var(--color-background)]/80
+            backdrop-blur-md
             border border-[var(--color-border)]
             rounded-lg
             shadow-lg
@@ -199,10 +200,9 @@ export const Dropdown: React.FC<DropdownProps> = ({
                 className={`
                   w-full flex items-center gap-3 px-4 py-2 text-sm
                   text-left transition-colors
-                  ${
-                    item.disabled
-                      ? 'opacity-50 cursor-not-allowed'
-                      : `
+                  ${item.disabled
+                    ? 'opacity-50 cursor-not-allowed'
+                    : `
                         text-[var(--color-text-primary)]
                         hover:bg-[var(--color-hover)]
                         ${isFocused ? 'bg-[var(--color-hover)]' : ''}

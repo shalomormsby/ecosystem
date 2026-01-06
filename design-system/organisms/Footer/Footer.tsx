@@ -75,7 +75,7 @@ export const Footer = React.forwardRef<HTMLElement, FooterProps>(
                 ref={ref}
                 className={`
                     border-t border-[var(--color-border)]
-                    bg-[var(--color-surface)]
+                    bg-[var(--color-background)]
                     ${className}
                 `}
             >
