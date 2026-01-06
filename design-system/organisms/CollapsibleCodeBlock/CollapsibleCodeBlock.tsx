@@ -146,7 +146,7 @@ export function CollapsibleCodeBlock({
   }, [tokens]);
 
   return (
-    <div className={className}>
+    <div className={`w-full min-w-0 ${className}`}>
       {/* Title */}
       {title && (
         <h3 className="text-lg font-semibold mb-3 text-[var(--color-text-primary)]">
@@ -226,7 +226,7 @@ export function CollapsibleCodeBlock({
           transition: 'max-height 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)',
         }}
       >
-        <pre className="text-sm font-mono overflow-x-auto">
+        <pre className="text-sm font-mono overflow-x-auto max-w-full">
           <code>{renderCode(tokens)}</code>
         </pre>
       </div>

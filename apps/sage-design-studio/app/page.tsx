@@ -238,108 +238,106 @@ export default function StudioPage() {
   return (
     <div className="min-h-screen bg-[var(--color-background)] flex">
       {/* Sidebar + Content Layout */}
-      <div className="flex flex-1">
-        <NavigationSidebar
-          activeSection={activeSection}
-          activeItemId={activeItemId}
-          onNavigate={(section, itemId) => {
-            setActiveSection(section as Section);
-            setActiveItemId(itemId || section);
-            setSidebarOpen(false); // Close sidebar on mobile after navigation
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-          }}
-          onSearchOpen={() => setSearchOpen(true)}
-          isOpen={sidebarOpen}
-          onToggle={() => setSidebarOpen(!sidebarOpen)}
-        />
+      <NavigationSidebar
+        activeSection={activeSection}
+        activeItemId={activeItemId}
+        onNavigate={(section, itemId) => {
+          setActiveSection(section as Section);
+          setActiveItemId(itemId || section);
+          setSidebarOpen(false); // Close sidebar on mobile after navigation
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }}
+        onSearchOpen={() => setSearchOpen(true)}
+        isOpen={sidebarOpen}
+        onToggle={() => setSidebarOpen(!sidebarOpen)}
+      />
 
-        {/* Main Content */}
-        <main className="flex-1 min-h-screen flex lg:ml-[280px]">
-          {/* Mobile Menu Button - Floating */}
-          <button
-            onClick={() => setSidebarOpen(!sidebarOpen)}
-            className="lg:hidden fixed top-4 left-4 z-30 p-2 text-[var(--color-text-primary)] bg-[var(--color-surface)] hover:bg-[var(--color-hover)] border border-[var(--color-border)] rounded-lg transition-colors shadow-lg"
-            aria-label="Toggle sidebar"
+      {/* Main Content */}
+      <main className="flex-1 min-h-screen flex flex-col lg:ml-[280px] min-w-0 w-full max-w-[100vw] overflow-x-hidden">
+        {/* Mobile Menu Button - Floating */}
+        <button
+          onClick={() => setSidebarOpen(!sidebarOpen)}
+          className="lg:hidden fixed top-4 left-4 z-30 p-2 text-[var(--color-text-primary)] bg-[var(--color-surface)] hover:bg-[var(--color-hover)] border border-[var(--color-border)] rounded-lg transition-colors shadow-lg"
+          aria-label="Toggle sidebar"
+        >
+          <svg
+            className="w-5 h-5"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
           >
-            <svg
-              className="w-5 h-5"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M4 6h16M4 12h16M4 18h16"
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M4 6h16M4 12h16M4 18h16"
+            />
+          </svg>
+        </button>
+
+        {/* Content Area */}
+        <div className="flex-1 flex flex-row min-w-0 w-full">
+          <div className="flex-1 px-4 sm:px-6 lg:px-8 py-8 w-full max-w-7xl mx-auto min-w-0">
+            {activeSection === 'overview' && <OverviewSection />}
+            {activeSection === 'architecture' && <ArchitectureSection breadcrumbs={breadcrumbs} />}
+            {activeSection === 'adding-components' && <AddingComponentsSection breadcrumbs={breadcrumbs} />}
+            {activeSection === 'common-patterns' && <CommonPatternsSection breadcrumbs={breadcrumbs} />}
+            {activeSection === 'contributing' && <ContributingSection breadcrumbs={breadcrumbs} />}
+            {activeSection === 'tokens' && (
+              <TokensSection
+                activeItemId={activeItemId}
+                breadcrumbs={breadcrumbs}
+                onItemChange={(itemId) => setActiveItemId(itemId)}
               />
-            </svg>
-          </button>
-
-          {/* Content Area */}
-          <div className="flex-1 flex">
-            <div className="flex-1 px-4 sm:px-6 lg:px-8 py-8 max-w-7xl">
-              {activeSection === 'overview' && <OverviewSection />}
-              {activeSection === 'architecture' && <ArchitectureSection breadcrumbs={breadcrumbs} />}
-              {activeSection === 'adding-components' && <AddingComponentsSection breadcrumbs={breadcrumbs} />}
-              {activeSection === 'common-patterns' && <CommonPatternsSection breadcrumbs={breadcrumbs} />}
-              {activeSection === 'contributing' && <ContributingSection breadcrumbs={breadcrumbs} />}
-              {activeSection === 'tokens' && (
-                <TokensSection
-                  activeItemId={activeItemId}
-                  breadcrumbs={breadcrumbs}
-                  onItemChange={(itemId) => setActiveItemId(itemId)}
-                />
-              )}
-              {activeSection === 'atoms' && (
-                <ComponentsSection
-                  activeItemId={activeItemId}
-                  breadcrumbs={breadcrumbs}
-                  onItemChange={(itemId) => setActiveItemId(itemId)}
-                />
-              )}
-              {activeSection === 'molecules' && (
-                <MoleculesSection
-                  activeItemId={activeItemId}
-                  breadcrumbs={breadcrumbs}
-                  onItemChange={(itemId) => setActiveItemId(itemId)}
-                />
-              )}
-              {activeSection === 'organisms' && (
-                <OrganismsSection
-                  activeItemId={activeItemId}
-                  breadcrumbs={breadcrumbs}
-                  onItemChange={(itemId) => setActiveItemId(itemId)}
-                />
-              )}
-              {activeSection === 'hooks' && (
-                <HooksSection
-                  activeItemId={activeItemId}
-                  breadcrumbs={breadcrumbs}
-                  onItemChange={(itemId) => setActiveItemId(itemId)}
-                />
-              )}
-              {activeSection === 'templates' && (
-                <TemplatesSection
-                  activeItemId={activeItemId}
-                  breadcrumbs={breadcrumbs}
-                  onItemChange={(itemId) => setActiveItemId(itemId)}
-                />
-              )}
-              {activeSection === 'motion' && (
-                <MotionSections
-                  activeItemId={activeItemId}
-                  breadcrumbs={breadcrumbs}
-                  onItemChange={(itemId) => setActiveItemId(itemId)}
-                />
-              )}
-            </div>
-
-            {/* Table of Contents */}
-            <TableOfContents />
+            )}
+            {activeSection === 'atoms' && (
+              <ComponentsSection
+                activeItemId={activeItemId}
+                breadcrumbs={breadcrumbs}
+                onItemChange={(itemId) => setActiveItemId(itemId)}
+              />
+            )}
+            {activeSection === 'molecules' && (
+              <MoleculesSection
+                activeItemId={activeItemId}
+                breadcrumbs={breadcrumbs}
+                onItemChange={(itemId) => setActiveItemId(itemId)}
+              />
+            )}
+            {activeSection === 'organisms' && (
+              <OrganismsSection
+                activeItemId={activeItemId}
+                breadcrumbs={breadcrumbs}
+                onItemChange={(itemId) => setActiveItemId(itemId)}
+              />
+            )}
+            {activeSection === 'hooks' && (
+              <HooksSection
+                activeItemId={activeItemId}
+                breadcrumbs={breadcrumbs}
+                onItemChange={(itemId) => setActiveItemId(itemId)}
+              />
+            )}
+            {activeSection === 'templates' && (
+              <TemplatesSection
+                activeItemId={activeItemId}
+                breadcrumbs={breadcrumbs}
+                onItemChange={(itemId) => setActiveItemId(itemId)}
+              />
+            )}
+            {activeSection === 'motion' && (
+              <MotionSections
+                activeItemId={activeItemId}
+                breadcrumbs={breadcrumbs}
+                onItemChange={(itemId) => setActiveItemId(itemId)}
+              />
+            )}
           </div>
-        </main>
-      </div>
+
+          {/* Table of Contents - Hidden on mobile */}
+          <TableOfContents />
+        </div>
+      </main>
 
       <ModeSwitcher />
 
