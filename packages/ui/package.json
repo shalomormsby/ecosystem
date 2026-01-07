@@ -1,0 +1,38 @@
+{
+    "name": "@sds/ui",
+    "version": "0.0.1",
+    "main": "dist/index.js",
+    "module": "dist/index.mjs",
+    "types": "dist/index.d.ts",
+    "sideEffects": false,
+    "license": "MIT",
+    "scripts": {
+        "build": "tsup src/index.ts --format esm,cjs --dts",
+        "dev": "tsup src/index.ts --format esm,cjs --dts --watch",
+        "lint": "eslint src/"
+    },
+    "peerDependencies": {
+        "react": "*",
+        "react-native": "*"
+    },
+    "dependencies": {
+        "@rn-primitives/slot": "^1.1.0",
+        "@rn-primitives/types": "^1.1.0",
+        "class-variance-authority": "^0.7.0",
+        "clsx": "^2.1.0",
+        "lucide-react-native": "^0.562.0",
+        "nativewind": "^4.0.1",
+        "react-native-reanimated": "^3.6.0",
+        "react-native-web": "^0.19.10",
+        "tailwind-merge": "^2.2.0"
+    },
+    "devDependencies": {
+        "@sds/config": "workspace:*",
+        "@sds/tokens": "workspace:*",
+        "@types/react": "^19.0.0",
+        "@types/react-native": "^0.73.0",
+        "tailwindcss": "^3.4.0",
+        "tsup": "^8.0.0",
+        "typescript": "^5.0.0"
+    }
+}

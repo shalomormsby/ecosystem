@@ -68,23 +68,23 @@ To ensure shipping velocity, we explicitly de-scope the following:
 
 ### Phase 1: The Foundation (Tokens)
 **Goal:** Establish `@sds/tokens` as the single source of truth without breaking the current Studio.
-- [ ] Create `packages/tokens` and move generic token logic there.
-- [ ] Create `packages/config` with a shared Tailwind config.
-- [ ] Update `design-system` (Web) to import from `packages/tokens`.
-- **Exit Criteria:** The existing Sage Design Studio builds successfully, but consumes tokens from the new package.
+- [x] Create `packages/tokens` and move generic token logic there.
+- [x] Create `packages/config` with a shared Tailwind config.
+- [x] Update `design-system` (Web) to import from `packages/tokens`.
+- **Exit Criteria:** The existing Sage Design Studio builds successfully, but consumes tokens from the new package. ✅
 - **Rollback Plan:** Revert `package.json` imports in `design-system` to local files if the build fails.
 
 ### Phase 2: The Universal Atom
 **Goal:** Prove the "Universal Component" concept with ONE component.
-- [ ] Initialize `packages/ui` with `nativewind` and `rn-primitives`.
-- [ ] Implement `Button.tsx` in `@sds/ui` using the shared tokens.
-- **Exit Criteria:** `@sds/ui/Button` renders correctly on a **Web** test page within the Studio.
+- [x] Initialize `packages/ui` with `nativewind` and `rn-primitives`.
+- [x] Implement `Button.tsx` in `@sds/ui` using the shared tokens.
+- **Exit Criteria:** `@sds/ui/Button` renders correctly on a **Web** test page within the Studio. ✅
 
 ### Phase 3: The Mobile Entry
 **Goal:** Boot up the iOS environment.
-- [ ] Initialize `apps/mobile` (Expo).
-- [ ] Configure to consume `@sds/ui` and `@sds/tokens`.
-- **Exit Criteria:** `apps/mobile` runs in an iOS Simulator and displays the Universal Button.
+- [x] Initialize `apps/mobile` (Expo).
+- [x] Configure to consume `@sds/ui` and `@sds/tokens`.
+- **Exit Criteria:** `apps/mobile` runs in an iOS Simulator and displays the Universal Button. (Configured ✅ - Ready for local simulator launch)
 
 ### Phase 4: Workflow Validation (Solito)
 **Goal:** Prove screen sharing across platforms.

@@ -7,6 +7,35 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.1.0] - 2026-01-07
+
+### Added - SDS Cross-Platform Architecture (Phase 1)
+- **New Monorepo Strategy (The "Sage Stack")**
+  - **`@sds/tokens`**: New dedicated workspace for universal design tokens. Extracted from `design-system` to serve as the single source of truth for Web and Mobile.
+  - **`@sds/config`**: New shared configuration workspace (Tailwind, etc.).
+  - **`SDS_MASTER_PLAN.md`**: Comprehensive roadmap and migration strategy documentation.
+
+### Changed
+- **`design-system` Refactor**:
+  - Now consumes tokens from `@sds/tokens` instead of local files.
+  - Removed legacy token files (`base.ts`, `colors.json`, etc.) to enforce the new architecture.
+  - Updated `package.json` to use workspace protocol: `"@sds/tokens": "workspace:*"`.
+
+### Added - Universal UI (Phase 2)
+- **`@sds/ui` Workspace**:
+  - Initialized with `nativewind` v4, `react-native-web`, and `@rn-primitives`.
+  - Configured tailwind preset to consume `@sds/tokens`.
+  - **Universal Button**: Created first cross-platform component (`src/components/Button.tsx`) using `Pressable` and `Slot` pattern.
+  - **Universal Test Page**: Added `/universal` route in Sage Design Studio to verify the button.
+
+### Added - Mobile Entry (Phase 3)
+- **`apps/mobile`**:
+  - Initialized Expo (Managed) project with TypeScript.
+  - Configured **Metro** for monorepo resolution (handling workspace packages).
+  - Configured **NativeWind v4** with `babel` and `tailwind.config.js`.
+  - Consumes `@sds/ui` and `@sds/tokens` directly.
+  - Added Universal Button demo to `App.tsx`.
+
 ## [2.0.1] - 2026-01-05
 
 ### Changed
