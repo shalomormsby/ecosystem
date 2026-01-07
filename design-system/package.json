@@ -39,6 +39,7 @@
     "dependencies": {
         "framer-motion": "^11.0.0 || ^12.0.0",
         "lucide-react": "^0.562.0",
-        "zustand": "^5.0.9"
+        "zustand": "^5.0.9",
+        "@sds/tokens": "workspace:*"
     }
 }

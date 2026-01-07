@@ -7,10 +7,10 @@
 
 import { useEffect, useState } from 'react';
 import { useThemeStore } from '../store/theme';
-import { studioTokens } from '../tokens/studio';
-import { sageTokens } from '../tokens/sage';
-import { voltTokens } from '../tokens/volt';
-import { syntaxColors, codeColors } from '../tokens/syntax';
+import { studioTokens } from '../tokens';
+import { sageTokens } from '../tokens';
+import { voltTokens } from '../tokens';
+import { syntaxColors, codeColors } from '../tokens';
 import type { ThemeName, ColorMode } from '../store/theme';
 
 // Theme token map
