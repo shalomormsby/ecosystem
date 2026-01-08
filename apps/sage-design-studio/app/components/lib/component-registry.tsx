@@ -1,5 +1,5 @@
-import { Card, Code, Link, Badge, Avatar, Spinner, ProgressBar } from '@ecosystem/design-system';
-import { Button } from '@sds/ui';
+import { Code, Link, Avatar, Spinner, ProgressBar } from '@ecosystem/design-system';
+import { Button, Card, Badge, Switch, Checkbox, Select, SelectContent, SelectItem, SelectTrigger, SelectValue, Separator, ScrollArea } from '@sds/ui';
 
 export interface PropConfig {
   type: 'select' | 'boolean' | 'text' | 'array' | 'object' | 'interface' | 'custom';
@@ -202,8 +202,14 @@ import { CheckIcon, ArrowRightIcon } from 'your-icon-library';
 
   Card: {
     component: Card,
-    description: 'Container component with glass-morphism styling and optional hover effects. Uses theme-aware borders and shadows. Perfect for grouping related content.',
+    description: 'Container component with standard and glass-morphism styling. Migrated to @sds/ui.',
     props: {
+      variant: {
+        type: 'select',
+        options: ['default', 'glass', 'outline'] as const,
+        default: 'default',
+        description: 'Visual style variant',
+      },
       hoverEffect: {
         type: 'boolean',
         default: true,
@@ -212,22 +218,27 @@ import { CheckIcon, ArrowRightIcon } from 'your-icon-library';
     },
     examples: [
       {
-        label: 'With Hover',
-        props: { hoverEffect: true },
-        children: 'Hover over me to see the lift effect',
+        label: 'Default',
+        props: { variant: 'default', hoverEffect: true },
+        children: 'Standard Card',
       },
       {
-        label: 'Without Hover',
-        props: { hoverEffect: false },
-        children: 'Static card without hover effects',
+        label: 'Glass',
+        props: { variant: 'glass', hoverEffect: true },
+        children: 'Glass Effect Card',
+      },
+      {
+        label: 'Outline',
+        props: { variant: 'outline', hoverEffect: false },
+        children: 'Outline Card',
       },
       {
         label: 'With Content',
-        props: { hoverEffect: true },
+        props: { variant: 'default', hoverEffect: true },
         children: (
-          <div>
-            <h3 style={{ marginBottom: '8px', fontWeight: '600' }}>Card Title</h3>
-            <p style={{ color: 'var(--color-text-secondary)' }}>Card description with multiple lines of text content.</p>
+          <div className="p-4">
+            <h3 className="font-bold mb-2">Card Title</h3>
+            <p className="text-sm text-gray-500">Card description goes here.</p>
           </div>
         ),
       },
@@ -235,7 +246,7 @@ import { CheckIcon, ArrowRightIcon } from 'your-icon-library';
     codeExamples: [
       {
         title: 'Basic Usage',
-        code: `import { Card } from '@ecosystem/design-system';
+        code: `import { Card } from '@sds/ui';
 
 <Card>
   <p>Your content goes here</p>
@@ -243,14 +254,14 @@ import { CheckIcon, ArrowRightIcon } from 'your-icon-library';
         description: 'Simple card container with default hover effects',
       },
       {
-        title: 'Content Card',
-        code: `<Card className="p-6">
-  <h3 className="text-lg font-semibold mb-2">Feature Title</h3>
-  <p className="text-[var(--color-text-secondary)]">
-    Description of your feature or content that explains what this card represents.
+        title: 'Glass Variant',
+        code: `<Card variant="glass" className="p-6">
+  <h3 className="text-lg font-semibold mb-2">Glass Card</h3>
+  <p className="text-muted-foreground">
+    This card uses backdrop-blur and semi-transparent background.
   </p>
 </Card>`,
-        description: 'Card with structured content and custom padding',
+        description: 'Using the glass variant for premium visuals',
       },
       {
         title: 'Interactive Card Grid',
@@ -263,7 +274,7 @@ import { CheckIcon, ArrowRightIcon } from 'your-icon-library';
       onClick={() => handleFeatureClick(feature.id)}
     >
       <h3 className="font-semibold mb-2">{feature.title}</h3>
-      <p className="text-sm text-[var(--color-text-secondary)]">
+      <p className="text-sm text-muted-foreground">
         {feature.description}
       </p>
     </Card>
@@ -272,19 +283,18 @@ import { CheckIcon, ArrowRightIcon } from 'your-icon-library';
         description: 'Grid of interactive cards with click handlers',
       },
       {
-        title: 'Static Information Card',
-        code: `<Card hoverEffect={false} className="p-6 bg-[var(--color-surface)]">
-  <div className="flex items-start gap-4">
-    <InfoIcon className="text-[var(--color-primary)]" />
-    <div>
-      <h4 className="font-medium mb-1">Important Notice</h4>
-      <p className="text-sm text-[var(--color-text-secondary)]">
-        This is a static card for displaying information without interaction.
-      </p>
-    </div>
-  </div>
+        title: 'Structured Content',
+        code: `import { Card, CardHeader, CardTitle, CardContent } from '@sds/ui';
+
+<Card>
+  <CardHeader>
+    <CardTitle>Notifications</CardTitle>
+  </CardHeader>
+  <CardContent>
+    You have 3 unread messages.
+  </CardContent>
 </Card>`,
-        description: 'Static card without hover effects for non-interactive content',
+        description: 'Using subcomponents for structured layout',
       },
     ],
     sourceUrl: 'https://github.com/shalom-ormsby/ecosystem/blob/main/design-system/atoms/Card/Card.tsx',
@@ -460,11 +470,11 @@ console.log(greeting);\`)}
 
   Badge: {
     component: Badge,
-    description: 'A small label for displaying status, counts, or categorization with semantic color variants.',
+    description: 'A small label for displaying status, counts, or categorization. Migrated to @sds/ui.',
     props: {
       variant: {
         type: 'select',
-        options: ['default', 'primary', 'success', 'warning', 'error', 'info'] as const,
+        options: ['default', 'secondary', 'destructive', 'outline', 'success', 'warning', 'error', 'info'] as const,
         default: 'default',
         description: 'Visual variant of the badge',
       },
@@ -482,17 +492,18 @@ console.log(greeting);\`)}
     },
     examples: [
       { label: 'Default', props: { variant: 'default', size: 'md' }, children: 'Default' },
-      { label: 'Primary', props: { variant: 'primary', size: 'md' }, children: 'Primary' },
-      { label: 'Success', props: { variant: 'success', size: 'md' }, children: 'Active' },
-      { label: 'Warning', props: { variant: 'warning', size: 'md' }, children: 'Pending' },
-      { label: 'Error', props: { variant: 'error', size: 'md' }, children: 'Failed' },
+      { label: 'Secondary', props: { variant: 'secondary', size: 'md' }, children: 'Secondary' },
+      { label: 'Destructive', props: { variant: 'destructive', size: 'md' }, children: 'Destructive' },
+      { label: 'Outline', props: { variant: 'outline', size: 'md' }, children: 'Outline' },
+      { label: 'Success', props: { variant: 'success', size: 'md' }, children: 'Success' },
+      { label: 'Warning', props: { variant: 'warning', size: 'md' }, children: 'Warning' },
+      { label: 'Error', props: { variant: 'error', size: 'md' }, children: 'Error' },
       { label: 'With Dot', props: { variant: 'success', size: 'md', dot: true }, children: 'Live' },
-      { label: 'Small Count', props: { variant: 'primary', size: 'sm' }, children: '99+' },
     ],
     codeExamples: [
       {
         title: 'Status Badges',
-        code: `import { Badge } from '@ecosystem/design-system';
+        code: `import { Badge } from '@sds/ui';
 
 <div className="flex gap-2">
   <Badge variant="success">Active</Badge>
@@ -506,12 +517,12 @@ console.log(greeting);\`)}
         title: 'Notification Counts',
         code: `<div className="flex items-center gap-2">
   <span>Inbox</span>
-  <Badge variant="primary" size="sm">99+</Badge>
+  <Badge variant="default" size="sm">99+</Badge>
 </div>
 
 <div className="flex items-center gap-2">
   <span>Notifications</span>
-  <Badge variant="error" size="sm">3</Badge>
+  <Badge variant="destructive" size="sm">3</Badge>
 </div>`,
         description: 'Badge for displaying notification or message counts',
       },
@@ -526,7 +537,7 @@ console.log(greeting);\`)}
         title: 'Category Tags',
         code: `<div className="flex flex-wrap gap-2">
   {['React', 'TypeScript', 'TailwindCSS'].map((tag) => (
-    <Badge key={tag} variant="default">
+    <Badge key={tag} variant="secondary">
       {tag}
     </Badge>
   ))}
@@ -534,7 +545,7 @@ console.log(greeting);\`)}
         description: 'Using badges as category or technology tags',
       },
     ],
-    sourceUrl: 'https://github.com/shalom-ormsby/ecosystem/blob/main/design-system/atoms/Badge/Badge.tsx',
+    sourceUrl: 'https://github.com/shalom-ormsby/ecosystem/blob/main/packages/ui/src/components/Badge.tsx',
   },
 
   Avatar: {
@@ -778,4 +789,181 @@ useEffect(() => {
     ],
     sourceUrl: 'https://github.com/shalom-ormsby/ecosystem/blob/main/design-system/atoms/ProgressBar/ProgressBar.tsx',
   },
+
+  Switch: {
+    component: Switch,
+    description: 'A control that allows the user to toggle between checked and not checked. Built on Radix UI.',
+    props: {
+      disabled: { type: 'boolean', default: false, description: 'When true, prevents interaction' },
+    },
+    examples: [
+      { label: 'Default', props: {}, children: null },
+      { label: 'Disabled', props: { disabled: true }, children: null },
+    ],
+    codeExamples: [
+      {
+        title: 'Airplane Mode',
+        code: `import { Switch, Label } from '@sds/ui';
+
+<div className="flex items-center space-x-2">
+  <Switch id="airplane-mode" />
+  <Label htmlFor="airplane-mode">Airplane Mode</Label>
+</div>`,
+        description: 'Switch with a label'
+      }
+    ],
+    sourceUrl: 'https://github.com/shalom-ormsby/ecosystem/blob/main/packages/ui/src/components/Switch.tsx',
+  },
+
+  Checkbox: {
+    component: Checkbox,
+    description: 'A control that allows the user to toggle between checked and not checked. Built on Radix UI.',
+    props: {
+      disabled: { type: 'boolean', default: false, description: 'When true, prevents interaction' },
+    },
+    examples: [
+      { label: 'Default', props: {}, children: null },
+      { label: 'Disabled', props: { disabled: true }, children: null },
+    ],
+    codeExamples: [
+      {
+        title: 'Terms and Conditions',
+        code: `import { Checkbox, Label } from '@sds/ui';
+
+<div className="flex items-center space-x-2">
+  <Checkbox id="terms" />
+  <Label htmlFor="terms">Accept terms and conditions</Label>
+</div>`,
+        description: 'Checkbox with a label'
+      }
+    ],
+    sourceUrl: 'https://github.com/shalom-ormsby/ecosystem/blob/main/packages/ui/src/components/Checkbox.tsx',
+  },
+
+  Select: {
+    component: Select,
+    description: 'Displays a list of options for the user to pick from—triggered by a button.',
+    props: {},
+    examples: [
+      {
+        label: 'Theme Params',
+        props: {},
+        children: (
+          <>
+            <SelectTrigger className="w-[180px]">
+              <SelectValue placeholder="Theme" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="light">Light</SelectItem>
+              <SelectItem value="dark">Dark</SelectItem>
+              <SelectItem value="system">System</SelectItem>
+            </SelectContent>
+          </>
+        )
+      }
+    ],
+    codeExamples: [
+      {
+        title: 'Basic Usage',
+        code: `import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@sds/ui';
+
+<Select>
+  <SelectTrigger className="w-[180px]">
+    <SelectValue placeholder="Theme" />
+  </SelectTrigger>
+  <SelectContent>
+    <SelectItem value="light">Light</SelectItem>
+    <SelectItem value="dark">Dark</SelectItem>
+    <SelectItem value="system">System</SelectItem>
+  </SelectContent>
+</Select>`,
+        description: 'Basic select dropdown'
+      }
+    ],
+    sourceUrl: 'https://github.com/shalom-ormsby/ecosystem/blob/main/packages/ui/src/components/Select.tsx',
+  },
+
+  Separator: {
+    component: Separator,
+    description: 'Visually or semantically separates content.',
+    props: {
+      orientation: {
+        type: 'select',
+        options: ['horizontal', 'vertical'] as const,
+        default: 'horizontal',
+        description: 'Orientation of the separator'
+      }
+    },
+    examples: [
+      {
+        label: 'Horizontal',
+        props: { orientation: 'horizontal' },
+        children: (
+          <div className="w-full">
+            <div className="space-y-1">
+              <h4 className="text-sm font-medium leading-none">Radix Primitives</h4>
+              <p className="text-sm text-muted-foreground">
+                An open-source UI component library.
+              </p>
+            </div>
+            <Separator className="my-4" />
+            <div className="flex h-5 items-center space-x-4 text-sm">
+              <div>Blog</div>
+              <Separator orientation="vertical" />
+              <div>Docs</div>
+              <Separator orientation="vertical" />
+              <div>Source</div>
+            </div>
+          </div>
+        )
+      }
+    ],
+    codeExamples: [
+      {
+        title: 'Usage',
+        code: `import { Separator } from '@sds/ui';
+
+<div>
+  <Separator orientation="vertical" />
+</div>`,
+        description: 'Basic usage'
+      }
+    ],
+    sourceUrl: 'https://github.com/shalom-ormsby/ecosystem/blob/main/packages/ui/src/components/Separator.tsx',
+  },
+
+  ScrollArea: {
+    component: ScrollArea,
+    description: 'Augments native scroll functionality for custom, cross-browser styling.',
+    props: {},
+    examples: [
+      {
+        label: 'Default',
+        props: {},
+        children: (
+          <ScrollArea className="h-[200px] w-[350px] rounded-md border p-4">
+            Jokester began sneaking into the castle in the middle of the night and leaving
+            jokes all over the place: under the king's pillow, in his soup, even in the
+            royal toilet. The king was furious, but he couldn't seem to stop Jokester. And
+            then, one day, the people of the kingdom discovered the jokes. They laughed.
+            They laughed so hard they cried. And then they realized that the king wasn't
+            funny. He was actually quite boring. So, they decided to make Jokester the new
+            king.
+          </ScrollArea>
+        )
+      }
+    ],
+    codeExamples: [
+      {
+        title: 'Usage',
+        code: `import { ScrollArea } from '@sds/ui';
+
+<ScrollArea className="h-[200px] w-[350px] rounded-md border p-4">
+  Content...
+</ScrollArea>`,
+        description: 'Scrollable area with custom scrollbar'
+      }
+    ],
+    sourceUrl: 'https://github.com/shalom-ormsby/ecosystem/blob/main/packages/ui/src/components/ScrollArea.tsx',
+  }
 };

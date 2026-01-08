@@ -1,6 +1,26 @@
 'use client';
 
-import { Button, Input, Label } from '@sds/ui';
+import {
+    Button,
+    Input,
+    Label,
+    Card,
+    CardHeader,
+    CardTitle,
+    CardDescription,
+    CardContent,
+    CardFooter,
+    Badge,
+    Switch,
+    Checkbox,
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+    Separator,
+    ScrollArea,
+} from '@sds/ui';
 
 export default function UniversalPage() {
     return (
@@ -8,10 +28,109 @@ export default function UniversalPage() {
             <h1 className="text-2xl font-bold mb-4">Universal Component Test (Phase 2 - Web Only)</h1>
 
             <div className="space-y-4">
+                <h2 className="text-lg font-semibold">Cards</h2>
+                <div className="grid grid-cols-2 gap-4">
+                    {/* Default Card */}
+                    <Card>
+                        <CardHeader>
+                            <CardTitle>Welcome to SDS</CardTitle>
+                            <CardDescription>A web-first component library.</CardDescription>
+                        </CardHeader>
+                        <CardContent>
+                            <p>This is a standard card component migrated to @sds/ui. It supports all the nice things like hover effects and proper theming.</p>
+                        </CardContent>
+                        <CardFooter>
+                            <Button>Get Started</Button>
+                        </CardFooter>
+                    </Card>
+
+                    {/* Glass Card */}
+                    <Card variant="glass">
+                        <CardHeader>
+                            <CardTitle>Glassmorphism</CardTitle>
+                            <CardDescription>Premium visual effects.</CardDescription>
+                        </CardHeader>
+                        <CardContent>
+                            <p>This card uses the "glass" variant which applies a backdrop blur and semi-transparent background.</p>
+                        </CardContent>
+                        <CardFooter>
+                            <Button variant="outline">Learn More</Button>
+                        </CardFooter>
+                    </Card>
+                </div>
+            </div>
+
+            <div className="space-y-4">
+                <h2 className="text-lg font-semibold">Form Controls</h2>
+                <div className="flex flex-col gap-4">
+                    <div className="flex items-center space-x-2">
+                        <Switch id="airplane-mode" />
+                        <Label htmlFor="airplane-mode">Airplane Mode</Label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                        <Checkbox id="terms" />
+                        <Label htmlFor="terms">Accept terms and conditions</Label>
+                    </div>
+                    <div className="w-[180px]">
+                        <Select>
+                            <SelectTrigger>
+                                <SelectValue placeholder="Theme" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectItem value="light">Light</SelectItem>
+                                <SelectItem value="dark">Dark</SelectItem>
+                                <SelectItem value="system">System</SelectItem>
+                            </SelectContent>
+                        </Select>
+                    </div>
+                </div>
+            </div>
+
+            <div className="space-y-4">
+                <h2 className="text-lg font-semibold">Scroll Area & Separator</h2>
+                <div className="border rounded-md p-4 max-w-sm">
+                    <div className="space-y-1">
+                        <h4 className="text-sm font-medium leading-none">Radix Primitives</h4>
+                        <p className="text-sm text-gray-500">
+                            An open-source UI component library.
+                        </p>
+                    </div>
+                    <Separator className="my-4" />
+                    <ScrollArea className="h-24 w-full rounded-md border p-4">
+                        <div className="space-y-2">
+                            <p>Item 1</p>
+                            <Separator />
+                            <p>Item 2</p>
+                            <Separator />
+                            <p>Item 3</p>
+                            <Separator />
+                            <p>Item 4</p>
+                            <Separator />
+                            <p>Item 5 (Scroll to see me)</p>
+                        </div>
+                    </ScrollArea>
+                </div>
+            </div>
+
+            <div className="space-y-4">
                 <h2 className="text-lg font-semibold">Inputs & Labels</h2>
                 <div className="grid w-full max-w-sm items-center gap-1.5">
                     <Label htmlFor="email">Email</Label>
                     <Input type="email" id="email" placeholder="Email" />
+                </div>
+            </div>
+
+            <div className="space-y-4">
+                <h2 className="text-lg font-semibold">Badges</h2>
+                <div className="flex gap-4 items-center flex-wrap">
+                    <Badge variant="default">Default</Badge>
+                    <Badge variant="secondary">Secondary</Badge>
+                    <Badge variant="destructive">Destructive</Badge>
+                    <Badge variant="outline">Outline</Badge>
+                    <Badge variant="success">Success</Badge>
+                    <Badge variant="warning">Warning</Badge>
+                    <Badge variant="error" dot>Error + Dot</Badge>
+                    <Badge variant="info" size="sm">Info Small</Badge>
                 </div>
             </div>
 
@@ -42,18 +161,6 @@ export default function UniversalPage() {
                     <Button size="sm">Small</Button>
                     <Button size="default">Default</Button>
                     <Button size="lg">Large</Button>
-                </div>
-            </div>
-
-            <div className="space-y-4">
-                <h2 className="text-lg font-semibold">Debug Probe (Standard HTML)</h2>
-                <div className="flex gap-4">
-                    <button className="bg-red-500 text-white p-4 rounded hover:bg-red-700">
-                        Tailwind HTML Button
-                    </button>
-                    <div className="bg-blue-500 text-white p-4 rounded">
-                        Tailwind Div
-                    </div>
                 </div>
             </div>
         </div>
