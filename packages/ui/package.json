@@ -12,27 +12,20 @@
         "lint": "eslint src/"
     },
     "peerDependencies": {
-        "react": "*",
-        "react-native": "*"
+        "react": "*"
     },
     "dependencies": {
-        "@rn-primitives/slot": "^1.1.0",
-        "@rn-primitives/types": "^1.1.0",
+        "@radix-ui/react-label": "^2.1.8",
+        "@radix-ui/react-slot": "^1.2.4",
         "class-variance-authority": "^0.7.0",
         "clsx": "^2.1.0",
-        "lucide-react-native": "^0.562.0",
-        "nativewind": "^4.0.1",
-        "react-native-css-interop": "^0.2.1",
-        "react-native-reanimated": "^3.6.0",
-        "react-native-web": "^0.19.13",
-        "styleq": "^0.2.1",
+        "lucide-react": "^0.562.0",
         "tailwind-merge": "^2.2.0"
     },
     "devDependencies": {
         "@sds/config": "workspace:*",
         "@sds/tokens": "workspace:*",
         "@types/react": "^19.0.0",
-        "@types/react-native": "^0.73.0",
         "tailwindcss": "^3.4.0",
         "tsup": "^8.0.0",
         "typescript": "^5.0.0"

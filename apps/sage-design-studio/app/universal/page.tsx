@@ -1,29 +1,36 @@
 'use client';
 
-import { Button } from '@sds/ui';
-import { LocalUniversalButton } from '../components/LocalUniversalButton';
+import { Button, Input, Label } from '@sds/ui';
 
 export default function UniversalPage() {
     return (
         <div className="p-10 space-y-8 bg-gray-50 min-h-screen">
-            <h1 className="text-2xl font-bold mb-4">Universal Component Test (Phase 2)</h1>
+            <h1 className="text-2xl font-bold mb-4">Universal Component Test (Phase 2 - Web Only)</h1>
+
+            <div className="space-y-4">
+                <h2 className="text-lg font-semibold">Inputs & Labels</h2>
+                <div className="grid w-full max-w-sm items-center gap-1.5">
+                    <Label htmlFor="email">Email</Label>
+                    <Input type="email" id="email" placeholder="Email" />
+                </div>
+            </div>
 
             <div className="space-y-4">
                 <h2 className="text-lg font-semibold">Variants</h2>
                 <div className="flex gap-4 items-center">
-                    <Button onPress={() => alert('Standard Pressed')}>
+                    <Button onClick={() => alert('Standard Clicked')}>
                         Default Button
                     </Button>
-                    <Button variant="destructive" onPress={() => alert('Destructive Pressed')}>
+                    <Button variant="destructive" onClick={() => alert('Destructive Clicked')}>
                         Destructive
                     </Button>
-                    <Button variant="outline" onPress={() => alert('Outline Pressed')}>
+                    <Button variant="outline" onClick={() => alert('Outline Clicked')}>
                         Outline
                     </Button>
-                    <Button variant="ghost" onPress={() => alert('Ghost Pressed')}>
+                    <Button variant="ghost" onClick={() => alert('Ghost Clicked')}>
                         Ghost
                     </Button>
-                    <Button variant="link" onPress={() => alert('Link Pressed')}>
+                    <Button variant="link" onClick={() => alert('Link Clicked')}>
                         Link
                     </Button>
                 </div>
@@ -35,14 +42,6 @@ export default function UniversalPage() {
                     <Button size="sm">Small</Button>
                     <Button size="default">Default</Button>
                     <Button size="lg">Large</Button>
-                </div>
-            </div>
-
-            <div className="space-y-4">
-                <h2 className="text-lg font-semibold">Local Copy (Internal to App)</h2>
-                <div className="flex gap-4 items-center">
-                    <LocalUniversalButton>Local Button</LocalUniversalButton>
-                    <LocalUniversalButton variant="destructive">Local Destructive</LocalUniversalButton>
                 </div>
             </div>
 

@@ -62,7 +62,7 @@ export function AddingComponentsSection({ breadcrumbs }: AddingComponentsSection
                   <div className="flex-1 min-w-0">
                     <h3 className="font-semibold mb-2 text-[var(--color-text-primary)]">Create component file</h3>
                     <div className="w-full min-w-0 max-w-full">
-                      <CollapsibleCodeBlock id="add-comp-1" code="packages/design-system/src/components/atoms/ComponentName.tsx" defaultCollapsed={false} showCopy={true} />
+                      <CollapsibleCodeBlock id="add-comp-1" code="packages/ui/src/components/ComponentName.tsx" defaultCollapsed={false} showCopy={true} />
                     </div>
                   </div>
                 </li>
@@ -71,11 +71,10 @@ export function AddingComponentsSection({ breadcrumbs }: AddingComponentsSection
                   <span className="flex-shrink-0 w-6 h-6 rounded-full bg-[var(--color-primary)] text-[var(--color-primary-foreground)] flex items-center justify-center text-sm font-semibold">2</span>
                   <div className="flex-1 min-w-0">
                     <h3 className="font-semibold mb-2 text-[var(--color-text-primary)]">Define interface with required props</h3>
-                    <CollapsibleCodeBlock id="add-comp-2" code={`interface ComponentNameProps {
+                    <CollapsibleCodeBlock id="add-comp-2" code={`interface ComponentNameProps extends React.HTMLAttributes<HTMLDivElement> {
   variant?: 'primary' | 'secondary';
   size?: 'sm' | 'md' | 'lg';
-  children: React.ReactNode;
-  className?: string;
+  asChild?: boolean;
 }`} defaultCollapsed={false} showCopy={true} />
                   </div>
                 </li>
@@ -83,24 +82,23 @@ export function AddingComponentsSection({ breadcrumbs }: AddingComponentsSection
                 <li className="flex items-start gap-3">
                   <span className="flex-shrink-0 w-6 h-6 rounded-full bg-[var(--color-primary)] text-[var(--color-primary-foreground)] flex items-center justify-center text-sm font-semibold">3</span>
                   <div className="flex-1 min-w-0">
-                    <h3 className="font-semibold mb-2 text-[var(--color-text-primary)]">Implement with design tokens</h3>
-                    <CollapsibleCodeBlock id="add-comp-3" code={`export function ComponentName({
-  variant = 'primary',
-  size = 'md',
-  children,
-  className
+                    <h3 className="font-semibold mb-2 text-[var(--color-text-primary)]">Implement with Radix + Tailwind</h3>
+                    <CollapsibleCodeBlock id="add-comp-3" code={`import { Slot } from '@radix-ui/react-slot';
+import { cva, type VariantProps } from 'class-variance-authority';
+import { cn } from '../lib/utils';
+
+export function ComponentName({
+  className,
+  variant,
+  asChild = false,
+  ...props
 }: ComponentNameProps) {
+  const Comp = asChild ? Slot : 'div';
   return (
-    <div
-      className={\`
-        \${variant === 'primary'
-          ? 'bg-[var(--color-primary)] text-[var(--color-primary-foreground)]'
-          : 'bg-[var(--color-secondary)]'}
-        \${className}
-      \`}
-    >
-      {children}
-    </div>
+    <Comp
+      className={cn(componentVariants({ variant }), className)}
+      {...props}
+    />
   );
 }`} defaultCollapsed={false} showCopy={true} />
                   </div>
@@ -110,8 +108,8 @@ export function AddingComponentsSection({ breadcrumbs }: AddingComponentsSection
                   <span className="flex-shrink-0 w-6 h-6 rounded-full bg-[var(--color-primary)] text-[var(--color-primary-foreground)] flex items-center justify-center text-sm font-semibold">4</span>
                   <div className="flex-1 min-w-0">
                     <h3 className="font-semibold mb-2 text-[var(--color-text-primary)]">Add to exports</h3>
-                    <CollapsibleCodeBlock id="add-comp-4" code={`// packages/design-system/src/components/index.ts
-export { ComponentName } from './atoms/ComponentName';`} defaultCollapsed={false} showCopy={true} />
+                    <CollapsibleCodeBlock id="add-comp-4" code={`// packages/ui/src/index.ts
+export { ComponentName } from './components/ComponentName';`} defaultCollapsed={false} showCopy={true} />
                   </div>
                 </li>
 
@@ -119,7 +117,7 @@ export { ComponentName } from './atoms/ComponentName';`} defaultCollapsed={false
                   <span className="flex-shrink-0 w-6 h-6 rounded-full bg-[var(--color-primary)] text-[var(--color-primary-foreground)] flex items-center justify-center text-sm font-semibold">5</span>
                   <div className="flex-1 min-w-0">
                     <h3 className="font-semibold mb-2 text-[var(--color-text-primary)]">Build the package</h3>
-                    <CollapsibleCodeBlock id="add-comp-5" code="pnpm --filter @ecosystem/design-system build" defaultCollapsed={false} showCopy={true} />
+                    <CollapsibleCodeBlock id="add-comp-5" code="pnpm --filter @sds/ui build" defaultCollapsed={false} showCopy={true} />
                   </div>
                 </li>
 
@@ -147,18 +145,18 @@ export { ComponentName } from './atoms/ComponentName';`} defaultCollapsed={false
               <p className="text-sm text-[var(--color-text-secondary)] mb-4">
                 Follow the same steps as adding an Atom, but place the file in:
               </p>
-              <CollapsibleCodeBlock id="add-comp-6" code="packages/design-system/src/components/molecules/ComponentName.tsx" defaultCollapsed={false} showCopy={true} />
+              <CollapsibleCodeBlock id="add-comp-6" code="packages/ui/src/components/ComponentName.tsx" defaultCollapsed={false} showCopy={true} />
               <div className="bg-[var(--color-surface)] p-4 rounded-md border border-[var(--color-border)] mt-4">
                 <p className="text-sm text-[var(--color-text-primary)] mb-2">
                   <strong>Key difference:</strong> Molecules compose atoms together
                 </p>
-                <CollapsibleCodeBlock id="add-comp-7" code={`import { Input, Button } from '../atoms';
+                <CollapsibleCodeBlock id="add-comp-7" code={`import { Input, Button } from '@sds/ui';
 
 export function SearchBar() {
   return (
     <div className="flex gap-2">
       <Input placeholder="Search..." />
-      <Button variant="primary">Search</Button>
+      <Button variant="default">Search</Button>
     </div>
   );
 }`} defaultCollapsed={false} showCopy={true} />
@@ -219,7 +217,7 @@ export function SearchBar() {
                   <span className="flex-shrink-0 w-6 h-6 rounded-full bg-[var(--color-primary)] text-[var(--color-primary-foreground)] flex items-center justify-center text-sm font-semibold">5</span>
                   <div className="flex-1">
                     <h3 className="font-semibold mb-2 text-[var(--color-text-primary)]">Rebuild package</h3>
-                    <CollapsibleCodeBlock id="add-comp-8" code="pnpm --filter @ecosystem/design-system build" defaultCollapsed={false} showCopy={true} />
+                    <CollapsibleCodeBlock id="add-comp-8" code="pnpm --filter @sds/ui build" defaultCollapsed={false} showCopy={true} />
                   </div>
                 </li>
               </ol>
@@ -239,9 +237,9 @@ export function SearchBar() {
                   <span className="flex-shrink-0 w-6 h-6 rounded-full bg-[var(--color-primary)] text-[var(--color-primary-foreground)] flex items-center justify-center text-sm font-semibold">1</span>
                   <div className="flex-1 min-w-0">
                     <h3 className="font-semibold mb-2 text-[var(--color-text-primary)]">Locate token file</h3>
-                    <CollapsibleCodeBlock id="add-comp-9" code="packages/design-system/src/tokens/[theme]/[category].ts" defaultCollapsed={false} showCopy={true} />
+                    <CollapsibleCodeBlock id="add-comp-9" code="packages/tokens/src/sage/colors.ts" defaultCollapsed={false} showCopy={true} />
                     <p className="text-xs text-[var(--color-text-muted)] mt-2">
-                      Example: <Code syntax="plain">tokens/studio/colors.ts</Code>, <Code syntax="plain">tokens/sage/typography.ts</Code>
+                      Example: <Code syntax="plain">tokens/src/studio/colors.ts</Code>
                     </p>
                   </div>
                 </li>
@@ -264,7 +262,7 @@ export function SearchBar() {
                     <p className="text-sm text-[var(--color-text-secondary)] mb-2">
                       Add the token value to Studio, Sage, and Volt theme files
                     </p>
-                    <CollapsibleCodeBlock id="add-comp-11" code={`// tokens/studio/colors.ts
+                    <CollapsibleCodeBlock id="add-comp-11" code={`// tokens/src/studio/colors.ts
 export const colors: ColorTokens = {
   // ... existing colors
   newColor: '#FF5733',
@@ -286,7 +284,7 @@ export const colors: ColorTokens = {
                   <span className="flex-shrink-0 w-6 h-6 rounded-full bg-[var(--color-primary)] text-[var(--color-primary-foreground)] flex items-center justify-center text-sm font-semibold">5</span>
                   <div className="flex-1">
                     <h3 className="font-semibold mb-2 text-[var(--color-text-primary)]">Rebuild package</h3>
-                    <CollapsibleCodeBlock id="add-comp-12" code="pnpm --filter @ecosystem/design-system build" defaultCollapsed={false} showCopy={true} />
+                    <CollapsibleCodeBlock id="add-comp-12" code="pnpm --filter @sds/tokens build" defaultCollapsed={false} showCopy={true} />
                   </div>
                 </li>
               </ol>

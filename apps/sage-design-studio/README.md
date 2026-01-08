@@ -1,53 +1,18 @@
 # Sage Design Studio
 
-> **The heart of the ecosystem.** Interactive documentation and visualization platform for the ecosystem's design system.
+> **The heart of the ecosystem.** Interactive documentation for the `@sds/ui` web component library.
 
 ## Overview
 
-Sage Design Studio is a living, interactive showcase of the design system that powers the entire ecosystem. It embodies the "Transparent by Design" philosophy by making design tokens, components, and design decisions publicly explorable—not as static documentation, but as dynamic, interactive experiences.
+Sage Design Studio is the living documentation for the **Sage Design System**—a high-performance, web-native component library built on **Radix UI** and **Tailwind CSS**. It serves as the single source of truth for designers and developers building applications in the ecosystem.
 
 ## Features
 
-- **Interactive Component Playground**: Explore components with live prop controls
-- **Token Visualization**: See all design tokens (colors, typography, spacing, motion) across three themes
-- **Theme Switching**: Preview components in Studio, Sage, and Volt themes
-- **Automatic Syntax Highlighting**: Multi-color code examples powered by a built-in lightweight parser (~2KB)
-- **Copy-Paste Ready Code**: Every code example includes syntax highlighting and one-click copying
-- **Responsive Design**: Works beautifully on mobile, tablet, and desktop
-- **LLM-Optimized Documentation**: JSON-LD structured data for AI-powered documentation consumption
-- **Accessibility-First**: Comprehensive accessibility notes for every component
-
-### Syntax Highlighting
-
-The Studio uses the design system's automatic syntax parser to provide beautiful, theme-aware code highlighting throughout the documentation. Every code example is automatically tokenized into 14 syntax types with colors that adapt to light/dark mode.
-
-**What makes it special:**
-- Zero configuration - just pass plain code strings
-- Lightweight (~2KB) regex-based implementation
-- 14 token types: comment, keyword, function, string, number, boolean, operator, property, className, tag, attribute, variable, punctuation, plain
-- WCAG AA contrast ratios in both light and dark modes
-- Based on VS Code Dark+ theme colors
-
-See the **Design Tokens > Syntax** section for live examples and documentation.
-
-### LLM Optimization
-
-The Studio embeds **JSON-LD structured data** using Schema.org vocabulary to make component documentation machine-readable for LLMs and search engines:
-
-**What makes it special:**
-- Automatic metadata generation for all Atoms and Molecules
-- Schema.org `SoftwareSourceCode` and `PropertyValueSpecification` types
-- Dynamic updates when switching between components
-- Includes props, types, defaults, code examples, and accessibility notes
-- No API endpoint needed—LLMs can parse metadata directly from page source
-
-**Benefits:**
-- LLMs can generate correct component usage without reading source code
-- Search engines can index and display rich component information
-- AI coding assistants understand component APIs instantly
-- Supports semantic web and linked data standards
-
-See [PHASE-7-COMPLETION.md](./docs/PHASE-7-COMPLETION.md) for implementation details.
+- **Interactive Component Playground**: Explore `@sds/ui` components with live prop controls.
+- **Token Visualization**: See global design tokens (colors, typography) defined in `@sds/tokens`.
+- **Theme Switching**: Preview components in Studio, Sage, and Volt themes.
+- **Copy-Paste Workflow**: Integration guides for consuming the library in other Next.js apps.
+- **Accessibility-First**: All components built on accessible Radix primitives.
 
 ## Development
 
@@ -64,40 +29,25 @@ pnpm dev
 
 The Studio runs on **port 3001** by default.
 
-### Accessing via Portfolio
-
-When the portfolio app is running, the Studio is accessible at:
-- `http://localhost:3000/studio` (proxied from portfolio)
-
-Or directly at:
-- `http://localhost:3001` (direct access to Studio app)
-
 ## Architecture
 
-### Integration with Portfolio
+### The "Sage Stack" (Web Edition)
 
-The portfolio app (`apps/portfolio`) proxies the `/studio` route to this app via Next.js rewrites. This allows seamless integration while keeping the apps independent.
-
-**In development:**
-- Portfolio: `http://localhost:3000`
-- Studio: `http://localhost:3001`
-- Route: `/studio` on portfolio → proxied to Studio app
-
-**In production:**
-- Set `STUDIO_URL` environment variable in portfolio to point to deployed Studio app
-- Or deploy both apps on the same domain with routing configuration
+The Studio is a standard **Next.js 15** application that consumes:
+1.  **`@sds/ui`**: The React component library (exports `Button`, `Input`, etc.).
+2.  **`@sds/tokens`**: The design token definitions.
+3.  **`@sds/config`**: Shared Tailwind configurations.
 
 ### Design System Integration
 
-The Studio imports components and tokens directly from `@ecosystem/design-system`:
+The Studio imports components directly from the local workspace packages, ensuring that documentation always matches the code:
 
 ```typescript
-import { Button, Card, Header } from '@ecosystem/design-system';
-import { useTheme, useMotionPreference } from '@ecosystem/design-system/hooks';
-import { CustomizerPanel } from '@ecosystem/design-system/features/customizer';
+import { Button, Input } from '@sds/ui';
+// Styles are automatically applied via Tailwind content scanning
 ```
 
-**Key Benefit**: Changes to the design system automatically reflect in the Studio thanks to the `workspace:*` protocol.
+**Key Benefit**: Changes to `packages/ui` are instantly reflected in the Studio via HMR (Hot Module Replacement).
 
 ## Structure
 
