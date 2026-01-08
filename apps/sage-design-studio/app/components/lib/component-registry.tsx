@@ -1,5 +1,5 @@
 import { Code, Link, Avatar, Spinner, ProgressBar } from '@ecosystem/design-system';
-import { Button, Card, Badge, Switch, Checkbox, Select, SelectContent, SelectItem, SelectTrigger, SelectValue, Separator, ScrollArea } from '@sds/ui';
+import { Button, Card, Badge, Switch, Checkbox, Select, SelectContent, SelectItem, SelectTrigger, SelectValue, Separator, ScrollArea, Skeleton, ToastProvider, useToast } from '@sds/ui';
 
 export interface PropConfig {
   type: 'select' | 'boolean' | 'text' | 'array' | 'object' | 'interface' | 'custom';
@@ -965,5 +965,76 @@ useEffect(() => {
       }
     ],
     sourceUrl: 'https://github.com/shalom-ormsby/ecosystem/blob/main/packages/ui/src/components/ScrollArea.tsx',
-  }
+  },
+
+  Skeleton: {
+    component: Skeleton,
+    description: 'Placeholder component for loading states. Shows an animated pulse effect while content is loading.',
+    props: {
+      variant: {
+        type: 'select',
+        options: ['default', 'circular', 'rectangular', 'text'] as const,
+        default: 'default',
+        description: 'Shape variant of the skeleton',
+      },
+      width: {
+        type: 'text',
+        default: '100%',
+        description: 'Width of the skeleton (CSS value)',
+      },
+      height: {
+        type: 'text',
+        default: '20px',
+        description: 'Height of the skeleton (CSS value)',
+      },
+    },
+    examples: [
+      {
+        label: 'Default',
+        props: { variant: 'default', width: '200px', height: '20px' },
+        children: null,
+      },
+      {
+        label: 'Circular',
+        props: { variant: 'circular', width: '40px', height: '40px' },
+        children: null,
+      },
+      {
+        label: 'Text Lines',
+        props: { variant: 'text', width: '100%' },
+        children: null,
+      },
+    ],
+    codeExamples: [
+      {
+        title: 'Card Skeleton',
+        code: `import { Skeleton } from '@sds/ui';
+
+<div className="space-y-2">
+  <Skeleton className="h-12 w-12 rounded-full" />
+  <Skeleton className="h-4 w-[250px]" />
+  <Skeleton className="h-4 w-[200px]" />
+</div>`,
+        description: 'Loading skeleton for a user card',
+      },
+      {
+        title: 'List Skeleton',
+        code: `import { Skeleton } from '@sds/ui';
+
+<div className="space-y-3">
+  {Array.from({ length: 5 }).map((_, i) => (
+    <div key={i} className="flex items-center space-x-4">
+      <Skeleton variant="circular" className="h-12 w-12" />
+      <div className="space-y-2">
+        <Skeleton className="h-4 w-[250px]" />
+        <Skeleton className="h-4 w-[200px]" />
+      </div>
+    </div>
+  ))}
+</div>`,
+        description: 'Loading skeleton for a list of items',
+      },
+    ],
+    sourceUrl: 'https://github.com/shalom-ormsby/ecosystem/blob/main/packages/ui/src/components/Skeleton.tsx',
+  },
 };

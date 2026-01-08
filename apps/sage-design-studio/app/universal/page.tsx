@@ -20,12 +20,16 @@ import {
     SelectValue,
     Separator,
     ScrollArea,
+    Skeleton,
+    useToast,
 } from '@sds/ui';
 
 export default function UniversalPage() {
+    const { toast } = useToast();
+
     return (
         <div className="p-10 space-y-8 bg-gray-50 min-h-screen">
-            <h1 className="text-2xl font-bold mb-4">Universal Component Test (Phase 2 - Web Only)</h1>
+            <h1 className="text-2xl font-bold mb-4">Universal Component Test (Phase 2 - Complete) ✅</h1>
 
             <div className="space-y-4">
                 <h2 className="text-lg font-semibold">Cards</h2>
@@ -161,6 +165,59 @@ export default function UniversalPage() {
                     <Button size="sm">Small</Button>
                     <Button size="default">Default</Button>
                     <Button size="lg">Large</Button>
+                </div>
+            </div>
+
+            <div className="space-y-4">
+                <h2 className="text-lg font-semibold">Skeleton (Loading States)</h2>
+                <div className="grid grid-cols-2 gap-4">
+                    <Card>
+                        <CardHeader>
+                            <CardTitle>Card Skeleton</CardTitle>
+                            <CardDescription>Loading placeholder for cards</CardDescription>
+                        </CardHeader>
+                        <CardContent className="space-y-2">
+                            <Skeleton className="h-12 w-12 rounded-full" />
+                            <Skeleton className="h-4 w-[250px]" />
+                            <Skeleton className="h-4 w-[200px]" />
+                        </CardContent>
+                    </Card>
+
+                    <Card>
+                        <CardHeader>
+                            <CardTitle>List Skeleton</CardTitle>
+                            <CardDescription>Loading placeholder for lists</CardDescription>
+                        </CardHeader>
+                        <CardContent className="space-y-3">
+                            {Array.from({ length: 3 }).map((_, i) => (
+                                <div key={i} className="flex items-center space-x-4">
+                                    <Skeleton className="h-12 w-12 rounded-full" />
+                                    <div className="space-y-2">
+                                        <Skeleton className="h-4 w-[200px]" />
+                                        <Skeleton className="h-4 w-[150px]" />
+                                    </div>
+                                </div>
+                            ))}
+                        </CardContent>
+                    </Card>
+                </div>
+            </div>
+
+            <div className="space-y-4">
+                <h2 className="text-lg font-semibold">Toast Notifications</h2>
+                <div className="flex gap-4 items-center flex-wrap">
+                    <Button onClick={() => toast('This is a default toast', 'info')}>
+                        Show Info Toast
+                    </Button>
+                    <Button onClick={() => toast('Success! Everything worked.', 'success')} variant="default">
+                        Show Success Toast
+                    </Button>
+                    <Button onClick={() => toast('Warning: Please check this.', 'warning')} variant="outline">
+                        Show Warning Toast
+                    </Button>
+                    <Button onClick={() => toast('Error: Something went wrong.', 'error')} variant="destructive">
+                        Show Error Toast
+                    </Button>
                 </div>
             </div>
         </div>

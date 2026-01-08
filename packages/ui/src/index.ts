@@ -8,4 +8,6 @@ export * from './components/Checkbox';
 export * from './components/Select';
 export * from './components/Separator';
 export * from './components/ScrollArea';
+export * from './components/Skeleton';
+export * from './components/Toast';
 export * from './lib/utils';

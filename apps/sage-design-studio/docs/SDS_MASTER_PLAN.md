@@ -49,16 +49,15 @@ ecosystem/
 - [x] Set up `@sds/ui` build pipeline (`tsup`).
 - [x] Create core inputs: `Button`, `Input`, `Label`.
 
-### Phase 2: Core Atoms Migration (In Progress) 🚧
+### Phase 2: Core Atoms Migration (Complete) ✅
 **Goal:** Port high-value components from the old `design-system` folder to `@sds/ui`.
 **Rule:** "Package, Don't Rebuild". Extract, Refactor, Export.
 
 **Status:**
 - [x] **Layout:** `Card`, `Separator`, `ScrollArea` (Migrated).
 - [x] **Data Entry:** `Checkbox`, `Switch`, `Select` (Migrated).
-- [x] **Feedback:** `Badge` (Migrated).
-- [ ] **Feedback:** `Skeleton`, `Toast` (To Do).
-- [ ] **Theming:** Move `ThemeProvider` to `@sds/core`.
+- [x] **Feedback:** `Badge`, `Skeleton`, `Toast` (Migrated).
+- [x] **Theming:** Moved `ThemeProvider` to `@sds/core`.
 
 **Verification:**
 check `apps/sage-design-studio/app/universal/page.tsx` to see migrated components in action.
