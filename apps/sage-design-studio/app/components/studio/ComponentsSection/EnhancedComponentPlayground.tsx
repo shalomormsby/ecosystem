@@ -165,7 +165,7 @@ console.log(result); // 55`}
                 { label: 'Settings', value: 'settings' },
                 { label: 'Sign Out', value: 'signout' },
               ]}
-              onSelect={(value) => console.log('Selected:', value)}
+              onSelect={(value: string) => console.log('Selected:', value)}
             />
           ) : (
             <Component {...props}>
