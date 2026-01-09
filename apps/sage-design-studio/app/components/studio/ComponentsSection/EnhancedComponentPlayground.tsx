@@ -118,7 +118,7 @@ pnpm add @sds/ui`;
           )}
         </div>
 
-        <Card hoverEffect={false} className="p-16 flex items-center justify-center min-h-[300px] bg-gradient-to-br from-[var(--color-surface)] to-[var(--color-background)]">
+        <Card hoverEffect={false} className="p-16 flex items-center justify-center min-h-[300px] bg-white dark:bg-black">
           {componentName === 'Card' ? (
             <Component {...props} className="w-[350px]">
               <div className="p-6 space-y-4">
