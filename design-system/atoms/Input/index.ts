@@ -20,8 +20,8 @@ export type { RadioProps } from './Radio';
 export { Select } from './Select';
 export type { SelectProps, SelectOption } from './Select';
 
-export { Switch } from './Switch';
-export type { SwitchProps } from './Switch';
+export { Switch as SwitchField } from './Switch';
+export type { SwitchProps as SwitchFieldProps } from './Switch';
 
 export { SearchInput } from './SearchInput';
 export type { SearchInputProps } from './SearchInput';

@@ -15,5 +15,6 @@ export * from './ProgressBar';
 export * from './Stack';
 export * from './Grid';
 export * from './AspectImage';
+export * from './Switch';
 
 
