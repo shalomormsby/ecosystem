@@ -408,10 +408,10 @@ console.log(greeting);\`)}
       { label: 'Secondary', props: { variant: 'secondary', size: 'md' }, children: 'Secondary' },
       { label: 'Destructive', props: { variant: 'destructive', size: 'md' }, children: 'Destructive' },
       { label: 'Outline', props: { variant: 'outline', size: 'md' }, children: 'Outline' },
-      { label: 'Success', props: { variant: 'success', size: 'md' }, children: 'Success' },
-      { label: 'Warning', props: { variant: 'warning', size: 'md' }, children: 'Warning' },
-      { label: 'Error', props: { variant: 'error', size: 'md' }, children: 'Error' },
-      { label: 'With Dot', props: { variant: 'success', size: 'md', dot: true }, children: 'Live' },
+      { label: 'Success', props: { variant: 'success', size: 'md', dot: true }, children: 'On track' },
+      { label: 'Warning', props: { variant: 'warning', size: 'md', dot: true }, children: 'At risk' },
+      { label: 'Error', props: { variant: 'error', size: 'md', dot: true }, children: 'Blocked' },
+      { label: 'Info', props: { variant: 'info', size: 'md', dot: true }, children: 'In progress' },
     ],
     codeExamples: [
       {

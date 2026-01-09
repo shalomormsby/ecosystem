@@ -113,12 +113,65 @@ pnpm add @sds/ui`;
             <Eye className="w-4 h-4" />
             <span>Preview</span>
           </div>
+          {componentName === 'Button' && (
+            <span className="text-xs text-[var(--color-text-muted)]">Hover to see effects</span>
+          )}
         </div>
 
         <Card hoverEffect={false} className="p-16 flex items-center justify-center min-h-[300px] bg-gradient-to-br from-[var(--color-surface)] to-[var(--color-background)]">
-          <Component {...props}>
-            {componentName === 'Button' ? 'Click me' : props.children || config.examples[0]?.children}
-          </Component>
+          {componentName === 'Card' ? (
+            <Component {...props} className="w-[350px]">
+              <div className="p-6 space-y-4">
+                <div>
+                  <h3 className="text-2xl font-semibold leading-none tracking-tight mb-2">Create Project</h3>
+                  <p className="text-sm text-[var(--color-text-secondary)]">Deploy your new project in one-click.</p>
+                </div>
+                <div className="space-y-2">
+                  <label className="text-sm font-medium">Name</label>
+                  <input className="w-full px-3 py-2 text-sm rounded-md border border-[var(--color-border)] bg-[var(--color-background)]" placeholder="Name of your project" />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-sm font-medium">Framework</label>
+                  <select className="w-full px-3 py-2 text-sm rounded-md border border-[var(--color-border)] bg-[var(--color-background)]">
+                    <option>Next.js</option>
+                    <option>SvelteKit</option>
+                    <option>Astro</option>
+                  </select>
+                </div>
+                <div className="flex gap-2 pt-2">
+                  <button className="flex-1 px-4 py-2 text-sm bg-[var(--color-primary)] text-[var(--color-primary-foreground)] rounded-md">Deploy</button>
+                  <button className="px-4 py-2 text-sm border border-[var(--color-border)] rounded-md">Cancel</button>
+                </div>
+              </div>
+            </Component>
+          ) : componentName === 'Code' ? (
+            <div className="w-full max-w-2xl space-y-2">
+              <Component {...props} inline={false} showCopy={true}>
+{`function fibonacci(n) {
+  if (n <= 1) return n;
+  return fibonacci(n - 1) + fibonacci(n - 2);
+}
+
+const result = fibonacci(10);
+console.log(result); // 55`}
+              </Component>
+            </div>
+          ) : componentName === 'Dropdown' ? (
+            <Component
+              {...props}
+              trigger={<button className="px-4 py-2 bg-[var(--color-primary)] text-[var(--color-primary-foreground)] rounded-md text-sm">Open Menu</button>}
+              items={[
+                { label: 'Profile', value: 'profile' },
+                { label: 'Settings', value: 'settings' },
+                { label: 'Sign Out', value: 'signout' },
+              ]}
+              onSelect={(value) => console.log('Selected:', value)}
+            />
+          ) : (
+            <Component {...props}>
+              {componentName === 'Button' ? 'Click me' : props.children || config.examples[0]?.children}
+            </Component>
+          )}
         </Card>
       </div>
 
@@ -150,6 +203,20 @@ pnpm add @sds/ui`;
 
                   {propConfig.type === 'select' && propConfig.options && (
                     <div className="flex gap-2 flex-wrap">
+                      {componentName === 'Code' && propName === 'syntax' && (
+                        <button
+                          onClick={() => updateProp(propName, 'all')}
+                          className={`
+                            px-3 py-1.5 rounded-md text-xs font-medium transition-all
+                            ${props[propName] === 'all'
+                              ? 'bg-[var(--color-primary)] text-[var(--color-primary-foreground)] shadow-sm'
+                              : 'bg-[var(--color-surface)] text-[var(--color-text-secondary)] border border-[var(--color-border)] hover:border-[var(--color-primary)]'
+                            }
+                          `}
+                        >
+                          All
+                        </button>
+                      )}
                       {propConfig.options.map((option) => (
                         <button
                           key={option}
@@ -158,6 +225,8 @@ pnpm add @sds/ui`;
                             px-3 py-1.5 rounded-md text-xs font-medium transition-all
                             ${props[propName] === option
                               ? 'bg-[var(--color-primary)] text-[var(--color-primary-foreground)] shadow-sm'
+                              : componentName === 'Code' && propName === 'syntax' && props[propName] === 'all'
+                              ? 'bg-[var(--color-surface)] text-[var(--color-text-muted)] opacity-50 border border-[var(--color-border)]'
                               : 'bg-[var(--color-surface)] text-[var(--color-text-secondary)] border border-[var(--color-border)] hover:border-[var(--color-primary)]'
                             }
                           `}
