@@ -24,8 +24,14 @@ export function EnhancedComponentPlayground({ componentName, config }: Component
 
   const Component = config.component;
 
+  // Components from @ecosystem/design-system
+  const designSystemComponents = ['Code', 'Link', 'Avatar', 'Spinner', 'ProgressBar', 'Switch'];
+
   // Generate installation command (component-specific)
-  const installCommand = `# Install @sds/ui to use ${componentName}
+  const installCommand = designSystemComponents.includes(componentName)
+    ? `# Install @ecosystem/design-system to use ${componentName}
+pnpm add @ecosystem/design-system`
+    : `# Install @sds/ui to use ${componentName}
 pnpm add @sds/ui`;
 
   // Generate import statement
@@ -37,7 +43,11 @@ pnpm add @sds/ui`;
       ? ['Card', 'CardHeader', 'CardTitle', 'CardDescription', 'CardContent', 'CardFooter']
       : [componentName];
 
-    return `import { ${relatedExports.join(', ')} } from '@sds/ui';`;
+    const packageName = designSystemComponents.includes(componentName)
+      ? '@ecosystem/design-system'
+      : '@sds/ui';
+
+    return `import { ${relatedExports.join(', ')} } from '${packageName}';`;
   };
 
   // Generate usage code
