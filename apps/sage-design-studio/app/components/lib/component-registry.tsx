@@ -1,5 +1,5 @@
-import { Code, Link, Avatar, Spinner, ProgressBar } from '@ecosystem/design-system';
-import { Button, Card, Badge, Switch, Checkbox, Select, SelectContent, SelectItem, SelectTrigger, SelectValue, Separator, ScrollArea, Skeleton, ToastProvider, useToast } from '@sds/ui';
+import { Code, Link, Avatar, Spinner, ProgressBar, Switch } from '@ecosystem/design-system';
+import { Button, Card, Badge, Checkbox, Select, SelectContent, SelectItem, SelectTrigger, SelectValue, Separator, ScrollArea, Skeleton, ToastProvider, useToast } from '@sds/ui';
 
 export interface PropConfig {
   type: 'select' | 'boolean' | 'text' | 'array' | 'object' | 'interface' | 'custom';
@@ -699,27 +699,61 @@ useEffect(() => {
 
   Switch: {
     component: Switch,
-    description: 'A control that allows the user to toggle between checked and not checked. Built on Radix UI.',
+    description: 'A toggle switch control for binary state changes with smooth animations and theme-aware colors. Features accessible keyboard support and three size variants.',
     props: {
-      disabled: { type: 'boolean', default: false, description: 'When true, prevents interaction' },
+      checked: { type: 'boolean', default: false, description: 'Whether the switch is checked' },
+      size: {
+        type: 'select',
+        options: ['sm', 'md', 'lg'] as const,
+        default: 'md',
+        description: 'Size variant - sm (w-8), md (w-11), lg (w-14)',
+      },
+      disabled: { type: 'boolean', default: false, description: 'When true, prevents interaction and shows disabled state' },
     },
     examples: [
-      { label: 'Default', props: {}, children: null },
-      { label: 'Disabled', props: { disabled: true }, children: null },
+      { label: 'Small', props: { size: 'sm', checked: false }, children: null },
+      { label: 'Medium', props: { size: 'md', checked: true }, children: null },
+      { label: 'Large', props: { size: 'lg', checked: true }, children: null },
+      { label: 'Disabled', props: { disabled: true, checked: false }, children: null },
     ],
     codeExamples: [
       {
-        title: 'Airplane Mode',
-        code: `import { Switch, Label } from '@sds/ui';
+        title: 'Basic Usage',
+        code: `import { Switch } from '@ecosystem/design-system';
 
-<div className="flex items-center space-x-2">
-  <Switch id="airplane-mode" />
-  <Label htmlFor="airplane-mode">Airplane Mode</Label>
+const [enabled, setEnabled] = useState(false);
+
+<Switch
+  checked={enabled}
+  onCheckedChange={setEnabled}
+/>`,
+        description: 'Controlled switch component'
+      },
+      {
+        title: 'With Label',
+        code: `import { Switch } from '@ecosystem/design-system';
+
+const [darkMode, setDarkMode] = useState(false);
+
+<label className="flex items-center gap-2 cursor-pointer">
+  <Switch checked={darkMode} onCheckedChange={setDarkMode} />
+  <span>Dark Mode</span>
+</label>`,
+        description: 'Switch with an associated label'
+      },
+      {
+        title: 'Different Sizes',
+        code: `import { Switch } from '@ecosystem/design-system';
+
+<div className="flex items-center gap-4">
+  <Switch size="sm" checked={true} onCheckedChange={() => {}} />
+  <Switch size="md" checked={true} onCheckedChange={() => {}} />
+  <Switch size="lg" checked={true} onCheckedChange={() => {}} />
 </div>`,
-        description: 'Switch with a label'
+        description: 'Switch in all available sizes'
       }
     ],
-    sourceUrl: 'https://github.com/shalom-ormsby/ecosystem/blob/main/packages/ui/src/components/Switch.tsx',
+    sourceUrl: 'https://github.com/shalom-ormsby/ecosystem/blob/main/design-system/atoms/Switch/Switch.tsx',
   },
 
   Checkbox: {

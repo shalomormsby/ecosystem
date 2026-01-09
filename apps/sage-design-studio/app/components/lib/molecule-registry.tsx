@@ -1,5 +1,5 @@
 import { Button } from '@sds/ui';
-import { Dropdown, Tooltip, ThemeToggle, FormField, SearchBar, RadioGroup, CheckboxGroup, Breadcrumbs } from '@ecosystem/design-system';
+import { Dropdown, Tooltip, ThemeToggle, ThemeSwitcher, FormField, SearchBar, RadioGroup, CheckboxGroup, Breadcrumbs } from '@ecosystem/design-system';
 import type { ComponentConfig } from './component-registry';
 
 export const moleculeRegistry: Record<string, ComponentConfig> = {
@@ -455,6 +455,58 @@ const menuItems: DropdownItem[] = [
       },
     ],
     sourceUrl: 'https://github.com/shalom-ormsby/ecosystem/blob/main/design-system/molecules/ThemeToggle/ThemeToggle.tsx',
+  },
+
+  ThemeSwitcher: {
+    component: ThemeSwitcher,
+    description: 'An enhanced theme control panel with expandable options for comprehensive theme management. Features quick toggle, system theme preference, and visual preview.',
+    props: {
+      size: {
+        type: 'select',
+        options: ['sm', 'md', 'lg'] as const,
+        default: 'md',
+        description: 'Size of the switcher',
+      },
+      defaultExpanded: {
+        type: 'boolean',
+        default: false,
+        description: 'Initial expanded state showing advanced options',
+      },
+    },
+    examples: [
+      { label: 'Collapsed', props: { size: 'md', defaultExpanded: false }, children: null },
+      { label: 'Expanded', props: { size: 'md', defaultExpanded: true }, children: null },
+      { label: 'Small', props: { size: 'sm', defaultExpanded: false }, children: null },
+      { label: 'Large', props: { size: 'lg', defaultExpanded: false }, children: null },
+    ],
+    codeExamples: [
+      {
+        title: 'Basic Usage',
+        code: `import { ThemeSwitcher } from '@ecosystem/design-system';
+
+<ThemeSwitcher />`,
+        description: 'Simple theme switcher with expandable options',
+      },
+      {
+        title: 'Expanded by Default',
+        code: `import { ThemeSwitcher } from '@ecosystem/design-system';
+
+<ThemeSwitcher defaultExpanded />`,
+        description: 'Theme switcher with options panel open by default',
+      },
+      {
+        title: 'In Header',
+        code: `<header className="flex items-center justify-between p-4">
+  <div className="flex items-center gap-4">
+    <Logo />
+    <Navigation />
+  </div>
+  <ThemeSwitcher />
+</header>`,
+        description: 'Theme switcher positioned in header with dropdown panel',
+      },
+    ],
+    sourceUrl: 'https://github.com/shalom-ormsby/ecosystem/blob/main/design-system/molecules/ThemeSwitcher/ThemeSwitcher.tsx',
   },
 
   FormField: {

@@ -8,6 +8,7 @@
 export * from './Breadcrumbs';
 export * from './Form';
 export * from './ThemeToggle';
+export * from './ThemeSwitcher';
 export * from './Dropdown';
 export * from './Tooltip';
 export * from './DescriptionList';

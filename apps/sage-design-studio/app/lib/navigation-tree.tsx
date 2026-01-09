@@ -226,6 +226,11 @@ export const navigationTree: NavigationItem[] = [
                 label: 'ThemeToggle',
                 section: 'molecules',
               },
+              {
+                id: 'theme-switcher',
+                label: 'ThemeSwitcher',
+                section: 'molecules',
+              },
             ],
           },
         ],
