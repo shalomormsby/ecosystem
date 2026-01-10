@@ -115,7 +115,7 @@ export const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>(
           className={`
             ${thumb}
             rounded-full
-            bg-[var(--color-primary-foreground)]
+            ${checked ? 'bg-[var(--color-primary-foreground)]' : 'bg-white'}
             shadow-lg
             transform transition-transform duration-200 ease-in-out
             pointer-events-none
