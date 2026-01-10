@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { ThemeProvider } from '@sds/core';
+import { ThemeProvider } from '@sds/ui';
 import { ToastProvider } from '@sds/ui';
 import { allFontVariables } from '../lib/fonts';
 import { Analytics } from '@vercel/analytics/next';
