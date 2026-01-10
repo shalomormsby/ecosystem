@@ -27,7 +27,38 @@ export const navigationTree: NavigationItem[] = [
       {
         id: 'adding-components',
         label: 'Adding Components',
-        section: 'adding-components',
+        children: [
+          {
+            id: 'methodology',
+            label: 'Methodology',
+            section: 'adding-components',
+          },
+          {
+            id: 'atoms',
+            label: 'Adding Atoms',
+            section: 'adding-components',
+          },
+          {
+            id: 'molecules',
+            label: 'Adding Molecules',
+            section: 'adding-components',
+          },
+          {
+            id: 'modifying',
+            label: 'Modifying',
+            section: 'adding-components',
+          },
+          {
+            id: 'tokens',
+            label: 'Adding Tokens',
+            section: 'adding-components',
+          },
+          {
+            id: 'troubleshooting',
+            label: 'Troubleshooting',
+            section: 'adding-components',
+          },
+        ],
       },
       {
         id: 'common-patterns',

@@ -24,12 +24,34 @@ export function AddingComponentsSection({ breadcrumbs, activeItemId }: AddingCom
           Step-by-step workflows for extending the design system
         </p>
 
-        {/* Breadcrumbs - positioned after title and description */}
-        {breadcrumbs && breadcrumbs.length > 1 && (
-          <div className="mt-6">
-            <Breadcrumbs variant="subtle" items={breadcrumbs} />
-          </div>
-        )}
+      </div>
+
+      {/* Secondary Navigation - Sticky below header */}
+      <div className="sticky top-0 z-30 bg-[var(--color-background)]/95 backdrop-blur-sm pt-4 pb-4 -mx-6 px-6 sm:-mx-8 sm:px-8 mb-8 border-b border-[var(--color-border)]">
+        <div className="flex overflow-x-auto no-scrollbar gap-1 custom-scrollbar">
+          {[
+            { id: 'methodology', label: 'Methodology' },
+            { id: 'atoms', label: 'Adding Atoms' },
+            { id: 'molecules', label: 'Adding Molecules' },
+            { id: 'modifying', label: 'Modifying' },
+            { id: 'tokens', label: 'Adding Tokens' },
+            { id: 'troubleshooting', label: 'Troubleshooting' },
+          ].map((item) => (
+            <a
+              key={item.id}
+              href={`#adding-components/${item.id}`}
+              className={`
+                px-3 py-1.5 text-sm font-medium rounded-md whitespace-nowrap transition-colors
+                ${currentView === item.id
+                  ? 'bg-[var(--color-primary)] text-[var(--color-primary-foreground)]'
+                  : 'text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-surface)]'
+                }
+              `}
+            >
+              {item.label}
+            </a>
+          ))}
+        </div>
       </div>
 
       {/* Main Content */}
