@@ -177,6 +177,11 @@ console.log(result); // 55`}
               ]}
               onSelect={(value: string) => console.log('Selected:', value)}
             />
+          ) : componentName === 'Switch' ? (
+            <Component
+              {...props}
+              onCheckedChange={(checked: boolean) => updateProp('checked', checked)}
+            />
           ) : (
             <Component {...props}>
               {componentName === 'Button' ? 'Click me' : props.children || config.examples[0]?.children}
