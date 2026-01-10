@@ -112,6 +112,34 @@ export function AddingComponentsSection({ breadcrumbs, activeItemId }: AddingCom
                 <li className="flex items-start gap-4">
                   <div className="flex-shrink-0 w-8 h-8 rounded-full bg-[var(--color-primary)] text-[var(--color-primary-foreground)] flex items-center justify-center font-bold">4</div>
                   <div className="flex-1">
+                    <h3 className="text-lg font-semibold text-[var(--color-text-primary)] mb-2">Update Navigation & Routing</h3>
+                    <div className="space-y-3 text-sm text-[var(--color-text-secondary)]">
+                      <p>Ensure the component is accessible via the sidebar and has correct breadcrumbs:</p>
+                      <div className="space-y-2">
+                        <p><strong className="text-[var(--color-text-primary)]">A. Add to Sidebar:</strong> Update <Code syntax="plain">apps/sage-design-studio/app/lib/navigation-tree.tsx</Code>.</p>
+                        <CollapsibleCodeBlock id="meth-4a" code={`{
+  id: 'new-component',
+  label: 'New Component',
+  section: 'atoms', // or 'molecules'
+}`} defaultCollapsed={true} showCopy={true} />
+                      </div>
+                      <div className="space-y-2">
+                        <p><strong className="text-[var(--color-text-primary)]">B. Add to Routes:</strong> Update <Code syntax="plain">apps/sage-design-studio/app/page.tsx</Code> config.</p>
+                        <CollapsibleCodeBlock id="meth-4b" code={`// In routeConfig
+atoms: {
+  children: {
+    // ...
+    'new-component': { label: 'New Component' },
+  }
+}`} defaultCollapsed={true} showCopy={true} />
+                      </div>
+                    </div>
+                  </div>
+                </li>
+
+                <li className="flex items-start gap-4">
+                  <div className="flex-shrink-0 w-8 h-8 rounded-full bg-[var(--color-primary)] text-[var(--color-primary-foreground)] flex items-center justify-center font-bold">5</div>
+                  <div className="flex-1">
                     <h3 className="text-lg font-semibold text-[var(--color-text-primary)] mb-2">Register in Studio</h3>
                     <p className="text-sm text-[var(--color-text-secondary)] mb-2">
                       Add the component configuration to <Code syntax="plain">apps/sage-design-studio/app/components/lib/component-registry.tsx</Code>. This powers the documentation page.
