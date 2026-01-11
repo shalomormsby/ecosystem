@@ -20,7 +20,7 @@
         "./fonts": "./fonts/index.ts"
     },
     "scripts": {
-        "build": "tsup src/index.ts --format esm,cjs --dts --external react --external react-dom --external framer-motion",
+        "build": "tsup src/index.ts --format esm,cjs --dts --no-external @sds/tokens --external react --external react-dom --external framer-motion",
         "dev": "tsup src/index.ts --format esm,cjs --dts --watch --external react --external react-dom --external framer-motion"
     },
     "devDependencies": {
