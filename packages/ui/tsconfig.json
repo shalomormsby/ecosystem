@@ -6,11 +6,14 @@
         "jsx": "react-jsx",
         "declaration": true,
         "sourceMap": true,
-        "strict": false,
+        "strict": true,
         "skipLibCheck": true,
-        "skipDefaultLibCheck": true,
-        "isolatedModules": true,
         "outDir": "dist",
+        "paths": {
+            "@sds/tokens": [
+                "../tokens/src/index.ts"
+            ]
+        }
     },
     "include": [
         "src/**/*"
