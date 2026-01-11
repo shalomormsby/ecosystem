@@ -1,7 +1,7 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "globalPassThroughEnv": [
-    "CACHE_BUST_2026_01_11"
+    "CACHE_BUST_2026_01_11_V2"
   ],
   "tasks": {
     "build": {
