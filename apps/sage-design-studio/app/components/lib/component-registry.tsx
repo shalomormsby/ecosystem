@@ -1,5 +1,5 @@
-import { Code, Link, Avatar, Spinner, ProgressBar, Switch } from '@ecosystem/design-system';
-import { Alert, AlertDescription, AlertTitle, Button, Card, Badge, Checkbox, DataTable, Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger, Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage, RadioGroup, RadioGroupItem, Select, SelectContent, SelectItem, SelectTrigger, SelectValue, Separator, ScrollArea, Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger, Skeleton, Table, TableBody, TableCell, TableHead, TableHeader, TableRow, ToastProvider, useToast } from '@sds/ui';
+import { Code, Link, Spinner, ProgressBar, Switch } from '@ecosystem/design-system';
+import { Label, Alert, AlertDescription, AlertTitle, Avatar, AvatarImage, AvatarFallback, Button, Card, Badge, Checkbox, DataTable, Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger, Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage, RadioGroup, RadioGroupItem, Select, SelectContent, SelectItem, SelectTrigger, SelectValue, Separator, ScrollArea, Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger, Skeleton, Table, TableBody, TableCell, TableHead, TableHeader, TableRow, Textarea, ToastProvider, useToast } from '@sds/ui';
 
 export interface PropConfig {
   type: 'select' | 'boolean' | 'text' | 'array' | 'object' | 'interface' | 'custom';
@@ -103,6 +103,53 @@ export const componentRegistry: Record<string, ComponentConfig> = {
       'Keyboard accessible',
       'Supports both title and description for complete context',
     ],
+  },
+
+  Avatar: {
+    component: Avatar,
+    description: 'An image element with a fallback for representing the user. Migrated to @sds/ui.',
+    props: {
+      className: {
+        type: 'text',
+        default: '',
+        description: 'Additional CSS classes',
+      },
+    },
+    examples: [
+      {
+        label: 'Default',
+        props: {},
+        children: (
+          <>
+            <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+            <AvatarFallback>CN</AvatarFallback>
+          </>
+        ),
+      },
+      {
+        label: 'Fallback',
+        props: {},
+        children: (
+          <>
+            <AvatarImage src="/broken-image.jpg" alt="@shadcn" />
+            <AvatarFallback>CN</AvatarFallback>
+          </>
+        ),
+      },
+    ],
+    codeExamples: [
+      {
+        title: 'Basic Usage',
+        code: `import { Avatar, AvatarFallback, AvatarImage } from "@sds/ui"
+
+<Avatar>
+  <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+  <AvatarFallback>CN</AvatarFallback>
+</Avatar>`,
+        description: 'Avatar with image and fallback',
+      },
+    ],
+    sourceUrl: 'https://github.com/shalom-ormsby/ecosystem/blob/main/packages/ui/src/components/Avatar.tsx',
   },
 
   Button: {
@@ -619,91 +666,7 @@ console.log(greeting);\`)}
     sourceUrl: 'https://github.com/shalom-ormsby/ecosystem/blob/main/packages/ui/src/components/Badge.tsx',
   },
 
-  Avatar: {
-    component: Avatar,
-    description: 'A visual representation of a user or entity with image support, fallback initials, and status indicators.',
-    props: {
-      size: {
-        type: 'select',
-        options: ['xs', 'sm', 'md', 'lg', 'xl'] as const,
-        default: 'md',
-        description: 'Size of the avatar',
-      },
-      shape: {
-        type: 'select',
-        options: ['circle', 'square'] as const,
-        default: 'circle',
-        description: 'Shape of the avatar',
-      },
-      status: {
-        type: 'select',
-        options: ['online', 'offline', 'away', 'busy'] as const,
-        default: 'online',
-        description: 'Status indicator (optional)',
-      },
-    },
-    examples: [
-      { label: 'With Initials', props: { fallback: 'JD', size: 'md', shape: 'circle' }, children: null },
-      { label: 'Online Status', props: { fallback: 'AB', size: 'md', status: 'online' }, children: null },
-      { label: 'Busy Status', props: { fallback: 'CD', size: 'md', status: 'busy' }, children: null },
-      { label: 'Square Shape', props: { fallback: 'EF', size: 'md', shape: 'square' }, children: null },
-      { label: 'Large', props: { fallback: 'GH', size: 'lg', shape: 'circle' }, children: null },
-      { label: 'Small', props: { fallback: 'IJ', size: 'sm', shape: 'circle' }, children: null },
-    ],
-    codeExamples: [
-      {
-        title: 'With Image',
-        code: `import { Avatar } from '@ecosystem/design-system';
 
-<Avatar
-  src="/path/to/avatar.jpg"
-  alt="John Doe"
-  fallback="JD"
-/>`,
-        description: 'Avatar with image source and fallback initials',
-      },
-      {
-        title: 'Status Indicators',
-        code: `<div className="flex gap-4">
-  <Avatar fallback="JD" status="online" />
-  <Avatar fallback="AB" status="away" />
-  <Avatar fallback="CD" status="busy" />
-  <Avatar fallback="EF" status="offline" />
-</div>`,
-        description: 'Avatars with different status indicators for presence',
-      },
-      {
-        title: 'Different Sizes',
-        code: `<div className="flex items-center gap-4">
-  <Avatar size="xs" fallback="XS" />
-  <Avatar size="sm" fallback="SM" />
-  <Avatar size="md" fallback="MD" />
-  <Avatar size="lg" fallback="LG" />
-  <Avatar size="xl" fallback="XL" />
-</div>`,
-        description: 'Avatar sizes from extra small to extra large',
-      },
-      {
-        title: 'User Profile Header',
-        code: `<div className="flex items-center gap-3">
-  <Avatar
-    size="lg"
-    src="/user-avatar.jpg"
-    fallback="JD"
-    status="online"
-  />
-  <div>
-    <h3 className="font-semibold">John Doe</h3>
-    <p className="text-sm text-[var(--color-text-secondary)]">
-      Active now
-    </p>
-  </div>
-</div>`,
-        description: 'Avatar used in a user profile header with status',
-      },
-    ],
-    sourceUrl: 'https://github.com/shalom-ormsby/ecosystem/blob/main/design-system/atoms/Avatar/Avatar.tsx',
-  },
 
   Spinner: {
     component: Spinner,
@@ -1557,5 +1520,65 @@ export function PaymentsTable() {
       'Pagination controls are keyboard accessible',
       'Screen reader announces table structure and data',
     ],
+  },
+
+  Textarea: {
+    component: Textarea,
+    description: 'Multi-line text input field. Styled with SDS tokens.',
+    props: {
+      placeholder: {
+        type: 'text',
+        default: 'Type your message here.',
+        description: 'Placeholder text',
+      },
+      disabled: {
+        type: 'boolean',
+        default: false,
+        description: 'Disables the textarea',
+      },
+    },
+    examples: [
+      {
+        label: 'Default',
+        props: { placeholder: 'Type your message here.' },
+        children: null,
+      },
+      {
+        label: 'Disabled',
+        props: { placeholder: 'Type your message here.', disabled: true },
+        children: null,
+      },
+      {
+        label: 'With Label',
+        props: { placeholder: 'Type your message here.' },
+        children: (
+          <div className="grid w-full gap-1.5">
+            <Label htmlFor="message">Your message</Label>
+            <Textarea placeholder="Type your message here." id="message" />
+          </div>
+        ),
+      },
+    ],
+    codeExamples: [
+      {
+        title: 'Basic Usage',
+        code: `import { Textarea } from "@sds/ui"
+
+<Textarea placeholder="Type your message here." />`,
+        description: 'Simple textarea',
+      },
+      {
+        title: 'With Label',
+        code: `import { Label } from "@sds/ui"
+import { Textarea } from "@sds/ui"
+
+<div className="grid w-full gap-1.5">
+  <Label htmlFor="message">Your message</Label>
+  <Textarea placeholder="Type your message here." id="message" />
+</div>`,
+        description: 'Textarea with a label',
+      },
+    ],
+    sourceUrl: 'https://github.com/shalom-ormsby/ecosystem/blob/main/packages/ui/src/components/Textarea.tsx',
   },
 };

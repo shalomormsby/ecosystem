@@ -614,4 +614,30 @@ When adapting Shadcn components for SDS:
 - @hookform/resolvers
 - @tanstack/react-table
 
-**Next Phase**: Phase 2 - High Priority Components (Avatar, Combobox, Command, Popover, Tabs, Textarea, Sonner)
+**Next Phase**: Phase 2 - High Priority Components (Combobox, Command, Popover, Tabs, Sonner)
+
+---
+
+## Phase 2 Progress Tracker
+
+### ✅ Avatar Component (COMPLETED)
+**Date**: 2026-01-11
+
+**Actions Taken:**
+- ✅ Installed \`@radix-ui/react-avatar\` in \`@sds/ui\`
+- ✅ Created \`packages/ui/src/components/Avatar.tsx\` (wrapping Radix primitives)
+- ✅ Exported from \`packages/ui/src/index.ts\`
+- ✅ Updated \`component-registry.tsx\`:
+    - Removed Legacy \`Avatar\` configuration
+    - Added New \`Avatar\` configuration using \`@sds/ui\` imports
+- ✅ Verified build success
+- ✅ **Migration**: Replaced legacy component in documentation
+
+### ✅ Textarea Component (COMPLETED)
+**Date**: 2026-01-11
+
+**Actions Taken:**
+- ✅ Created \`packages/ui/src/components/Textarea.tsx\` (styled with SDS tokens)
+- ✅ Exported from \`packages/ui/src/index.ts\`
+- ✅ Added to \`component-registry.tsx\` with examples
+- ✅ Verified build success
