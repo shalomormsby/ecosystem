@@ -1,5 +1,5 @@
 import { Code, Link, Spinner, ProgressBar, Switch } from '@ecosystem/design-system';
-import { Label, Alert, AlertDescription, AlertTitle, Avatar, AvatarImage, AvatarFallback, Button, Card, Badge, Checkbox, DataTable, Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger, Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage, RadioGroup, RadioGroupItem, Select, SelectContent, SelectItem, SelectTrigger, SelectValue, Separator, ScrollArea, Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger, Skeleton, Table, TableBody, TableCell, TableHead, TableHeader, TableRow, Textarea, ToastProvider, useToast } from '@sds/ui';
+import { Label, Alert, AlertDescription, AlertTitle, Avatar, AvatarImage, AvatarFallback, Button, Card, Badge, Checkbox, Combobox, Command, CommandDialog, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, CommandSeparator, CommandShortcut, DataTable, Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger, Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage, Popover, PopoverAnchor, PopoverContent, PopoverTrigger, RadioGroup, RadioGroupItem, Select, SelectContent, SelectItem, SelectTrigger, SelectValue, Separator, ScrollArea, Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger, Skeleton, Table, TableBody, TableCell, TableHead, TableHeader, TableRow, Tabs, TabsContent, TabsList, TabsTrigger, Textarea, Toaster, ToastProvider, useToast } from '@sds/ui';
 
 export interface PropConfig {
   type: 'select' | 'boolean' | 'text' | 'array' | 'object' | 'interface' | 'custom';
@@ -1580,5 +1580,292 @@ import { Textarea } from "@sds/ui"
       },
     ],
     sourceUrl: 'https://github.com/shalom-ormsby/ecosystem/blob/main/packages/ui/src/components/Textarea.tsx',
+  },
+  Combobox: {
+    component: Combobox,
+    description: 'Searchable dropdown component combining Command and Popover primitives. Perfect for forms with searchable select inputs.',
+    props: {
+      placeholder: {
+        type: 'text',
+        default: 'Select option...',
+        description: 'Placeholder text for the trigger button',
+      },
+      disabled: {
+        type: 'boolean',
+        default: false,
+        description: 'Disables the combobox',
+      },
+    },
+    examples: [
+      {
+        label: 'Default',
+        props: {
+          options: [
+            { value: 'react', label: 'React' },
+            { value: 'vue', label: 'Vue' },
+            { value: 'angular', label: 'Angular' },
+            { value: 'svelte', label: 'Svelte' },
+          ],
+          placeholder: 'Select framework...',
+        },
+        children: null,
+      },
+    ],
+    codeExamples: [
+      {
+        title: 'Basic Usage',
+        code: `import { Combobox } from "@sds/ui"
+
+const frameworks = [
+  { value: "react", label: "React" },
+  { value: "vue", label: "Vue" },
+  { value: "angular", label: "Angular" },
+]
+
+<Combobox
+  options={frameworks}
+  placeholder="Select framework..."
+  onValueChange={(value) => console.log(value)}
+/>`,
+        description: 'Searchable select with custom options',
+      },
+    ],
+    sourceUrl: 'https://github.com/shalom-ormsby/ecosystem/blob/main/packages/ui/src/components/Combobox.tsx',
+  },
+  Command: {
+    component: Command,
+    description: 'Command menu component built with cmdk. Perfect for creating command palettes and searchable lists.',
+    props: {},
+    examples: [
+      {
+        label: 'Default',
+        props: {},
+        children: (
+          <Command className="rounded-lg border shadow-md">
+            <CommandInput placeholder="Type a command or search..." />
+            <CommandList>
+              <CommandEmpty>No results found.</CommandEmpty>
+              <CommandGroup heading="Suggestions">
+                <CommandItem>Calendar</CommandItem>
+                <CommandItem>Search Emoji</CommandItem>
+                <CommandItem>Calculator</CommandItem>
+              </CommandGroup>
+              <CommandSeparator />
+              <CommandGroup heading="Settings">
+                <CommandItem>Profile</CommandItem>
+                <CommandItem>Billing</CommandItem>
+                <CommandItem>Settings</CommandItem>
+              </CommandGroup>
+            </CommandList>
+          </Command>
+        ),
+      },
+    ],
+    codeExamples: [
+      {
+        title: 'Basic Command Menu',
+        code: `import {
+  Command,
+  CommandInput,
+  CommandList,
+  CommandEmpty,
+  CommandGroup,
+  CommandItem,
+  CommandSeparator,
+} from "@sds/ui"
+
+<Command className="rounded-lg border shadow-md">
+  <CommandInput placeholder="Type a command..." />
+  <CommandList>
+    <CommandEmpty>No results found.</CommandEmpty>
+    <CommandGroup heading="Suggestions">
+      <CommandItem>Calendar</CommandItem>
+      <CommandItem>Search Emoji</CommandItem>
+    </CommandGroup>
+  </CommandList>
+</Command>`,
+        description: 'Command palette with search and grouped items',
+      },
+    ],
+    sourceUrl: 'https://github.com/shalom-ormsby/ecosystem/blob/main/packages/ui/src/components/Command.tsx',
+  },
+  Popover: {
+    component: Popover,
+    description: 'Floating content panel that appears near a trigger element. Built on Radix UI Popover primitive.',
+    props: {},
+    examples: [
+      {
+        label: 'Default',
+        props: {},
+        children: (
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button variant="outline">Open popover</Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-80">
+              <div className="grid gap-4">
+                <div className="space-y-2">
+                  <h4 className="font-medium leading-none">Dimensions</h4>
+                  <p className="text-sm text-muted-foreground">
+                    Set the dimensions for the layer.
+                  </p>
+                </div>
+              </div>
+            </PopoverContent>
+          </Popover>
+        ),
+      },
+    ],
+    codeExamples: [
+      {
+        title: 'Basic Usage',
+        code: `import { Popover, PopoverContent, PopoverTrigger } from "@sds/ui"
+import { Button } from "@sds/ui"
+
+<Popover>
+  <PopoverTrigger asChild>
+    <Button variant="outline">Open popover</Button>
+  </PopoverTrigger>
+  <PopoverContent className="w-80">
+    <div className="grid gap-4">
+      <h4 className="font-medium">Popover Title</h4>
+      <p className="text-sm text-muted-foreground">
+        Popover content goes here.
+      </p>
+    </div>
+  </PopoverContent>
+</Popover>`,
+        description: 'Popover with custom content',
+      },
+    ],
+    sourceUrl: 'https://github.com/shalom-ormsby/ecosystem/blob/main/packages/ui/src/components/Popover.tsx',
+  },
+  Tabs: {
+    component: Tabs,
+    description: 'Tabbed interface for organizing content into multiple panels. Built on Radix UI Tabs primitive.',
+    props: {
+      defaultValue: {
+        type: 'text',
+        default: 'tab1',
+        description: 'Default active tab value',
+      },
+    },
+    examples: [
+      {
+        label: 'Default',
+        props: { defaultValue: 'account' },
+        children: (
+          <Tabs defaultValue="account" className="w-[400px]">
+            <TabsList className="grid w-full grid-cols-2">
+              <TabsTrigger value="account">Account</TabsTrigger>
+              <TabsTrigger value="password">Password</TabsTrigger>
+            </TabsList>
+            <TabsContent value="account">
+              <Card className="p-6">
+                <p className="text-sm text-muted-foreground">
+                  Make changes to your account here.
+                </p>
+              </Card>
+            </TabsContent>
+            <TabsContent value="password">
+              <Card className="p-6">
+                <p className="text-sm text-muted-foreground">
+                  Change your password here.
+                </p>
+              </Card>
+            </TabsContent>
+          </Tabs>
+        ),
+      },
+    ],
+    codeExamples: [
+      {
+        title: 'Basic Tabs',
+        code: `import { Tabs, TabsContent, TabsList, TabsTrigger } from "@sds/ui"
+
+<Tabs defaultValue="account" className="w-[400px]">
+  <TabsList>
+    <TabsTrigger value="account">Account</TabsTrigger>
+    <TabsTrigger value="password">Password</TabsTrigger>
+  </TabsList>
+  <TabsContent value="account">
+    Make changes to your account here.
+  </TabsContent>
+  <TabsContent value="password">
+    Change your password here.
+  </TabsContent>
+</Tabs>`,
+        description: 'Basic tabbed interface',
+      },
+    ],
+    sourceUrl: 'https://github.com/shalom-ormsby/ecosystem/blob/main/packages/ui/src/components/Tabs.tsx',
+  },
+  Toaster: {
+    component: Toaster,
+    description: 'Toast notification component powered by Sonner. Provides elegant, accessible toast notifications with better UX than traditional toasts.',
+    props: {},
+    examples: [
+      {
+        label: 'Usage',
+        props: {},
+        children: (
+          <div className="space-y-4">
+            <p className="text-sm text-muted-foreground">
+              Add <code className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-xs">&lt;Toaster /&gt;</code> to your root layout, then use the <code className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-xs">toast()</code> function from the sonner package.
+            </p>
+            <Button
+              onClick={() => {
+                // Example - in actual use: import { toast } from 'sonner'
+                console.log('Toast would appear here')
+              }}
+            >
+              Show Toast
+            </Button>
+          </div>
+        ),
+      },
+    ],
+    codeExamples: [
+      {
+        title: 'Setup',
+        code: `// Add to your root layout
+import { Toaster } from "@sds/ui"
+
+export default function RootLayout({ children }) {
+  return (
+    <html>
+      <body>
+        {children}
+        <Toaster />
+      </body>
+    </html>
+  )
+}`,
+        description: 'Add Toaster to root layout',
+      },
+      {
+        title: 'Usage',
+        code: `import { toast } from "sonner"
+
+// Show a toast
+toast("Event has been created")
+
+// Success toast
+toast.success("Profile updated")
+
+// Error toast
+toast.error("Something went wrong")
+
+// With action
+toast("Event created", {
+  action: {
+    label: "Undo",
+    onClick: () => console.log("Undo"),
+  },
+})`,
+        description: 'Using toast notifications',
+      },
+    ],
+    sourceUrl: 'https://github.com/shalom-ormsby/ecosystem/blob/main/packages/ui/src/components/Sonner.tsx',
   },
 };

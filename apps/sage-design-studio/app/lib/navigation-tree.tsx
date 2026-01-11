@@ -165,6 +165,16 @@ export const navigationTree: NavigationItem[] = [
             section: 'atoms',
           },
           {
+            id: 'combobox',
+            label: 'Combobox',
+            section: 'atoms',
+          },
+          {
+            id: 'command',
+            label: 'Command',
+            section: 'atoms',
+          },
+          {
             id: 'link',
             label: 'Link',
             section: 'atoms',
@@ -190,13 +200,28 @@ export const navigationTree: NavigationItem[] = [
             section: 'atoms',
           },
           {
+            id: 'popover',
+            label: 'Popover',
+            section: 'atoms',
+          },
+          {
             id: 'switch',
             label: 'Switch',
             section: 'atoms',
           },
           {
+            id: 'tabs',
+            label: 'Tabs',
+            section: 'atoms',
+          },
+          {
             id: 'textarea',
             label: 'Textarea',
+            section: 'atoms',
+          },
+          {
+            id: 'toaster',
+            label: 'Toaster',
             section: 'atoms',
           },
         ],

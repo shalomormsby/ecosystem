@@ -66,12 +66,18 @@ const routeConfig: RouteConfig = {
       button: { label: 'Button' },
       card: { label: 'Card' },
       code: { label: 'Code' },
+      combobox: { label: 'Combobox' },
+      command: { label: 'Command' },
       link: { label: 'Link' },
       badge: { label: 'Badge' },
       avatar: { label: 'Avatar' },
       spinner: { label: 'Spinner' },
       'progress-bar': { label: 'Progress Bar' },
+      popover: { label: 'Popover' },
       switch: { label: 'Switch' },
+      tabs: { label: 'Tabs' },
+      textarea: { label: 'Textarea' },
+      toaster: { label: 'Toaster' },
     }
   },
   molecules: {
