@@ -167,7 +167,7 @@ export const searchIndex: SearchResult[] = [
     description: 'Switch between light and dark modes',
     type: 'component',
     category: 'Molecules',
-    path: 'molecules-themetoggle',
+    path: 'molecules-theme-toggle',
     keywords: ['theme', 'dark mode', 'light mode', 'switch'],
   },
   {
@@ -176,7 +176,7 @@ export const searchIndex: SearchResult[] = [
     description: 'Enhanced theme control panel with expandable options',
     type: 'component',
     category: 'Molecules',
-    path: 'molecules-themeswitcher',
+    path: 'molecules-theme-switcher',
     keywords: ['theme', 'dark mode', 'light mode', 'settings', 'system', 'auto'],
   },
   {
@@ -185,7 +185,7 @@ export const searchIndex: SearchResult[] = [
     description: 'Complete form field with label, input, and error handling',
     type: 'component',
     category: 'Molecules',
-    path: 'molecules-formfield',
+    path: 'molecules-form-field',
     keywords: ['input', 'form', 'label', 'error', 'validation'],
   },
   {
@@ -194,7 +194,7 @@ export const searchIndex: SearchResult[] = [
     description: 'Debounced search input with clear functionality',
     type: 'component',
     category: 'Molecules',
-    path: 'molecules-searchbar',
+    path: 'molecules-search-bar',
     keywords: ['search', 'input', 'filter', 'find', 'query'],
   },
   {
@@ -203,7 +203,7 @@ export const searchIndex: SearchResult[] = [
     description: 'Group of mutually exclusive radio buttons',
     type: 'component',
     category: 'Molecules',
-    path: 'molecules-radiogroup',
+    path: 'molecules-radio-group',
     keywords: ['radio', 'select', 'choice', 'option', 'form'],
   },
   {
@@ -212,7 +212,7 @@ export const searchIndex: SearchResult[] = [
     description: 'Group of selectable checkboxes',
     type: 'component',
     category: 'Molecules',
-    path: 'molecules-checkboxgroup',
+    path: 'molecules-checkbox-group',
     keywords: ['checkbox', 'select', 'multi-select', 'form'],
   },
 

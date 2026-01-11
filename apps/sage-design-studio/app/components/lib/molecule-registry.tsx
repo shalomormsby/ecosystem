@@ -11,7 +11,11 @@ export const moleculeRegistry: Record<string, ComponentConfig> = {
         type: 'array',
         typeDefinition: 'BreadcrumbItem[]',
         required: true,
-        default: [],
+        default: [
+          { label: 'Home', href: '#' },
+          { label: 'Components', href: '#' },
+          { label: 'Breadcrumbs' },
+        ],
         description: 'Array of breadcrumb items from root to current page. Last item should omit href to indicate current page.',
       },
       variant: {
