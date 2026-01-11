@@ -25,13 +25,19 @@ export interface SearchBarProps extends Omit<TextFieldProps, 'variant'> {
    * Callback fired when clear button is clicked
    */
   onClear?: () => void;
+
+  /**
+   * Keyboard shortcut to display when empty (e.g. "⌘K")
+   * @default "⌘K"
+   */
+  shortcut?: React.ReactNode;
 }
 
 /**
  * SearchBar Component
  *
  * A specialized text field for search functionality with built-in
- * search icon, optional clear button, and debounced onChange.
+ * search icon, optional clear button, shortcut badge, and debounced onChange.
  *
  * **Note:** SearchBar always uses the `outlined` variant and does not
  * accept a variant prop. This ensures consistent search field styling.
@@ -39,6 +45,7 @@ export interface SearchBarProps extends Omit<TextFieldProps, 'variant'> {
  * Features:
  * - Search icon on the left
  * - Optional clear button (X) on the right
+ * - Shortcut badge (⌘K) when empty
  * - Debounced search callback to reduce API calls
  * - All TextField features (sizes, error states, etc.)
  * - Theme-aware colors
@@ -62,8 +69,9 @@ export const SearchBar = React.forwardRef<HTMLInputElement, SearchBarProps>(
       onClear,
       value: controlledValue,
       onChange,
-      placeholder = 'Search...',
+      placeholder = 'Search',
       className = '',
+      shortcut = '⌘K',
       ...props
     },
     ref
@@ -121,6 +129,7 @@ export const SearchBar = React.forwardRef<HTMLInputElement, SearchBarProps>(
 
     const value = controlledValue !== undefined ? controlledValue : internalValue;
     const showClear = showClearButton && value;
+    const showShortcut = !value && shortcut;
 
     return (
       <div className={`relative w-full ${className}`}>
@@ -151,10 +160,19 @@ export const SearchBar = React.forwardRef<HTMLInputElement, SearchBarProps>(
           onKeyDown={handleKeyDown}
           placeholder={placeholder}
           variant="outlined"
-          className="pl-10 !bg-[var(--color-surface)]"
-          style={{ paddingRight: showClear ? '2.5rem' : undefined }}
+          className="pl-10 !bg-[var(--color-surface)] !border !border-[var(--color-border)]"
+          style={{ paddingRight: (showClear || showShortcut) ? '3rem' : undefined }}
           {...props}
         />
+
+        {/* Shortcut Badge */}
+        {showShortcut && (
+          <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none">
+            <kbd className="px-2 py-0.5 text-xs font-mono text-[var(--color-text-primary)] bg-[var(--color-background)] border border-[var(--color-border)] rounded shadow-sm">
+              {shortcut}
+            </kbd>
+          </div>
+        )}
 
         {/* Clear Button */}
         {showClear && (
