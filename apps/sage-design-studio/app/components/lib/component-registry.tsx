@@ -1,5 +1,5 @@
 import { Code, Link, Avatar, Spinner, ProgressBar, Switch } from '@ecosystem/design-system';
-import { Button, Card, Badge, Checkbox, Select, SelectContent, SelectItem, SelectTrigger, SelectValue, Separator, ScrollArea, Skeleton, ToastProvider, useToast } from '@sds/ui';
+import { Alert, AlertDescription, AlertTitle, Button, Card, Badge, Checkbox, DataTable, Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger, Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage, RadioGroup, RadioGroupItem, Select, SelectContent, SelectItem, SelectTrigger, SelectValue, Separator, ScrollArea, Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger, Skeleton, Table, TableBody, TableCell, TableHead, TableHeader, TableRow, ToastProvider, useToast } from '@sds/ui';
 
 export interface PropConfig {
   type: 'select' | 'boolean' | 'text' | 'array' | 'object' | 'interface' | 'custom';
@@ -33,6 +33,78 @@ export interface ComponentConfig {
 }
 
 export const componentRegistry: Record<string, ComponentConfig> = {
+  Alert: {
+    component: Alert,
+    description: 'Displays a callout for user attention. Supports default and destructive variants with optional icon, title, and description.',
+    props: {
+      variant: {
+        type: 'select',
+        options: ['default', 'destructive'] as const,
+        default: 'default',
+        description: 'Visual style variant - default for informational alerts, destructive for errors or warnings',
+      },
+    },
+    examples: [
+      {
+        label: 'Default',
+        props: { variant: 'default' },
+        children: (
+          <>
+            <AlertTitle>Heads up!</AlertTitle>
+            <AlertDescription>
+              You can add components to your app using the cli.
+            </AlertDescription>
+          </>
+        ),
+      },
+      {
+        label: 'Destructive',
+        props: { variant: 'destructive' },
+        children: (
+          <>
+            <AlertTitle>Error</AlertTitle>
+            <AlertDescription>
+              Your session has expired. Please log in again.
+            </AlertDescription>
+          </>
+        ),
+      },
+    ],
+    codeExamples: [
+      {
+        title: 'Basic Usage',
+        code: `import { Alert, AlertDescription, AlertTitle } from '@sds/ui';
+
+<Alert>
+  <AlertTitle>Heads up!</AlertTitle>
+  <AlertDescription>
+    You can add components to your app using the cli.
+  </AlertDescription>
+</Alert>`,
+        description: 'Simple informational alert with title and description',
+      },
+      {
+        title: 'Destructive Variant',
+        code: `import { Alert, AlertDescription, AlertTitle } from '@sds/ui';
+
+<Alert variant="destructive">
+  <AlertTitle>Error</AlertTitle>
+  <AlertDescription>
+    Your session has expired. Please log in again.
+  </AlertDescription>
+</Alert>`,
+        description: 'Error alert using destructive variant',
+      },
+    ],
+    sourceUrl: 'https://github.com/shalom-ormsby/ecosystem/blob/main/packages/ui/src/components/Alert.tsx',
+    accessibilityNotes: [
+      'Uses role="alert" for screen reader announcements',
+      'WCAG 2.1 AA compliant color contrast',
+      'Keyboard accessible',
+      'Supports both title and description for complete context',
+    ],
+  },
+
   Button: {
     component: Button,
     description: 'Interactive button component with multiple variants, sizes, and states. Built with Radix UI primitives for accessibility.',
@@ -211,6 +283,98 @@ export const componentRegistry: Record<string, ComponentConfig> = {
       },
     ],
     sourceUrl: 'https://github.com/shalom-ormsby/ecosystem/blob/main/design-system/atoms/Card/Card.tsx',
+  },
+
+  Dialog: {
+    component: Dialog,
+    description: 'A modal dialog that interrupts the user with important content and expects a response. Replaces the legacy Modal component with Radix UI primitives for enhanced accessibility.',
+    props: {
+      open: {
+        type: 'boolean',
+        default: false,
+        description: 'Controls the open state of the dialog',
+      },
+    },
+    examples: [
+      {
+        label: 'Basic Dialog',
+        props: {},
+        children: (
+          <>
+            <DialogTrigger asChild>
+              <Button variant="outline">Open Dialog</Button>
+            </DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Are you absolutely sure?</DialogTitle>
+                <DialogDescription>
+                  This action cannot be undone. This will permanently delete your account
+                  and remove your data from our servers.
+                </DialogDescription>
+              </DialogHeader>
+              <DialogFooter>
+                <Button variant="outline">Cancel</Button>
+                <Button variant="destructive">Delete Account</Button>
+              </DialogFooter>
+            </DialogContent>
+          </>
+        ),
+      },
+    ],
+    codeExamples: [
+      {
+        title: 'Basic Usage',
+        code: `import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@sds/ui';
+
+<Dialog>
+  <DialogTrigger asChild>
+    <Button>Open Dialog</Button>
+  </DialogTrigger>
+  <DialogContent>
+    <DialogHeader>
+      <DialogTitle>Dialog Title</DialogTitle>
+      <DialogDescription>
+        Dialog description goes here.
+      </DialogDescription>
+    </DialogHeader>
+  </DialogContent>
+</Dialog>`,
+        description: 'Simple dialog with trigger button',
+      },
+      {
+        title: 'Confirmation Dialog',
+        code: `import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger, Button } from '@sds/ui';
+
+<Dialog>
+  <DialogTrigger asChild>
+    <Button variant="destructive">Delete Account</Button>
+  </DialogTrigger>
+  <DialogContent>
+    <DialogHeader>
+      <DialogTitle>Are you absolutely sure?</DialogTitle>
+      <DialogDescription>
+        This action cannot be undone. This will permanently delete your
+        account and remove your data from our servers.
+      </DialogDescription>
+    </DialogHeader>
+    <DialogFooter>
+      <Button variant="outline">Cancel</Button>
+      <Button variant="destructive">Delete Account</Button>
+    </DialogFooter>
+  </DialogContent>
+</Dialog>`,
+        description: 'Confirmation dialog with footer actions',
+      },
+    ],
+    sourceUrl: 'https://github.com/shalom-ormsby/ecosystem/blob/main/packages/ui/src/components/Dialog.tsx',
+    accessibilityNotes: [
+      'Built on Radix UI Dialog primitive with full ARIA support',
+      'Focus automatically trapped within dialog when open',
+      'Escape key closes the dialog',
+      'Click outside closes the dialog',
+      'Prevents scrolling of background content when open',
+      'Properly announces to screen readers with role="dialog"',
+    ],
   },
 
   Code: {
@@ -978,5 +1142,420 @@ const [darkMode, setDarkMode] = useState(false);
       },
     ],
     sourceUrl: 'https://github.com/shalom-ormsby/ecosystem/blob/main/packages/ui/src/components/Skeleton.tsx',
+  },
+
+  DropdownMenu: {
+    component: DropdownMenu,
+    description: 'Displays a menu of actions triggered by a button. Replaces the legacy Dropdown component with Radix UI primitives for enhanced accessibility and flexibility.',
+    props: {
+      open: {
+        type: 'boolean',
+        default: false,
+        description: 'Controls the open state of the dropdown menu',
+      },
+    },
+    examples: [
+      {
+        label: 'Basic Menu',
+        props: {},
+        children: (
+          <>
+            <DropdownMenuTrigger asChild>
+              <Button variant="outline">Open Menu</Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuLabel>My Account</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem>Profile</DropdownMenuItem>
+              <DropdownMenuItem>Settings</DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem>Logout</DropdownMenuItem>
+            </DropdownMenuContent>
+          </>
+        ),
+      },
+    ],
+    codeExamples: [
+      {
+        title: 'Basic Usage',
+        code: `import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger, Button } from '@sds/ui';
+
+<DropdownMenu>
+  <DropdownMenuTrigger asChild>
+    <Button>Open</Button>
+  </DropdownMenuTrigger>
+  <DropdownMenuContent>
+    <DropdownMenuLabel>My Account</DropdownMenuLabel>
+    <DropdownMenuSeparator />
+    <DropdownMenuItem>Profile</DropdownMenuItem>
+    <DropdownMenuItem>Settings</DropdownMenuItem>
+  </DropdownMenuContent>
+</DropdownMenu>`,
+        description: 'Simple dropdown menu with labeled sections',
+      },
+    ],
+    sourceUrl: 'https://github.com/shalom-ormsby/ecosystem/blob/main/packages/ui/src/components/DropdownMenu.tsx',
+    accessibilityNotes: [
+      'Built on Radix UI DropdownMenu primitive with full ARIA support',
+      'Keyboard navigation with arrow keys, Enter, and Escape',
+      'Focus management and loop within menu items',
+      'Screen reader accessible with proper roles and labels',
+      'Supports typeahead to jump to menu items',
+    ],
+  },
+
+  RadioGroup: {
+    component: RadioGroup,
+    description: 'A set of checkable buttons—known as radio buttons—where no more than one can be checked at a time. Built on Radix UI for accessibility.',
+    props: {
+      disabled: {
+        type: 'boolean',
+        default: false,
+        description: 'When true, prevents interaction with all radio items',
+      },
+    },
+    examples: [
+      {
+        label: 'Default',
+        props: {},
+        children: (
+          <>
+            <div className="flex items-center space-x-2">
+              <RadioGroupItem value="default" id="r1" />
+              <label htmlFor="r1">Default</label>
+            </div>
+            <div className="flex items-center space-x-2">
+              <RadioGroupItem value="comfortable" id="r2" />
+              <label htmlFor="r2">Comfortable</label>
+            </div>
+            <div className="flex items-center space-x-2">
+              <RadioGroupItem value="compact" id="r3" />
+              <label htmlFor="r3">Compact</label>
+            </div>
+          </>
+        ),
+      },
+    ],
+    codeExamples: [
+      {
+        title: 'Basic Usage',
+        code: `import { RadioGroup, RadioGroupItem } from '@sds/ui';
+
+<RadioGroup defaultValue="option-one">
+  <div className="flex items-center space-x-2">
+    <RadioGroupItem value="option-one" id="option-one" />
+    <label htmlFor="option-one">Option One</label>
+  </div>
+  <div className="flex items-center space-x-2">
+    <RadioGroupItem value="option-two" id="option-two" />
+    <label htmlFor="option-two">Option Two</label>
+  </div>
+</RadioGroup>`,
+        description: 'Radio group with two options',
+      },
+    ],
+    sourceUrl: 'https://github.com/shalom-ormsby/ecosystem/blob/main/packages/ui/src/components/RadioGroup.tsx',
+    accessibilityNotes: [
+      'Built on Radix UI RadioGroup primitive',
+      'Keyboard navigation with arrow keys',
+      'Proper radio group semantics with ARIA roles',
+      'Screen reader accessible',
+      'Focus management within group',
+    ],
+  },
+
+  Sheet: {
+    component: Sheet,
+    description: 'Extends the Dialog component to display content that complements the main content of the screen. Slides in from top, right, bottom, or left.',
+    props: {
+      side: {
+        type: 'select',
+        options: ['top', 'right', 'bottom', 'left'] as const,
+        default: 'right',
+        description: 'The side from which the sheet slides in',
+      },
+    },
+    examples: [
+      {
+        label: 'Right Side (Default)',
+        props: {},
+        children: (
+          <>
+            <SheetTrigger asChild>
+              <Button variant="outline">Open Sheet</Button>
+            </SheetTrigger>
+            <SheetContent>
+              <SheetHeader>
+                <SheetTitle>Sheet Title</SheetTitle>
+                <SheetDescription>
+                  This is a sheet that slides in from the right side.
+                </SheetDescription>
+              </SheetHeader>
+            </SheetContent>
+          </>
+        ),
+      },
+    ],
+    codeExamples: [
+      {
+        title: 'Basic Usage',
+        code: `import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger, Button } from '@sds/ui';
+
+<Sheet>
+  <SheetTrigger asChild>
+    <Button>Open</Button>
+  </SheetTrigger>
+  <SheetContent>
+    <SheetHeader>
+      <SheetTitle>Title</SheetTitle>
+      <SheetDescription>
+        Description goes here.
+      </SheetDescription>
+    </SheetHeader>
+  </SheetContent>
+</Sheet>`,
+        description: 'Sheet that slides from the right (default)',
+      },
+      {
+        title: 'Different Sides',
+        code: `// Slide from left
+<Sheet>
+  <SheetTrigger asChild>
+    <Button>Open from Left</Button>
+  </SheetTrigger>
+  <SheetContent side="left">
+    <SheetHeader>
+      <SheetTitle>Navigation</SheetTitle>
+    </SheetHeader>
+  </SheetContent>
+</Sheet>`,
+        description: 'Sheet sliding from different sides',
+      },
+    ],
+    sourceUrl: 'https://github.com/shalom-ormsby/ecosystem/blob/main/packages/ui/src/components/Sheet.tsx',
+    accessibilityNotes: [
+      'Built on Radix UI Dialog primitive (repurposed as sheet)',
+      'Focus trap within sheet when open',
+      'Escape key closes the sheet',
+      'Click outside closes the sheet',
+      'Prevents background scroll when open',
+      'Proper ARIA roles and labels',
+    ],
+  },
+
+  Table: {
+    component: Table,
+    description: 'A responsive table component for displaying tabular data with proper semantic HTML structure.',
+    props: {},
+    examples: [
+      {
+        label: 'Simple Table',
+        props: {},
+        children: (
+          <>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Name</TableHead>
+                <TableHead>Status</TableHead>
+                <TableHead>Amount</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow>
+                <TableCell>John Doe</TableCell>
+                <TableCell>Active</TableCell>
+                <TableCell>$250.00</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>Jane Smith</TableCell>
+                <TableCell>Pending</TableCell>
+                <TableCell>$150.00</TableCell>
+              </TableRow>
+            </TableBody>
+          </>
+        ),
+      },
+    ],
+    codeExamples: [
+      {
+        title: 'Basic Usage',
+        code: `import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@sds/ui';
+
+<Table>
+  <TableHeader>
+    <TableRow>
+      <TableHead>Name</TableHead>
+      <TableHead>Email</TableHead>
+      <TableHead>Status</TableHead>
+    </TableRow>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>John Doe</TableCell>
+      <TableCell>john@example.com</TableCell>
+      <TableCell>Active</TableCell>
+    </TableRow>
+  </TableBody>
+</Table>`,
+        description: 'Simple table with header and body',
+      },
+    ],
+    sourceUrl: 'https://github.com/shalom-ormsby/ecosystem/blob/main/packages/ui/src/components/Table.tsx',
+    accessibilityNotes: [
+      'Uses semantic HTML table elements',
+      'Proper table structure with thead and tbody',
+      'Responsive with horizontal scroll on overflow',
+      'Screen reader accessible with table roles',
+      'Clear visual distinction between headers and data',
+    ],
+  },
+
+  Form: {
+    component: Form,
+    description: 'Building forms with React Hook Form and Zod. Provides composable components for building accessible forms with validation. Replaces the legacy Form component.',
+    props: {},
+    examples: [
+      {
+        label: 'Note',
+        props: {},
+        children: (
+          <div className="text-sm text-muted-foreground p-4 border rounded">
+            Form component requires react-hook-form and zod. See code examples for usage.
+          </div>
+        ),
+      },
+    ],
+    codeExamples: [
+      {
+        title: 'Basic Form',
+        code: `import { useForm } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
+import * as z from "zod"
+import { Button } from "@sds/ui"
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@sds/ui"
+import { Input } from "@sds/ui"
+
+const formSchema = z.object({
+  username: z.string().min(2, {
+    message: "Username must be at least 2 characters.",
+  }),
+})
+
+function ProfileForm() {
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      username: "",
+    },
+  })
+
+  function onSubmit(values: z.infer<typeof formSchema>) {
+    console.log(values)
+  }
+
+  return (
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+        <FormField
+          control={form.control}
+          name="username"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Username</FormLabel>
+              <FormControl>
+                <Input placeholder="shadcn" {...field} />
+              </FormControl>
+              <FormDescription>
+                This is your public display name.
+              </FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <Button type="submit">Submit</Button>
+      </form>
+    </Form>
+  )
+}`,
+        description: 'Complete form with validation using react-hook-form and zod',
+      },
+    ],
+    sourceUrl: 'https://github.com/shalom-ormsby/ecosystem/blob/main/packages/ui/src/components/Form.tsx',
+    accessibilityNotes: [
+      'Built on react-hook-form for accessibility',
+      'Proper form field associations with labels',
+      'Error messages announced to screen readers',
+      'Keyboard navigation support',
+      'Focus management on validation errors',
+    ],
+  },
+
+  DataTable: {
+    component: DataTable,
+    description: 'Powerful data table with built-in sorting, filtering, and pagination using TanStack Table. Essential for dashboards and data display.',
+    props: {},
+    examples: [
+      {
+        label: 'Note',
+        props: {},
+        children: (
+          <div className="text-sm text-muted-foreground p-4 border rounded">
+            DataTable requires column definitions and data. See code examples for usage.
+          </div>
+        ),
+      },
+    ],
+    codeExamples: [
+      {
+        title: 'Basic Data Table',
+        code: `import { DataTable } from "@sds/ui"
+import { ColumnDef } from "@tanstack/react-table"
+
+type Payment = {
+  id: string
+  amount: number
+  status: "pending" | "processing" | "success" | "failed"
+  email: string
+}
+
+const columns: ColumnDef<Payment>[] = [
+  {
+    accessorKey: "status",
+    header: "Status",
+  },
+  {
+    accessorKey: "email",
+    header: "Email",
+  },
+  {
+    accessorKey: "amount",
+    header: "Amount",
+  },
+]
+
+const data: Payment[] = [
+  {
+    id: "1",
+    amount: 100,
+    status: "success",
+    email: "user@example.com",
+  },
+  // ... more data
+]
+
+export function PaymentsTable() {
+  return <DataTable columns={columns} data={data} />
+}`,
+        description: 'Data table with sorting and pagination',
+      },
+    ],
+    sourceUrl: 'https://github.com/shalom-ormsby/ecosystem/blob/main/packages/ui/src/components/DataTable.tsx',
+    accessibilityNotes: [
+      'Built on TanStack Table with full accessibility support',
+      'Keyboard navigation through table cells',
+      'Sortable columns with keyboard activation',
+      'Pagination controls are keyboard accessible',
+      'Screen reader announces table structure and data',
+    ],
   },
 };
