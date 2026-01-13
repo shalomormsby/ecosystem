@@ -23,6 +23,7 @@ html.dark {
 :root {
   --font-header-logo: var(--font-sage-body);
   --font-header-nav: var(--font-sage-body);
+  --radius: 0.5rem;
 }
 
 @layer base {

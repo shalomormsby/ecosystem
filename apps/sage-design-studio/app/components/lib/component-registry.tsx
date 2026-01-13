@@ -2828,4 +2828,106 @@ const [date, setDate] = useState<Date | undefined>(new Date())
     ],
     sourceUrl: 'https://github.com/shalom-ormsby/ecosystem/blob/main/packages/ui/src/components/Resizable.tsx',
   },
+
+  // Aliases for navigation compatibility (kebab-case → PascalCase conversion)
+  // "input-otp" converts to "InputOtp" but component is registered as "InputOTP"
+  InputOtp: {
+    component: InputOTP,
+    description: 'One-time password input component. Built with input-otp.',
+    props: {
+      maxLength: {
+        type: 'text',
+        default: '6',
+        description: 'Maximum number of characters',
+      },
+    },
+    examples: [
+      {
+        label: 'Default',
+        props: { maxLength: 6 },
+        children: (
+          <InputOTPGroup>
+            <InputOTPSlot index={0} />
+            <InputOTPSlot index={1} />
+            <InputOTPSlot index={2} />
+            <InputOTPSlot index={3} />
+            <InputOTPSlot index={4} />
+            <InputOTPSlot index={5} />
+          </InputOTPGroup>
+        ),
+      },
+    ],
+    codeExamples: [
+      {
+        title: 'Basic Usage',
+        code: `import { InputOTP, InputOTPGroup, InputOTPSlot } from "@sds/ui"
+
+<InputOTP maxLength={6}>
+  <InputOTPGroup>
+    <InputOTPSlot index={0} />
+    <InputOTPSlot index={1} />
+    <InputOTPSlot index={2} />
+    <InputOTPSlot index={3} />
+    <InputOTPSlot index={4} />
+    <InputOTPSlot index={5} />
+  </InputOTPGroup>
+</InputOTP>`,
+        description: '6-digit OTP input',
+      },
+    ],
+    sourceUrl: 'https://github.com/shalom-ormsby/ecosystem/blob/main/packages/ui/src/components/InputOTP.tsx',
+  },
+
+  // "resizable" converts to "Resizable" but component is registered as "ResizablePanelGroup"
+  Resizable: {
+    component: ResizablePanelGroup,
+    description: 'Resizable panel layout. Built with react-resizable-panels.',
+    props: {
+      direction: {
+        type: 'select',
+        options: ['horizontal', 'vertical'] as const,
+        default: 'horizontal',
+        description: 'Panel layout direction',
+      },
+    },
+    examples: [
+      {
+        label: 'Horizontal',
+        props: { direction: 'horizontal', className: 'min-h-[200px] max-w-md rounded-lg border' },
+        children: (
+          <>
+            <ResizablePanel defaultSize={50}>
+              <div className="flex h-full items-center justify-center p-6">
+                <span className="font-semibold">One</span>
+              </div>
+            </ResizablePanel>
+            <ResizableHandle />
+            <ResizablePanel defaultSize={50}>
+              <div className="flex h-full items-center justify-center p-6">
+                <span className="font-semibold">Two</span>
+              </div>
+            </ResizablePanel>
+          </>
+        ),
+      },
+    ],
+    codeExamples: [
+      {
+        title: 'Basic Usage',
+        code: `import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "@sds/ui"
+
+<ResizablePanelGroup direction="horizontal">
+  <ResizablePanel defaultSize={50}>
+    <div>Panel 1</div>
+  </ResizablePanel>
+  <ResizableHandle />
+  <ResizablePanel defaultSize={50}>
+    <div>Panel 2</div>
+  </ResizablePanel>
+</ResizablePanelGroup>`,
+        description: 'Resizable panel layout',
+      },
+    ],
+    sourceUrl: 'https://github.com/shalom-ormsby/ecosystem/blob/main/packages/ui/src/components/Resizable.tsx',
+  },
 };

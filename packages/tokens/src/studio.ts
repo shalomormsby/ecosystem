@@ -52,6 +52,25 @@ export const studioTokens = {
       info: '#0070f3',
       infoForeground: '#ffffff',
 
+      // Component-specific colors
+      card: '#ffffff',
+      cardForeground: '#0a0a0a',
+
+      popover: '#ffffff',
+      popoverForeground: '#0a0a0a',
+
+      muted: '#f5f5f5',
+      mutedForeground: '#737373',
+
+      destructive: '#ef4444',
+      destructiveForeground: '#ffffff',
+
+      input: '#d4d4d4',
+      ring: '#0a0a0a',
+
+      // Surface is used by various components
+      surface: '#fafafa',
+
       // Glass effects
       glass: 'rgba(255, 255, 255, 0.7)',
       glassBorder: 'rgba(0, 0, 0, 0.1)',
@@ -121,6 +140,25 @@ export const studioTokens = {
 
       info: '#0090ff',
       infoForeground: '#ffffff',
+
+      // Component-specific colors
+      card: '#0a0a0a',
+      cardForeground: '#fafafa',
+
+      popover: '#0a0a0a',
+      popoverForeground: '#fafafa',
+
+      muted: '#262626',
+      mutedForeground: '#a3a3a3',
+
+      destructive: '#ef4444',
+      destructiveForeground: '#ffffff',
+
+      input: '#404040',
+      ring: '#d4d4d4',
+
+      // Surface is used by various components
+      surface: '#171717',
 
       // Glass effects
       glass: 'rgba(0, 0, 0, 0.7)',
