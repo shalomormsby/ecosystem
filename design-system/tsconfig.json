@@ -1,6 +1,12 @@
 {
     "compilerOptions": {
         "target": "es2019",
+        "baseUrl": ".",
+        "paths": {
+            "@sds/tokens": [
+                "../packages/tokens/src/index.ts"
+            ]
+        },
         "module": "esnext",
         "lib": [
             "dom",
