@@ -1,4 +1,4 @@
-import { BookOpen, Palette, Component, Webhook, LayoutTemplate } from 'lucide-react';
+import { BookOpen, Palette, Component, Webhook, LayoutTemplate, Layers } from 'lucide-react';
 
 export interface NavigationItem {
   id: string;
@@ -225,7 +225,7 @@ export const navigationTree: NavigationItem[] = [
   {
     id: 'patterns',
     label: 'Patterns',
-    icon: <LayoutTemplate className="w-4 h-4" />,
+    icon: <Layers className="w-4 h-4" />,
     children: [
       {
         id: 'app-shell',

@@ -376,14 +376,14 @@ export function OrganismsSection({ activeItemId, breadcrumbs, onItemChange }: Or
     <div className="space-y-8 w-full min-w-0">
       <div>
         <h2 className="text-3xl font-bold mb-2 text-[var(--color-text-primary)]">
-          Organisms
+          Patterns
         </h2>
 
         <p className="text-lg text-[var(--color-text-secondary)] mb-2">
-          <strong>Distinct Sections:</strong> Complex compositions of molecules and/or atoms that form a discrete, functional section of an interface. Often manage state or layout for children.
+          <strong>UI Composites:</strong> Reusable combinations of components that form distinct, functional sections of an interface.
         </p>
         <p className="text-base text-[var(--color-text-muted)] mb-4">
-          Comprehensive, interactive sections that compose multiple components together.
+          Comprehensive, interactive patterns that assemble multiple primitives into cohesive experiences.
         </p>
 
         {/* Breadcrumbs - positioned after title and description */}
