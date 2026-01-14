@@ -97,6 +97,7 @@ ecosystem/
 ---
 
 ## 5. Decision Log (Key Shifts)
+*   **2026-01-14:** ✅ **IMPLEMENTED Functional Organization.** Restructured all 48 @sds/ui components from flat structure into 7 functional categories (Actions, Forms, Navigation, Overlays, Feedback, Data Display, Layout). Updated Studio navigation to reflect new organization. All exports remain backward-compatible.
 *   **2026-01-13:** Pivoted Master Plan to focus on **Functional Organization** and **Quality Hardening**. Confirmed "Shadcn Parity" as the primary goal for Tier 1.
 *   **2026-01-10:** Automated Token Integration. Shadcn CLI is used for ingestion, but tokens are mapped automatically via `components.json`.
 *   **2025-12:** "Clean Pivot" to Web-Only. Mobile paused.
