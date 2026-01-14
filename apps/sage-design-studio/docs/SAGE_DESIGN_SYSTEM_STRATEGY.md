@@ -1,0 +1,804 @@
+# Sage Design System - Strategy & Implementation Status
+
+> **Last Updated:** 2026-01-14
+> **Status:** ✅ Functional Organization Complete | 🚧 Quality Verification In Progress
+
+---
+
+## Table of Contents
+
+1. [Vision & Philosophy](#vision--philosophy)
+2. [Current Status](#current-status)
+3. [Architecture](#architecture)
+4. [Component Organization](#component-organization)
+5. [Implementation Progress](#implementation-progress)
+6. [Quality Standards](#quality-standards)
+7. [Development Workflow](#development-workflow)
+8. [Roadmap](#roadmap)
+
+---
+
+## Vision & Philosophy
+
+### The Solopreneur Stack
+
+The Sage Design System (SDS) is evolving from a traditional enterprise design system to a **Solopreneur-focused Accelerator**. The goal is not just "consistency" but **"quality speed"** - enabling rapid development of premium, high-scale web applications.
+
+### Core Principles
+
+1. **Functional Organization Over Atomic Design**
+   - Components grouped by what they *do* (Actions, Forms, Overlays) not abstract hierarchy (Atoms, Molecules, Organisms)
+   - Eliminates classification ambiguity and improves discoverability
+   - Aligns with modern design systems (shadcn/ui, Material UI, Radix, Chakra)
+
+2. **Code Ownership Model (shadcn/ui Philosophy)**
+   - Components are code you own, not black-box dependencies
+   - Copy, paste, and customize for maximum flexibility
+   - AI-interpretable and LLM-friendly codebase structure
+   - Zero vendor lock-in or version constraints
+
+3. **Premium Default**
+   - "It just looks expensive" - high-quality animations and interactions out of the box
+   - Accessibility is non-negotiable (WCAG 2.1 Level AA minimum)
+   - Dark mode as a first-class citizen, not an afterthought
+
+4. **AI-Native Design**
+   - JSON-LD metadata for LLM consumption
+   - Clear component interfaces and documentation
+   - Predictable patterns for AI code generation
+
+---
+
+## Current Status
+
+### Recent Achievements (January 2026)
+
+#### ✅ Functional Organization (2026-01-14)
+
+**Major architectural restructuring completed:**
+
+- **48 components reorganized** into 7 functional categories
+- **Zero breaking changes** - all imports remain backward compatible
+- **Studio navigation updated** with two-level category system
+- **Documentation aligned** with new structure
+
+**Commits:**
+- `77c39eb` - Core restructure (@sds/ui components)
+- `51f4747` - Studio navigation updates
+- `78b7001` - TypeScript fixes
+
+**Categories Implemented:**
+```
+Actions (3)        → Button, Toggle, ToggleGroup
+Forms (11)         → Checkbox, Combobox, Form, Input, InputOTP, Label,
+                     RadioGroup, Select, Slider, Switch, Textarea
+Navigation (6)     → Breadcrumb, Command, Menubar, NavigationMenu,
+                     Pagination, Tabs
+Overlays (9)       → AlertDialog, ContextMenu, Dialog, Drawer,
+                     DropdownMenu, HoverCard, Popover, Sheet, Tooltip
+Feedback (5)       → Alert, Progress, Skeleton, Sonner, Toast
+Data Display (6)   → Avatar, Badge, Calendar, Card, DataTable, Table
+Layout (8)         → Accordion, AspectRatio, Carousel, Collapsible,
+                     DatePicker, Resizable, ScrollArea, Separator
+```
+
+#### ✅ Shadcn Parity (Phase 1-3 Complete)
+
+- **43 shadcn components** fully integrated
+- **Quality hardening** completed (Jan 14):
+  - Accordion animation smoothed
+  - Popover transparency fixed
+  - Resizable rendering corrected
+  - Search index repaired (30+ components)
+
+### Current Focus
+
+**Quality Verification Phase:**
+- Systematic browser testing of all 48 components
+- Visual comparison with shadcn/ui reference
+- Animation timing verification (0.2s ease-out standard)
+- Accessibility audit (axe-core compliance)
+
+---
+
+## Architecture
+
+### The Technology Stack
+
+| Layer | Technology | Purpose |
+|-------|-----------|---------|
+| **Primitives** | Radix UI | Headless accessible components |
+| **Styling** | Tailwind CSS | Utility-first with custom animations |
+| **Tokens** | @sds/tokens | Universal design tokens (CSS vars) |
+| **Animation** | CSS Keyframes | Radix data attributes (`data-[state=open]`) |
+| **Framework** | Next.js 15+ | Server Components, App Router |
+| **Build** | tsup + tsc | ESM/CJS bundles with declarations |
+| **Workspace** | pnpm | Monorepo with workspace protocol |
+
+### Package Structure
+
+```
+ecosystem/
+├── packages/
+│   ├── ui/                          # @sds/ui - Component library (Tier 1)
+│   │   └── src/
+│   │       ├── components/
+│   │       │   ├── actions/
+│   │       │   ├── forms/
+│   │       │   ├── navigation/
+│   │       │   ├── overlays/
+│   │       │   ├── feedback/
+│   │       │   ├── data-display/
+│   │       │   └── layout/
+│   │       ├── lib/utils.ts        # cn() helper
+│   │       └── index.ts            # Barrel exports
+│   ├── tokens/                      # @sds/tokens - Design system tokens
+│   │   └── src/studio.ts
+│   ├── config/                      # Shared configs (Tailwind)
+│   │   └── tailwind/index.js
+│   └── core/                        # @sds/core - Shared logic/hooks
+├── design-system/                   # @ecosystem/design-system (Legacy)
+│   └── src/                         # Atomic-organized components (deprecated)
+└── apps/
+    └── sage-design-studio/          # Documentation & playground
+        ├── app/
+        │   ├── globals.css          # CSS custom properties
+        │   └── components/lib/
+        │       └── component-registry.tsx
+        └── docs/                    # Strategy docs (this file)
+```
+
+### Three-Tier Architecture (Current + Planned)
+
+#### Tier 1: Primitives (@sds/ui) - ✅ COMPLETE
+
+**Goal:** 100% shadcn/ui parity - accessible, unopinionated building blocks
+
+**Status:** 48 components implemented and organized functionally
+
+**Examples:** Button, Dialog, Select, Input, Accordion, Card, Table
+
+#### Tier 2: Assemblies (@sds/assemblies) - 📋 PLANNED
+
+**Goal:** Task-specific, composed functional units for common use cases
+
+**Status:** Not yet started (Phase 4+ work)
+
+**Examples:** LoginForm, CreditCardInput, PricingTable, StatCard, NewsletterSignup, CommentSection
+
+**Approach:**
+- Pre-composed components solving specific problems
+- Built from Tier 1 primitives
+- Opinionated but customizable
+- 20+ assemblies planned
+
+#### Tier 3: Templates (@sds/templates) - 📋 PLANNED
+
+**Goal:** Full-page starting points for rapid app development
+
+**Status:** Not yet started (Phase 5+ work)
+
+**Examples:** DashboardLayout, MarketingLanding, SettingsPage, BlogPostLayout
+
+**Approach:**
+- Complete page layouts and app shells
+- Combines Tier 1 + Tier 2 components
+- Production-ready starting points
+- 10+ templates planned
+
+---
+
+## Component Organization
+
+### Functional Categories
+
+Modern design systems have abandoned rigid Atomic Design hierarchies (atoms/molecules/organisms) in favor of functional organization. This eliminates classification ambiguity and improves developer discoverability.
+
+#### Why Functional Organization?
+
+**The Problem with Atomic Design:**
+- Is a search bar an "atom" (input variant), "molecule" (contains multiple atoms), or "organism" (complex interactive)?
+- Teams waste time debating classification instead of building
+- Abstraction levels don't map to developer mental models
+
+**The Solution: Function-Based Categories:**
+- Developers think "I need a form input" not "I need an atom"
+- Clear purpose-based grouping
+- Industry standard (shadcn, Material UI, Radix, Chakra all use functional categories)
+
+### Category Definitions
+
+| Category | Purpose | Component Count |
+|----------|---------|----------------|
+| **Actions** | Interactive elements that trigger behaviors | 3 |
+| **Forms** | Input controls for data collection | 11 |
+| **Navigation** | Moving through content and hierarchy | 6 |
+| **Overlays** | Contextual content layers (modals, menus) | 9 |
+| **Feedback** | Status and system communication | 5 |
+| **Data Display** | Presenting information visually | 6 |
+| **Layout** | Structural and spacing components | 8 |
+
+### Category Details
+
+#### Actions (3 components)
+
+**Purpose:** User-triggered interactions and state changes
+
+- `Button` - Primary interaction element with variants (default, destructive, outline, ghost, link)
+- `Toggle` - Binary state toggle with pressed/unpressed states
+- `ToggleGroup` - Multiple toggles with single or multi-select
+
+**When to use:** Any user action that changes state or navigates
+
+#### Forms (11 components)
+
+**Purpose:** Data input and collection with validation
+
+- `Input` - Text input with various types (text, email, password, number)
+- `Textarea` - Multi-line text input
+- `Select` - Dropdown selection from options
+- `Combobox` - Searchable select with autocomplete
+- `Checkbox` - Boolean selection (single or grouped)
+- `RadioGroup` - Exclusive selection from options
+- `Switch` - Toggle between two states
+- `Slider` - Numeric input via dragging
+- `Label` - Form field labels with proper associations
+- `InputOTP` - One-time password input
+- `Form` - react-hook-form + zod integration wrapper
+
+**When to use:** Any data collection scenario
+
+#### Navigation (6 components)
+
+**Purpose:** Moving through content hierarchy and app structure
+
+- `Breadcrumb` - Hierarchical location indicator
+- `Tabs` - Content organization with tab switching
+- `Pagination` - Multi-page navigation
+- `Command` - Command palette / search interface
+- `NavigationMenu` - Complex header navigation with dropdowns
+- `Menubar` - Desktop-style menu bar
+
+**When to use:** Helping users understand location and navigate
+
+#### Overlays (9 components)
+
+**Purpose:** Contextual content that appears above the main UI
+
+- `Dialog` - Modal dialogs for critical interactions
+- `AlertDialog` - Confirmation dialogs with cancel/confirm
+- `Sheet` - Slide-in panels from screen edges
+- `Drawer` - Mobile-friendly bottom drawer
+- `Popover` - Floating content anchored to trigger
+- `Tooltip` - Hover hints and additional context
+- `HoverCard` - Rich preview cards on hover
+- `DropdownMenu` - Context menus and action lists
+- `ContextMenu` - Right-click context menus
+
+**When to use:** Secondary content that shouldn't interrupt main flow
+
+#### Feedback (5 components)
+
+**Purpose:** Communicating system state and user action results
+
+- `Alert` - Prominent messages (info, warning, error, success)
+- `Toast` - Temporary notifications (uses Sonner)
+- `Progress` - Visual progress indicators
+- `Skeleton` - Loading state placeholders
+- `Sonner` - Toast notification system
+
+**When to use:** Providing feedback on user actions or system state
+
+#### Data Display (6 components)
+
+**Purpose:** Presenting information in structured formats
+
+- `Table` - Tabular data display
+- `DataTable` - Enhanced table with sorting and pagination
+- `Card` - Contained content blocks
+- `Avatar` - User profile images with fallbacks
+- `Badge` - Status indicators and labels
+- `Calendar` - Date selection and display
+
+**When to use:** Showing structured or visual data
+
+#### Layout (8 components)
+
+**Purpose:** Spatial organization and structural elements
+
+- `Accordion` - Collapsible content sections
+- `Collapsible` - Simple show/hide content
+- `Carousel` - Scrollable content slider
+- `ScrollArea` - Custom scrollbar styling
+- `Separator` - Visual dividers
+- `AspectRatio` - Maintain aspect ratios
+- `Resizable` - User-resizable panels
+- `DatePicker` - Calendar + popover combo
+
+**When to use:** Organizing content spatially
+
+---
+
+## Implementation Progress
+
+### Phase Completion Status
+
+#### ✅ Phase 0: Prerequisites (Complete)
+
+**Token Integration Automation:**
+- `components.json` configured to map shadcn tokens to SDS CSS variables
+- Zero manual token refactoring per component
+- Automatic theme mapping verified
+
+**Build Infrastructure:**
+- tsup + tsc bundling pipeline
+- Vercel deployment pipeline hardened
+- Monorepo workspace dependencies resolved
+
+#### ✅ Phase 1: Critical Components (Complete)
+
+**8 components:** Alert, Dialog, DropdownMenu, Form, RadioGroup, Sheet, Table, DataTable
+
+**Status:** All implemented, quality hardened
+
+#### ✅ Phase 2: High Priority Components (Complete)
+
+**7 components:** Avatar, Combobox, Command, Popover, Tabs, Textarea, Sonner
+
+**Status:** All implemented, quality hardened
+
+#### ✅ Phase 3: Complete Coverage (Complete)
+
+**21 components:** Accordion, AlertDialog, AspectRatio, Breadcrumb, Calendar, Carousel, Collapsible, ContextMenu, DatePicker, Drawer, HoverCard, InputOTP, Menubar, NavigationMenu, Pagination, Progress, Resizable, Slider, Toggle, ToggleGroup, Tooltip
+
+**Status:** All implemented, quality hardening complete (Jan 14)
+
+#### ✅ Phase 3.5: Functional Organization (Complete - Jan 14)
+
+**Major restructuring:**
+- All 48 components reorganized into functional categories
+- Studio navigation updated with two-level system
+- Documentation aligned with new structure
+- Zero breaking changes (backward compatible exports)
+
+**Files Modified:**
+- Moved all component files to category subdirectories
+- Updated 57+ import paths
+- Created category index.ts files
+- Updated main barrel exports
+
+#### 🚧 Phase 3.75: Quality Verification (In Progress)
+
+**Current Focus:**
+- Systematic browser testing of all components
+- Visual comparison with shadcn/ui reference
+- Animation timing verification
+- Accessibility audit
+
+**Known Issues Fixed:**
+- ✅ Accordion animation (transition-all removed)
+- ✅ Popover transparency (token variables added)
+- ✅ Resizable rendering (import issues resolved)
+- ✅ Search index (30+ components restored)
+
+**Remaining Work:**
+- Browser verify all 48 components
+- Document any remaining discrepancies
+- Add smoke tests for critical paths
+
+#### 📋 Phase 4: Legacy Deprecation (Planned)
+
+**Goals:**
+- Add deprecation warnings to @ecosystem/design-system components
+- Create migration guides
+- Update internal usage to @sds/ui
+- Document breaking changes
+
+**Triggers:** Quality verification complete
+
+#### 📋 Phase 5: Legacy Removal (Planned)
+
+**Goals:**
+- Remove @ecosystem/design-system atomic components
+- Simplify monorepo structure
+- Breaking change release (v3.0.0)
+
+**Triggers:** Phase 4 complete, all consumers migrated
+
+#### 📋 Phase 6: Assemblies & Templates (Planned)
+
+**Goals:**
+- Build Tier 2 (Assemblies) - 20+ composed components
+- Build Tier 3 (Templates) - 10+ page layouts
+- Enable "solopreneur acceleration"
+
+**Triggers:** Phase 5 complete
+
+---
+
+## Quality Standards
+
+### Definition of "Component Complete"
+
+A component is ONLY complete when ALL criteria are met:
+
+- [ ] **Renders correctly** in browser (not just builds)
+- [ ] **Visual match** with shadcn/ui reference
+- [ ] **Animations smooth** with correct timing (typically 0.2s ease-out)
+- [ ] **Interactive behaviors** work (clicks, hovers, focus states)
+- [ ] **Responsive** across mobile, tablet, desktop
+- [ ] **Accessible** (WCAG 2.1 AA minimum, axe-core clean)
+- [ ] **Dark mode** works correctly
+- [ ] **No console errors** or warnings
+- [ ] **Code matches** latest shadcn implementation
+- [ ] **Documentation** in component registry
+
+### Quality Gates
+
+#### Velocity-Optimized Phases (1-3)
+- Accessibility non-negotiable
+- Critical path testing only
+- Ship fast, fix fast mentality
+
+#### Post-Launch Hardening (3.5+)
+- 80% test coverage target
+- Visual regression baseline
+- Comprehensive documentation
+- Performance audits
+
+### Testing Requirements
+
+#### Browser Testing (Manual - Required)
+
+For each component:
+1. Open in Studio at localhost:3001
+2. Test all interactive states
+3. Verify animations are smooth
+4. Check dark mode
+5. Test responsive breakpoints
+6. Validate accessibility with screen reader
+
+#### Automated Testing (Future)
+
+- Unit tests with Vitest + React Testing Library
+- Accessibility tests with axe-core
+- Visual regression with Chromatic or Percy
+- E2E with Playwright
+
+---
+
+## Development Workflow
+
+### Adding a New shadcn Component
+
+#### 1. Fetch Component
+
+```bash
+# From packages/ui directory
+npx shadcn@latest add [component-name]
+```
+
+This copies the component to `src/components/[ComponentName].tsx`
+
+#### 2. Organize into Category
+
+Move component to appropriate functional category:
+
+```bash
+mv src/components/ComponentName.tsx src/components/[category]/
+```
+
+Update imports in the component (if needed):
+```typescript
+// Change relative imports to account for new location
+import { cn } from "../../lib/utils"  // was "../lib/utils"
+```
+
+#### 3. Update Category Index
+
+Add export to `src/components/[category]/index.ts`:
+
+```typescript
+export * from './ComponentName';
+```
+
+#### 4. Update Main Barrel Export
+
+Add to `src/index.ts` under appropriate category section:
+
+```typescript
+// [Category]
+export * from './components/[category]/ComponentName';
+```
+
+#### 5. Build Package
+
+```bash
+pnpm build
+```
+
+#### 6. Add to Component Registry
+
+Update `/apps/sage-design-studio/app/components/lib/component-registry.tsx`:
+
+```typescript
+export const componentRegistry: Record<string, ComponentConfig> = {
+  ComponentName: {
+    component: ComponentName,
+    description: 'Clear, concise description',
+    props: {
+      variant: {
+        type: 'select',
+        options: ['default', 'destructive'] as const,
+        default: 'default',
+        description: 'Visual style variant',
+      },
+      // ... other props
+    },
+    examples: [
+      {
+        label: 'Default',
+        props: { variant: 'default' },
+        children: <span>Example content</span>,
+      },
+    ],
+    sourceUrl: 'https://github.com/shadcn-ui/ui/tree/main/apps/www/registry/default/ui/component-name.tsx',
+    accessibilityNotes: [
+      'Uses semantic HTML elements',
+      'Keyboard navigable',
+      // ... other notes
+    ],
+  },
+};
+```
+
+#### 7. Add to Studio Navigation
+
+Update `/apps/sage-design-studio/app/components/studio/ComponentsSection/index.tsx`:
+
+Add component name to appropriate category in `COMPONENT_CATEGORIES`:
+
+```typescript
+const COMPONENT_CATEGORIES = {
+  [category]: {
+    label: 'Category Label',
+    description: 'Category description',
+    components: ['ExistingComponent', 'ComponentName'], // Add here
+  },
+  // ...
+};
+```
+
+#### 8. Test in Browser
+
+```bash
+cd apps/sage-design-studio
+pnpm dev
+```
+
+Navigate to the component and verify:
+- Renders correctly
+- All props work
+- Animations are smooth
+- Dark mode works
+- No console errors
+
+### Fixing Component Issues
+
+#### Compare with shadcn Source
+
+1. Go to https://ui.shadcn.com/docs/components/[component-name]
+2. View source on GitHub
+3. Compare line-by-line with SDS implementation
+4. Note differences in CSS classes, animation timing, structure
+
+#### Common Issues & Fixes
+
+**Transparent backgrounds:**
+- Add missing theme tokens to `/packages/tokens/src/studio.ts`
+- Rebuild tokens: `cd packages/tokens && pnpm build`
+
+**Animations jumping:**
+- Add keyframes to `/packages/config/tailwind/index.js`
+- Use Radix CSS custom properties (e.g., `--radix-accordion-content-height`)
+
+**Import errors:**
+- Fix relative paths after moving to categories
+- Cross-category imports need `../category/Component` paths
+
+**Registry naming mismatch:**
+- Add alias entries for kebab-case → PascalCase mismatches
+
+### Build Commands
+
+```bash
+# Root directory
+cd /Users/shalomormsby/Developer/work/ecosystem
+
+# Rebuild all packages
+pnpm build
+
+# Rebuild specific package
+pnpm build --filter=@sds/ui
+pnpm build --filter=@sds/tokens
+pnpm build --filter=@ecosystem/sage-design-studio
+
+# Start Studio dev server
+cd apps/sage-design-studio
+pnpm dev
+# Opens on http://localhost:3001
+
+# Kill dev server if port is in use
+lsof -i :3001  # Find PID
+kill -9 <PID>  # Replace with actual process ID
+```
+
+### Git Workflow
+
+```bash
+# Feature branch for major changes
+git checkout -b feat/component-name
+
+# Incremental commits for phases
+git add .
+git commit -m "feat(ui): Add ComponentName to [category] category"
+
+# Push and test
+git push origin feat/component-name
+
+# Merge when verified
+git checkout main
+git merge feat/component-name
+```
+
+---
+
+## Roadmap
+
+### Immediate (Q1 2026)
+
+- [x] ✅ Functional organization restructure
+- [x] ✅ Studio navigation update
+- [ ] 🚧 Complete quality verification of all 48 components
+- [ ] 📋 Add smoke tests for critical components
+- [ ] 📋 Document migration guide from legacy components
+
+### Short Term (Q2 2026)
+
+- [ ] 📋 Phase 4: Legacy deprecation
+  - Add deprecation warnings
+  - Create migration guides
+  - Update internal usage
+
+- [ ] 📋 Testing infrastructure
+  - Set up Vitest + React Testing Library
+  - Add accessibility testing with axe-core
+  - 80% coverage target
+
+### Medium Term (Q3 2026)
+
+- [ ] 📋 Phase 5: Legacy removal (breaking change v3.0.0)
+- [ ] 📋 Visual regression testing (Chromatic or Percy)
+- [ ] 📋 Performance optimization audit
+
+### Long Term (Q4 2026+)
+
+- [ ] 📋 Phase 6: Assemblies (Tier 2)
+  - 20+ composed components
+  - LoginForm, PricingTable, StatCard, etc.
+
+- [ ] 📋 Phase 6: Templates (Tier 3)
+  - 10+ page layouts
+  - DashboardLayout, MarketingLanding, etc.
+
+- [ ] 📋 Component generator CLI
+- [ ] 📋 Visual component gallery with search
+- [ ] 📋 Figma integration for design tokens
+
+---
+
+## Decision Log
+
+### Major Decisions
+
+**2026-01-14 - Functional Organization Implemented**
+- Restructured all 48 @sds/ui components into 7 functional categories
+- Updated Studio navigation to match
+- Zero breaking changes (backward compatible exports)
+- Aligns SDS with modern design system patterns
+
+**2026-01-13 - Functional Organization Strategy Approved**
+- Decided to abandon atomic design classification
+- Adopted industry-standard functional categories
+- Prioritized developer ergonomics over theoretical purity
+
+**2026-01-12 - Phase 3 Complete (100% Shadcn Parity)**
+- All 43 shadcn components implemented
+- Quality hardening identified and fixed major issues
+- Search index restored, animations smoothed
+
+**2026-01-10 - Token Integration Automation Verified**
+- Confirmed `components.json` auto-maps tokens correctly
+- Zero manual refactoring needed per component
+- Established as prerequisite for all component work
+
+### Lessons Learned
+
+**Build Success ≠ Working Component**
+- TypeScript compilation doesn't verify visual correctness
+- Browser testing is mandatory before marking complete
+- Automated tests can't replace human verification (yet)
+
+**Functional Organization Reduces Friction**
+- Developers think in terms of function, not abstraction
+- Category-based navigation improves discoverability
+- Modern design systems are moving this direction
+
+**Quality Gates Prevent Rework**
+- Skipping testing to ship fast leads to slower overall progress
+- Hardening early is faster than fixing later
+- "Ship fast, fix fast" requires fast feedback loops
+
+---
+
+## Contributing
+
+### For Humans
+
+1. Read this document completely
+2. Review component registry and existing patterns
+3. Follow the development workflow above
+4. Test thoroughly before marking complete
+5. Update documentation with changes
+
+### For AI Agents
+
+1. **Context is in this file** - no need to search elsewhere
+2. **Never assume** code works because it builds
+3. **Browser verification** is mandatory
+4. **Compare against shadcn** source line-by-line
+5. **Update this document** when making structural changes
+
+---
+
+## Key Files Reference
+
+### Component Implementation
+- **Components:** `/packages/ui/src/components/[category]/`
+- **Barrel Exports:** `/packages/ui/src/index.ts`
+- **Utils:** `/packages/ui/src/lib/utils.ts`
+
+### Theme & Styling
+- **Tailwind Config:** `/packages/config/tailwind/index.js`
+- **Design Tokens:** `/packages/tokens/src/studio.ts`
+- **Global CSS:** `/apps/sage-design-studio/app/globals.css`
+
+### Studio Configuration
+- **Component Registry:** `/apps/sage-design-studio/app/components/lib/component-registry.tsx`
+- **Navigation:** `/apps/sage-design-studio/app/components/studio/ComponentsSection/index.tsx`
+
+### Documentation
+- **Strategy (this file):** `/apps/sage-design-studio/docs/SAGE_DESIGN_SYSTEM_STRATEGY.md`
+- **Changelog:** `/apps/sage-design-studio/CHANGELOG.md`
+
+---
+
+## Resources
+
+### External References
+- **shadcn/ui:** https://ui.shadcn.com/
+- **Radix UI:** https://www.radix-ui.com/
+- **Tailwind CSS:** https://tailwindcss.com/
+- **React Hook Form:** https://react-hook-form.com/
+- **Zod:** https://zod.dev/
+
+### Internal Resources
+- **GitHub:** https://github.com/shalom-ormsby/ecosystem
+- **Studio (dev):** http://localhost:3001
+- **Vercel (prod):** [URL TBD]
+
+---
+
+**Document Version:** 1.0.0
+**Last Review:** 2026-01-14
+**Next Review:** 2026-02-01

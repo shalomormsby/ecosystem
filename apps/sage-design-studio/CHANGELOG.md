@@ -7,6 +7,115 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.0.0] - 2026-01-14
+
+### Added - Functional Organization Architecture
+
+**Major architectural restructure of the Sage Design System from atomic design to functional organization.**
+
+#### Component Library Restructure (@sds/ui)
+- **48 components reorganized** into 7 functional categories
+  - Actions (3): Button, Toggle, ToggleGroup
+  - Forms (11): Checkbox, Combobox, Form, Input, InputOTP, Label, RadioGroup, Select, Slider, Switch, Textarea
+  - Navigation (6): Breadcrumb, Command, Menubar, NavigationMenu, Pagination, Tabs
+  - Overlays (9): AlertDialog, ContextMenu, Dialog, Drawer, DropdownMenu, HoverCard, Popover, Sheet, Tooltip
+  - Feedback (5): Alert, Progress, Skeleton, Sonner, Toast
+  - Data Display (6): Avatar, Badge, Calendar, Card, DataTable, Table
+  - Layout (8): Accordion, AspectRatio, Carousel, Collapsible, DatePicker, Resizable, ScrollArea, Separator
+
+#### File Structure Changes
+- Moved all component files to category subdirectories
+  - `packages/ui/src/components/Button.tsx` → `packages/ui/src/components/actions/Button.tsx`
+  - Applied to all 48 components
+- Updated 57+ relative import paths (`../lib/utils` → `../../lib/utils`)
+- Fixed cross-component imports to reference new category paths
+- Created category index.ts files for re-exports
+- Updated main barrel exports for backward compatibility
+
+#### Studio Navigation Updates
+- **Two-level navigation system**: Category selector → Component selector
+- Category descriptions for improved discoverability
+- Replaced "Atoms" terminology with "Functional Organization"
+- Added "Legacy" category for @ecosystem/design-system components
+- Automatic category detection from URL/component name
+
+#### Documentation
+- **NEW: `SAGE_DESIGN_SYSTEM_STRATEGY.md`** - Comprehensive strategy document consolidating:
+  - Vision & philosophy (solopreneur stack, code ownership model)
+  - Current status and recent achievements
+  - Architecture (three-tier model: Primitives → Assemblies → Templates)
+  - Component organization (functional categories explained)
+  - Implementation progress (phase completion status)
+  - Quality standards and testing requirements
+  - Development workflow (adding components, fixing issues, build commands)
+  - Roadmap (Q1-Q4 2026 and beyond)
+  - Decision log and lessons learned
+
+- **Archived legacy documentation**:
+  - Moved `SDS_MASTER_PLAN.md` to archive (superseded by new strategy doc)
+  - Moved `SDS_SHADCN_STRATEGY.md` to archive (integrated into strategy doc)
+  - Moved `Evolving the Sage Design System from Atomic to functional organization.md` to archive (implemented)
+  - Moved `shadcn-parity-status.md` to archive (integrated into strategy doc)
+
+- **Updated remaining documentation**:
+  - Marked functional organization proposal as IMPLEMENTED
+  - Added implementation status notes with commit references
+  - Updated SDS_MASTER_PLAN.md decision log (before archiving)
+
+### Changed
+
+#### Backward Compatibility Maintained
+- **Zero breaking changes** - all existing imports continue to work
+- `import { Button } from '@sds/ui'` still works exactly as before
+- Added optional category-based imports for future use
+- TypeScript compilation verified successful
+
+#### Build System
+- All packages build successfully after restructure
+- Import path resolution verified
+- Type declarations generated correctly
+
+### Fixed
+
+#### TypeScript Compilation
+- Added type assertions for category lookup to resolve index signature errors
+- Fixed `COMPONENT_CATEGORIES[selectedCategory]` type safety issues
+
+### Technical Details
+
+#### Commits
+- `77c39eb` - refactor(@sds/ui): Restructure components from flat to functional organization
+- `51f4747` - feat(studio): Implement functional category navigation
+- `78b7001` - fix(studio): Add TypeScript type assertion for category lookup
+
+#### Files Modified
+- **48 component files** moved to category subdirectories
+- **7 category index.ts files** created
+- `packages/ui/src/index.ts` - Updated with category-organized exports
+- `apps/sage-design-studio/app/components/studio/ComponentsSection/index.tsx` - New two-level navigation
+- `apps/sage-design-studio/docs/` - Multiple documentation updates and reorganization
+
+### Benefits
+
+1. **Improved Discoverability**: Developers find components by function, not abstraction level
+2. **Industry Alignment**: Matches modern design system patterns (shadcn, Material UI, Radix, Chakra)
+3. **Eliminated Ambiguity**: No more debates about atomic classification
+4. **Better Documentation**: Studio navigation matches mental models
+5. **Future Ready**: Prepared for Tier 2 (Assemblies) and Tier 3 (Templates)
+6. **Zero Disruption**: Backward compatible exports ensure smooth transition
+
+### Migration Notes
+
+**For Consumers:**
+- No action required - all imports work as before
+- Optional: Start using category-based imports when convenient
+- Example: `import { Button } from '@sds/ui/actions'` (future enhancement)
+
+**For Contributors:**
+- New components go in appropriate category directory
+- Follow updated development workflow in SAGE_DESIGN_SYSTEM_STRATEGY.md
+- Update category index.ts when adding components
+
 ## [2.1.0] - 2026-01-07
 
 ### Added - SDS Cross-Platform Architecture (Phase 1)
