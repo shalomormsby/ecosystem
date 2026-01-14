@@ -394,16 +394,6 @@ export function OrganismsSection({ activeItemId, breadcrumbs, onItemChange }: Or
         )}
       </div>
 
-      {/* Sticky Tertiary Navigation for Organism Selector */}
-      <div className="sticky top-0 z-10 -mx-4 sm:-mx-6 lg:-mx-8 mb-4">
-        <TertiaryNav
-          items={organisms}
-          activeId={selectedOrganism}
-          onItemChange={(id) => handleOrganismChange(id as OrganismType)}
-          mode="standalone"
-        />
-      </div>
-
       {/* Organism Display with spacing for sticky nav */}
       <div className="mt-4">
         {/* Page Layout Component */}

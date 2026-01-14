@@ -34,23 +34,8 @@ export const navigationTree: NavigationItem[] = [
             section: 'adding-components',
           },
           {
-            id: 'atoms',
-            label: 'Adding Atoms',
-            section: 'adding-components',
-          },
-          {
-            id: 'molecules',
-            label: 'Adding Molecules',
-            section: 'adding-components',
-          },
-          {
             id: 'modifying',
             label: 'Modifying',
-            section: 'adding-components',
-          },
-          {
-            id: 'tokens',
-            label: 'Adding Tokens',
             section: 'adding-components',
           },
           {
@@ -146,347 +131,143 @@ export const navigationTree: NavigationItem[] = [
     icon: <Component className="w-4 h-4" />,
     children: [
       {
-        id: 'atoms',
-        label: 'Atoms',
+        id: 'actions',
+        label: 'Actions',
         children: [
-          {
-            id: 'accordion',
-            label: 'Accordion',
-            section: 'atoms',
-          },
-          {
-            id: 'alert-dialog',
-            label: 'Alert Dialog',
-            section: 'atoms',
-          },
-          {
-            id: 'aspect-ratio',
-            label: 'Aspect Ratio',
-            section: 'atoms',
-          },
-          {
-            id: 'avatar',
-            label: 'Avatar',
-            section: 'atoms',
-          },
-          {
-            id: 'badge',
-            label: 'Badge',
-            section: 'atoms',
-          },
-          {
-            id: 'button',
-            label: 'Button',
-            section: 'atoms',
-          },
-          {
-            id: 'calendar',
-            label: 'Calendar',
-            section: 'atoms',
-          },
-          {
-            id: 'card',
-            label: 'Card',
-            section: 'atoms',
-          },
-          {
-            id: 'carousel',
-            label: 'Carousel',
-            section: 'atoms',
-          },
-          {
-            id: 'code',
-            label: 'Code',
-            section: 'atoms',
-          },
-          {
-            id: 'collapsible',
-            label: 'Collapsible',
-            section: 'atoms',
-          },
-          {
-            id: 'combobox',
-            label: 'Combobox',
-            section: 'atoms',
-          },
-          {
-            id: 'command',
-            label: 'Command',
-            section: 'atoms',
-          },
-          {
-            id: 'context-menu',
-            label: 'Context Menu',
-            section: 'atoms',
-          },
-          {
-            id: 'date-picker',
-            label: 'Date Picker',
-            section: 'atoms',
-          },
-          {
-            id: 'drawer',
-            label: 'Drawer',
-            section: 'atoms',
-          },
-          {
-            id: 'hover-card',
-            label: 'Hover Card',
-            section: 'atoms',
-          },
-          {
-            id: 'input-otp',
-            label: 'Input OTP',
-            section: 'atoms',
-          },
-          {
-            id: 'link',
-            label: 'Link',
-            section: 'atoms',
-          },
-          {
-            id: 'menubar',
-            label: 'Menubar',
-            section: 'atoms',
-          },
-          {
-            id: 'navigation-menu',
-            label: 'Navigation Menu',
-            section: 'atoms',
-          },
-          {
-            id: 'pagination',
-            label: 'Pagination',
-            section: 'atoms',
-          },
-          {
-            id: 'popover',
-            label: 'Popover',
-            section: 'atoms',
-          },
-          {
-            id: 'progress',
-            label: 'Progress',
-            section: 'atoms',
-          },
-          {
-            id: 'progressbar',
-            label: 'ProgressBar',
-            section: 'atoms',
-          },
-          {
-            id: 'resizable',
-            label: 'Resizable',
-            section: 'atoms',
-          },
-          {
-            id: 'slider',
-            label: 'Slider',
-            section: 'atoms',
-          },
-          {
-            id: 'spinner',
-            label: 'Spinner',
-            section: 'atoms',
-          },
-          {
-            id: 'switch',
-            label: 'Switch',
-            section: 'atoms',
-          },
-          {
-            id: 'tabs',
-            label: 'Tabs',
-            section: 'atoms',
-          },
-          {
-            id: 'textarea',
-            label: 'Textarea',
-            section: 'atoms',
-          },
-          {
-            id: 'toaster',
-            label: 'Toaster',
-            section: 'atoms',
-          },
-          {
-            id: 'toggle',
-            label: 'Toggle',
-            section: 'atoms',
-          },
-          {
-            id: 'toggle-group',
-            label: 'Toggle Group',
-            section: 'atoms',
-          },
+          { id: 'button', label: 'Button', section: 'atoms' },
+          { id: 'toggle', label: 'Toggle', section: 'atoms' },
+          { id: 'toggle-group', label: 'Toggle Group', section: 'atoms' },
         ],
       },
       {
-        id: 'molecules',
-        label: 'Molecules',
+        id: 'forms',
+        label: 'Forms',
         children: [
-          {
-            id: 'navigation-molecules',
-            label: 'Navigation',
-            children: [
-              {
-                id: 'breadcrumbs',
-                label: 'Breadcrumbs',
-                section: 'molecules',
-              },
-            ],
-          },
-          {
-            id: 'forms',
-            label: 'Forms',
-            children: [
-              {
-                id: 'form-field',
-                label: 'FormField',
-                section: 'molecules',
-              },
-              {
-                id: 'search-bar',
-                label: 'SearchBar',
-                section: 'molecules',
-              },
-              {
-                id: 'radio-group',
-                label: 'RadioGroup',
-                section: 'molecules',
-              },
-              {
-                id: 'checkbox-group',
-                label: 'CheckboxGroup',
-                section: 'molecules',
-              },
-            ],
-          },
-          {
-            id: 'feedback',
-            label: 'Feedback',
-            children: [
-              {
-                id: 'tooltip',
-                label: 'Tooltip',
-                section: 'molecules',
-              },
-              {
-                id: 'dropdown',
-                label: 'Dropdown',
-                section: 'molecules',
-              },
-            ],
-          },
-          {
-            id: 'controls',
-            label: 'Controls',
-            children: [
-              {
-                id: 'theme-toggle',
-                label: 'ThemeToggle',
-                section: 'molecules',
-              },
-              {
-                id: 'theme-switcher',
-                label: 'ThemeSwitcher',
-                section: 'molecules',
-              },
-            ],
-          },
+          { id: 'checkbox', label: 'Checkbox', section: 'atoms' },
+          { id: 'combobox', label: 'Combobox', section: 'atoms' },
+          { id: 'form', label: 'Form', section: 'atoms' },
+          { id: 'input', label: 'Input', section: 'atoms' },
+          { id: 'input-otp', label: 'Input OTP', section: 'atoms' },
+          { id: 'label', label: 'Label', section: 'atoms' },
+          { id: 'radio-group', label: 'Radio Group', section: 'atoms' },
+          { id: 'select', label: 'Select', section: 'atoms' },
+          { id: 'slider', label: 'Slider', section: 'atoms' },
+          { id: 'switch', label: 'Switch', section: 'atoms' },
+          { id: 'textarea', label: 'Textarea', section: 'atoms' },
         ],
       },
       {
-        id: 'organisms',
-        label: 'Organisms',
+        id: 'navigation',
+        label: 'Navigation',
         children: [
-          {
-            id: 'navigation',
-            label: 'Navigation',
-            children: [
-              {
-                id: 'primary-nav',
-                label: 'PrimaryNav',
-                section: 'organisms',
-              },
-              {
-                id: 'secondary-nav',
-                label: 'SecondaryNav',
-                section: 'organisms',
-              },
-              {
-                id: 'tertiary-nav',
-                label: 'TertiaryNav',
-                section: 'organisms',
-              },
-            ],
-          },
-          {
-            id: 'layout',
-            label: 'Layout',
-            children: [
-              {
-                id: 'first-stack',
-                label: 'FirstStack',
-                section: 'organisms',
-              },
-              {
-                id: 'second-stack',
-                label: 'SecondStack',
-                section: 'organisms',
-              },
-            ],
-          },
-          {
-            id: 'feedback-organisms',
-            label: 'Feedback',
-            children: [
-              {
-                id: 'toast',
-                label: 'Toast',
-                section: 'organisms',
-              },
-              {
-                id: 'modal',
-                label: 'Modal',
-                section: 'organisms',
-              },
-            ],
-          },
-          {
-            id: 'sections',
-            label: 'Sections',
-            children: [
-              {
-                id: 'footer',
-                label: 'Footer',
-                section: 'organisms',
-              },
-            ],
-          },
-          {
-            id: 'code',
-            label: 'Code',
-            children: [
-              {
-                id: 'collapsible-code-block',
-                label: 'CollapsibleCodeBlock',
-                section: 'organisms',
-              },
-            ],
-          },
-          {
-            id: 'customization',
-            label: 'Customization',
-            children: [
-              {
-                id: 'customizer',
-                label: 'Customizer',
-                section: 'organisms',
-              },
-            ],
-          },
+          { id: 'breadcrumb', label: 'Breadcrumb', section: 'atoms' },
+          { id: 'command', label: 'Command', section: 'atoms' },
+          { id: 'menubar', label: 'Menubar', section: 'atoms' },
+          { id: 'navigation-menu', label: 'Navigation Menu', section: 'atoms' },
+          { id: 'pagination', label: 'Pagination', section: 'atoms' },
+          { id: 'tabs', label: 'Tabs', section: 'atoms' },
         ],
+      },
+      {
+        id: 'overlays',
+        label: 'Overlays',
+        children: [
+          { id: 'alert-dialog', label: 'Alert Dialog', section: 'atoms' },
+          { id: 'context-menu', label: 'Context Menu', section: 'atoms' },
+          { id: 'dialog', label: 'Dialog', section: 'atoms' },
+          { id: 'drawer', label: 'Drawer', section: 'atoms' },
+          { id: 'dropdown-menu', label: 'Dropdown Menu', section: 'atoms' },
+          { id: 'hover-card', label: 'Hover Card', section: 'atoms' },
+          { id: 'popover', label: 'Popover', section: 'atoms' },
+          { id: 'sheet', label: 'Sheet', section: 'atoms' },
+          { id: 'tooltip', label: 'Tooltip', section: 'atoms' },
+        ],
+      },
+      {
+        id: 'feedback',
+        label: 'Feedback',
+        children: [
+          { id: 'alert', label: 'Alert', section: 'atoms' },
+          { id: 'progress', label: 'Progress', section: 'atoms' },
+          { id: 'skeleton', label: 'Skeleton', section: 'atoms' },
+          { id: 'sonner', label: 'Sonner', section: 'atoms' },
+          { id: 'toaster', label: 'Toaster', section: 'atoms' },
+        ],
+      },
+      {
+        id: 'data-display',
+        label: 'Data Display',
+        children: [
+          { id: 'avatar', label: 'Avatar', section: 'atoms' },
+          { id: 'badge', label: 'Badge', section: 'atoms' },
+          { id: 'calendar', label: 'Calendar', section: 'atoms' },
+          { id: 'card', label: 'Card', section: 'atoms' },
+          { id: 'data-table', label: 'Data Table', section: 'atoms' },
+          { id: 'table', label: 'Table', section: 'atoms' },
+        ],
+      },
+      {
+        id: 'layout',
+        label: 'Layout',
+        children: [
+          { id: 'accordion', label: 'Accordion', section: 'atoms' },
+          { id: 'aspect-ratio', label: 'Aspect Ratio', section: 'atoms' },
+          { id: 'carousel', label: 'Carousel', section: 'atoms' },
+          { id: 'collapsible', label: 'Collapsible', section: 'atoms' },
+          { id: 'date-picker', label: 'Date Picker', section: 'atoms' },
+          { id: 'resizable', label: 'Resizable', section: 'atoms' },
+          { id: 'scroll-area', label: 'Scroll Area', section: 'atoms' },
+          { id: 'separator', label: 'Separator', section: 'atoms' },
+        ],
+      },
+    ],
+  },
+  {
+    id: 'patterns',
+    label: 'Patterns',
+    icon: <LayoutTemplate className="w-4 h-4" />,
+    children: [
+      {
+        id: 'app-shell',
+        label: 'App Shell',
+        children: [
+          { id: 'page-layout', label: 'Page Layout', section: 'organisms' },
+          { id: 'primary-nav', label: 'Primary Nav', section: 'organisms' },
+          { id: 'secondary-nav', label: 'Secondary Nav', section: 'organisms' },
+          { id: 'footer', label: 'Footer', section: 'organisms' },
+        ],
+      },
+      {
+        id: 'customization',
+        label: 'Customization',
+        children: [
+          { id: 'customizer', label: 'Customizer', section: 'organisms' },
+          { id: 'theme-toggle', label: 'Theme Toggle', section: 'molecules' },
+        ],
+      },
+      {
+        id: 'code',
+        label: 'Code',
+        children: [
+          { id: 'collapsible-code-block', label: 'Code Block', section: 'organisms' },
+        ],
+      },
+    ],
+  },
+  {
+    id: 'templates',
+    label: 'Templates',
+    icon: <LayoutTemplate className="w-4 h-4" />,
+    children: [
+      {
+        id: 'templates-overview',
+        label: 'Overview',
+        section: 'templates',
+      },
+      {
+        id: 'page-template',
+        label: 'Page Template',
+        section: 'templates',
       },
     ],
   },
@@ -514,23 +295,6 @@ export const navigationTree: NavigationItem[] = [
         id: 'use-motion-preference',
         label: 'useMotionPreference',
         section: 'hooks',
-      },
-    ],
-  },
-  {
-    id: 'templates',
-    label: 'Templates',
-    icon: <LayoutTemplate className="w-4 h-4" />,
-    children: [
-      {
-        id: 'templates-overview',
-        label: 'Overview',
-        section: 'templates',
-      },
-      {
-        id: 'page-template',
-        label: 'Page Template',
-        section: 'templates',
       },
     ],
   },

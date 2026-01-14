@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { TertiaryNav, Breadcrumbs, type BreadcrumbItem } from '@ecosystem/design-system';
+import { Breadcrumbs, type BreadcrumbItem } from '@ecosystem/design-system';
 import { EnhancedComponentPlayground } from './EnhancedComponentPlayground';
 import { componentRegistry } from '../../lib/component-registry';
 
@@ -124,19 +124,6 @@ export function ComponentsSection({ activeItemId, breadcrumbs, onItemChange }: C
         </p>
       </div>
 
-      {/* Category Navigation */}
-      <div className="sticky top-0 z-20 -mx-4 sm:-mx-6 lg:-mx-8 mb-2 bg-[var(--color-background)] pb-2 border-b border-[var(--color-border-subtle)]">
-        <div className="px-4 sm:px-6 lg:px-8">
-          <h3 className="text-sm font-semibold text-[var(--color-text-secondary)] mb-2">Category</h3>
-          <TertiaryNav
-            items={categoryItems}
-            activeId={selectedCategory}
-            onItemChange={setSelectedCategory}
-            mode="standalone"
-          />
-        </div>
-      </div>
-
       {/* Category Description */}
       {COMPONENT_CATEGORIES[selectedCategory as keyof typeof COMPONENT_CATEGORIES] && (
         <div className="px-2">
@@ -146,15 +133,7 @@ export function ComponentsSection({ activeItemId, breadcrumbs, onItemChange }: C
         </div>
       )}
 
-      {/* Component Selector within Category */}
-      <div className="sticky top-20 z-10 -mx-4 sm:-mx-6 lg:-mx-8 mb-4">
-        <TertiaryNav
-          items={componentItems}
-          activeId={selectedComponent}
-          onItemChange={handleComponentChange}
-          mode="standalone"
-        />
-      </div>
+      {/* Component Playground */}
 
       {/* Component Playground */}
       <div className="mt-4">

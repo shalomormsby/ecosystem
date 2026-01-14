@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { TertiaryNav, Breadcrumbs, type BreadcrumbItem } from '@ecosystem/design-system';
+import { Breadcrumbs, type BreadcrumbItem } from '@ecosystem/design-system';
 import { moleculeRegistry } from '../lib/molecule-registry';
 import { EnhancedComponentPlayground } from './ComponentsSection/EnhancedComponentPlayground';
 
@@ -67,16 +67,6 @@ export function MoleculesSection({ activeItemId, breadcrumbs, onItemChange }: Mo
             <Breadcrumbs variant="subtle" items={breadcrumbs} />
           </div>
         )}
-      </div>
-
-      {/* Sticky Tertiary Navigation for Molecule Selector */}
-      <div className="sticky top-0 z-10 bg-[var(--color-background)] pb-4 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 mb-4">
-        <TertiaryNav
-          items={molecules}
-          activeId={selectedMolecule}
-          onItemChange={handleMoleculeChange}
-          mode="standalone"
-        />
       </div>
 
       {/* Molecule Playground with spacing for sticky nav */}
