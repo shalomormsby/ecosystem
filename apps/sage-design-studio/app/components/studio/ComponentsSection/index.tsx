@@ -71,19 +71,21 @@ export function ComponentsSection({ activeItemId, category, breadcrumbs, onItemC
   // Update selected component when activeItemId changes
   useEffect(() => {
     if (activeItemId) {
-      // Convert kebab-case to PascalCase (e.g., 'progress-bar' -> 'ProgressBar', 'switch' -> 'Switch')
-      const componentName = activeItemId
-        .split('-')
-        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-        .join('');
+      // Robust lookup: Case-insensitive match against registry keys
+      // This handles 'combobox' -> 'Combobox', 'toggle-group' -> 'ToggleGroup', etc.
+      const targetId = activeItemId.toLowerCase().replace(/-/g, '');
+      const registryKey = Object.keys(componentRegistry).find(key =>
+        key.toLowerCase().replace(/-/g, '') === targetId ||
+        key.toLowerCase() === activeItemId.replace(/-/g, '').toLowerCase()
+      );
 
-      if (componentRegistry[componentName]) {
-        setSelectedComponent(componentName);
+      if (registryKey && componentRegistry[registryKey]) {
+        setSelectedComponent(registryKey);
 
         // If no category provided, infer it (fallback)
         if (!category) {
           for (const [categoryKey, cat] of Object.entries(COMPONENT_CATEGORIES)) {
-            if (cat.components.includes(componentName)) {
+            if (cat.components.includes(registryKey)) {
               setSelectedCategory(categoryKey);
               break;
             }
