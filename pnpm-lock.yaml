@@ -17,6 +17,9 @@ importers:
       '@ecosystem/design-system':
         specifier: workspace:^
         version: link:../../design-system
+      '@sds/tokens':
+        specifier: workspace:*
+        version: link:../../packages/tokens
       '@vercel/analytics':
         specifier: ^1.6.1
         version: 1.6.1(next@16.1.0(@babel/core@7.28.5)(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(react@19.2.3)
