@@ -3,6 +3,8 @@ export * from './AspectRatio';
 export * from './Carousel';
 export * from './Collapsible';
 export * from './DatePicker';
+export * from './Footer';
+export * from './Header';
 export * from './Resizable';
 export * from './ScrollArea';
 export * from './Separator';
