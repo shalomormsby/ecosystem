@@ -661,6 +661,58 @@ ELIFECYCLE Command failed with exit code 1.`}
               </div>
             </Card>
 
+            {/* Vercel Build Command Failure (Modules Not Found) */}
+            <Card className="p-6 mb-6">
+              <h3 className="text-xl font-bold mb-4 text-[var(--color-text-primary)]">
+                Vercel Build Command Failure (Modules Not Found)
+              </h3>
+
+              <div className="space-y-6 w-full min-w-0">
+                {/* Problem */}
+                <div>
+                  <h4 className="font-semibold mb-2 text-[var(--color-text-primary)]">Problem</h4>
+                  <ul className="list-disc list-inside text-sm text-[var(--color-text-secondary)] space-y-1">
+                    <li>Build fails immediately on Vercel but works locally.</li>
+                    <li>Error: <Code syntax="plain">Module not found: Can't resolve '@sds/tokens'</Code> (or similar workspace package).</li>
+                  </ul>
+                </div>
+
+                {/* Root Cause */}
+                <div>
+                  <h4 className="font-semibold mb-2 text-[var(--color-text-primary)]">Root Cause</h4>
+                  <p className="text-sm text-[var(--color-text-secondary)] mb-3">
+                    The default Vercel build command (or a simple <Code syntax="plain">next build</Code>) builds <strong>only the app</strong>. It does not automatically build the upstream workspace dependencies (like <Code syntax="plain">design-system</Code> or <Code syntax="plain">tokens</Code>) that the app depends on.
+                  </p>
+                  <p className="text-sm text-[var(--color-text-secondary)]">
+                    Because the upstream <Code syntax="plain">dist/</Code> files don't exist in the CI environment, the app build crashes when trying to resolve them.
+                  </p>
+                </div>
+
+                {/* Solution */}
+                <div>
+                  <h4 className="font-semibold mb-2 text-[var(--color-text-primary)]">Solution</h4>
+                  <p className="text-sm text-[var(--color-text-secondary)] mb-3">
+                    Update the <strong>Build Command</strong> in Vercel settings to use Turborepo with the dependency-inclusive filter syntax (<Code syntax="plain">...</Code>).
+                  </p>
+                  <div className="bg-[var(--color-success)]/10 p-4 rounded-md border border-[var(--color-success)]/30">
+                    <p className="text-xs text-[var(--color-text-muted)] mb-2 flex items-center gap-1.5">
+                      <CheckCircle className="w-3.5 h-3.5 text-[var(--color-success)]" />
+                      Correct Build Command:
+                    </p>
+                    <CollapsibleCodeBlock
+                      id="troubleshoot-turbo-filter"
+                      code="pnpm turbo build --filter=creative-powerup..."
+                      defaultCollapsed={false}
+                      showCopy={true}
+                    />
+                    <p className="text-xs text-[var(--color-text-muted)] mt-2">
+                      The <Code syntax="plain">...</Code> suffix tells Turbo to "build this package AND all its dependencies first".
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </Card>
+
             {/* Component Changes Not Showing on Deployed Site */}
             {activeItemId === 'troubleshooting' && (
               <Card className="p-6 mb-6">
