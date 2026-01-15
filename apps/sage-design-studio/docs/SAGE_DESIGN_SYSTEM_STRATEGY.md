@@ -1,7 +1,24 @@
 # Sage Design System - Strategy & Implementation Status
 
 > **Last Updated:** 2026-01-14
-> **Status:** ✅ Functional Organization Complete | ✅ Quality Verification Complete | 🔧 Manual Testing Required
+> **Current Phase:** 🔧 Phase 4 - Legacy Migration (25-30% complete)
+> **Status:** ✅ Functional Organization Complete | ✅ Quality Verification Complete | 🔧 Legacy Migration In Progress
+
+---
+
+## 🚀 Quick Start: Resuming Phase 4 Migration
+
+**Current Task:** Migrating components from `@ecosystem/design-system` to `@sds/ui`
+
+**Next Steps:**
+1. Copy remaining ~40 components from `/design-system` to `/packages/ui/src/components/`
+2. Categorize by function (actions/forms/navigation/overlays/feedback/data-display/layout)
+3. Update import paths in copied components
+4. Build @sds/ui package (`cd packages/ui && pnpm build`)
+5. Migrate app imports in Portfolio, Creative Powerup, and Studio
+6. Delete legacy package
+
+**See:** [Phase 4 Details](#-phase-4-legacy-migration-in-progress---started-2026-01-14) for complete component list and instructions
 
 ---
 
@@ -403,33 +420,125 @@ Modern design systems have abandoned rigid Atomic Design hierarchies (atoms/mole
 **Documentation:**
 - See `/docs/QUALITY_VERIFICATION_REPORT.md` for detailed findings
 
-#### 📋 Phase 4: Legacy Deprecation (Planned)
+#### 🔧 Phase 4: Legacy Migration (In Progress - Started 2026-01-14)
 
-**Goals:**
-- Add deprecation warnings to @ecosystem/design-system components
-- Create migration guides
-- Update internal usage to @sds/ui
-- Document breaking changes
+**Decision:** Skip formal deprecation since all usage is internal (3 apps). Go directly to migration.
 
-**Triggers:** Quality verification complete
+**Status:** ~25-30% complete
 
-#### 📋 Phase 5: Legacy Removal (Planned)
+**Completed (2026-01-14):**
+- ✅ Created infrastructure in @sds/ui:
+  - `lib/syntax-parser/` - Full tokenizer for code highlighting
+  - `lib/store/` - Theme and customizer stores
+  - `lib/validation.ts` - Form validation utilities
+  - `providers/ThemeProvider.tsx` - Theme management
+  - `hooks/useTheme.ts`, `hooks/useMotionPreference.ts`, `hooks/useForm.ts`
 
-**Goals:**
-- Remove @ecosystem/design-system atomic components
-- Simplify monorepo structure
-- Breaking change release (v3.0.0)
+- ✅ Migrated critical components to @sds/ui (functionally categorized):
+  - **Actions:** Link
+  - **Forms:** ThemeSwitcher, ThemeToggle
+  - **Navigation:** NavLink
+  - **Data Display:** Code, CollapsibleCodeBlock, GitHubIcon, Heading, Text
+  - **Layout:** Header, Footer
+  - **Feedback:** Toast (ToastProvider, useToast)
 
-**Triggers:** Phase 4 complete, all consumers migrated
+- ✅ **Architecture Fix:** Removed atomic design directories
+  - Deleted `components/molecules/` and `components/organisms/`
+  - Reorganized all components into functional categories
+  - Updated all index.ts exports to match functional structure
 
-#### 📋 Phase 6: Assemblies & Templates (Planned)
+- ✅ Updated @sds/ui exports in main index.ts
+
+**Remaining Work (~70-75%):**
+
+1. **Copy remaining components from design-system to @sds/ui:**
+   - **Forms category:** TextField, FormField, CheckboxGroup, SearchInput, SearchBar, FilterButton
+   - **Data Display:** Brand, Spinner, ProgressBar, AspectImage, VariableWeightText
+   - **Layout:** SecondaryNav, TertiaryNav, PageLayout, PageTemplate, CustomizerPanel, Container, Stack, Grid
+   - **Navigation:** Breadcrumbs (legacy name - may need alias to Breadcrumb)
+   - **Molecules to categorize:** Dropdown, DescriptionList
+   - **Utilities:** `lib/breadcrumbs/generateBreadcrumbs`, `lib/typography/typographySystem`, `lib/patterns`, `lib/animations`, `lib/colors`
+   - **Types:** BreadcrumbItem, HeaderNavLink, RouteConfig, and others
+
+2. **Build @sds/ui package:**
+   - Fix import errors in copied components
+   - Resolve TypeScript issues
+   - Verify successful build
+
+3. **Migrate app imports:**
+   - Portfolio: ~10 files with legacy imports
+   - Creative Powerup: ~3 files
+   - Sage Design Studio: ~30+ files
+   - Replace all `@ecosystem/design-system` imports with `@sds/ui`
+
+4. **Remove legacy package:**
+   - Remove `@ecosystem/design-system` from all package.json dependencies
+   - Delete `/design-system` directory
+   - Verify all apps build successfully
+
+**Important Notes for Resuming:**
+- All new components MUST go into functional categories (actions/forms/navigation/overlays/feedback/data-display/layout)
+- Never create molecules/ or organisms/ directories
+- When copying components, update import paths from legacy structure to @sds/ui structure
+- Breadcrumbs vs Breadcrumb naming mismatch needs resolution (legacy uses "Breadcrumbs", @sds/ui has "Breadcrumb")
+
+**File Location Reference (Components Migrated):**
+```
+/packages/ui/src/
+├── components/
+│   ├── actions/
+│   │   └── Link.tsx
+│   ├── forms/
+│   │   ├── ThemeSwitcher.tsx
+│   │   └── ThemeToggle.tsx
+│   ├── navigation/
+│   │   └── NavLink.tsx
+│   ├── data-display/
+│   │   ├── Code.tsx
+│   │   ├── CollapsibleCodeBlock.tsx
+│   │   ├── GitHubIcon.tsx
+│   │   ├── Heading.tsx
+│   │   └── Text.tsx
+│   ├── layout/
+│   │   ├── Header/
+│   │   │   ├── Header.tsx
+│   │   │   └── index.ts
+│   │   └── Footer/
+│   │       ├── Footer.tsx
+│   │       └── index.ts
+│   └── feedback/
+│       └── Toast/
+│           ├── Toast.tsx
+│           └── index.ts
+├── providers/
+│   ├── ThemeProvider.tsx
+│   └── index.ts
+├── hooks/
+│   ├── useTheme.ts
+│   ├── useMotionPreference.ts
+│   ├── useForm.ts
+│   └── index.ts
+└── lib/
+    ├── syntax-parser/
+    │   ├── types.ts
+    │   ├── patterns.ts
+    │   ├── tokenizer.ts
+    │   └── index.ts
+    ├── store/
+    │   ├── theme.ts
+    │   ├── customizer.ts
+    │   └── index.ts
+    └── validation.ts
+```
+
+#### 📋 Phase 5: Assemblies & Templates (Planned)
 
 **Goals:**
 - Build Tier 2 (Assemblies) - 20+ composed components
 - Build Tier 3 (Templates) - 10+ page layouts
 - Enable "solopreneur acceleration"
 
-**Triggers:** Phase 5 complete
+**Triggers:** Phase 4 complete, legacy package removed
 
 ---
 
@@ -812,12 +921,16 @@ The Model Context Protocol (MCP) is an open standard for connecting AI assistant
 - [ ] 📋 Add smoke tests for critical components
 - [ ] 📋 Document migration guide from legacy components
 
-### Short Term (Q2 2026)
+### Short Term (Q1-Q2 2026)
 
-- [ ] 📋 Phase 4: Legacy deprecation
-  - Add deprecation warnings
-  - Create migration guides
-  - Update internal usage
+- [x] 🔧 **Phase 4: Legacy Migration** (Started 2026-01-14, ~25-30% complete)
+  - [x] Infrastructure setup (syntax-parser, stores, hooks, providers)
+  - [x] Critical components migrated (Code, Link, Typography, Toast, etc.)
+  - [x] Architecture fix (removed atomic design directories)
+  - [ ] Copy remaining ~40 components from design-system
+  - [ ] Build @sds/ui package successfully
+  - [ ] Migrate all app imports (Portfolio, Creative Powerup, Studio)
+  - [ ] Remove legacy package and verify builds
 
 - [ ] 📋 Testing infrastructure
   - Set up Vitest + React Testing Library
@@ -830,19 +943,18 @@ The Model Context Protocol (MCP) is an open standard for connecting AI assistant
   - Usage analytics (anonymous)
   - Community component registry integration
 
-### Medium Term
+### Medium Term (Q2-Q3 2026)
 
-- [ ] 📋 Phase 5: Legacy removal (breaking change v3.0.0)
 - [ ] 📋 Visual regression testing (Chromatic or Percy)
 - [ ] 📋 Performance optimization audit
 
 ### Long Term (Q4 2026+)
 
-- [ ] 📋 Phase 6: Assemblies (Tier 2)
+- [ ] 📋 Phase 5: Assemblies (Tier 2)
   - 20+ composed components
   - LoginForm, PricingTable, StatCard, etc.
 
-- [ ] 📋 Phase 6: Templates (Tier 3)
+- [ ] 📋 Phase 5: Templates (Tier 3)
   - 10+ page layouts
   - DashboardLayout, MarketingLanding, etc.
 
@@ -866,6 +978,22 @@ The Model Context Protocol (MCP) is an open standard for connecting AI assistant
 ## Decision Log
 
 ### Major Decisions
+
+**2026-01-14 - Legacy Migration Started (Phase 4)**
+- Decided to skip formal deprecation phase since all usage is internal (3 apps only)
+- Going directly from quality verification to component migration
+- Created infrastructure in @sds/ui: syntax-parser, stores, hooks, providers
+- Migrated 15+ critical components to functionally organized structure
+- **Critical fix**: Removed molecules/ and organisms/ directories created by error
+- All components now strictly organized by function (actions/forms/navigation/overlays/feedback/data-display/layout)
+- ~25-30% complete, ~40 components and utilities remain to copy
+- Next steps: Copy remaining components, build package, migrate app imports, delete legacy
+
+**2026-01-14 - MCP Server Configured in Claude Desktop**
+- Added @sds/mcp-server to Claude Desktop config at `~/Library/Application Support/Claude/claude_desktop_config.json`
+- Configuration uses local path: `node /Users/shalomormsby/Developer/work/ecosystem/packages/sds-mcp-server/dist/index.js`
+- Enables Claude Desktop to browse, search, and get installation instructions for all 48 SDS components
+- Verified MCP server functionality with all four tools working
 
 **2026-01-14 - Quality Verification Complete**
 - Audited all 48 components across MCP server, @sds/ui, and Studio registry

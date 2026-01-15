@@ -2,7 +2,99 @@
 
 All notable changes to this project will be documented in this file.
 
-**Last updated:** 2026-01-03
+**Last updated:** 2026-01-14 18:30 PST
+
+## 2026-01-14
+
+### Phase 4: Legacy Migration Started (~25-30% Complete)
+
+**Major Architectural Decision:**
+- Skipped formal deprecation phase (Phase 4 originally planned)
+- Going directly to migration since all usage is internal (3 apps only)
+- No external consumers to notify or provide migration guides for
+
+#### Infrastructure Setup in @sds/ui ✅
+
+**Utilities:**
+- Added `lib/syntax-parser/` - Complete tokenizer system for code syntax highlighting
+  - `types.ts` - TypeScript type definitions (SyntaxType, SyntaxToken, Language)
+  - `patterns.ts` - Regex patterns for JS/TS/JSX/TSX tokenization
+  - `tokenizer.ts` - Core tokenization logic
+  - `index.ts` - Public API with `parseCode()` function
+- Added `lib/store/` - Zustand stores for state management
+  - `theme.ts` - Theme state and persistence
+  - `customizer.ts` - Customizer panel state
+- Added `lib/validation.ts` - Form validation utilities
+
+**Providers:**
+- Added `providers/ThemeProvider.tsx` - Theme management and context
+
+**Hooks:**
+- Added `hooks/useTheme.ts` - Theme access and manipulation
+- Added `hooks/useMotionPreference.ts` - Motion preference management
+- Added `hooks/useForm.ts` - Form state and validation
+
+#### Components Migrated to Functional Categories ✅
+
+Migrated 15+ critical components from `@ecosystem/design-system` to `@sds/ui`:
+
+- **Actions:** Link
+- **Forms:** ThemeSwitcher, ThemeToggle
+- **Navigation:** NavLink
+- **Data Display:** Code, CollapsibleCodeBlock, GitHubIcon, Heading, Text
+- **Layout:** Header (with subdir), Footer (with subdir)
+- **Feedback:** Toast (ToastProvider, useToast hook)
+
+#### Critical Architecture Fix ✅
+
+**Problem:** Initial migration accidentally created `components/molecules/` and `components/organisms/` directories, violating the functional organization principle.
+
+**Solution:**
+- Deleted `components/molecules/` and `components/organisms/` directories
+- Reorganized all components into proper functional categories:
+  - molecules/ThemeSwitcher → forms/ThemeSwitcher
+  - molecules/ThemeToggle → forms/ThemeToggle
+  - organisms/CollapsibleCodeBlock → data-display/CollapsibleCodeBlock
+  - organisms/Toast → feedback/Toast
+  - organisms/Header → layout/Header
+  - organisms/Footer → layout/Footer
+
+**Updated all exports:**
+- Updated category index.ts files (actions, forms, navigation, data-display, layout, feedback)
+- Updated main `/packages/ui/src/index.ts` to export all new components
+- Removed all references to molecules/ and organisms/ directories
+
+#### MCP Server Integration ✅
+
+**Claude Desktop Configuration:**
+- Added @sds/mcp-server to Claude Desktop config
+- Configuration file: `~/Library/Application Support/Claude/claude_desktop_config.json`
+- Uses local path: `node /Users/shalomormsby/Developer/work/ecosystem/packages/sds-mcp-server/dist/index.js`
+- Enables Claude Desktop to browse, search, and install all 48 SDS components via natural language
+
+#### Documentation Updates ✅
+
+**SAGE_DESIGN_SYSTEM_STRATEGY.md:**
+- Added "Quick Start: Resuming Phase 4 Migration" section at top
+- Updated Phase 4 from "Planned" to "In Progress" with detailed status
+- Added complete list of remaining components to migrate (~40 remaining)
+- Added file location reference tree showing migrated component structure
+- Updated roadmap to reflect Phase 4 in progress
+- Added decision log entries for migration start and MCP configuration
+- Updated status header to show current phase and completion percentage
+
+### Remaining Work (Phase 4 - ~70% to go)
+
+1. **Copy ~40 remaining components** from design-system to @sds/ui
+2. **Build @sds/ui package** and resolve TypeScript errors
+3. **Migrate app imports:**
+   - Portfolio (~10 files)
+   - Creative Powerup (~3 files)
+   - Sage Design Studio (~30+ files)
+4. **Remove legacy package** and delete design-system directory
+5. **Verify all apps build successfully**
+
+---
 
 ## 2026-01-03
 
