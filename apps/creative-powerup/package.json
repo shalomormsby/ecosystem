@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "@ecosystem/design-system": "workspace:^",
-    "@sds/tokens": "workspace:*",
     "@vercel/analytics": "^1.6.1",
     "framer-motion": "^12.23.26",
     "next": "^16.0.10",
