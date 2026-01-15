@@ -1,4 +1,4 @@
-import { BookOpen, Palette, Component, Webhook, LayoutTemplate, Layers } from 'lucide-react';
+import { BookOpen, Palette, Component, Webhook, LayoutTemplate, Layers, Bot } from 'lucide-react';
 
 export interface NavigationItem {
   id: string;
@@ -54,11 +54,6 @@ export const navigationTree: NavigationItem[] = [
         id: 'contributing',
         label: 'Contributing',
         section: 'contributing',
-      },
-      {
-        id: 'mcp-server',
-        label: 'MCP Server',
-        section: 'mcp-server',
       },
     ],
   },
@@ -302,5 +297,11 @@ export const navigationTree: NavigationItem[] = [
         section: 'hooks',
       },
     ],
+  },
+  {
+    id: 'mcp-server',
+    label: 'MCP Server',
+    icon: <Bot className="w-4 h-4" />,
+    section: 'mcp-server',
   },
 ];
