@@ -1,7 +1,7 @@
 import { Code, Link, Spinner, ProgressBar, Switch } from '@ecosystem/design-system';
 import {
   // Phase 1 & 2 components
-  Label, Alert, AlertDescription, AlertTitle, Avatar, AvatarImage, AvatarFallback, Button, Card, Badge, Checkbox, Combobox, Command, CommandDialog, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, CommandSeparator, CommandShortcut, DataTable, Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger, Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage, Popover, PopoverAnchor, PopoverContent, PopoverTrigger, RadioGroup, RadioGroupItem, Select, SelectContent, SelectItem, SelectTrigger, SelectValue, Separator, ScrollArea, Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger, Skeleton, Table, TableBody, TableCell, TableHead, TableHeader, TableRow, Tabs, TabsContent, TabsList, TabsTrigger, Textarea, Toaster, ToastProvider, useToast,
+  Label, Input, Alert, AlertDescription, AlertTitle, Avatar, AvatarImage, AvatarFallback, Button, Card, Badge, Checkbox, Combobox, Command, CommandDialog, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, CommandSeparator, CommandShortcut, DataTable, Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger, Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage, Popover, PopoverAnchor, PopoverContent, PopoverTrigger, RadioGroup, RadioGroupItem, Select, SelectContent, SelectItem, SelectTrigger, SelectValue, Separator, ScrollArea, Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger, Skeleton, Table, TableBody, TableCell, TableHead, TableHeader, TableRow, Tabs, TabsContent, TabsList, TabsTrigger, Textarea, Toaster, ToastProvider, useToast,
   // Phase 3 Batch 1
   Accordion, AccordionItem, AccordionTrigger, AccordionContent,
   AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger,
@@ -1609,6 +1609,191 @@ import { Textarea } from "@sds/ui"
       },
     ],
     sourceUrl: 'https://github.com/shalom-ormsby/ecosystem/blob/main/packages/ui/src/components/Textarea.tsx',
+  },
+  Input: {
+    component: Input,
+    description: 'Text input field supporting various types (text, email, password, number). Fully accessible with keyboard navigation.',
+    props: {
+      type: {
+        type: 'select',
+        options: ['text', 'email', 'password', 'number', 'tel', 'url', 'search'] as const,
+        default: 'text',
+        description: 'Input type',
+      },
+      placeholder: {
+        type: 'text',
+        default: 'Enter text...',
+        description: 'Placeholder text',
+      },
+      disabled: {
+        type: 'boolean',
+        default: false,
+        description: 'Disables the input',
+      },
+    },
+    examples: [
+      {
+        label: 'Default',
+        props: { type: 'text', placeholder: 'Enter text...' },
+        children: null,
+      },
+      {
+        label: 'Email',
+        props: { type: 'email', placeholder: 'Enter email...' },
+        children: null,
+      },
+      {
+        label: 'Password',
+        props: { type: 'password', placeholder: 'Enter password...' },
+        children: null,
+      },
+      {
+        label: 'Disabled',
+        props: { type: 'text', placeholder: 'Disabled input', disabled: true },
+        children: null,
+      },
+      {
+        label: 'With Label',
+        props: { type: 'email', placeholder: 'Enter your email' },
+        children: (
+          <div className="grid w-full max-w-sm items-center gap-1.5">
+            <Label htmlFor="email">Email</Label>
+            <Input type="email" id="email" placeholder="Enter your email" />
+          </div>
+        ),
+      },
+    ],
+    codeExamples: [
+      {
+        title: 'Basic Usage',
+        code: `import { Input } from "@sds/ui"
+
+<Input type="text" placeholder="Enter text..." />`,
+        description: 'Simple text input',
+      },
+      {
+        title: 'With Label',
+        code: `import { Input, Label } from "@sds/ui"
+
+<div className="grid w-full max-w-sm items-center gap-1.5">
+  <Label htmlFor="email">Email</Label>
+  <Input type="email" id="email" placeholder="Email" />
+</div>`,
+        description: 'Input with associated label',
+      },
+      {
+        title: 'Form Integration',
+        code: `import { Input, Label, Button } from "@sds/ui"
+
+<form className="space-y-4">
+  <div className="grid w-full items-center gap-1.5">
+    <Label htmlFor="name">Name</Label>
+    <Input type="text" id="name" placeholder="John Doe" />
+  </div>
+  <div className="grid w-full items-center gap-1.5">
+    <Label htmlFor="email">Email</Label>
+    <Input type="email" id="email" placeholder="john@example.com" />
+  </div>
+  <Button type="submit">Submit</Button>
+</form>`,
+        description: 'Input in a form with validation',
+      },
+    ],
+    sourceUrl: 'https://github.com/shadcn-ui/ui/blob/main/apps/www/registry/default/ui/input.tsx',
+    accessibilityNotes: [
+      'Uses semantic HTML input element',
+      'Supports all standard input types (text, email, password, etc.)',
+      'Keyboard navigable with Tab key',
+      'Properly associates with Label component via htmlFor/id',
+      'Supports disabled state with appropriate styling',
+      'Respects system focus indicators',
+    ],
+  },
+  Label: {
+    component: Label,
+    description: 'Form field label with proper accessibility associations. Built on Radix UI Label primitive.',
+    props: {
+      htmlFor: {
+        type: 'text',
+        default: '',
+        description: 'ID of the associated form control',
+      },
+    },
+    examples: [
+      {
+        label: 'With Input',
+        props: { htmlFor: 'example-input' },
+        children: (
+          <div className="grid w-full max-w-sm items-center gap-1.5">
+            <Label htmlFor="example-input">Email</Label>
+            <Input type="email" id="example-input" placeholder="Enter your email" />
+          </div>
+        ),
+      },
+      {
+        label: 'With Textarea',
+        props: { htmlFor: 'example-textarea' },
+        children: (
+          <div className="grid w-full gap-1.5">
+            <Label htmlFor="example-textarea">Your message</Label>
+            <Textarea id="example-textarea" placeholder="Type your message here." />
+          </div>
+        ),
+      },
+      {
+        label: 'With Checkbox',
+        props: { htmlFor: 'example-checkbox' },
+        children: (
+          <div className="flex items-center space-x-2">
+            <Checkbox id="example-checkbox" />
+            <Label htmlFor="example-checkbox">Accept terms and conditions</Label>
+          </div>
+        ),
+      },
+    ],
+    codeExamples: [
+      {
+        title: 'Basic Usage',
+        code: `import { Label, Input } from "@sds/ui"
+
+<div className="grid w-full items-center gap-1.5">
+  <Label htmlFor="email">Email</Label>
+  <Input type="email" id="email" placeholder="Email" />
+</div>`,
+        description: 'Label paired with input field',
+      },
+      {
+        title: 'With Checkbox',
+        code: `import { Label, Checkbox } from "@sds/ui"
+
+<div className="flex items-center space-x-2">
+  <Checkbox id="terms" />
+  <Label htmlFor="terms">Accept terms and conditions</Label>
+</div>`,
+        description: 'Label with checkbox for agreement',
+      },
+      {
+        title: 'With Required Field',
+        code: `import { Label, Input } from "@sds/ui"
+
+<div className="grid w-full items-center gap-1.5">
+  <Label htmlFor="username">
+    Username <span className="text-destructive">*</span>
+  </Label>
+  <Input type="text" id="username" placeholder="Username" required />
+</div>`,
+        description: 'Label with required field indicator',
+      },
+    ],
+    sourceUrl: 'https://github.com/shadcn-ui/ui/blob/main/apps/www/registry/default/ui/label.tsx',
+    accessibilityNotes: [
+      'Built on Radix UI Label primitive for proper semantics',
+      'Creates accessible association with form controls via htmlFor',
+      'Automatically handles click events to focus associated control',
+      'Supports peer-disabled state styling',
+      'Properly announces to screen readers',
+      'Essential for WCAG 2.1 Level AA compliance',
+    ],
   },
   Combobox: {
     component: Combobox,

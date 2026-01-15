@@ -19,30 +19,23 @@ export default function Error({
     <div className="min-h-screen flex items-center justify-center bg-[var(--color-background)] px-4">
       <div className="max-w-md w-full py-12 text-center">
         <div className="space-y-6">
-          {/* Error Icon */}
-          <div className="flex justify-center">
-            <div className="w-24 h-24 rounded-full bg-[var(--color-error)] bg-opacity-10 flex items-center justify-center">
-              <svg
-                className="w-12 h-12 text-[var(--color-error)]"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
-                />
-              </svg>
-            </div>
+          {/* Error Icon - 404 Text */}
+          <div className="flex justify-center select-none">
+            <h1
+              className="text-[12rem] leading-none font-black text-transparent"
+              style={{
+                WebkitTextStroke: '4px var(--color-error)'
+              }}
+            >
+              404
+            </h1>
           </div>
 
           {/* Error Message */}
-          <div className="space-y-2">
-            <h1 className="text-4xl font-bold text-[var(--color-text-primary)]">
-              Something went wrong
-            </h1>
+          <div className="space-y-2 -mt-8 relative z-10">
+            <h2 className="text-4xl font-bold text-[var(--color-text-primary)]">
+              Sorry, my bad.
+            </h2>
             <p className="text-[var(--color-text-secondary)]">
               An unexpected error occurred while loading this page. Please try again.
             </p>
@@ -59,7 +52,7 @@ export default function Error({
           </div>
 
           {/* Actions */}
-          <div className="flex flex-col sm:flex-row gap-3 justify-center pt-4">
+          <div className="flex flex-col sm:flex-row gap-3 justify-center pt-8">
             <Button variant="default" size="lg" onClick={reset}>
               Try Again
             </Button>
@@ -67,7 +60,8 @@ export default function Error({
               variant="outline"
               size="lg"
               onClick={() => {
-                window.location.href = '/';
+                // Force a hard reload to the root to clear any stuck states
+                window.location.href = window.location.origin;
               }}
             >
               Go to Homepage
