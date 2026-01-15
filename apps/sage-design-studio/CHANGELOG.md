@@ -68,6 +68,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - `packages/ui/src/components/feedback/Toast.tsx`: Deleted duplicate file (conflicting with `Toast/Toast.tsx`).
     - `packages/ui/src/index.ts` & `src/components/feedback/index.ts`: Removed duplicate exports for Toast component.
     - `apps/sage-design-studio`: Resolved all TypeScript build errors in `component-registry.tsx`, `HooksSection.tsx`, and `universal/page.tsx` by migrating imports and adding required props to satisfy strict types.
+    - `packages/design-system`: Updated legacy `Card` component to disable `hoverEffect` by default, resolving UI inconsistencies in the "Adding Components" section.
 
 ### Changed
 

@@ -6,7 +6,7 @@ export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export const Card = React.forwardRef<HTMLDivElement, CardProps>(
-    ({ children, className = '', hoverEffect = true, ...props }, ref) => {
+    ({ children, className = '', hoverEffect = false, ...props }, ref) => {
         return (
             <div
                 ref={ref}
