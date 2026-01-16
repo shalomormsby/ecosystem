@@ -18,7 +18,7 @@ This ecosystem expresses one unified vision through multiple products:
 - **[Sage Design Studio](https://studio.shalomormsby.com/)** — Interactive documentation platform for the Sage Design System (SDS). A comprehensive suite of functional components, patterns, and templates that optimize human and AI-assisted creativity. Purpose-built for solopreneurs who want to build digital products not only with speed but also with precise creative control. 
 - **[Creative Powerup](https://ecosystem-creative-powerup.vercel.app/)** — Community platform and experiment gallery for purpose-driven innovators *(in development)*
 - **[Sage Stocks](https://stocks.shalomormsby.com/)** — AI-powered investment intelligence that respects user agency *(migration pending)*
-- **SageOS** — Personal operating system for creative work *(WiP)*
+- **SageOS** — Personal operating system for creative work *(Currently a WiP. To apply as a beta tester, email Shalom.)*
 
 **The unifying element:** A shared design system that embodies human-centered principles into every component, token, and interaction.
 
