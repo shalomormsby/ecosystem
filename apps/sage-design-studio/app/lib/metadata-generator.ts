@@ -48,18 +48,17 @@ export function generateComponentMetadata(config: ComponentConfig, name: string)
 
 /**
  * Generates a complete API documentation object for all components
+ * Components organized by functional categories (actions, forms, navigation, etc.)
  */
 export function generateFullDocumentation(
-  atoms: Record<string, ComponentConfig>,
-  molecules: Record<string, ComponentConfig>,
-  organisms?: Array<{ name: string; description: string; sourceUrl?: string }>
+  categories: Record<string, { description: string; components: Record<string, ComponentConfig> }>
 ) {
   return {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     "name": "Sage Design System",
     "applicationCategory": "DeveloperApplication",
-    "description": "A comprehensive design system built with React and TypeScript, following atomic design principles.",
+    "description": "A comprehensive design system built with React and TypeScript, organized by functional purpose for optimal developer experience.",
     "url": "https://studio.shalomormsby.com",
     "version": "1.0.0",
     "programmingLanguage": "TypeScript",
@@ -67,36 +66,14 @@ export function generateFullDocumentation(
     "operatingSystem": "Any",
     "license": "MIT",
 
-    // Atoms (smallest components)
-    "hasPart": [
-      {
-        "@type": "SoftwareSourceCode",
-        "name": "Atoms",
-        "description": "Elemental components that cannot be broken down further without losing their core identity or function.",
-        "hasPart": Object.entries(atoms).map(([name, config]) =>
-          generateComponentMetadata(config, name)
-        ),
-      },
-      {
-        "@type": "SoftwareSourceCode",
-        "name": "Molecules",
-        "description": "Component compositions of atoms that form cohesive, functional units.",
-        "hasPart": Object.entries(molecules).map(([name, config]) =>
-          generateComponentMetadata(config, name)
-        ),
-      },
-      ...(organisms ? [{
-        "@type": "SoftwareSourceCode",
-        "name": "Organisms",
-        "description": "Complex compositions of molecules and/or atoms that form discrete, functional sections of an interface.",
-        "hasPart": organisms.map(organism => ({
-          "@type": "SoftwareSourceCode",
-          "name": organism.name,
-          "description": organism.description,
-          "codeRepository": organism.sourceUrl,
-          "programmingLanguage": "TypeScript",
-        })),
-      }] : []),
-    ],
+    // Functionally organized components
+    "hasPart": Object.entries(categories).map(([categoryName, category]) => ({
+      "@type": "SoftwareSourceCode",
+      "name": categoryName,
+      "description": category.description,
+      "hasPart": Object.entries(category.components).map(([name, config]) =>
+        generateComponentMetadata(config, name)
+      ),
+    })),
   };
 }

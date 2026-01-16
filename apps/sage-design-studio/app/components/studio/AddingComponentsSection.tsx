@@ -31,8 +31,7 @@ export function AddingComponentsSection({ breadcrumbs, activeItemId }: AddingCom
         <div className="flex overflow-x-auto no-scrollbar gap-1 custom-scrollbar">
           {[
             { id: 'methodology', label: 'Methodology' },
-            { id: 'atoms', label: 'Adding Atoms' },
-            { id: 'molecules', label: 'Adding Molecules' },
+            { id: 'components', label: 'Adding Components' },
             { id: 'modifying', label: 'Modifying' },
             { id: 'tokens', label: 'Adding Tokens' },
             { id: 'troubleshooting', label: 'Troubleshooting' },
@@ -159,11 +158,11 @@ export * from './components/[category]/ComponentName';`} defaultCollapsed={false
           </section>
         )}
 
-        {/* Adding a New Atom */}
-        {currentView === 'atoms' && (
+        {/* Adding a New Component */}
+        {currentView === 'components' && (
           <section>
             <h2 className="text-2xl font-bold mb-4 text-[var(--color-text-primary)]">
-              Adding a New Atom
+              Adding a New Component
             </h2>
             <Card className="p-6">
               <ol className="space-y-4">
@@ -245,20 +244,29 @@ export { ComponentName } from './components/ComponentName';`} defaultCollapsed={
           </section>
         )}
 
-        {/* Adding a New Molecule */}
-        {currentView === 'molecules' && (
+        {/* Legacy redirects for atoms and molecules */}
+        {(currentView === 'molecules' || currentView === 'atoms') && (
           <section>
             <h2 className="text-2xl font-bold mb-4 text-[var(--color-text-primary)]">
-              Adding a New Molecule
+              Adding a New Component
             </h2>
+            <Card className="p-6 bg-[var(--color-primary)] bg-opacity-10 border-[var(--color-primary)] mb-4">
+              <p className="text-sm text-[var(--color-text-primary)] mb-3">
+                <strong>Note:</strong> Atomic design terminology (atoms/molecules/organisms) has been deprecated.
+              </p>
+              <p className="text-sm text-[var(--color-text-primary)]">
+                All components are now organized by functional purpose into 7 categories:
+                Actions, Forms, Navigation, Overlays, Feedback, Data Display, and Layout.
+              </p>
+            </Card>
             <Card className="p-6">
               <p className="text-sm text-[var(--color-text-secondary)] mb-4">
-                Follow the same steps as adding an Atom, but place the file in:
+                Please see the <a href="#adding-components/components" className="text-[var(--color-primary)] hover:underline font-medium">Adding Components</a> tab for the updated workflow,
+                or visit the <a href="#architecture" className="text-[var(--color-primary)] hover:underline font-medium">Architecture</a> section to understand functional organization.
               </p>
-              <CollapsibleCodeBlock id="add-comp-6" code="packages/ui/src/components/ComponentName.tsx" defaultCollapsed={false} showCopy={true} />
-              <div className="bg-[var(--color-surface)] p-4 rounded-md border border-[var(--color-border)] mt-4">
+              <div className="bg-[var(--color-surface)] p-4 rounded-md border border-[var(--color-border)]">
                 <p className="text-sm text-[var(--color-text-primary)] mb-2">
-                  <strong>Key difference:</strong> Molecules compose atoms together
+                  <strong>Quick tip:</strong> When adding a component, choose its category based on its primary purpose
                 </p>
                 <CollapsibleCodeBlock id="add-comp-7" code={`import { Input, Button } from '@sds/ui';
 
@@ -741,10 +749,10 @@ ELIFECYCLE Command failed with exit code 1.`}
                     <div className="bg-[var(--color-surface)] p-4 rounded-md border border-[var(--color-border)]">
                       <p className="text-xs font-semibold text-[var(--color-text-primary)] mb-2">Understanding the Build Chain:</p>
                       <ol className="text-xs text-[var(--color-text-secondary)] space-y-1 list-decimal list-inside">
-                        <li>Component source: <Code syntax="plain">design-system/molecules/Component/Component.tsx</Code></li>
-                        <li>Built to: <Code syntax="plain">design-system/dist/index.mjs</Code> (via tsup)</li>
-                        <li>Exported by: <Code syntax="plain">design-system/package.json</Code> exports field</li>
-                        <li>Imported by: <Code syntax="plain">molecule-registry.tsx</Code> from '@sds/ui'</li>
+                        <li>Component source: <Code syntax="plain">packages/ui/src/components/[category]/Component.tsx</Code></li>
+                        <li>Built to: <Code syntax="plain">packages/ui/dist/index.mjs</Code> (via tsup)</li>
+                        <li>Exported by: <Code syntax="plain">packages/ui/package.json</Code> exports field</li>
+                        <li>Imported by: <Code syntax="plain">component-registry.tsx</Code> from '@sds/ui'</li>
                         <li>Rendered in: Studio app examples</li>
                       </ol>
                     </div>
@@ -760,11 +768,11 @@ ELIFECYCLE Command failed with exit code 1.`}
                       </li>
                       <li className="flex items-start gap-2">
                         <span className="text-[var(--color-primary)] font-bold">2.</span>
-                        <span>Check local dist build has changes: <Code syntax="plain">grep "your-change" design-system/dist/index.mjs</Code></span>
+                        <span>Check local dist build has changes: <Code syntax="plain">grep "your-change" packages/ui/dist/index.mjs</Code></span>
                       </li>
                       <li className="flex items-start gap-2">
                         <span className="text-[var(--color-primary)] font-bold">3.</span>
-                        <span>Verify examples import correctly: Check molecule-registry.tsx imports from '@sds/ui'</span>
+                        <span>Verify examples import correctly: Check component-registry.tsx imports from '@sds/ui'</span>
                       </li>
                       <li className="flex items-start gap-2">
                         <span className="text-[var(--color-primary)] font-bold">4.</span>

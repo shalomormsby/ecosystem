@@ -747,9 +747,9 @@ const customAnimation = createAnimation(
 
         {/* CollapsibleCodeBlock Example */}
         <Card className="p-6 mt-8">
-          <h3 className="font-medium text-[var(--color-text-primary)] mb-3">CollapsibleCodeBlock Organism</h3>
+          <h3 className="font-medium text-[var(--color-text-primary)] mb-3">CollapsibleCodeBlock Component</h3>
           <p className="text-sm text-[var(--color-text-secondary)] mb-4">
-            Use the new <code className="px-1 py-0.5 bg-[var(--color-surface)] rounded text-[var(--color-primary)]">CollapsibleCodeBlock</code> organism for reusable, syntax-highlighted code blocks with smooth animations:
+            Use the <code className="px-1 py-0.5 bg-[var(--color-surface)] rounded text-[var(--color-primary)]">CollapsibleCodeBlock</code> component for reusable, syntax-highlighted code blocks with smooth animations:
           </p>
 
           <CollapsibleCodeBlock

@@ -175,7 +175,7 @@ export function OverviewSection() {
               Explore live components, customize themes with the built-in Customizer, and see design tokens as importable JavaScript objects.
             </p>
             <p className="text-xs text-[var(--color-text-muted)]">
-              → Explore <a href="#tokens" className="text-[var(--color-primary)] hover:underline">Tokens</a> and <a href="#atoms" className="text-[var(--color-primary)] hover:underline">Components</a>
+              → Explore <a href="#tokens" className="text-[var(--color-primary)] hover:underline">Tokens</a> and <a href="#components" className="text-[var(--color-primary)] hover:underline">Components</a>
             </p>
           </Card>
 
@@ -212,7 +212,7 @@ export function OverviewSection() {
               Learners
             </h3>
             <p className="text-sm text-[var(--color-text-secondary)] mb-4">
-              Study atomic design in practice, understand design tokens, and see how philosophy translates to functional code.
+              Study functional component organization, understand design tokens, and see how philosophy translates to production code.
             </p>
             <p className="text-xs text-[var(--color-text-muted)]">
               → Start with <a href="#architecture" className="text-[var(--color-primary)] hover:underline">How It Works</a>
@@ -606,7 +606,7 @@ export function ThemeSwitcher() {
                 </div>
                 <div className="mt-4 p-3 bg-[var(--color-surface)] rounded border border-[var(--color-border)]">
                   <p className="text-xs text-[var(--color-text-muted)]">
-                    <strong>→ Full documentation:</strong> Navigate to <strong className="text-[var(--color-text-primary)]">Components &gt; Organisms &gt; Customization &gt; Customizer</strong> in the sidebar for interactive demos and code examples.
+                    <strong>→ Full documentation:</strong> Navigate to <strong className="text-[var(--color-text-primary)]">Patterns &gt; Customization &gt; Customizer</strong> in the sidebar for interactive demos and code examples.
                   </p>
                 </div>
               </div>
@@ -643,7 +643,7 @@ export function ThemeSwitcher() {
               <a href="#quick-start" className="block text-[var(--color-primary)] hover:underline">
                 1. Quick Start →
               </a>
-              <a href="#atoms" className="block text-[var(--color-primary)] hover:underline">
+              <a href="#components" className="block text-[var(--color-primary)] hover:underline">
                 2. Browse Components →
               </a>
               <a
@@ -749,7 +749,7 @@ export function ThemeSwitcher() {
               >
                 2. Usage Guide →
               </a>
-              <a href="#atoms" className="block text-[var(--color-primary)] hover:underline">
+              <a href="#components" className="block text-[var(--color-primary)] hover:underline">
                 3. Component Catalog →
               </a>
             </div>
@@ -796,34 +796,42 @@ import { Button, Text } from '@sds/ui';
           />
         </Card>
 
-        {/* Atomic Methodology */}
+        {/* Functional Organization */}
         <Card className="p-6 mb-6">
           <h3 className="text-xl font-semibold mb-4 text-[var(--color-text-primary)]">
-            Atomic Methodology
+            Functional Organization
           </h3>
           <p className="text-[var(--color-text-secondary)] mb-4">
-            Components are organized by complexity, from raw values to complete page layouts.
+            Components are organized by what they do, not by abstract hierarchy. This eliminates classification ambiguity and improves developer discoverability.
           </p>
           <div className="space-y-3 pl-4 border-l-2 border-[var(--color-border)]">
             <div>
-              <span className="font-semibold text-[var(--color-text-primary)]">Tokens</span>
-              <span className="text-[var(--color-text-secondary)]"> — Raw values (colors, spacing, typography, motion)</span>
+              <span className="font-semibold text-[var(--color-text-primary)]">Actions (3)</span>
+              <span className="text-[var(--color-text-secondary)]"> — Interactive elements that trigger behaviors (Button, Toggle, ToggleGroup)</span>
             </div>
             <div>
-              <span className="font-semibold text-[var(--color-text-primary)]">Atoms</span>
-              <span className="text-[var(--color-text-secondary)]"> — Smallest functional elements (Button, Input, Badge)</span>
+              <span className="font-semibold text-[var(--color-text-primary)]">Forms (11)</span>
+              <span className="text-[var(--color-text-secondary)]"> — Input controls for data collection (Input, Select, Checkbox, Switch, Slider...)</span>
             </div>
             <div>
-              <span className="font-semibold text-[var(--color-text-primary)]">Molecules</span>
-              <span className="text-[var(--color-text-secondary)]"> — Simple combinations with single purpose (TextField, SearchBar)</span>
+              <span className="font-semibold text-[var(--color-text-primary)]">Navigation (6)</span>
+              <span className="text-[var(--color-text-secondary)]"> — Moving through content hierarchy (Breadcrumb, Tabs, Pagination, Command...)</span>
             </div>
             <div>
-              <span className="font-semibold text-[var(--color-text-primary)]">Organisms</span>
-              <span className="text-[var(--color-text-secondary)]"> — Complex sections managing layout/state (Header, Footer, Modal)</span>
+              <span className="font-semibold text-[var(--color-text-primary)]">Overlays (9)</span>
+              <span className="text-[var(--color-text-secondary)]"> — Contextual content above main UI (Dialog, Sheet, Popover, Tooltip, Drawer...)</span>
             </div>
             <div>
-              <span className="font-semibold text-[var(--color-text-primary)]">Templates</span>
-              <span className="text-[var(--color-text-secondary)]"> — Page layouts and structural blueprints</span>
+              <span className="font-semibold text-[var(--color-text-primary)]">Feedback (5)</span>
+              <span className="text-[var(--color-text-secondary)]"> — Communicating system state (Alert, Toast, Progress, Skeleton, Sonner)</span>
+            </div>
+            <div>
+              <span className="font-semibold text-[var(--color-text-primary)]">Data Display (6)</span>
+              <span className="text-[var(--color-text-secondary)]"> — Presenting information (Table, DataTable, Card, Avatar, Badge, Calendar)</span>
+            </div>
+            <div>
+              <span className="font-semibold text-[var(--color-text-primary)]">Layout (8)</span>
+              <span className="text-[var(--color-text-secondary)]"> — Spatial organization (Accordion, Carousel, ScrollArea, Separator...)</span>
             </div>
           </div>
         </Card>

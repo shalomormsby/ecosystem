@@ -13,7 +13,7 @@ import { CommonPatternsSection } from './components/studio/CommonPatternsSection
 import { ContributingSection } from './components/studio/ContributingSection';
 import { TokensSection } from './components/studio/TokensSection';
 import { ComponentsSection } from './components/studio/ComponentsSection';
-import { MoleculesSection } from './components/studio/MoleculesSection';
+// MoleculesSection removed - atomic design deprecated in favor of functional organization
 import { OrganismsSection } from './components/studio/OrganismsSection';
 import { HooksSection } from './components/studio/HooksSection';
 import { TemplatesSection } from './components/studio/TemplatesSection';

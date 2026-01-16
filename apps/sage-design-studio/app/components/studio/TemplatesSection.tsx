@@ -53,11 +53,11 @@ function OverviewContent() {
           What are Templates?
         </h3>
         <p className="text-[var(--color-text-secondary)] mb-4">
-          Templates sit at the top of the atomic design hierarchy, composing organisms, molecules, and atoms
-          into complete page layouts. They provide opinionated structure and best practices for common page patterns.
+          Templates compose functionally-organized components into complete page layouts. They provide opinionated structure
+          and best practices for common page patterns, combining components from across all categories.
         </p>
         <ul className="list-disc list-inside space-y-2 text-[var(--color-text-secondary)]">
-          <li>Compose multiple organisms into coherent page structures</li>
+          <li>Compose multiple patterns and components into coherent page structures</li>
           <li>Enforce consistent spacing and layout principles</li>
           <li>Provide sensible defaults while allowing customization</li>
           <li>Demonstrate Swiss Grid Design principles in practice</li>

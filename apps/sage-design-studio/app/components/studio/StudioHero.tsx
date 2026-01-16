@@ -50,7 +50,7 @@ export function StudioHero() {
           {/* Introduction: Tertiary hierarchy - matches section width below */}
           <div className="max-w-7xl mx-auto">
             <p className="text-lg text-[var(--color-text-primary)] leading-relaxed">
-              These tokens and atomic design elements power this entire digital ecosystem.
+              These tokens and functionally-organized components power this entire digital ecosystem.
               Explore, apply, and fork them as you wish—everything is offered under the MIT license.
             </p>
           </div>

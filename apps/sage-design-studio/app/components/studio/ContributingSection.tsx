@@ -222,12 +222,12 @@ export function ContributingSection({ breadcrumbs }: ContributingSectionProps) {
               <pre className="bg-[var(--color-surface)] p-4 rounded-md text-sm overflow-x-auto border border-[var(--color-border)]">
                 <code className="text-[var(--color-text-primary)]">{`## Summary
 - Added NewComponent to the design system
-- Follows atomic design principles
+- Organized functionally by primary purpose
 - Supports all three themes
 
 ## Changes
-- Created NewComponent.tsx in components/atoms/
-- Added exports to index.ts
+- Created NewComponent.tsx in components/[category]/
+- Added exports to category index and main barrel
 - Updated ComponentsSection to showcase component
 - Built and tested in studio app
 

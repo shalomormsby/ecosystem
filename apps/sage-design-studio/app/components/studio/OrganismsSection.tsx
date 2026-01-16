@@ -6,9 +6,9 @@ import { Header, SecondaryNav, TertiaryNav, Footer, Modal, ToastProvider, useToa
 import { SlidersHorizontal, Sun, Moon, SunMoon, Building2, Leaf, Zap, X } from 'lucide-react';
 import type { SyntaxToken } from '@sds/ui';
 
-type OrganismType = 'PageLayout' | 'PrimaryNav' | 'SecondaryNav' | 'TertiaryNav' | 'FirstStack' | 'SecondStack' | 'Footer' | 'Toast' | 'Modal' | 'CollapsibleCodeBlock' | 'Customizer';
+type PatternType = 'PageLayout' | 'PrimaryNav' | 'SecondaryNav' | 'TertiaryNav' | 'FirstStack' | 'SecondStack' | 'Footer' | 'Toast' | 'Modal' | 'CollapsibleCodeBlock' | 'Customizer';
 
-interface OrganismsSectionProps {
+interface PatternsSectionProps {
   activeItemId?: string;
   breadcrumbs?: BreadcrumbItemLegacy[];
   onItemChange?: (itemId: string) => void;
@@ -328,28 +328,28 @@ function CustomizerDemoLightweight() {
   );
 }
 
-export function OrganismsSection({ activeItemId, breadcrumbs, onItemChange }: OrganismsSectionProps) {
-  const [selectedOrganism, setSelectedOrganism] = useState<OrganismType>('PrimaryNav');
+export function OrganismsSection({ activeItemId, breadcrumbs, onItemChange }: PatternsSectionProps) {
+  const [selectedPattern, setSelectedPattern] = useState<PatternType>('PrimaryNav');
 
-  // Update selected organism when activeItemId changes
+  // Update selected pattern when activeItemId changes
   useEffect(() => {
     if (activeItemId) {
       // Map kebab-case ids to PascalCase names
       // e.g., 'primary-nav' -> 'PrimaryNav', 'first-stack' -> 'FirstStack'
-      const organismName = activeItemId
+      const patternName = activeItemId
         .split('-')
         .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-        .join('') as OrganismType;
+        .join('') as PatternType;
 
-      if (['PageLayout', 'PrimaryNav', 'SecondaryNav', 'TertiaryNav', 'FirstStack', 'SecondStack', 'Footer', 'Toast', 'Modal', 'CollapsibleCodeBlock', 'Customizer'].includes(organismName)) {
-        setSelectedOrganism(organismName);
+      if (['PageLayout', 'PrimaryNav', 'SecondaryNav', 'TertiaryNav', 'FirstStack', 'SecondStack', 'Footer', 'Toast', 'Modal', 'CollapsibleCodeBlock', 'Customizer'].includes(patternName)) {
+        setSelectedPattern(patternName);
       }
     }
   }, [activeItemId]);
 
-  // Handle organism selection and notify parent
-  const handleOrganismChange = (id: OrganismType) => {
-    setSelectedOrganism(id);
+  // Handle pattern selection and notify parent
+  const handlePatternChange = (id: PatternType) => {
+    setSelectedPattern(id);
     // Convert PascalCase to kebab-case for parent state (e.g., 'PrimaryNav' -> 'primary-nav')
     const kebabCase = id
       .replace(/([A-Z])/g, '-$1')
@@ -358,7 +358,7 @@ export function OrganismsSection({ activeItemId, breadcrumbs, onItemChange }: Or
     onItemChange?.(kebabCase);
   };
 
-  const organisms = [
+  const patterns = [
     { id: 'PageLayout', label: 'Page Layout' },
     { id: 'PrimaryNav', label: 'Primary Nav' },
     { id: 'SecondaryNav', label: 'Secondary Nav' },
@@ -394,10 +394,10 @@ export function OrganismsSection({ activeItemId, breadcrumbs, onItemChange }: Or
         )}
       </div>
 
-      {/* Organism Display with spacing for sticky nav */}
+      {/* Pattern Display with spacing for sticky nav */}
       <div className="mt-4">
         {/* Page Layout Component */}
-        {selectedOrganism === 'PageLayout' && (
+        {selectedPattern === 'PageLayout' && (
           <section className="space-y-6">
             <div>
               <h3 className="text-2xl font-semibold mb-2 text-[var(--color-text-primary)]">
@@ -405,7 +405,7 @@ export function OrganismsSection({ activeItemId, breadcrumbs, onItemChange }: Or
               </h3>
               <Card className="p-6">
                 <p className="text-[var(--color-text-primary)] mb-4">
-                  A flexible layout organism that composes Header, Breadcrumbs, SecondaryNav, TertiaryNav, and Footer with automatic z-index and sticky positioning management.
+                  A flexible layout pattern that composes Header, Breadcrumbs, SecondaryNav, TertiaryNav, and Footer with automatic z-index and sticky positioning management.
                 </p>
                 <div className="space-y-4">
                   <div className="text-sm text-[var(--color-text-secondary)]">
@@ -455,7 +455,7 @@ export function OrganismsSection({ activeItemId, breadcrumbs, onItemChange }: Or
         )}
 
         {/* Primary Nav Component */}
-        {selectedOrganism === 'PrimaryNav' && (
+        {selectedPattern === 'PrimaryNav' && (
           <section className="space-y-6">
             <div>
               <h3 className="text-2xl font-semibold mb-2 text-[var(--color-text-primary)]">
@@ -601,7 +601,7 @@ export function OrganismsSection({ activeItemId, breadcrumbs, onItemChange }: Or
         )}
 
         {/* Secondary Nav Component */}
-        {selectedOrganism === 'SecondaryNav' && (
+        {selectedPattern === 'SecondaryNav' && (
           <section className="space-y-6">
             <div>
               <h3 className="text-2xl font-semibold mb-2 text-[var(--color-text-primary)]">
@@ -758,7 +758,7 @@ function MyPage() {
         )}
 
         {/* Tertiary Nav Component */}
-        {selectedOrganism === 'TertiaryNav' && (
+        {selectedPattern === 'TertiaryNav' && (
           <section className="space-y-6">
             <div>
               <h3 className="text-2xl font-semibold mb-2 text-[var(--color-text-primary)]">
@@ -797,7 +797,7 @@ function MyPage() {
                 Live Example
               </h4>
               <p className="text-sm text-[var(--color-text-secondary)] mb-3">
-                See this component in action on the <strong>Components &gt; Atoms</strong> page, where it provides navigation between Button, Card, Code, Link, and other atom components.
+                See this component in action on the <strong>Components</strong> pages, where it provides navigation between functional categories like Actions, Forms, Navigation, and others.
               </p>
               <Card className="p-0 overflow-hidden bg-[var(--color-background)]">
                 <TertiaryNav
@@ -930,7 +930,7 @@ function ComponentSelector() {
         )}
 
         {/* 1st Stacking Row Component */}
-        {selectedOrganism === 'FirstStack' && (
+        {selectedPattern === 'FirstStack' && (
           <section className="space-y-6">
             <div>
               <h3 className="text-2xl font-semibold mb-2 text-[var(--color-text-primary)]">
@@ -1032,7 +1032,7 @@ const sections = [
         )}
 
         {/* 2nd Stacking Row Component */}
-        {selectedOrganism === 'SecondStack' && (
+        {selectedPattern === 'SecondStack' && (
           <section className="space-y-6">
             <div>
               <h3 className="text-2xl font-semibold mb-2 text-[var(--color-text-primary)]">
@@ -1146,7 +1146,7 @@ const components = [
         )}
 
         {/* Footer Component */}
-        {selectedOrganism === 'Footer' && (
+        {selectedPattern === 'Footer' && (
           <section className="space-y-6">
             <div>
               <h3 className="text-2xl font-semibold mb-2 text-[var(--color-text-primary)]">
@@ -1154,7 +1154,7 @@ const components = [
               </h3>
               <Card className="p-6">
                 <p className="text-[var(--color-text-primary)] mb-4">
-                  Swiss Grid-inspired footer organism with multi-column layout, social links with icons, and organized content sections. Designed following Swiss design principles with precise spacing and clean typography.
+                  Swiss Grid-inspired footer pattern with multi-column layout, social links with icons, and organized content sections. Designed following Swiss design principles with precise spacing and clean typography.
                 </p>
                 <div className="space-y-4">
                   <div className="text-sm text-[var(--color-text-secondary)]">
@@ -1333,7 +1333,7 @@ const components = [
         )}
 
         {/* Toast Component */}
-        {selectedOrganism === 'Toast' && (
+        {selectedPattern === 'Toast' && (
           <section className="space-y-6">
             <div>
               <h3 className="text-2xl font-semibold mb-2 text-[var(--color-text-primary)]">
@@ -1397,7 +1397,7 @@ function MyComponent() {
         )}
 
         {/* Modal Component */}
-        {selectedOrganism === 'Modal' && (
+        {selectedPattern === 'Modal' && (
           <section className="space-y-6">
             <div>
               <h3 className="text-2xl font-semibold mb-2 text-[var(--color-text-primary)]">
@@ -1489,7 +1489,7 @@ function MyComponent() {
         )}
 
         {/* CollapsibleCodeBlock Component */}
-        {selectedOrganism === 'CollapsibleCodeBlock' && (
+        {selectedPattern === 'CollapsibleCodeBlock' && (
           <section className="space-y-6">
             <div>
               <h3 className="text-2xl font-semibold mb-2 text-[var(--color-text-primary)]">
@@ -1716,7 +1716,7 @@ const customTokens: SyntaxToken[] = [
         )}
 
         {/* Customizer Component */}
-        {selectedOrganism === 'Customizer' && (
+        {selectedPattern === 'Customizer' && (
           <section className="space-y-6">
             <div>
               <h3 className="text-2xl font-semibold mb-2 text-[var(--color-text-primary)]">

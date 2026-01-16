@@ -253,14 +253,14 @@ export function AnimatedCard() {
         </Card>
       </section>
 
-      {/* Composing Molecules from Atoms */}
+      {/* Composing Components */}
       <section>
         <h2 className="text-2xl font-bold mb-4 text-[var(--color-text-primary)]">
-          Composing Molecules from Atoms
+          Composing Components
         </h2>
         <Card className="p-6">
           <h3 className="font-semibold mb-3 text-[var(--color-text-primary)]">
-            Building a SearchBar molecule from Input and Button atoms
+            Building a SearchBar from Input and Button components
           </h3>
           <CollapsibleCodeBlock id="pattern-5" code={`import { Input, Button } from '@sds/ui';
 
