@@ -700,66 +700,67 @@ console.log(greeting);\`)}
     component: Sidebar,
     description: 'A composable, responsive sidebar component with support for nested navigation, headers, and footers. Handles expanded state and active items automatically.',
     props: {
+      isOpen: {
+        type: 'boolean',
+        default: true,
+        description: 'Whether the sidebar is expanded (mobile) or visible',
+      },
       className: {
         type: 'text',
-        default: '',
-        description: 'Additional CSS classes',
+        default: 'relative h-[500px] w-full max-w-[280px] border-r shadow-none',
+        description: 'Additional CSS classes. Use "relative" to contain within a layout.',
       },
     },
     examples: [
       {
         label: 'Basic Sidebar',
-        props: {},
+        props: {
+          className: 'relative h-[400px] w-[260px] border rounded-lg overflow-hidden',
+        },
         children: (
-          <div className="h-[400px] w-[240px] border rounded-lg bg-background overflow-hidden relative">
-            <Sidebar className="absolute inset-0">
-              <SidebarHeader>
-                <div className="px-2 font-bold text-lg">My App</div>
-              </SidebarHeader>
-              <SidebarContent>
-                <SidebarItem isActive>Overview</SidebarItem>
-                <SidebarItem>Analytics</SidebarItem>
-                <SidebarItem>Settings</SidebarItem>
-              </SidebarContent>
-              <SidebarFooter>
-                <SidebarItem>Logout</SidebarItem>
-              </SidebarFooter>
-            </Sidebar>
-          </div>
+          <>
+            <SidebarHeader>
+              <div className="px-2 font-bold text-lg">My App</div>
+            </SidebarHeader>
+            <SidebarContent>
+              <SidebarItem isActive>Overview</SidebarItem>
+              <SidebarItem>Analytics</SidebarItem>
+              <SidebarItem>Settings</SidebarItem>
+            </SidebarContent>
+            <SidebarFooter>
+              <SidebarItem>Logout</SidebarItem>
+            </SidebarFooter>
+          </>
         ),
       },
       {
         label: 'Nested Navigation',
-        props: {},
+        props: {
+          className: 'relative h-[400px] w-[260px] border rounded-lg overflow-hidden',
+        },
         children: (
-          <div className="h-[400px] w-[240px] border rounded-lg bg-background overflow-hidden relative">
-            <Sidebar className="absolute inset-0">
-              <SidebarContent>
-                <SidebarItem>Dashboard</SidebarItem>
-                <SidebarItem hasChildren isExpanded>
-                  Projects
-                </SidebarItem>
-                <SidebarItem depth={1} isActive>Project A</SidebarItem>
-                <SidebarItem depth={1}>Project B</SidebarItem>
-                <SidebarItem>Team</SidebarItem>
-              </SidebarContent>
-            </Sidebar>
-          </div>
+          <SidebarContent>
+            <SidebarItem>Dashboard</SidebarItem>
+            <SidebarItem hasChildren isExpanded>
+              Projects
+            </SidebarItem>
+            <SidebarItem depth={1} isActive>Project A</SidebarItem>
+            <SidebarItem depth={1}>Project B</SidebarItem>
+            <SidebarItem>Team</SidebarItem>
+          </SidebarContent>
         ),
       },
       {
         label: 'With Icons',
-        props: {},
+        props: {
+          className: 'relative h-[400px] w-[260px] border rounded-lg overflow-hidden',
+        },
         children: (
-          <div className="h-[400px] w-[240px] border rounded-lg bg-background overflow-hidden relative">
-            <Sidebar className="absolute inset-0">
-              <SidebarContent>
-                <SidebarItem icon={<span className="text-xl">🏠</span>}>Home</SidebarItem>
-                <SidebarItem icon={<span className="text-xl">🔍</span>}>Search</SidebarItem>
-                <SidebarItem icon={<span className="text-xl">⚙️</span>}>Settings</SidebarItem>
-              </SidebarContent>
-            </Sidebar>
-          </div>
+          <SidebarContent>
+            <SidebarItem icon={<span className="text-xl">🏠</span>}>Home</SidebarItem>
+            <SidebarItem icon={<span className="text-xl">🔍</span>}>Search</SidebarItem>
+            <SidebarItem icon={<span className="text-xl">⚙️</span>}>Settings</SidebarItem>
+          </SidebarContent>
         ),
       },
     ],
@@ -768,20 +769,24 @@ console.log(greeting);\`)}
         title: 'Basic Structure',
         code: `import { Sidebar, SidebarHeader, SidebarContent, SidebarFooter, SidebarItem } from '@sds/ui';
 
-<Sidebar>
-  <SidebarHeader>
-    <h2>App Name</h2>
-  </SidebarHeader>
-  
-  <SidebarContent>
-    <SidebarItem isActive>Dashboard</SidebarItem>
-    <SidebarItem>Settings</SidebarItem>
-  </SidebarContent>
+export default function AppSidebar() {
+  return (
+    <Sidebar className="fixed left-0 top-0 h-screen w-64 border-r">
+      <SidebarHeader>
+        <h2>App Name</h2>
+      </SidebarHeader>
+      
+      <SidebarContent>
+        <SidebarItem isActive>Dashboard</SidebarItem>
+        <SidebarItem>Settings</SidebarItem>
+      </SidebarContent>
 
-  <SidebarFooter>
-    <SidebarItem>Profile</SidebarItem>
-  </SidebarFooter>
-</Sidebar>`,
+      <SidebarFooter>
+        <SidebarItem>Profile</SidebarItem>
+      </SidebarFooter>
+    </Sidebar>
+  );
+}`,
         description: 'Standard layout with header, content area, and footer.',
       },
       {
@@ -797,6 +802,11 @@ console.log(greeting);\`)}
       },
     ],
     sourceUrl: 'https://github.com/shalom-ormsby/ecosystem/blob/main/packages/ui/src/components/layout/Sidebar.tsx',
+    accessibilityNotes: [
+      'Uses semantically correct <aside> element for the root container.',
+      'Navigation items use <button> or Slot for keyboard interaction.',
+      'Supports explicit state management for expanded/collapsed sections.',
+    ],
   },
 
   Spinner: {
