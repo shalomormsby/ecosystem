@@ -15,10 +15,10 @@ The purpose of this open source monorepo isn't just to answer this question; it'
 This ecosystem expresses one unified vision through multiple products:
 
 - **Portfolio** — The proof of philosophy. A living showcase of human-centered design with the Customizer as its centerpiece.
-- **Sage Design Studio** — Interactive documentation platform for the design system. Makes design tokens, components, and design decisions publicly explorable.
-- **Creative Powerup** — Community platform and experiment gallery for purpose-driven innovators *(in development)*
+- **[Sage Design Studio](https://studio.shalomormsby.com/)** — Interactive documentation platform for the design system. Makes design tokens, components, and design decisions publicly explorable.
+- **[Creative Powerup](https://ecosystem-creative-powerup.vercel.app/)** — Community platform and experiment gallery for purpose-driven innovators *(in development)*
 - **[Sage Stocks](https://stocks.shalomormsby.com/)** — AI-powered investment intelligence that respects user agency *(migration pending)*
-- **SageOS** — Personal operating system for creative work *(future)*
+- **SageOS** — Personal operating system for creative work *(WiP)*
 
 **The unifying element:** A shared design system that embodies human-centered principles into every component, token, and interaction.
 
