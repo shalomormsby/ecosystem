@@ -1,10 +1,19 @@
 # Sage Design Studio
 
-> **The heart of the ecosystem.** Interactive documentation for the `@sds/ui` web component library.
+> **Interactive documentation for the Sage Design System.** Makes design tokens, components, and design decisions publicly explorable at [studio.shalomormsby.com](https://studio.shalomormsby.com).
+
+## Purpose & Scope
+
+**This README documents the Sage Design Studio app** — the Next.js 15 documentation platform itself, including its architecture, development workflow, and how to add components to the playground.
+
+**For the design system itself** (components, tokens, usage patterns), see:
+- **[SAGE_DESIGN_SYSTEM_STRATEGY.md](./docs/SAGE_DESIGN_SYSTEM_STRATEGY.md)** — Complete design system strategy, architecture, and usage guide
+- **[Root README](../../README.md)** — Ecosystem overview, philosophy, and quick start
+- **[DESIGN-PHILOSOPHY.md](../../DESIGN-PHILOSOPHY.md)** — North Star principles guiding all design decisions
 
 ## Overview
 
-Sage Design Studio is the living documentation for the **Sage Design System**—a high-performance, web-native component library built on **Radix UI** and **Tailwind CSS**. It serves as the single source of truth for designers and developers building applications in the ecosystem.
+Sage Design Studio is the living documentation platform for the **Sage Design System** (`@sds/ui` + `@sds/tokens`)—a high-performance component library built on **Radix UI** and **Tailwind CSS**. It provides interactive component playgrounds, token visualization, and LLM-optimized documentation.
 
 ## Features
 
@@ -58,15 +67,14 @@ app/
 │   │   ├── StudioHero.tsx              # Landing section
 │   │   ├── SectionNav.tsx              # Navigation tabs
 │   │   ├── OverviewSection.tsx         # Philosophy & features
+│   │   ├── ArchitectureSection.tsx     # Functional organization guide
 │   │   ├── TokensSection/              # Token visualization
 │   │   │   ├── ColorsTab.tsx
 │   │   │   └── TypographyTab.tsx
-│   │   └── ComponentsSection/          # Component playground
-│   │       ├── ComponentPlayground.tsx
-│   │       └── CodeSnippet.tsx
-│   ├── lib/
-│   │   ├── component-registry.ts       # Atom metadata
-│   │   └── molecule-registry.ts        # Molecule metadata
+│   │   ├── ComponentsSection/          # Component playground
+│   │   │   ├── ComponentPlayground.tsx
+│   │   │   └── CodeSnippet.tsx
+│   │   └── PatternsSection.tsx         # Complex composition patterns
 │   └── JsonLdMetadata.tsx              # JSON-LD injection component
 ├── lib/
 │   └── metadata-generator.ts           # LLM metadata utilities
@@ -79,68 +87,69 @@ app/
 
 To add a new component to the playground:
 
-1. **Register it** in `app/components/lib/component-registry.ts` (Atoms) or `molecule-registry.ts` (Molecules):
+1. **Create the component** in `packages/ui/src/components/[category]/` following the functional organization system (actions, forms, navigation, overlays, feedback, data-display, layout)
+
+2. **Register it** in the Studio's component registry (organization TBD based on current implementation)
+
+3. **Include metadata** for the playground:
 
 ```typescript
-export const componentRegistry: Record<string, ComponentConfig> = {
-  // ... existing components
-
-  YourComponent: {
-    component: YourComponent,
-    description: 'Description of what this component does',
-    props: {
-      propName: {
-        type: 'select', // or 'boolean' | 'text' | 'array' | 'object' | 'interface' | 'custom'
-        options: ['option1', 'option2'],
-        default: 'option1',
-        description: 'What this prop controls',
-        required: false, // Mark true for required props
-        typeDefinition: 'string', // TypeScript type string for complex types
-      },
+{
+  component: YourComponent,
+  description: 'Description of what this component does',
+  props: {
+    propName: {
+      type: 'select', // or 'boolean' | 'text' | 'array' | 'object' | 'interface' | 'custom'
+      options: ['option1', 'option2'],
+      default: 'option1',
+      description: 'What this prop controls',
+      required: false,
+      typeDefinition: 'string', // TypeScript type
     },
-    examples: [
-      { label: 'Default', props: { propName: 'option1' } },
-    ],
-    codeExamples: [
-      {
-        title: 'Basic Usage',
-        code: '<YourComponent propName="option1" />',
-        description: 'Simple example showing default usage',
-      },
-    ],
-    sourceUrl: 'https://github.com/shalom-ormsby/ecosystem/blob/main/design-system/atoms/YourComponent/YourComponent.tsx',
-    accessibilityNotes: [
-      'Uses semantic HTML elements',
-      'Keyboard navigable with Tab/Enter',
-      'Screen reader accessible with proper ARIA attributes',
-    ],
   },
-};
+  examples: [
+    { label: 'Default', props: { propName: 'option1' } },
+  ],
+  codeExamples: [
+    {
+      title: 'Basic Usage',
+      code: '<YourComponent propName="option1" />',
+      description: 'Simple example showing default usage',
+    },
+  ],
+  sourceUrl: 'https://github.com/shalom-ormsby/ecosystem/blob/main/packages/ui/src/components/[category]/YourComponent/YourComponent.tsx',
+  accessibilityNotes: [
+    'Uses semantic HTML elements',
+    'Keyboard navigable with Tab/Enter',
+    'Screen reader accessible with proper ARIA attributes',
+  ],
+}
 ```
 
-2. **It will automatically appear** in the Components section with full documentation, JSON-LD metadata, and accessibility notes!
+4. **It will automatically appear** in the Components section with full documentation, JSON-LD metadata, and accessibility notes!
 
 ## Technology Stack
 
 - **Framework**: Next.js 15 (App Router)
 - **Styling**: Tailwind CSS
-- **Components**: `@ecosystem/design-system`
+- **Components**: `@sds/ui` + `@sds/tokens`
 - **State**: React hooks + design system's Zustand stores
-- **Code Highlighting**: Shiki (planned for Phase 2)
+- **Code Highlighting**: Custom syntax parser in CollapsibleCodeBlock component
 
 ## Roadmap
 
 ### Phase 1-7 (Documentation Overhaul) ✅ COMPLETE
 - ✅ Enhanced registry type system for complex prop types
 - ✅ Code examples integration with CollapsibleCodeBlock
-- ✅ PageLayout organism for composition patterns
+- ✅ PageLayout component for composition patterns
 - ✅ Breadcrumb generation utilities and global integration
 - ✅ Complete documentation audit (all components)
 - ✅ LLM optimization with JSON-LD structured data
 - ✅ Accessibility notes for all components
 - ✅ GitHub source links for all components
+- ✅ Migration from atomic design to functional organization
 
-See [PHASE-7-COMPLETION.md](./docs/PHASE-7-COMPLETION.md) for full details.
+See [PHASE-7-COMPLETION.md](./docs/archive/PHASE-7-COMPLETION.md) for full details.
 
 ### Phase 8 (Enhancement)
 - Search/filter functionality
@@ -162,29 +171,37 @@ See [PHASE-7-COMPLETION.md](./docs/PHASE-7-COMPLETION.md) for full details.
 
 ## Related Documentation
 
-### Design System Documentation
+### Information Architecture
 
-The Sage Design Studio documents and showcases the design system. For comprehensive information about the design system itself:
+This README fits into the ecosystem's documentation as follows:
 
-**For Users (Building with the Design System):**
-- [Usage Guide](../../design-system/docs/USAGE_GUIDE.md) - Complete guide to using components, component-first philosophy, patterns, and examples
+```
+Ecosystem Documentation Structure:
+├── /README.md                              # Ecosystem overview, quick start, philosophy summary
+├── /DESIGN-PHILOSOPHY.md                   # North Star principles (read first)
+├── /AGENTS.md                              # Technical guide for AI agents and developers
+├── /CHANGELOG.md                           # Ecosystem-wide version history
+└── /apps/sage-design-studio/
+    ├── README.md (this file)               # Studio app architecture & development
+    ├── CHANGELOG.md                        # Studio-specific changes
+    └── docs/
+        ├── SAGE_DESIGN_SYSTEM_STRATEGY.md  # Complete design system guide
+        └── archive/                        # Historical documentation
+```
 
-**For Contributors (Extending the Design System):**
-- [Component Workflow](../../design-system/docs/COMPONENT_WORKFLOW.md) - How to create/modify components
-- [Architecture Guide](../../design-system/docs/ARCHITECTURE-GUIDE.md) - Where code belongs (design system vs. apps)
+### Key Documentation Links
 
-**For Troubleshooting:**
-- [Unresolved Issues](../../design-system/docs/UNRESOLVED_ISSUES.md) - Current known issues with full context
+**Using the Design System:**
+- **[SAGE_DESIGN_SYSTEM_STRATEGY.md](./docs/SAGE_DESIGN_SYSTEM_STRATEGY.md)** — Complete guide: architecture, components, tokens, usage patterns
 
-**Strategic & Philosophy:**
-- [Sage Design Studio Strategy](../../design-system/docs/SAGE-DESIGN-STUDIO.md) - Strategic vision for this documentation platform
-- [Design System README](../../design-system/README.md) - Design system overview and API reference
-- [Design Philosophy](/DESIGN-PHILOSOPHY.md) - Core principles and values
+**Understanding the Ecosystem:**
+- **[Root README](../../README.md)** — Ecosystem overview, tech stack, quick start
+- **[DESIGN-PHILOSOPHY.md](../../DESIGN-PHILOSOPHY.md)** — The "why" behind every decision
+- **[AGENTS.md](../../AGENTS.md)** — Technical setup, conventions, file organization
 
-### Studio-Specific Documentation
-
-- [PHASE-7-COMPLETION.md](./docs/PHASE-7-COMPLETION.md) - Documentation overhaul completion details
-- [CHANGELOG.md](./CHANGELOG.md) - Version history and changes
+**Studio Development:**
+- **[CHANGELOG.md](./CHANGELOG.md)** — Studio version history
+- **[PHASE-7-COMPLETION.md](./docs/archive/PHASE-7-COMPLETION.md)** — Documentation overhaul details
 
 ---
 
