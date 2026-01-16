@@ -302,6 +302,32 @@ export const navigationTree: NavigationItem[] = [
     id: 'mcp-server',
     label: 'MCP Server',
     icon: <Bot className="w-4 h-4" />,
-    section: 'mcp-server',
+    children: [
+      {
+        id: 'overview',
+        label: 'Overview',
+        section: 'mcp-server',
+      },
+      {
+        id: 'installation',
+        label: 'Installation',
+        section: 'mcp-server',
+      },
+      {
+        id: 'tools',
+        label: 'Available Tools',
+        section: 'mcp-server',
+      },
+      {
+        id: 'usage',
+        label: 'Usage Guide',
+        section: 'mcp-server',
+      },
+      {
+        id: 'troubleshooting',
+        label: 'Troubleshooting',
+        section: 'mcp-server',
+      },
+    ],
   },
 ];
