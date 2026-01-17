@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { Card, Button } from '@sds/ui';
-import { Header, SecondaryNav, TertiaryNav, Footer, Modal, ToastProvider, useToast, CollapsibleCodeBlock, Code, CustomizerPanel, Breadcrumbs, PageLayout, XRayTarget, type BreadcrumbItemLegacy } from '@sds/ui';
+import { Header, SecondaryNav, TertiaryNav, Footer, Modal, ToastProvider, useToast, CollapsibleCodeBlock, Code, CustomizerPanel, Breadcrumbs, PageLayout, type BreadcrumbItemLegacy } from '@sds/ui';
 import { SlidersHorizontal, Sun, Moon, SunMoon, Building2, Leaf, Zap, X } from 'lucide-react';
 import type { SyntaxToken } from '@sds/ui';
 
@@ -20,78 +20,34 @@ function ToastDemo() {
   return (
     <div className="space-y-4">
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-        <XRayTarget
-          component="Button"
-          type="primitive"
+        <Button
           variant="default"
-          tokens={{
-            bg: 'var(--color-primary)',
-            text: 'var(--color-primary-foreground)',
-            padding: 'var(--spacing-3)',
-          }}
+          size="sm"
+          onClick={() => toast('Operation successful!', 'success')}
         >
-          <Button
-            variant="default"
-            size="sm"
-            onClick={() => toast('Operation successful!', 'success')}
-          >
-            Success Toast
-          </Button>
-        </XRayTarget>
-        <XRayTarget
-          component="Button"
-          type="primitive"
+          Success Toast
+        </Button>
+        <Button
           variant="secondary"
-          tokens={{
-            bg: 'var(--color-secondary)',
-            text: 'var(--color-secondary-foreground)',
-            padding: 'var(--spacing-3)',
-          }}
+          size="sm"
+          onClick={() => toast('Something went wrong', 'error')}
         >
-          <Button
-            variant="secondary"
-            size="sm"
-            onClick={() => toast('Something went wrong', 'error')}
-          >
-            Error Toast
-          </Button>
-        </XRayTarget>
-        <XRayTarget
-          component="Button"
-          type="primitive"
+          Error Toast
+        </Button>
+        <Button
           variant="ghost"
-          tokens={{
-            bg: 'transparent',
-            text: 'var(--color-foreground)',
-            padding: 'var(--spacing-3)',
-          }}
+          size="sm"
+          onClick={() => toast('Please be careful', 'warning')}
         >
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => toast('Please be careful', 'warning')}
-          >
-            Warning Toast
-          </Button>
-        </XRayTarget>
-        <XRayTarget
-          component="Button"
-          type="primitive"
+          Warning Toast
+        </Button>
+        <Button
           variant="secondary"
-          tokens={{
-            bg: 'var(--color-secondary)',
-            text: 'var(--color-secondary-foreground)',
-            padding: 'var(--spacing-3)',
-          }}
+          size="sm"
+          onClick={() => toast('Here is some information', 'info')}
         >
-          <Button
-            variant="secondary"
-            size="sm"
-            onClick={() => toast('Here is some information', 'info')}
-          >
-            Info Toast
-          </Button>
-        </XRayTarget>
+          Info Toast
+        </Button>
       </div>
     </div>
   );
@@ -144,7 +100,6 @@ function CustomizerDemoFull() {
   const [motion, setMotion] = useState(5);
   const [theme, setTheme] = useState('studio');
   const [mode, setMode] = useState('light');
-  const [xrayMode, setXrayMode] = useState(false);
 
   return (
     <div className="relative min-h-[500px] bg-[var(--color-background)] rounded-lg border border-[var(--color-border)] p-4 flex items-center justify-center">
@@ -152,26 +107,14 @@ function CustomizerDemoFull() {
         Click the floating button to toggle the panel and explore all controls.
       </p>
       {!isOpen ? (
-        <XRayTarget
-          component="Customizer Button"
-          type="primitive"
-          variant="floating"
-          tokens={{
-            bg: 'var(--color-background)',
-            text: 'var(--color-foreground)',
-            border: 'var(--color-glass-border)',
-          }}
-          className="absolute bottom-4 right-4"
+        <button
+          onClick={() => setIsOpen(true)}
+          className="absolute bottom-4 right-4 bg-background text-foreground px-4 py-2 rounded-full shadow-lg border border-[var(--color-glass-border)] font-medium hover:opacity-80 transition-all flex items-center gap-2"
+          style={{ backdropFilter: 'var(--effect-blur-sm)' }}
         >
-          <button
-            onClick={() => setIsOpen(true)}
-            className="bg-background text-foreground px-4 py-2 rounded-full shadow-lg border border-[var(--color-glass-border)] font-medium hover:opacity-80 transition-all flex items-center gap-2"
-            style={{ backdropFilter: 'var(--effect-blur-sm)' }}
-          >
-            <span className="text-lg"><SlidersHorizontal className="w-5 h-5" /></span>
-            Customizer
-          </button>
-        </XRayTarget>
+          <span className="text-lg"><SlidersHorizontal className="w-5 h-5" /></span>
+          Customizer
+        </button>
       ) : (
         <div
           className="absolute bottom-4 right-4 bg-background p-6 rounded-2xl shadow-2xl border border-[var(--color-glass-border)] text-foreground w-80"
@@ -216,36 +159,25 @@ function CustomizerDemoFull() {
                   { id: 'sage', label: 'Sage', icon: <Leaf className="w-4 h-4" /> },
                   { id: 'volt', label: 'Volt', icon: <Zap className="w-4 h-4" /> },
                 ].map((t) => (
-                  <XRayTarget
+                  <button
                     key={t.id}
-                    component={`Theme Button: ${t.label}`}
-                    type="primitive"
-                    variant={theme === t.id ? 'selected' : 'default'}
-                    tokens={{
-                      bg: theme === t.id ? 'var(--color-primary)' : 'var(--color-background-secondary)',
-                      text: theme === t.id ? 'var(--color-primary-foreground)' : 'var(--color-foreground)',
-                      border: theme === t.id ? 'var(--color-primary)' : 'var(--color-glass-border)',
-                    }}
+                    onClick={() => setTheme(t.id)}
+                    className={`
+                      px-3 py-2.5 rounded-lg text-sm font-medium transition-all flex flex-col items-center gap-1 border
+                      ${theme === t.id
+                        ? 'shadow-md'
+                        : 'bg-background-secondary text-foreground opacity-60 hover:opacity-100 border-[var(--color-glass-border)]'
+                      }
+                    `}
+                    style={theme === t.id ? {
+                      backgroundColor: 'var(--color-primary)',
+                      color: 'var(--color-primary-foreground)',
+                      borderColor: 'var(--color-primary)'
+                    } : {}}
                   >
-                    <button
-                      onClick={() => setTheme(t.id)}
-                      className={`
-                        px-3 py-2.5 rounded-lg text-sm font-medium transition-all flex flex-col items-center gap-1 border
-                        ${theme === t.id
-                          ? 'shadow-md'
-                          : 'bg-background-secondary text-foreground opacity-60 hover:opacity-100 border-[var(--color-glass-border)]'
-                        }
-                      `}
-                      style={theme === t.id ? {
-                        backgroundColor: 'var(--color-primary)',
-                        color: 'var(--color-primary-foreground)',
-                        borderColor: 'var(--color-primary)'
-                      } : {}}
-                    >
-                      <span className="text-base">{t.icon}</span>
-                      <span>{t.label}</span>
-                    </button>
-                  </XRayTarget>
+                    <span className="text-base">{t.icon}</span>
+                    <span>{t.label}</span>
+                  </button>
                 ))}
               </div>
               {/* Typography Preview */}
@@ -297,34 +229,6 @@ function CustomizerDemoFull() {
                 ))}
               </div>
             </div>
-
-            {/* X-Ray Mode Toggle */}
-            <XRayTarget
-              component="X-Ray Mode Toggle"
-              type="primitive"
-              variant={xrayMode ? 'active' : 'inactive'}
-              tokens={{
-                bg: xrayMode ? 'var(--color-accent)' : 'var(--color-foreground)',
-                text: xrayMode ? 'var(--color-accent-foreground)' : 'var(--color-background)',
-                border: xrayMode ? 'var(--color-accent)' : 'var(--color-foreground)',
-              }}
-            >
-              <button
-                onClick={() => setXrayMode(!xrayMode)}
-                className="w-full p-3 rounded-xl font-medium transition-all flex items-center justify-center gap-2 border shadow-md"
-                style={xrayMode ? {
-                  backgroundColor: 'var(--color-accent)',
-                  borderColor: 'var(--color-accent)',
-                  color: 'var(--color-accent-foreground)'
-                } : {
-                  backgroundColor: 'var(--color-foreground)',
-                  borderColor: 'var(--color-foreground)',
-                  color: 'var(--color-background)'
-                }}
-              >
-                {xrayMode ? 'Hide X-Ray Mode' : 'Reveal X-Ray Mode'}
-              </button>
-            </XRayTarget>
           </div>
         </div>
       )}
@@ -1812,7 +1716,6 @@ const customTokens: SyntaxToken[] = [
                       <li>Live theme switching between Studio, Sage, and Volt themes (full mode)</li>
                       <li>Light/dark mode toggle (both modes)</li>
                       <li>Motion scale control with instant feedback (full mode)</li>
-                      <li>X-Ray mode for debugging component boundaries (full mode)</li>
                       <li>All preferences persist to localStorage</li>
                       <li>Floating button with collapsible panel</li>
                       <li>Glass morphism effect with backdrop blur</li>
@@ -1913,7 +1816,7 @@ export function MyApp() {
                       Optional. Determines which controls are shown:
                     </p>
                     <ul className="text-sm text-[var(--color-text-secondary)] mt-2 space-y-1 list-disc list-inside ml-4">
-                      <li><strong>&quot;full&quot; (default):</strong> Shows theme selector, light/dark mode, motion control, and X-ray mode</li>
+                      <li><strong>&quot;full&quot; (default):</strong> Shows theme selector, light/dark mode, and motion control</li>
                       <li><strong>&quot;lightweight&quot;:</strong> Shows only light/dark mode toggle</li>
                     </ul>
                   </div>
@@ -1935,7 +1838,6 @@ export function MyApp() {
                       <li>Theme selector (Studio, Sage, Volt)</li>
                       <li>Typography preview for selected theme</li>
                       <li>Light/dark mode toggle</li>
-                      <li>X-Ray mode toggle for debugging</li>
                     </ul>
                   </div>
                   <div className="text-sm text-[var(--color-text-secondary)]">

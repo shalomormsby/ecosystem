@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { ThemeProvider, ToastProvider, XRayProvider, CustomizerPanel } from '@sds/ui';
+import { ThemeProvider, ToastProvider, CustomizerPanel } from '@sds/ui';
 import { allFontVariables } from '../lib/fonts';
 import { Analytics } from '@vercel/analytics/next';
 import './globals.css';
@@ -18,12 +18,10 @@ export default function RootLayout({
     <html lang="en" className={allFontVariables}>
       <body className="overflow-x-hidden">
         <ThemeProvider>
-          <XRayProvider>
-            <ToastProvider position="bottom-right">
-              {children}
-              <CustomizerPanel />
-            </ToastProvider>
-          </XRayProvider>
+          <ToastProvider position="bottom-right">
+            {children}
+            <CustomizerPanel />
+          </ToastProvider>
         </ThemeProvider>
         <Analytics />
       </body>

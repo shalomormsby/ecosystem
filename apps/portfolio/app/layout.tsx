@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { CustomizerPanel, ThemeProvider, XRayProvider } from '@sds/ui';
+import { CustomizerPanel, ThemeProvider } from '@sds/ui';
 import { allFontVariables } from '../lib/fonts';
 import GoogleAnalytics from './components/GoogleAnalytics';
 import { Analytics } from '@vercel/analytics/next';
@@ -20,10 +20,8 @@ export default function RootLayout({
       <body className="font-sans bg-background text-foreground antialiased" suppressHydrationWarning>
         <GoogleAnalytics />
         <ThemeProvider>
-          <XRayProvider>
-            {children}
-            <CustomizerPanel />
-          </XRayProvider>
+          {children}
+          <CustomizerPanel />
         </ThemeProvider>
         <Analytics />
       </body>

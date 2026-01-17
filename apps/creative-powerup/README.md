@@ -161,7 +161,6 @@ import { ThemeProvider, CustomizerPanel } from '@ecosystem/design-system';
 - **Light/Dark modes**: 6 total combinations
 - **Font switching**: Automatic based on theme selection
 - **Motion control**: Adjustable animation intensity
-- **X-Ray mode**: Visual design system debugging
 
 ## Building
 

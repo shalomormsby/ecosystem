@@ -132,7 +132,6 @@ User control made tangible. A floating panel that gives users ownership of their
 - **Motion intensity** — 0-10 scale with system preference sync
 - **Theme switching** — Studio, Sage, or Volt with distinct personalities
 - **Color mode** — Light or dark mode
-- **X-Ray Mode** — Toggle for transparency features *(in development)*
 
 All preferences persist to localStorage and survive page reloads.
 
@@ -157,7 +156,7 @@ Built-in automatic syntax parser (~2KB) for beautiful code examples:
 
 - **Zustand stores** with localStorage persistence
 - **Theme state** — Current theme name and color mode
-- **Customizer state** — Motion intensity, x-ray mode, system preferences
+- **Customizer state** — Motion intensity, system preferences
 - **Toast context** — Notification system with provider
 
 ### Hooks
@@ -277,7 +276,6 @@ User control made tangible. A floating panel that lets users customize:
 - **Motion intensity** (0-10, syncs with system preferences)
 - **Theme** (Studio, Sage, or Volt)
 - **Color mode** (Light or dark)
-- **X-Ray Mode** *(planned)*
 
 All preferences persist to localStorage. This isn't a settings panel hidden in a menu—it's a hero feature.
 
@@ -346,7 +344,6 @@ The work is the proof. Every component, every interaction, every line of code de
 
 **In Active Development:**
 - **Creative Powerup** — Experiment gallery (9 live experiments: games, visualizations, animations, tools)
-- **X-Ray Mode** — Toggle exists, UI overlay implementation pending
 - **AI Notes component** — Transparency feature for documenting AI collaboration
 
 **Planned:**

@@ -728,7 +728,6 @@ Added missing design system CSS variables to `globals.css`:
   - Panel background uses glass effect with blur
   - All colors reference CSS variables (no more hardcoded `bg-white`, `text-black`)
   - Active states use `--color-primary` for consistency across themes
-  - X-Ray toggle uses `--color-accent`
 - **Fixed all portfolio pages** to remove hardcoded colors:
   - Home page: All `text-neutral-*`, `bg-neutral-*` → `text-foreground`, `bg-background`
   - About page: All `text-gray-*` → `text-foreground` with opacity
@@ -817,7 +816,6 @@ Now when switching themes, users see dramatically different experiences:
   - Theme picker with emoji indicators (🏢 Studio, 🌿 Sage, ⚡ Volt)
   - Mode toggle (☀️ Light, 🌙 Dark)
   - Motion intensity slider (0-10)
-  - X-Ray mode toggle
 - **Split stores**: Theme state separate from customizer state
 - LocalStorage persistence for all settings
 

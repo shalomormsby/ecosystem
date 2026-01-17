@@ -734,6 +734,17 @@ export const searchIndex: SearchResult[] = [
     path: 'templates-page-template',
     keywords: ['template', 'page', 'layout', 'swiss grid', 'header', 'breadcrumbs', 'title', 'subtitle', 'structure', 'composition'],
   },
+
+  // Patterns
+  {
+    id: 'customizer',
+    title: 'Customizer',
+    description: 'A floating panel for real-time theme and preference customization with motion controls',
+    type: 'component',
+    category: 'Patterns',
+    path: 'patterns-customizer',
+    keywords: ['customizer', 'theme', 'preferences', 'floating panel', 'real-time', 'motion', 'settings'],
+  },
 ];
 
 // Fuzzy search function

@@ -105,7 +105,7 @@ Place components in the category that matches their **primary purpose**:
 - **feedback/** — Communicating system state (Alert, Toast, Progress, Skeleton, Sonner)
 - **data-display/** — Presenting information (Table, DataTable, Card, Avatar, Badge, Calendar)
 - **layout/** — Spatial organization (Accordion, Carousel, ScrollArea, Separator, AspectRatio, Collapsible, ResizablePanels, Sidebar)
-- **features/** — Complex, philosophy-embodying features (Customizer, X-Ray Mode, AI Notes)
+- **features/** — Complex, philosophy-embodying features (Customizer, AI Notes)
 
 **When uncertain:** Choose based on the component's **primary purpose**. If it could fit multiple categories, ask: "What is this component's main job?" For example, SearchBar is in `forms/` (collects input) not `navigation/` (even though it aids navigation).
 
@@ -757,27 +757,16 @@ Three features embody the philosophy. Here's their current status:
      - Motion intensity slider (0-10 scale, respects `prefers-reduced-motion`)
      - Theme selector (Studio, Sage, Volt)
      - Color mode toggle (light/dark)
-     - X-Ray Mode toggle (control exists but UI overlay not built)
    - Persists to localStorage
    - **Usage:** Add `<CustomizerPanel />` to your app layout
 
-2. **X-Ray Mode** — Transparency made interactive 🚧 **IN DEVELOPMENT**
-   - Toggle control exists in Customizer
-   - UI overlay component not yet built
-   - **Planned features:**
-     - Reveal design tokens in use
-     - Show component boundaries
-     - Display AI collaboration notes
-   - **When building:** Create as `packages/ui/src/features/xray/XRayOverlay.tsx`
-
-3. **AI Notes** — Collaboration made visible 📋 **PLANNED**
+2. **AI Notes** — Collaboration made visible 📋 **PLANNED**
    - Component not yet built
    - **Planned features:**
      - Document AI involvement in building features
      - Show decision rationale
      - "Shows the receipts"
    - **When building:** Create as `packages/ui/src/features/ai-notes/AINote.tsx`
-   - **Implementation suggestion:** Inline component that appears in context, triggered by X-Ray Mode
 
 ---
 
@@ -804,7 +793,7 @@ The ecosystem uses **Zustand** for client-side state management with localStorag
 | Store | Location | Purpose | Persists? |
 |-------|----------|---------|-----------|
 | **Theme Store** | `packages/ui/src/lib/stores/theme.ts` | Current theme name and color mode | ✅ Yes (localStorage) |
-| **Customizer Store** | `packages/ui/src/features/customizer/store.ts` | Motion intensity, x-ray mode, system preferences | ✅ Yes (localStorage) |
+| **Customizer Store** | `packages/ui/src/lib/store/customizer.ts` | Motion intensity, system preferences | ✅ Yes (localStorage) |
 
 ### Using Existing Stores
 

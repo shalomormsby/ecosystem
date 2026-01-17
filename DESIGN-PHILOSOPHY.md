@@ -117,11 +117,10 @@ Personal operating system. Future home for the productivity philosophy and tools
 ### The Shared Foundation
 
 **Design System** (`packages/ui/` + `packages/tokens/`)
-The heart of the ecosystem. Functionally-organized components, design tokens, and the three flagship features that embody the philosophy:
+The heart of the ecosystem. Functionally-organized components, design tokens, and flagship features that embody the philosophy:
 
 1. **Customizer** — User control made tangible (motion slider, theme toggle, typography)
-2. **X-Ray Mode** — Transparency made interactive (reveal tokens, components, AI notes)
-3. **AI Notes** — Collaboration made visible (show how things were built)
+2. **AI Notes** — Collaboration made visible (show how things were built)
 
 ---
 

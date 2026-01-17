@@ -6,7 +6,7 @@ import { useThemeStore } from '../../lib/store/theme';
 export interface CustomizerPanelProps {
     /**
      * Mode of the customizer:
-     * - "full": Shows all controls (theme, mode, motion, x-ray)
+     * - "full": Shows all controls (theme, mode, motion)
      * - "lightweight": Shows only light/dark mode toggle
      * @default "full"
      */
@@ -16,7 +16,7 @@ export interface CustomizerPanelProps {
 export const CustomizerPanel = ({ mode = 'full' }: CustomizerPanelProps) => {
     const [mounted, setMounted] = React.useState(false);
     const [isOpen, setIsOpen] = React.useState(false);
-    const { motion, xrayMode, setMotion, toggleXray } = useCustomizer();
+    const { motion, setMotion } = useCustomizer();
     const { theme, mode: colorMode, setTheme, setMode } = useThemeStore();
 
     React.useEffect(() => {
@@ -166,25 +166,6 @@ export const CustomizerPanel = ({ mode = 'full' }: CustomizerPanelProps) => {
                         ))}
                     </div>
                 </div>
-
-                {/* X-Ray Mode Toggle - Full mode only */}
-                {mode === 'full' && (
-                    <button
-                        onClick={toggleXray}
-                        className="w-full p-3 rounded-xl font-medium transition-all flex items-center justify-center gap-2 border shadow-md"
-                        style={xrayMode ? {
-                            backgroundColor: 'var(--color-accent)',
-                            borderColor: 'var(--color-accent)',
-                            color: 'var(--color-accent-foreground)'
-                        } : {
-                            backgroundColor: 'var(--color-foreground)',
-                            borderColor: 'var(--color-foreground)',
-                            color: 'var(--color-background)'
-                        }}
-                    >
-                        {xrayMode ? 'Hide X-Ray Mode' : 'Reveal X-Ray Mode'}
-                    </button>
-                )}
             </div>
         </div>
     );

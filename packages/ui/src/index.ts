@@ -99,9 +99,6 @@ export * from './components/layout/Separator';
 export * from './components/layout/Sidebar';
 export * from './components/layout/Stack';
 
-// Dev Tools
-export * from './components/dev';
-
 // Providers
 export * from './providers/ThemeProvider';
 
@@ -139,6 +136,5 @@ export * as Overlays from './components/overlays';
 export * as Feedback from './components/feedback';
 export * as DataDisplay from './components/data-display';
 export * as Layout from './components/layout';
-export * as Dev from './components/dev';
 export * as Providers from './providers';
 export * as Hooks from './hooks';
