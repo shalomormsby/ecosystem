@@ -12,9 +12,14 @@ export interface CustomizerPanelProps {
      * @default "full"
      */
     mode?: 'full' | 'lightweight';
+    /**
+     * Whether to show the Motion Intensity slider
+     * @default false
+     */
+    showMotionIntensity?: boolean;
 }
 
-export const CustomizerPanel = ({ mode = 'full' }: CustomizerPanelProps) => {
+export const CustomizerPanel = ({ mode = 'full', showMotionIntensity = false }: CustomizerPanelProps) => {
     const [mounted, setMounted] = React.useState(false);
     const [isOpen, setIsOpen] = React.useState(false);
     const { motion, setMotion } = useCustomizer();
@@ -65,8 +70,8 @@ export const CustomizerPanel = ({ mode = 'full' }: CustomizerPanelProps) => {
             </div>
 
             <div className="space-y-6">
-                {/* Motion Intensity Slider - Full mode only */}
-                {mode === 'full' && (
+                {/* Motion Intensity Slider - Full mode only + showMotionIntensity enabled */}
+                {mode === 'full' && showMotionIntensity && (
                     <div>
                         <div className="flex justify-between mb-2">
                             <label className="text-sm font-medium opacity-80">Motion Intensity</label>

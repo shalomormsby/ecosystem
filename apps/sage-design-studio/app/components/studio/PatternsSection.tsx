@@ -1715,7 +1715,7 @@ const customTokens: SyntaxToken[] = [
                       <li>Two modes: full (all controls) and lightweight (light/dark mode only)</li>
                       <li>Live theme switching between Studio, Sage, and Volt themes (full mode)</li>
                       <li>Light/dark mode toggle (both modes)</li>
-                      <li>Motion scale control with instant feedback (full mode)</li>
+                      <li>Optional motion intensity slider (hidden by default, in development)</li>
                       <li>All preferences persist to localStorage</li>
                       <li>Floating button with collapsible panel</li>
                       <li>Glass morphism effect with backdrop blur</li>
@@ -1803,6 +1803,29 @@ export function MyApp() {
               </Card>
             </div>
 
+            {/* Code Example - With Motion Intensity */}
+            <div>
+              <h4 className="text-lg font-semibold mb-3 text-[var(--color-text-primary)]">
+                Code Example - With Motion Intensity Slider
+              </h4>
+              <Card className="p-6 bg-[var(--color-surface)]">
+                <CollapsibleCodeBlock id="customizer-motion-usage" code={`import { CustomizerPanel } from '@sds/ui';
+
+// Full mode with motion intensity slider enabled
+export function MyApp() {
+  return (
+    <>
+      {/* Your app content */}
+      <CustomizerPanel mode="full" showMotionIntensity={true} />
+    </>
+  );
+}
+
+// Note: Motion intensity feature is in development.
+// Currently only affects select components.`} defaultCollapsed={true} showCopy={true} />
+              </Card>
+            </div>
+
             {/* Props Reference */}
             <div>
               <h4 className="text-lg font-semibold mb-3 text-[var(--color-text-primary)]">
@@ -1816,8 +1839,19 @@ export function MyApp() {
                       Optional. Determines which controls are shown:
                     </p>
                     <ul className="text-sm text-[var(--color-text-secondary)] mt-2 space-y-1 list-disc list-inside ml-4">
-                      <li><strong>&quot;full&quot; (default):</strong> Shows theme selector, light/dark mode, and motion control</li>
+                      <li><strong>&quot;full&quot; (default):</strong> Shows theme selector and light/dark mode</li>
                       <li><strong>&quot;lightweight&quot;:</strong> Shows only light/dark mode toggle</li>
+                    </ul>
+                  </div>
+                  <div className="p-4 bg-[var(--color-surface)] rounded border border-[var(--color-border)]">
+                    <Code syntax="plain">showMotionIntensity?: boolean</Code>
+                    <p className="text-sm text-[var(--color-text-secondary)] mt-2">
+                      Optional. Whether to show the Motion Intensity slider. Default: <Code syntax="plain">false</Code>
+                    </p>
+                    <ul className="text-sm text-[var(--color-text-secondary)] mt-2 space-y-1 list-disc list-inside ml-4">
+                      <li>Only visible when <Code syntax="plain">mode=&quot;full&quot;</Code></li>
+                      <li>Currently hidden by default as the feature is being developed</li>
+                      <li>Will control animation speed/intensity when fully implemented</li>
                     </ul>
                   </div>
                 </div>
@@ -1834,10 +1868,10 @@ export function MyApp() {
                   <div className="text-sm text-[var(--color-text-secondary)]">
                     <strong>Full Mode Includes:</strong>
                     <ul className="list-disc list-inside mt-2 space-y-1">
-                      <li>Motion intensity slider (0-10 scale)</li>
                       <li>Theme selector (Studio, Sage, Volt)</li>
                       <li>Typography preview for selected theme</li>
                       <li>Light/dark mode toggle</li>
+                      <li>Optional motion intensity slider (requires <Code syntax="plain">showMotionIntensity</Code> prop)</li>
                     </ul>
                   </div>
                   <div className="text-sm text-[var(--color-text-secondary)]">
