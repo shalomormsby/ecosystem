@@ -327,7 +327,7 @@ export default function FaultyTerminal({
                 uMouseStrength: { value: mouseStrength },
                 uUseMouse: { value: mouseReact ? 1 : 0 },
                 uPageLoadProgress: { value: pageLoadAnimation ? 0 : 1 },
-                uUsePageLoadAnimation: { value: pageLoadAnimation ? 1 : 0 },
+                uUsePageLoadAnimation: { value: 1 },
                 uBrightness: { value: brightness }
             }
         });

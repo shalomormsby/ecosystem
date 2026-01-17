@@ -66,8 +66,9 @@ export function BackgroundsSection() {
                     <p className="text-[var(--color-text-secondary)] mb-4">Retro CRT monitor effect with glitches.</p>
                     <div className="aspect-video bg-[#1a1a1a] rounded-lg mb-4 overflow-hidden relative pointer-events-none">
                         <FaultyTerminal
-                            mouseReact={false} // Disable interaction for preview card
-                            pageLoadAnimation={false} // Instant visibility
+                            flickerAmount={0.5}
+                            tint="#3b82f6"
+                            pageLoadAnimation={false}
                         />
                     </div>
                 </Card>
