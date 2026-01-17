@@ -18,10 +18,10 @@ import {
   EasingPage,
   VariableWeightPage,
   TypewriterPage,
-  TargetCursorPage,
-  SplashCursorPage,
   MagneticPage
 } from './pages/motion/MotionPlaceholders';
+import { SplashCursorPage } from './pages/motion/SplashCursorPage';
+import { TargetCursorPage } from './pages/motion/TargetCursorPage';
 
 type MotionTab =
   | 'primitives' | 'duration' | 'easing'
