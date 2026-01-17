@@ -316,7 +316,7 @@ Example:
 If you encounter errors, **STOP and refer to** [The Studio Troubleshooting Guide](https://studio.shalomormsby.com/#adding-components/troubleshooting).
 
 **Common Motion Issues:**
-*   **Black Shader Previews:** If a shader-based component (like `FaultyTerminal`) appears black in a preview card, ensure that disabling animations (e.g., `pageLoadAnimation={false}`) doesn't accidentally halt the shader's internal clock or initialization. Components should support an "immediate" state that skips entrance animations but still renders the main effect loop. 
+*   **Black Shader Previews (The "Unified Path" Fix):** If varying props (like `pageLoadAnimation={false}`) cause a shader to turn black, **avoid branching logic in GLSL** (e.g., `if (uUseAnimation > 0.5)`). Instead, **unify the code path**: always run the animation logic in the shader, but control the valid state from JavaScript (e.g., set `uProgress` to `1.0` immediately to skip the effect). This ensures the shader always executes a proven, active code path.
 *   **Missing Textures:** Verify that any required textures or assets are correctly loaded and accessible.
 
 ---
