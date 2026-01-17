@@ -226,7 +226,7 @@ export function OverviewSection() {
         <h2 className="text-3xl font-bold mb-6 text-[var(--color-text-primary)] text-center">
           Philosophy in Action
         </h2>
-        <p className="text-center text-[var(--color-text-secondary)] mb-8 max-w-3xl mx-auto">
+        <p className="text-center text-[var(--color-text-secondary)] mb-8  mx-auto">
           These aren't abstract principles. They're design decisions you can see, touch, and fork.
         </p>
 
@@ -626,7 +626,7 @@ export function ThemeSwitcher() {
         <h2 className="text-3xl font-bold mb-6 text-[var(--color-text-primary)] text-center">
           Choose Your Path
         </h2>
-        <p className="text-center text-[var(--color-text-secondary)] mb-8 max-w-3xl mx-auto">
+        <p className="text-center text-[var(--color-text-secondary)] mb-8  mx-auto">
           Different starting points for different goals.
         </p>
 
@@ -1004,7 +1004,7 @@ export function Controls() {
         <h2 className="text-3xl font-bold mb-6 text-[var(--color-text-primary)] text-center">
           Documentation & Resources
         </h2>
-        <p className="text-center text-[var(--color-text-secondary)] mb-8 max-w-3xl mx-auto">
+        <p className="text-center text-[var(--color-text-secondary)] mb-8  mx-auto">
           Comprehensive guides organized by your role and needs.
         </p>
 
@@ -1113,7 +1113,7 @@ export function Controls() {
 
       {/* FINAL CTA */}
       <section className="border-t border-[var(--color-border)] pt-12 text-center">
-        <div className="max-w-3xl mx-auto">
+        <div className=" mx-auto">
           <h2 className="text-3xl font-bold mb-4 text-[var(--color-text-primary)]">
             Ready to Build?
           </h2>

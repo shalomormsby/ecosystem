@@ -9,7 +9,7 @@ function PlaceholderPage({ title, description }: { title: string; description: s
                 <h1 className="text-4xl font-bold mb-4 text-[var(--color-text-primary)]">
                     {title}
                 </h1>
-                <p className="text-lg text-[var(--color-text-secondary)] max-w-3xl">
+                <p className="text-lg text-[var(--color-text-secondary)] ">
                     {description}
                 </p>
             </div>

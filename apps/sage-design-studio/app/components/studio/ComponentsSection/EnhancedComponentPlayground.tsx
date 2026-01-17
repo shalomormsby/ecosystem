@@ -90,7 +90,7 @@ pnpm add @sds/ui`;
           <h1 className="text-4xl font-bold tracking-tight text-[var(--color-text-primary)] mb-2">
             {componentName}
           </h1>
-          <p className="text-lg text-[var(--color-text-secondary)] max-w-3xl">
+          <p className="text-lg text-[var(--color-text-secondary)] ">
             {config.description}
           </p>
         </div>

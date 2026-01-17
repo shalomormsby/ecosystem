@@ -10,7 +10,7 @@ export function InteractiveSection() {
         <h1 className="text-4xl font-bold mb-4 text-[var(--color-text-primary)]">
           Interactive Effects
         </h1>
-        <p className="text-lg text-[var(--color-text-secondary)] max-w-3xl">
+        <p className="text-lg text-[var(--color-text-secondary)] ">
           Responsive animations that react to user input. From magnetic buttons to 3D tilt effects that create delightful micro-interactions.
         </p>
       </div>

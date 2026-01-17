@@ -10,7 +10,7 @@ export function TransitionsSection() {
         <h1 className="text-4xl font-bold mb-4 text-[var(--color-text-primary)]">
           Transitions
         </h1>
-        <p className="text-lg text-[var(--color-text-secondary)] max-w-3xl">
+        <p className="text-lg text-[var(--color-text-secondary)] ">
           Smooth state changes and content transitions. From tab switching to modal animations that create seamless user experiences.
         </p>
       </div>

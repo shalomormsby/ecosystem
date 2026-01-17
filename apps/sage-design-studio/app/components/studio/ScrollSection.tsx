@@ -10,7 +10,7 @@ export function ScrollSection() {
         <h1 className="text-4xl font-bold mb-4 text-[var(--color-text-primary)]">
           Scroll Effects
         </h1>
-        <p className="text-lg text-[var(--color-text-secondary)] max-w-3xl">
+        <p className="text-lg text-[var(--color-text-secondary)] ">
           Create engaging scroll-based animations that respond to user navigation. From subtle reveals to dramatic parallax effects.
         </p>
       </div>

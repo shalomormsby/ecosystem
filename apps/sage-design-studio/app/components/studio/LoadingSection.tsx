@@ -10,7 +10,7 @@ export function LoadingSection() {
         <h1 className="text-4xl font-bold mb-4 text-[var(--color-text-primary)]">
           Loading States
         </h1>
-        <p className="text-lg text-[var(--color-text-secondary)] max-w-3xl">
+        <p className="text-lg text-[var(--color-text-secondary)] ">
           Communicate progress and maintain user engagement during loading states with skeleton screens, progress indicators, and spinners.
         </p>
       </div>

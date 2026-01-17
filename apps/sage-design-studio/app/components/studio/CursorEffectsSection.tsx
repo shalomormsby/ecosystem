@@ -10,7 +10,7 @@ export function CursorEffectsSection() {
         <h1 className="text-4xl font-bold mb-4 text-[var(--color-text-primary)]">
           Cursor Effects
         </h1>
-        <p className="text-lg text-[var(--color-text-secondary)] max-w-3xl">
+        <p className="text-lg text-[var(--color-text-secondary)] ">
           Custom cursor animations and effects that follow user movement. Create immersive experiences with gradient pointers, magnetic effects, and custom cursors.
         </p>
       </div>

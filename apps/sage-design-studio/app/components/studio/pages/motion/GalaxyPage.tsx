@@ -39,7 +39,7 @@ export function GalaxyPage() {
                 <h1 className="text-4xl font-bold mb-4 text-[var(--color-text-primary)]">
                     Galaxy
                 </h1>
-                <p className="text-lg text-[var(--color-text-secondary)] max-w-3xl">
+                <p className="text-lg text-[var(--color-text-secondary)] ">
                     A stunning 3D starfield animation using WebGL. Perfect for immersive hero sections.
                 </p>
             </div>
