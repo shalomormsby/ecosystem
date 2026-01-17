@@ -1,16 +1,14 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { TertiaryNav, Breadcrumbs, type BreadcrumbItemLegacy } from '@sds/ui';
-import { MotionFoundationsSection } from './MotionFoundationsSection';
+import { Breadcrumbs, type BreadcrumbItemLegacy } from '@sds/ui';
+import { PrimitivesSection } from './PrimitivesSection';
 import { TextEffectsSection } from './TextEffectsSection';
-import { ScrollSection } from './ScrollSection';
-import { LoadingSection } from './LoadingSection';
-import { InteractiveSection } from './InteractiveSection';
-import { TransitionsSection } from './TransitionsSection';
-import { CursorEffectsSection } from './CursorEffectsSection';
+import { BackgroundsSection } from './BackgroundsSection';
+import { CursorsSection } from './CursorsSection';
+import { MicroInteractionsSection } from './MicroInteractionsSection';
 
-type MotionTab = 'motion-foundations' | 'text-effects' | 'scroll' | 'loading' | 'interactive' | 'transitions' | 'cursor-effects';
+type MotionTab = 'primitives' | 'text-effects' | 'backgrounds' | 'cursors' | 'micro-interactions';
 
 interface MotionSectionsProps {
   activeItemId?: string;
@@ -19,39 +17,20 @@ interface MotionSectionsProps {
 }
 
 export function MotionSections({ activeItemId, breadcrumbs, onItemChange }: MotionSectionsProps) {
-  const [activeTab, setActiveTab] = useState<MotionTab>('motion-foundations');
+  const [activeTab, setActiveTab] = useState<MotionTab>('primitives');
 
   // Update active tab when activeItemId changes
   useEffect(() => {
     if (activeItemId && [
-      'motion-foundations',
+      'primitives',
       'text-effects',
-      'scroll',
-      'loading',
-      'interactive',
-      'transitions',
-      'cursor-effects'
+      'backgrounds',
+      'cursors',
+      'micro-interactions'
     ].includes(activeItemId)) {
       setActiveTab(activeItemId as MotionTab);
     }
   }, [activeItemId]);
-
-  // Handle tab selection and notify parent
-  const handleTabChange = (id: string) => {
-    setActiveTab(id as MotionTab);
-    onItemChange?.(id);
-  };
-
-  // Available tabs for TertiaryNav
-  const availableTabs = [
-    { id: 'motion-foundations', label: 'Foundations' },
-    { id: 'text-effects', label: 'Text Effects' },
-    { id: 'scroll', label: 'Scroll' },
-    { id: 'loading', label: 'Loading' },
-    { id: 'interactive', label: 'Interactive' },
-    { id: 'transitions', label: 'Transitions' },
-    { id: 'cursor-effects', label: 'Cursor Effects' },
-  ];
 
   return (
     <div>
@@ -66,13 +45,11 @@ export function MotionSections({ activeItemId, breadcrumbs, onItemChange }: Moti
 
       {/* Tab Content with spacing for sticky nav */}
       <div className="mt-4">
-        {activeTab === 'motion-foundations' && <MotionFoundationsSection />}
+        {activeTab === 'primitives' && <PrimitivesSection />}
         {activeTab === 'text-effects' && <TextEffectsSection />}
-        {activeTab === 'scroll' && <ScrollSection />}
-        {activeTab === 'loading' && <LoadingSection />}
-        {activeTab === 'interactive' && <InteractiveSection />}
-        {activeTab === 'transitions' && <TransitionsSection />}
-        {activeTab === 'cursor-effects' && <CursorEffectsSection />}
+        {activeTab === 'backgrounds' && <BackgroundsSection />}
+        {activeTab === 'cursors' && <CursorsSection />}
+        {activeTab === 'micro-interactions' && <MicroInteractionsSection />}
       </div>
     </div>
   );
