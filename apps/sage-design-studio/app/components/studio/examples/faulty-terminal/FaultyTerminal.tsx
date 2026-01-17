@@ -353,8 +353,16 @@ export default function FaultyTerminal({
         const update = (t: number) => {
             rafRef.current = requestAnimationFrame(update);
 
-            if (pageLoadAnimation && loadAnimationStartRef.current === 0) {
-                loadAnimationStartRef.current = t;
+            if (pageLoadAnimation) {
+                if (loadAnimationStartRef.current === 0) {
+                    loadAnimationStartRef.current = t;
+                }
+                const animationDuration = 2000;
+                const animationElapsed = t - loadAnimationStartRef.current;
+                const progress = Math.min(animationElapsed / animationDuration, 1);
+                program.uniforms.uPageLoadProgress.value = progress;
+            } else {
+                program.uniforms.uPageLoadProgress.value = 1.0;
             }
 
             if (!pause) {
@@ -363,13 +371,6 @@ export default function FaultyTerminal({
                 frozenTimeRef.current = elapsed;
             } else {
                 program.uniforms.iTime.value = frozenTimeRef.current;
-            }
-
-            if (pageLoadAnimation && loadAnimationStartRef.current > 0) {
-                const animationDuration = 2000;
-                const animationElapsed = t - loadAnimationStartRef.current;
-                const progress = Math.min(animationElapsed / animationDuration, 1);
-                program.uniforms.uPageLoadProgress.value = progress;
             }
 
             if (mouseReact) {

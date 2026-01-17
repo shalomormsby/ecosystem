@@ -315,6 +315,10 @@ Example:
 
 If you encounter errors, **STOP and refer to** [The Studio Troubleshooting Guide](https://studio.shalomormsby.com/#adding-components/troubleshooting).
 
+**Common Motion Issues:**
+*   **Black Shader Previews:** If a shader-based component (like `FaultyTerminal`) appears black in a preview card, ensure that disabling animations (e.g., `pageLoadAnimation={false}`) doesn't accidentally halt the shader's internal clock or initialization. Components should support an "immediate" state that skips entrance animations but still renders the main effect loop. 
+*   **Missing Textures:** Verify that any required textures or assets are correctly loaded and accessible.
+
 ---
 
 
