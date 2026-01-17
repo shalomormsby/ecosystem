@@ -286,7 +286,37 @@ Example:
 
 ---
 
-## Before You Write Code
+
+## UI & Styling Strict Mode
+
+**Adhere to these rules STRICTLY. They prevent code bloat, design drift, and maintenance nightmares.**
+
+1. **SDS Components First:** ALWAYS search for and use existing `@sds/ui` components (Card, Button, Badge, etc.) before writing any custom JSX or CSS.
+2. **Prop-Based Styling:** Use component props (e.g., `hoverEffect`, `variant`, `size`) to achieve desired styles. DO NOT reimplement built-in behaviors with custom utility classes (e.g., don't write `hover:shadow-lg` if `hoverEffect={true}` exists).
+3. **No Ad-Hoc CSS:** Avoid generating arbitrary Tailwind classes if an SDS component can handle the use case.
+4. **Demand New Components:** If a SDS component does not exist to meet a web dev need, **mention this to the user** and offer to create a new SDS component to meet this need. Do not hack together a one-off solution in the app layer.
+
+---
+
+## Coding Standards & Troubleshooting
+
+### Learn from our Mistakes (The "Never Again" List)
+
+1. **Syntax Errors in Configuration Files:** When editing large configuration objects (like `navigation-tree.tsx`), be extremely careful with closing brackets `}` and `]`.
+   - **Mistake:** A previous build failed because extra closing brackets were added, and indentation became inconsistent, breaking the build.
+   - **Fix:** Double-check your object structure. Use a linter. verifying that every opening bracket has exactly one matching closing bracket.
+   - **Rule:** Do not rush file edits. Verify the syntax locally if possible, or visually double-check the diff before committing.
+
+2. **Prop Hallucination:** Do not assume a component has a prop (like `className` or `style`) unless you verify it in the component definition.
+   - **Mistake:** Adding `className` to a custom component that didn't accept it, causing it to be ignored.
+   - **Rule:** Read the component file (e.g., `view_file packages/ui/src/components/...`) to confirm available props.
+
+### 🆘 Troubleshooting Guide
+
+If you encounter errors, **STOP and refer to** [The Studio Troubleshooting Guide](https://studio.shalomormsby.com/#adding-components/troubleshooting).
+
+---
+
 
 ### 1. Internalize the Philosophy
 
