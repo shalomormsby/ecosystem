@@ -13,9 +13,56 @@ export function MicroInteractionsSection() {
                     Small, functional animations that provide feedback and delight.
                 </p>
             </div>
-            <Card className="p-12 text-center text-[var(--color-text-muted)]">
-                Coming Soon
-            </Card>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* Like Button Card */}
+                <Card className="p-6 cursor-pointer group opacity-60">
+                    <div className="flex items-center justify-between mb-2">
+                        <h2 className="text-xl font-bold text-[var(--color-text-muted)]">Like Button</h2>
+                        <span className="text-xs font-mono px-2 py-1 bg-[var(--color-surface)] rounded text-[var(--color-text-secondary)]">Planned</span>
+                    </div>
+                    <p className="text-[var(--color-text-secondary)] mb-4">Animated heart with particle burst.</p>
+                    <div className="aspect-video bg-[var(--color-surface)] rounded-lg mb-4 overflow-hidden relative flex items-center justify-center border border-[var(--color-border)]">
+                        <span className="text-[var(--color-text-muted)] text-sm">Coming Soon</span>
+                    </div>
+                </Card>
+
+                {/* Confetti Card */}
+                <Card className="p-6 cursor-pointer group opacity-60">
+                    <div className="flex items-center justify-between mb-2">
+                        <h2 className="text-xl font-bold text-[var(--color-text-muted)]">Confetti</h2>
+                        <span className="text-xs font-mono px-2 py-1 bg-[var(--color-surface)] rounded text-[var(--color-text-secondary)]">Planned</span>
+                    </div>
+                    <p className="text-[var(--color-text-secondary)] mb-4">Celebration effects for success states.</p>
+                    <div className="aspect-video bg-[var(--color-surface)] rounded-lg mb-4 overflow-hidden relative flex items-center justify-center border border-[var(--color-border)]">
+                        <span className="text-[var(--color-text-muted)] text-sm">Coming Soon</span>
+                    </div>
+                </Card>
+
+                {/* Download Button Card */}
+                <Card className="p-6 cursor-pointer group opacity-60">
+                    <div className="flex items-center justify-between mb-2">
+                        <h2 className="text-xl font-bold text-[var(--color-text-muted)]">Download Button</h2>
+                        <span className="text-xs font-mono px-2 py-1 bg-[var(--color-surface)] rounded text-[var(--color-text-secondary)]">Planned</span>
+                    </div>
+                    <p className="text-[var(--color-text-secondary)] mb-4">Morphing button with progress indicator.</p>
+                    <div className="aspect-video bg-[var(--color-surface)] rounded-lg mb-4 overflow-hidden relative flex items-center justify-center border border-[var(--color-border)]">
+                        <span className="text-[var(--color-text-muted)] text-sm">Coming Soon</span>
+                    </div>
+                </Card>
+
+                {/* Toggle Switch Card */}
+                <Card className="p-6 cursor-pointer group opacity-60">
+                    <div className="flex items-center justify-between mb-2">
+                        <h2 className="text-xl font-bold text-[var(--color-text-muted)]">Toggle Switch</h2>
+                        <span className="text-xs font-mono px-2 py-1 bg-[var(--color-surface)] rounded text-[var(--color-text-secondary)]">Planned</span>
+                    </div>
+                    <p className="text-[var(--color-text-secondary)] mb-4">Playful toggle state transitions.</p>
+                    <div className="aspect-video bg-[var(--color-surface)] rounded-lg mb-4 overflow-hidden relative flex items-center justify-center border border-[var(--color-border)]">
+                        <span className="text-[var(--color-text-muted)] text-sm">Coming Soon</span>
+                    </div>
+                </Card>
+            </div>
         </div>
     );
 }
