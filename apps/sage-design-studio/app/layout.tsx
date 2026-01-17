@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { ThemeProvider, ToastProvider, XRayProvider } from '@sds/ui';
+import { ThemeProvider, ToastProvider, XRayProvider, CustomizerPanel } from '@sds/ui';
 import { allFontVariables } from '../lib/fonts';
 import { Analytics } from '@vercel/analytics/next';
 import './globals.css';
@@ -21,6 +21,7 @@ export default function RootLayout({
           <XRayProvider>
             <ToastProvider position="bottom-right">
               {children}
+              <CustomizerPanel />
             </ToastProvider>
           </XRayProvider>
         </ThemeProvider>

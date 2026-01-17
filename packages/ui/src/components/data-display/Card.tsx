@@ -1,6 +1,7 @@
 import * as React from "react"
 import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "../../lib/utils"
+import { XRayTarget } from "../dev/XRayTarget"
 
 const cardVariants = cva(
     "rounded-2xl border bg-surface text-foreground shadow-sm",
@@ -28,13 +29,33 @@ export interface CardProps
     VariantProps<typeof cardVariants> { }
 
 const Card = React.forwardRef<HTMLDivElement, CardProps>(
-    ({ className, variant, hoverEffect, ...props }, ref) => (
-        <div
-            ref={ref}
-            className={cn(cardVariants({ variant, hoverEffect, className }))}
-            {...props}
-        />
-    )
+    ({ className, variant, hoverEffect, ...props }, ref) => {
+        const getTokens = () => {
+            switch (variant) {
+                case 'glass':
+                    return { bg: 'var(--color-glass)', border: 'var(--color-glass-border)' };
+                case 'outline':
+                    return { bg: 'transparent', border: 'var(--color-border)' };
+                default:
+                    return { bg: 'var(--color-surface)', border: 'var(--color-border)' };
+            }
+        };
+
+        return (
+            <XRayTarget
+                component="Card"
+                type="pattern"
+                variant={variant || 'default'}
+                tokens={getTokens()}
+            >
+                <div
+                    ref={ref}
+                    className={cn(cardVariants({ variant, hoverEffect, className }))}
+                    {...props}
+                />
+            </XRayTarget>
+        );
+    }
 )
 Card.displayName = "Card"
 

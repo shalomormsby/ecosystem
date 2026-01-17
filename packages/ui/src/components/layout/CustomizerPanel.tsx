@@ -2,7 +2,6 @@
 import React from 'react';
 import { useCustomizer } from '../../lib/store/customizer';
 import { useThemeStore } from '../../lib/store/theme';
-import { XRayTarget } from '../dev/XRayTarget';
 
 export interface CustomizerPanelProps {
     /**
@@ -96,36 +95,25 @@ export const CustomizerPanel = ({ mode = 'full' }: CustomizerPanelProps) => {
                                 { id: 'sage', label: 'Sage', emoji: '🌿' },
                                 { id: 'volt', label: 'Volt', emoji: '⚡' },
                             ].map((t) => (
-                                <XRayTarget
+                                <button
                                     key={t.id}
-                                    component={`Theme Button: ${t.label}`}
-                                    type="primitive"
-                                    variant={theme === t.id ? 'selected' : 'default'}
-                                    tokens={{
-                                        bg: theme === t.id ? 'var(--color-primary)' : 'var(--color-background-secondary)',
-                                        text: theme === t.id ? 'var(--color-primary-foreground)' : 'var(--color-foreground)',
-                                        border: theme === t.id ? 'var(--color-primary)' : 'var(--color-glass-border)',
-                                    }}
+                                    onClick={() => setTheme(t.id as any)}
+                                    className={`
+                                        px-3 py-2.5 rounded-lg text-sm font-medium transition-all flex flex-col items-center gap-1 border
+                                        ${theme === t.id
+                                            ? 'shadow-md'
+                                            : 'bg-background-secondary text-foreground opacity-60 hover:opacity-100 border-[var(--color-glass-border)]'
+                                        }
+                                    `}
+                                    style={theme === t.id ? {
+                                        backgroundColor: 'var(--color-primary)',
+                                        color: 'var(--color-primary-foreground)',
+                                        borderColor: 'var(--color-primary)'
+                                    } : {}}
                                 >
-                                    <button
-                                        onClick={() => setTheme(t.id as any)}
-                                        className={`
-                                            px-3 py-2.5 rounded-lg text-sm font-medium transition-all flex flex-col items-center gap-1 border
-                                            ${theme === t.id
-                                                ? 'shadow-md'
-                                                : 'bg-background-secondary text-foreground opacity-60 hover:opacity-100 border-[var(--color-glass-border)]'
-                                            }
-                                        `}
-                                        style={theme === t.id ? {
-                                            backgroundColor: 'var(--color-primary)',
-                                            color: 'var(--color-primary-foreground)',
-                                            borderColor: 'var(--color-primary)'
-                                        } : {}}
-                                    >
-                                        <span className="text-base">{t.emoji}</span>
-                                        <span>{t.label}</span>
-                                    </button>
-                                </XRayTarget>
+                                    <span className="text-base">{t.emoji}</span>
+                                    <span>{t.label}</span>
+                                </button>
                             ))}
                         </div>
                         {/* Typography Preview */}
@@ -156,68 +144,46 @@ export const CustomizerPanel = ({ mode = 'full' }: CustomizerPanelProps) => {
                             { id: 'light', label: 'Light', emoji: '☀️' },
                             { id: 'dark', label: 'Dark', emoji: '🌙' },
                         ].map((m) => (
-                            <XRayTarget
+                            <button
                                 key={m.id}
-                                component={`Mode Button: ${m.label}`}
-                                type="primitive"
-                                variant={colorMode === m.id ? 'selected' : 'default'}
-                                tokens={{
-                                    bg: colorMode === m.id ? 'var(--color-primary)' : 'var(--color-background-secondary)',
-                                    text: colorMode === m.id ? 'var(--color-primary-foreground)' : 'var(--color-foreground)',
-                                    border: colorMode === m.id ? 'var(--color-primary)' : 'var(--color-glass-border)',
-                                }}
+                                onClick={() => setMode(m.id as any)}
+                                className={`
+                                    px-3 py-2.5 rounded-lg text-sm font-medium transition-all flex items-center justify-center gap-2 border
+                                    ${colorMode === m.id
+                                        ? 'shadow-md'
+                                        : 'bg-background-secondary text-foreground opacity-60 hover:opacity-100 border-[var(--color-glass-border)]'
+                                    }
+                                `}
+                                style={colorMode === m.id ? {
+                                    backgroundColor: 'var(--color-primary)',
+                                    color: 'var(--color-primary-foreground)',
+                                    borderColor: 'var(--color-primary)'
+                                } : {}}
                             >
-                                <button
-                                    onClick={() => setMode(m.id as any)}
-                                    className={`
-                                        px-3 py-2.5 rounded-lg text-sm font-medium transition-all flex items-center justify-center gap-2 border
-                                        ${colorMode === m.id
-                                            ? 'shadow-md'
-                                            : 'bg-background-secondary text-foreground opacity-60 hover:opacity-100 border-[var(--color-glass-border)]'
-                                        }
-                                    `}
-                                    style={colorMode === m.id ? {
-                                        backgroundColor: 'var(--color-primary)',
-                                        color: 'var(--color-primary-foreground)',
-                                        borderColor: 'var(--color-primary)'
-                                    } : {}}
-                                >
-                                    <span>{m.emoji}</span>
-                                    <span>{m.label}</span>
-                                </button>
-                            </XRayTarget>
+                                <span>{m.emoji}</span>
+                                <span>{m.label}</span>
+                            </button>
                         ))}
                     </div>
                 </div>
 
                 {/* X-Ray Mode Toggle - Full mode only */}
                 {mode === 'full' && (
-                    <XRayTarget
-                        component="X-Ray Mode Toggle"
-                        type="primitive"
-                        variant={xrayMode ? 'active' : 'inactive'}
-                        tokens={{
-                            bg: xrayMode ? 'var(--color-accent)' : 'var(--color-foreground)',
-                            text: xrayMode ? 'var(--color-accent-foreground)' : 'var(--color-background)',
-                            border: xrayMode ? 'var(--color-accent)' : 'var(--color-foreground)',
+                    <button
+                        onClick={toggleXray}
+                        className="w-full p-3 rounded-xl font-medium transition-all flex items-center justify-center gap-2 border shadow-md"
+                        style={xrayMode ? {
+                            backgroundColor: 'var(--color-accent)',
+                            borderColor: 'var(--color-accent)',
+                            color: 'var(--color-accent-foreground)'
+                        } : {
+                            backgroundColor: 'var(--color-foreground)',
+                            borderColor: 'var(--color-foreground)',
+                            color: 'var(--color-background)'
                         }}
                     >
-                        <button
-                            onClick={toggleXray}
-                            className="w-full p-3 rounded-xl font-medium transition-all flex items-center justify-center gap-2 border shadow-md"
-                            style={xrayMode ? {
-                                backgroundColor: 'var(--color-accent)',
-                                borderColor: 'var(--color-accent)',
-                                color: 'var(--color-accent-foreground)'
-                            } : {
-                                backgroundColor: 'var(--color-foreground)',
-                                borderColor: 'var(--color-foreground)',
-                                color: 'var(--color-background)'
-                            }}
-                        >
-                            {xrayMode ? 'Hide X-Ray Mode' : 'Reveal X-Ray Mode'}
-                        </button>
-                    </XRayTarget>
+                        {xrayMode ? 'Hide X-Ray Mode' : 'Reveal X-Ray Mode'}
+                    </button>
                 )}
             </div>
         </div>

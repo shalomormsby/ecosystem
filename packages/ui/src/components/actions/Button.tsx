@@ -2,6 +2,7 @@ import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '../../lib/utils';
 import { Slot } from '@radix-ui/react-slot';
+import { XRayTarget } from '../dev/XRayTarget';
 
 const buttonVariants = cva(
     'inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50',
@@ -38,12 +39,37 @@ export interface ButtonProps
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     ({ className, variant, size, asChild = false, ...props }, ref) => {
         const Comp = asChild ? Slot : "button"
+
+        const getTokens = () => {
+            switch (variant) {
+                case 'default':
+                    return { bg: 'var(--color-primary)', text: 'var(--color-primary-foreground)' };
+                case 'destructive':
+                    return { bg: 'var(--color-destructive)', text: 'var(--color-destructive-foreground)' };
+                case 'secondary':
+                    return { bg: 'var(--color-secondary)', text: 'var(--color-secondary-foreground)' };
+                case 'ghost':
+                    return { bg: 'transparent', text: 'var(--color-foreground)' };
+                case 'outline':
+                    return { bg: 'transparent', text: 'var(--color-foreground)', border: 'var(--color-border)' };
+                default:
+                    return { bg: 'var(--color-primary)', text: 'var(--color-primary-foreground)' };
+            }
+        };
+
         return (
-            <Comp
-                className={cn(buttonVariants({ variant, size, className }))}
-                ref={ref}
-                {...props}
-            />
+            <XRayTarget
+                component="Button"
+                type="primitive"
+                variant={variant || 'default'}
+                tokens={getTokens()}
+            >
+                <Comp
+                    className={cn(buttonVariants({ variant, size, className }))}
+                    ref={ref}
+                    {...props}
+                />
+            </XRayTarget>
         )
     }
 )
