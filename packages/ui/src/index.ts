@@ -99,6 +99,9 @@ export * from './components/layout/Separator';
 export * from './components/layout/Sidebar';
 export * from './components/layout/Stack';
 
+// Backgrounds
+export * from './components/backgrounds/WarpBackground';
+
 // Motion
 export * from './components/cursor/SplashCursor';
 export * from './components/cursor/TargetCursor';
@@ -140,6 +143,7 @@ export * as Overlays from './components/overlays';
 export * as Feedback from './components/feedback';
 export * as DataDisplay from './components/data-display';
 export * as Layout from './components/layout';
+export * as Backgrounds from './components/backgrounds';
 export * as Motion from './components/cursor';
 export * as Providers from './providers';
 export * as Hooks from './hooks';

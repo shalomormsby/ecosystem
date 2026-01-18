@@ -1,16 +1,17 @@
 'use client';
 
 import { useState } from 'react';
-import { Card, CollapsibleCodeBlock, Label, Switch, Slider } from '@sds/ui';
+import { Card, CollapsibleCodeBlock, Label, Switch, Slider, Backgrounds } from '@sds/ui';
 import { Sparkles } from 'lucide-react';
-import Galaxy from '../../examples/galaxy/Galaxy';
+const { WarpBackground } = Backgrounds;
 
-const GALAXY_CODE = `import Galaxy from './Galaxy';
+const WARP_CODE = `import { Backgrounds } from '@sds/ui';
+const { WarpBackground } = Backgrounds;
 
 export default function HeroSection() {
   return (
     <div className="relative w-full h-[500px] bg-black overflow-hidden">
-      <Galaxy
+      <WarpBackground
         starSpeed={0.5}
         density={1.5}
         mouseInteraction={true}
@@ -25,8 +26,8 @@ export default function HeroSection() {
   );
 }`;
 
-export function GalaxyPage() {
-    const [galaxyConfig, setGalaxyConfig] = useState({
+export function WarpSpeedPage() {
+    const [warpConfig, setWarpConfig] = useState({
         starSpeed: 0.5,
         density: 1.5,
         mouseInteraction: true,
@@ -37,7 +38,7 @@ export function GalaxyPage() {
         <div className="max-w-6xl mx-auto px-6 py-12">
             <div className="mb-12">
                 <h1 className="text-4xl font-bold mb-4 text-[var(--color-text-primary)]">
-                    Galaxy
+                    Warp Speed
                 </h1>
                 <p className="text-lg text-[var(--color-text-secondary)] ">
                     A stunning 3D starfield animation using WebGL. Perfect for immersive hero sections.
@@ -48,11 +49,11 @@ export function GalaxyPage() {
                 {/* Main Preview Area */}
                 <div className="lg:col-span-2 space-y-4">
                     <Card className="p-1 h-[500px] overflow-hidden relative bg-black border-indigo-500/20 shadow-2xl shadow-indigo-500/10">
-                        <Galaxy
-                            starSpeed={galaxyConfig.starSpeed}
-                            density={galaxyConfig.density}
-                            mouseInteraction={galaxyConfig.mouseInteraction}
-                            transparent={galaxyConfig.transparent}
+                        <WarpBackground
+                            starSpeed={warpConfig.starSpeed}
+                            density={warpConfig.density}
+                            mouseInteraction={warpConfig.mouseInteraction}
+                            transparent={warpConfig.transparent}
                         />
                         {/* Overlay Content Example */}
                         <div className="absolute inset-0 z-10 flex flex-col items-center justify-center pointer-events-none">
@@ -66,9 +67,9 @@ export function GalaxyPage() {
                     </Card>
 
                     <CollapsibleCodeBlock
-                        id="galaxy-code"
+                        id="warp-code"
                         title="Usage Example"
-                        code={GALAXY_CODE}
+                        code={WARP_CODE}
                         language="typescript"
                         showCopy={true}
                         defaultCollapsed={true}
@@ -87,14 +88,14 @@ export function GalaxyPage() {
                         <div className="space-y-3">
                             <div className="flex justify-between">
                                 <Label>Star Speed</Label>
-                                <span className="text-xs font-mono text-[var(--color-text-muted)]">{galaxyConfig.starSpeed}</span>
+                                <span className="text-xs font-mono text-[var(--color-text-muted)]">{warpConfig.starSpeed}</span>
                             </div>
                             <Slider
-                                value={[galaxyConfig.starSpeed]}
+                                value={[warpConfig.starSpeed]}
                                 min={0}
                                 max={2}
                                 step={0.1}
-                                onValueChange={([v]) => setGalaxyConfig(prev => ({ ...prev, starSpeed: v }))}
+                                onValueChange={([v]) => setWarpConfig(prev => ({ ...prev, starSpeed: v }))}
                             />
                         </div>
 
@@ -102,14 +103,14 @@ export function GalaxyPage() {
                         <div className="space-y-3">
                             <div className="flex justify-between">
                                 <Label>Density</Label>
-                                <span className="text-xs font-mono text-[var(--color-text-muted)]">{galaxyConfig.density}</span>
+                                <span className="text-xs font-mono text-[var(--color-text-muted)]">{warpConfig.density}</span>
                             </div>
                             <Slider
-                                value={[galaxyConfig.density]}
+                                value={[warpConfig.density]}
                                 min={0.5}
                                 max={3}
                                 step={0.5}
-                                onValueChange={([v]) => setGalaxyConfig(prev => ({ ...prev, density: v }))}
+                                onValueChange={([v]) => setWarpConfig(prev => ({ ...prev, density: v }))}
                             />
                         </div>
 
@@ -120,16 +121,16 @@ export function GalaxyPage() {
                             <div className="flex items-center justify-between">
                                 <Label>Mouse Interaction</Label>
                                 <Switch
-                                    checked={galaxyConfig.mouseInteraction}
-                                    onCheckedChange={(checked) => setGalaxyConfig(prev => ({ ...prev, mouseInteraction: checked }))}
+                                    checked={warpConfig.mouseInteraction}
+                                    onCheckedChange={(checked) => setWarpConfig(prev => ({ ...prev, mouseInteraction: checked }))}
                                 />
                             </div>
 
                             <div className="flex items-center justify-between">
                                 <Label>Transparent Background</Label>
                                 <Switch
-                                    checked={galaxyConfig.transparent}
-                                    onCheckedChange={(checked) => setGalaxyConfig(prev => ({ ...prev, transparent: checked }))}
+                                    checked={warpConfig.transparent}
+                                    onCheckedChange={(checked) => setWarpConfig(prev => ({ ...prev, transparent: checked }))}
                                 />
                             </div>
                         </div>

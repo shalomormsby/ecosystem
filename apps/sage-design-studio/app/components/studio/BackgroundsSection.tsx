@@ -1,9 +1,9 @@
 'use client';
 
-import { Card } from '@sds/ui';
+import { Card, Backgrounds } from '@sds/ui';
 import { useRouter } from 'next/navigation';
-import Galaxy from './examples/galaxy/Galaxy';
 import FaultyTerminal from './examples/faulty-terminal/FaultyTerminal';
+const { WarpBackground } = Backgrounds;
 
 export function BackgroundsSection() {
     const router = useRouter();
@@ -21,7 +21,7 @@ export function BackgroundsSection() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {/* Galaxy Card */}
+                {/* Warp Speed Card */}
                 <Card
                     className="p-6 cursor-pointer group"
                     hoverEffect={true}
@@ -34,16 +34,16 @@ export function BackgroundsSection() {
                         // the safest bet for a "drill down" in this specific studio architecture 
                         // (which seems to check hash via a parent or similar mechanism) 
                         // is to update the URL hash which usually drives the active item.
-                        window.location.hash = '#motion/galaxy';
+                        window.location.hash = '#motion/warp-speed';
                     }}
                 >
                     <div className="flex items-center justify-between mb-2">
-                        <h2 className="text-xl font-bold group-hover:text-[var(--color-primary)] transition-colors">Galaxy</h2>
+                        <h2 className="text-xl font-bold group-hover:text-[var(--color-primary)] transition-colors">Warp Speed</h2>
                         <span className="text-xs font-mono px-2 py-1 bg-[var(--color-surface)] rounded text-[var(--color-text-secondary)]">WebGL</span>
                     </div>
                     <p className="text-[var(--color-text-secondary)] mb-4">A 3D starfield animation using WebGL.</p>
                     <div className="aspect-video bg-black rounded-lg mb-4 overflow-hidden relative pointer-events-none">
-                        <Galaxy
+                        <WarpBackground
                             starSpeed={0.5}
                             density={1}
                             mouseInteraction={false} // Disable interaction for preview card

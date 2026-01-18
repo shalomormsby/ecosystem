@@ -11,7 +11,7 @@ import { CursorsSection } from './CursorsSection';
 import { MicroInteractionsSection } from './MicroInteractionsSection';
 
 // Detail Pages
-import { GalaxyPage } from './pages/motion/GalaxyPage';
+import { WarpSpeedPage } from './pages/motion/WarpSpeedPage';
 import { FaultyTerminalPage } from './pages/motion/FaultyTerminalPage';
 import {
   DurationPage,
@@ -26,7 +26,7 @@ import { VariableWeightPage } from './pages/motion/VariableWeightPage';
 type MotionTab =
   | 'primitives' | 'duration' | 'easing'
   | 'text-effects' | 'variable-weight' | 'typewriter'
-  | 'backgrounds' | 'galaxy' | 'faulty-terminal'
+  | 'backgrounds' | 'warp-speed' | 'faulty-terminal'
   | 'cursors' | 'target-cursor' | 'splash-cursor'
   | 'micro-interactions' | 'magnetic';
 
@@ -73,7 +73,7 @@ export function MotionSections({ activeItemId, breadcrumbs, onItemChange }: Moti
 
         {/* Backgrounds */}
         {activeTab === 'backgrounds' && <BackgroundsSection />}
-        {activeTab === 'galaxy' && <GalaxyPage />}
+        {activeTab === 'warp-speed' && <WarpSpeedPage />}
         {activeTab === 'faulty-terminal' && <FaultyTerminalPage />}
 
         {/* Cursors */}

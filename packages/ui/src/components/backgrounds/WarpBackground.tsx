@@ -171,7 +171,7 @@ void main() {
 }
 `;
 
-interface GalaxyProps {
+interface WarpBackgroundProps {
   focal?: [number, number];
   rotation?: [number, number];
   starSpeed?: number;
@@ -192,7 +192,7 @@ interface GalaxyProps {
   [key: string]: any;
 }
 
-export function Galaxy({
+export function WarpBackground({
   focal = [0.5, 0.5],
   rotation = [1.0, 0.0],
   starSpeed = 0.5,
@@ -211,7 +211,7 @@ export function Galaxy({
   transparent = true,
   className = '',
   ...rest
-}: GalaxyProps) {
+}: WarpBackgroundProps) {
   const ctnDom = useRef<HTMLDivElement>(null);
   const targetMousePos = useRef({ x: 0.5, y: 0.5 });
   const smoothMousePos = useRef({ x: 0.5, y: 0.5 });

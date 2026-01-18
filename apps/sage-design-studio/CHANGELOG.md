@@ -13,15 +13,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Migrated Motion Components** from Studio examples to `@sds/ui` package:
   - `SplashCursor`: WebGL fluid simulation cursor
   - `TargetCursor`: Precise custom cursor with hover states
+  - `WarpBackground`: Immersive 3D starfield warp effect (formerly Galaxy)
 - **Export Strategy**:
   - **Named Exports**: Available as top-level named exports (e.g., `import { SplashCursor } from '@sds/ui'`)
-  - **Namespace Export**: Grouped under `Motion` namespace (e.g., `import { Motion } from '@sds/ui'; const { SplashCursor } = Motion;`)
+  - **Namespace Export**: Grouped under `Motion` and `Backgrounds` namespaces (e.g., `import { Backgrounds } from '@sds/ui';`)
   - This dual strategy supports both convenient direct imports and semantic grouping.
 
 #### Studio Updates
 - **Refactored Motion Pages**:
   - `CursorsSection.tsx`: Updated to use library components
   - `SplashCursorPage.tsx`: Updated to use library components
+  - `WarpSpeedPage.tsx`: Migrated Galaxy to Warp Speed, using library component.
   - Preserved existing functionality while leveraging the shared library source of truth.
 
 ### Fixed - Variable Weight Animation
