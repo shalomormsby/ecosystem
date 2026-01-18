@@ -39,7 +39,7 @@ export function TextEffectsSection() {
               className="text-3xl text-[var(--color-text-primary)]"
               fontFamily="Clash Display"
             >
-              Aa
+              Variable weight
             </VariableWeightText>
           </div>
         </Card>

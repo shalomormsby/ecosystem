@@ -53,7 +53,7 @@ export function VariableWeightPage() {
                         className="text-6xl md:text-8xl text-[var(--color-text-primary)] z-10"
                         fontFamily="Clash Display"
                     >
-                        Clash Display
+                        Variable weight
                     </VariableWeightText>
                 </div>
 
