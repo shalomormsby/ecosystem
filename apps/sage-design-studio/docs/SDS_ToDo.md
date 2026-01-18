@@ -93,3 +93,24 @@ const { shouldAnimate, scale } = useMotionPreference();
 
 ---
 
+
+## Motion Section Evolution
+**Date Added:** 2026-01-17
+**Status:** To Do
+
+High-impact tasks to evolve the SDS Motion section and make it as useful as possible.
+
+- [ ] **Fill the "Placeholders"**
+    - [x] **DurationPage & EasingPage**: Critical foundation primitives. Users need to feel the difference. (Impact: High)
+    - **TypewriterPage**: A classic effect. (Impact: Medium)
+    - **MagneticPage**: Great for micro-interactions. (Impact: High)
+- [ ] **Standardize "Motion Primitives"**
+    - Create a `Motion` namespace in `@sds/ui` (e.g., `<Motion.Fade in>`). Reduces boilerplate. (Impact: High)
+- [ ] **"Playground" for Motion Tokens**
+    - Build a page where users can tweak variables and see real-time effects on dummy UI. (Impact: High)
+- [ ] **Accessibility First (Reduced Motion)**
+    - Audit all motion components. If `prefers-reduced-motion` is true, automatically simplify or disable. (Impact: Critical)
+- [ ] **Add "Page Transitions"**
+    - Create a standard `<PageTransition>` component for seamless navigation. (Impact: High)
+- [ ] **Interactive "Scroll" Components**
+    - Add `ScrollReveal` or `Parallax` components. (Impact: High)

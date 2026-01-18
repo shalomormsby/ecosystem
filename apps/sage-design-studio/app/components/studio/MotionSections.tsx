@@ -13,9 +13,9 @@ import { MicroInteractionsSection } from './MicroInteractionsSection';
 // Detail Pages
 import { WarpSpeedPage } from './pages/motion/WarpSpeedPage';
 import { FaultyTerminalPage } from './pages/motion/FaultyTerminalPage';
+import { DurationPage } from './pages/motion/DurationPage';
+import { EasingPage } from './pages/motion/EasingPage';
 import {
-  DurationPage,
-  EasingPage,
   TypewriterPage,
   MagneticPage
 } from './pages/motion/MotionPlaceholders';
