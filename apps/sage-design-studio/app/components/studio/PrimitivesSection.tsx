@@ -286,17 +286,30 @@ export function PrimitivesSection() {
                         <code className="text-xs bg-[var(--color-surface)] px-2 py-1 rounded border border-[var(--color-border)]">{value}</code>
                       </div>
                       <div className="h-1 w-24 bg-[var(--color-surface)] rounded-full overflow-hidden">
-                        <motion.div
-                          className="h-full bg-[var(--color-primary)]"
-                          initial={{ width: 0 }}
-                          whileInView={{ width: '100%' }}
-                          transition={{
-                            duration: parseInt(value) / 1000,
-                            repeat: Infinity,
-                            repeatDelay: 1,
-                            ease: 'linear'
-                          }}
-                        />
+                        {name === 'instant' ? (
+                          <motion.div
+                            className="h-full bg-[var(--color-primary)]"
+                            animate={{ width: ["0%", "100%", "100%", "0%"] }}
+                            transition={{
+                              duration: 2,
+                              times: [0, 0.05, 0.5, 0.55], // Fast up, wait, fast down, wait
+                              repeat: Infinity,
+                              repeatDelay: 2
+                            }}
+                          />
+                        ) : (
+                          <motion.div
+                            className="h-full bg-[var(--color-primary)]"
+                            initial={{ width: 0 }}
+                            whileInView={{ width: '100%' }}
+                            transition={{
+                              duration: parseInt(value) / 1000,
+                              repeat: Infinity,
+                              repeatDelay: 1,
+                              ease: 'linear'
+                            }}
+                          />
+                        )}
                       </div>
                     </div>
                     <p className="text-sm text-[var(--color-text-secondary)]">
@@ -327,15 +340,16 @@ export function PrimitivesSection() {
                         <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 h-1 bg-[var(--color-border)] rounded-full"></div>
                         {/* Ball */}
                         <motion.div
-                          className="absolute top-0 left-0 w-12 h-12 bg-[var(--color-primary)] rounded-full shadow-md"
-                          animate={{ x: ['0%', 'calc(100% - 3rem)', '0%'] }}
+                          className="absolute top-0 w-12 h-12 bg-[var(--color-primary)] rounded-full shadow-md"
+                          initial={{ left: '0%' }}
+                          animate={{ left: 'calc(100% - 3rem)' }}
                           transition={{
                             duration: 2,
                             ease: motionTokens.easing.default as any,
                             repeat: Infinity,
+                            repeatType: 'reverse',
                             repeatDelay: 0.5
                           }}
-                          style={{ width: '3rem' }} // Explicit width for calc
                         />
                       </div>
                     </div>
