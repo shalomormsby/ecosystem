@@ -26,6 +26,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `WarpSpeedPage.tsx`: Migrated Galaxy to Warp Speed, using library component.
   - Preserved existing functionality while leveraging the shared library source of truth.
 
+### Changed - Motion Primitives Revamp (2026-01-18)
+- **Unified Motion Primitives Dashboard**:
+  - Replaced separate Duration and Easing pages with a single, interactive **Primitives** playground.
+  - **Interactive Controls**: Added real-time controls for Duration, Easing, Animation Property (Fade, Scale, Slide, Rotate), Looping, and Scale Factor.
+  - **Enhanced Visualizations**:
+    - **Default Easing**: New smooth ball-on-track animation demonstrating ease-out with reverse looping.
+    - **Spring Easing**: Box scaling and rotating to demonstrate overshoot mechanics.
+    - **Duration Scale**: Added "Instant" duration visualization with unique blinking pattern.
+  - **Documentation**: Integrated educational content for Duration Scale and Easing Curves using a sticky `SecondaryNav`.
+  - **Mobile Responsiveness**: Optimized layout for mobile devices with stacked controls and preview.
+
+### Added - Motion Components (2026-01-18)
+- **Typewriter Component**:
+  - Implementation of character-by-character text reveal effect using `framer-motion` staggering.
+  - Supports configurable speed, start delay, cursor character, and blinking cursor animation.
+  - Added documentation playground page with interactive controls for speed, delay, and content.
+- **Magnetic Component**:
+  - Physics-based interaction wrapper that pulls elements towards the cursor.
+  - Configurable `strength` prop to control attraction intensity.
+  - Added documentation playground page demonstrating button and icon interaction patterns.
+
 ### Fixed - Variable Weight Animation
 - **Fixed `VariableWeightText` animation**:
   - Updated globally imported Clash Display font to use the variable weight version (`ClashDisplay-Variable.woff2`).

@@ -9,6 +9,7 @@ export * from './components/actions/Button';
 export * from './components/actions/Link';
 export * from './components/actions/Toggle';
 export * from './components/actions/ToggleGroup';
+export * from './components/actions/Magnetic';
 
 // Forms
 export * from './components/forms/Checkbox';
@@ -79,6 +80,7 @@ export * from './components/data-display/Heading';
 export * from './components/data-display/Table';
 export * from './components/data-display/Text';
 export * from './components/data-display/VariableWeightText';
+export * from './components/data-display/Typewriter';
 
 // Layout
 export * from './components/layout/Accordion';

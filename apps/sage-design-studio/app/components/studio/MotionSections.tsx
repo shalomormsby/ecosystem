@@ -16,6 +16,8 @@ import { FaultyTerminalPage } from './pages/motion/FaultyTerminalPage';
 import { SplashCursorPage } from './pages/motion/SplashCursorPage';
 import { TargetCursorPage } from './pages/motion/TargetCursorPage';
 import { VariableWeightPage } from './pages/motion/VariableWeightPage';
+import { TypewriterPage } from './pages/motion/TypewriterPage';
+import { MagneticPage } from './pages/motion/MagneticPage';
 
 type MotionTab =
   | 'primitives' | 'duration' | 'easing'
@@ -63,8 +65,7 @@ export function MotionSections({ activeItemId, breadcrumbs, onItemChange }: Moti
         {/* Text Effects */}
         {activeTab === 'text-effects' && <TextEffectsSection />}
         {activeTab === 'variable-weight' && <VariableWeightPage />}
-
-        {/* Typewriter placeholder removed */}
+        {activeTab === 'typewriter' && <TypewriterPage />}
 
         {/* Backgrounds */}
         {activeTab === 'backgrounds' && <BackgroundsSection />}
@@ -78,7 +79,7 @@ export function MotionSections({ activeItemId, breadcrumbs, onItemChange }: Moti
 
         {/* Micro Interactions */}
         {activeTab === 'micro-interactions' && <MicroInteractionsSection />}
-        {/* Magnetic placeholder removed */}
+        {activeTab === 'magnetic' && <MagneticPage />}
       </div>
     </div>
   );

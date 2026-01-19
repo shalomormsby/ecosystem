@@ -13,3 +13,4 @@ export * from './Heading';
 export * from './Table';
 export * from './Text';
 export * from './VariableWeightText';
+export * from './Typewriter';
