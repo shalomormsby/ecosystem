@@ -266,7 +266,7 @@ export function PrimitivesSection() {
           maxWidth="max-w-4xl" // Match content width below
           mode="stacked"
           top="top-0" // Force to top
-          className="mb-8 -mx-6 px-6 bg-[var(--color-surface)]/80 backdrop-blur-md border-0" // Customize to blend in
+          className="mb-8 bg-[var(--color-surface)]/80 backdrop-blur-md border-0" // Customize to blend in
         />
 
         <div className="max-w-4xl mx-auto">
@@ -327,14 +327,15 @@ export function PrimitivesSection() {
                         <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 h-1 bg-[var(--color-border)] rounded-full"></div>
                         {/* Ball */}
                         <motion.div
-                          className="absolute top-0 w-12 h-12 bg-[var(--color-primary)] rounded-full shadow-md"
-                          animate={{ left: ['0%', 'calc(100% - 3rem)', '0%'] }}
+                          className="absolute top-0 left-0 w-12 h-12 bg-[var(--color-primary)] rounded-full shadow-md"
+                          animate={{ x: ['0%', 'calc(100% - 3rem)', '0%'] }}
                           transition={{
                             duration: 2,
                             ease: motionTokens.easing.default as any,
                             repeat: Infinity,
                             repeatDelay: 0.5
                           }}
+                          style={{ width: '3rem' }} // Explicit width for calc
                         />
                       </div>
                     </div>

@@ -60,6 +60,7 @@ export const SecondaryNav = React.forwardRef<HTMLElement, SecondaryNavProps>(
                     sticky ${stickyClass} z-40
                     bg-[var(--color-surface)]/60 backdrop-blur-md
                     border-b border-[var(--color-border)]
+                    -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8
                     ${className}
                 `}
                 aria-label="Secondary navigation"
