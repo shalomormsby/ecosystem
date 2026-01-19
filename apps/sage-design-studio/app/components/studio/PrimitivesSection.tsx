@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Card, Button, Slider, CollapsibleCodeBlock, Switch, Label } from '@sds/ui';
+import { Card, Button, Slider, CollapsibleCodeBlock, Switch, Label, SecondaryNav } from '@sds/ui';
 import { motion, AnimatePresence } from 'framer-motion';
 import { RotateCcw, Play, CheckCircle, XCircle } from 'lucide-react';
 import { baseTokens, motion as motionTokens } from '@sds/ui/tokens';
@@ -26,22 +26,27 @@ export function PrimitivesSection() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [key, setKey] = useState(0); // Force re-render for replay
 
+  // New Controls
+  const [isLooping, setIsLooping] = useState(true);
+  const [loopDelay, setLoopDelay] = useState(2); // Seconds
+  const [previewScale, setPreviewScale] = useState(1.5); // Default scale adjusted
+
   // Guide State
-  const [activeTab, setActiveTab] = useState<'duration' | 'easing'>('duration');
+  const [activeTab, setActiveTab] = useState('duration');
 
   const handleReplay = () => {
     setKey(k => k + 1);
     setIsPlaying(true);
   };
 
-  // Auto-reset playing state after animation
+  // Auto-reset playing state after animation (if not looping) or handle looping logic
   useEffect(() => {
-    if (isPlaying) {
+    if (isPlaying && !isLooping) {
       const durationMs = parseInt(baseTokens.duration[activeDuration]);
       const timer = setTimeout(() => setIsPlaying(false), durationMs + 500); // Buffer
       return () => clearTimeout(timer);
     }
-  }, [isPlaying, activeDuration]);
+  }, [isPlaying, activeDuration, isLooping]);
 
   // Derived animation values
   const getAnimationProps = () => {
@@ -49,20 +54,20 @@ export function PrimitivesSection() {
     // Map token name to actual bezier/string value
     const easeToken = activeEasing === 'linear' ? 'linear' : motionTokens.easing[activeEasing as keyof typeof motionTokens.easing];
     // Cast strict string to Easing
-    const ease = easeToken as any; // Framer motion accepts cubic-bezier strings but types are strict
+    const ease = easeToken as any;
 
     const variants = {
       initial: {
         opacity: activeProperty === 'opacity' ? 0.2 : 1,
         scale: activeProperty === 'scale' ? 0.5 : 1,
         x: activeProperty === 'x' ? -50 : 0,
-        rotate: activeProperty === 'rotate' ? -45 : 0,
+        rotate: activeProperty === 'rotate' ? 0 : 0, // Start nicely for rotation
       },
       animate: {
         opacity: 1,
         scale: 1,
         x: activeProperty === 'x' ? 50 : 0,
-        rotate: 0,
+        rotate: activeProperty === 'rotate' ? 180 : 0, // Smooth 180 turn
       },
     };
 
@@ -70,9 +75,20 @@ export function PrimitivesSection() {
       variants,
       initial: 'initial',
       animate: 'animate',
-      transition: { duration, ease }
+      transition: {
+        duration,
+        ease,
+        repeat: isLooping ? Infinity : 0,
+        repeatType: isLooping ? "reverse" as const : undefined,
+        repeatDelay: isLooping ? loopDelay : 0
+      }
     };
   };
+
+  const navItems = [
+    { id: 'duration', label: 'Duration Scale' },
+    { id: 'easing', label: 'Easing Curves' },
+  ];
 
   return (
     <div className="max-w-6xl mx-auto px-6 py-12">
@@ -80,17 +96,17 @@ export function PrimitivesSection() {
         <h1 className="text-4xl font-bold mb-4 text-[var(--color-text-primary)]">
           Motion Primitives
         </h1>
-        <p className="text-lg text-[var(--color-text-secondary)] max-w-2xl">
+        <p className="text-xl text-[var(--color-text-secondary)]">
           The foundational grammar of Sage's motion language. Compose duration and easing tokens to create fluid, meaningful interactions.
         </p>
       </div>
 
       {/* --- Interactive Playground (Hero) --- */}
       <Card className="p-0 overflow-hidden mb-16 border-[var(--color-border)] shadow-xl bg-[var(--color-surface)]">
-        <div className="grid grid-cols-1 lg:grid-cols-12 min-h-[500px]">
+        <div className="grid grid-cols-1 lg:grid-cols-12 min-h-[550px]">
 
           {/* Controls Panel (Left) */}
-          <div className="lg:col-span-4 p-6 border-r border-[var(--color-border)] bg-[var(--color-background)]">
+          <div className="lg:col-span-4 p-6 border-r border-[var(--color-border)] bg-[var(--color-background)] overflow-y-auto max-h-[600px]">
             <h3 className="text-sm font-semibold uppercase tracking-wider text-[var(--color-text-muted)] mb-6">
               Configure Motion
             </h3>
@@ -112,6 +128,53 @@ export function PrimitivesSection() {
                   </button>
                 ))}
               </div>
+            </div>
+
+            {/* Loop Controls */}
+            <div className="mb-8 p-4 bg-[var(--color-surface)] rounded-lg border border-[var(--color-border)]">
+              <div className="flex items-center justify-between mb-4">
+                <Label className="cursor-pointer" htmlFor="loop-switch">Loop Animation</Label>
+                <Switch
+                  id="loop-switch"
+                  checked={isLooping}
+                  onCheckedChange={(checked: boolean) => { setIsLooping(checked); handleReplay(); }}
+                />
+              </div>
+
+              <AnimatePresence>
+                {isLooping && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: 'auto', opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    className="overflow-hidden"
+                  >
+                    <Label className="mb-2 block text-xs text-[var(--color-text-muted)]">Pause between loops: {loopDelay}s</Label>
+                    <Slider
+                      value={[loopDelay]}
+                      min={0}
+                      max={5}
+                      step={0.5}
+                      onValueChange={([v]: number[]) => { setLoopDelay(v); handleReplay(); }}
+                    />
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+
+            {/* Scale Control */}
+            <div className="mb-8">
+              <Label className="mb-2 block flex justify-between">
+                <span>Preview Scale</span>
+                <span className="text-[var(--color-text-muted)] text-xs">{previewScale}x</span>
+              </Label>
+              <Slider
+                value={[previewScale]}
+                min={0.5}
+                max={2.5}
+                step={0.1}
+                onValueChange={([v]: number[]) => setPreviewScale(v)}
+              />
             </div>
 
             {/* Duration Selector */}
@@ -155,34 +218,38 @@ export function PrimitivesSection() {
           </div>
 
           {/* Stage (Right) */}
-          <div className="lg:col-span-8 relative flex flex-col items-center justify-center p-12 bg-grid-pattern">
+          <div className="lg:col-span-8 relative flex flex-col items-center justify-center p-12 bg-grid-pattern overflow-hidden">
             {/* Background Grid Pattern (Pseudo) */}
             <div className="absolute inset-0 opacity-[0.03]" style={{
               backgroundImage: 'linear-gradient(currentColor 1px, transparent 1px), linear-gradient(90deg, currentColor 1px, transparent 1px)',
               backgroundSize: '20px 20px'
             }}></div>
 
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={key}
-                className="w-32 h-32 rounded-2xl bg-gradient-to-br from-[var(--color-primary)] to-purple-600 shadow-2xl flex items-center justify-center relative z-10"
-                {...getAnimationProps()}
-              >
-                <span className="text-white sr-only">Box</span>
-              </motion.div>
-            </AnimatePresence>
-
-            {/* Replay Button */}
-            <div className="absolute bottom-8 right-8">
-              <Button onClick={handleReplay} size="lg" className="rounded-full shadow-lg gap-2">
-                <RotateCcw className="w-4 h-4" /> Replay
-              </Button>
+            <div style={{ transform: `scale(${previewScale})`, transformOrigin: 'center' }}>
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={key}
+                  className="w-24 h-24 rounded-2xl bg-gradient-to-br from-[var(--color-primary)] to-purple-600 shadow-2xl flex items-center justify-center relative z-10"
+                  {...getAnimationProps()}
+                >
+                  <span className="text-white sr-only">Box</span>
+                </motion.div>
+              </AnimatePresence>
             </div>
+
+            {/* Replay Button - Only show if not looping */}
+            {!isLooping && (
+              <div className="absolute bottom-8 right-8">
+                <Button onClick={handleReplay} size="lg" className="rounded-full shadow-lg gap-2">
+                  <RotateCcw className="w-4 h-4" /> Replay
+                </Button>
+              </div>
+            )}
 
             {/* Code Snippet */}
             <div className="absolute top-8 right-8 left-8 flex justify-center pointer-events-none">
               <div className="bg-[var(--color-surface)]/90 backdrop-blur border border-[var(--color-border)] rounded-full px-4 py-2 font-mono text-xs text-[var(--color-text-secondary)] shadow-sm">
-                duration: {baseTokens.duration[activeDuration]} • ease: {activeEasing}
+                duration: {baseTokens.duration[activeDuration]} • ease: {activeEasing} {isLooping && `• delay: ${loopDelay}s`}
               </div>
             </div>
           </div>
@@ -190,29 +257,18 @@ export function PrimitivesSection() {
       </Card>
 
       {/* --- Documentation Guide (Below Fold) --- */}
-      <div className="grid grid-cols-1 md:grid-cols-12 gap-12">
-        {/* Navigation Tabs (Sticky) */}
-        <div className="md:col-span-3">
-          <div className="sticky top-24 space-y-2">
-            <button
-              onClick={() => setActiveTab('duration')}
-              className={`text-left w-full px-4 py-2 rounded-md text-sm font-medium transition-colors ${activeTab === 'duration' ? 'bg-[var(--color-surface)] text-[var(--color-primary)]' : 'text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]'
-                }`}
-            >
-              Duration Scale
-            </button>
-            <button
-              onClick={() => setActiveTab('easing')}
-              className={`text-left w-full px-4 py-2 rounded-md text-sm font-medium transition-colors ${activeTab === 'easing' ? 'bg-[var(--color-surface)] text-[var(--color-primary)]' : 'text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]'
-                }`}
-            >
-              Easing Curves
-            </button>
-          </div>
-        </div>
+      <div className="relative">
+        {/* Using SecondaryNav for sticky navigation */}
+        <SecondaryNav
+          items={navItems}
+          activeId={activeTab}
+          onItemChange={setActiveTab}
+          maxWidth="max-w-4xl" // Match content width below
+          mode="stacked"
+          className="mb-8 bg-transparent border-0" // Customize to blend in
+        />
 
-        {/* Content Area */}
-        <div className="md:col-span-9">
+        <div className="max-w-4xl mx-auto">
           {activeTab === 'duration' ? (
             <div className="space-y-8 fade-in">
               <h2 className="text-2xl font-bold text-[var(--color-text-primary)]">Duration Scale</h2>
@@ -260,65 +316,88 @@ export function PrimitivesSection() {
                 In the real world, nothing starts or stops instantly. Easing curves mimic the physics of the physical world, giving weight and momentum to digital objects.
               </p>
 
-              <div className="grid gap-6">
-                {/* Default Easing */}
-                <Card className="p-6">
-                  <div className="flex justify-between items-start mb-4">
-                    <div>
-                      <h3 className="text-lg font-bold mb-1">Default</h3>
-                      <code className="text-xs text-[var(--color-text-muted)]">{motionTokens.easing.default}</code>
+              <div className="grid gap-8">
+                {/* Default Easing (Refined) */}
+                <Card className="p-0 overflow-hidden">
+                  <div className="grid md:grid-cols-2 h-full">
+                    <div className="p-8 flex items-center justify-center bg-[var(--color-surface)] border-r border-[var(--color-border)]">
+                      <div className="relative w-full h-32 flex items-center">
+                        {/* Track */}
+                        <div className="absolute inset-x-0 h-1 bg-[var(--color-border)] rounded-full"></div>
+                        {/* Ball */}
+                        <div className="absolute w-full px-6">
+                          <motion.div
+                            className="w-12 h-12 bg-[var(--color-primary)] rounded-full shadow-md"
+                            animate={{ x: ['0%', '400%', '0%'] }}
+                            transition={{
+                              duration: 2,
+                              ease: motionTokens.easing.default as any,
+                              repeat: Infinity,
+                              repeatDelay: 0.5
+                            }}
+                          />
+                        </div>
+                      </div>
                     </div>
-                    <div className="bg-[var(--color-surface)] p-2 rounded">
-                      <motion.div
-                        className="w-8 h-8 bg-[var(--color-primary)] rounded-full"
-                        animate={{ x: [0, 100, 0] }}
-                        transition={{ duration: 2, ease: motionTokens.easing.default as any, repeat: Infinity }}
-                      />
-                    </div>
-                  </div>
-                  <p className="text-sm text-[var(--color-text-secondary)]">
-                    A standard "ease-out" curve. Objects start quickly and decelerate smoothly as they reach their destination. Use this for 80% of UI transitions (entering elements, moving items).
-                  </p>
-                </Card>
-
-                {/* Spring Easing */}
-                <Card className="p-6">
-                  <div className="flex justify-between items-start mb-4">
-                    <div>
-                      <h3 className="text-lg font-bold mb-1">Spring</h3>
-                      <code className="text-xs text-[var(--color-text-muted)]">{motionTokens.easing.spring}</code>
-                    </div>
-                    <div className="bg-[var(--color-surface)] p-2 rounded">
-                      <motion.div
-                        className="w-8 h-8 bg-[var(--color-primary)] rounded-full"
-                        animate={{ scale: [1, 1.2, 1] }}
-                        transition={{ duration: 1.5, ease: motionTokens.easing.spring as any, repeat: Infinity }}
-                      />
+                    <div className="p-8 flex flex-col justify-center">
+                      <h3 className="text-lg font-bold mb-2">Default</h3>
+                      <code className="text-xs text-[var(--color-text-muted)] mb-4 block px-2 py-1 bg-[var(--color-surface)] rounded w-fit">{motionTokens.easing.default}</code>
+                      <p className="text-sm text-[var(--color-text-secondary)]">
+                        A standard "ease-out" curve. Objects start quickly to gain attention and decelerate smoothly as they reach their destination. Use this for 80% of UI transitions (entering elements, moving items) to feel snappy yet natural.
+                      </p>
                     </div>
                   </div>
-                  <p className="text-sm text-[var(--color-text-secondary)]">
-                    An animated curve that overshoots its target slightly before settling. Creates a "bouncy," playful, and responsive feel. Great for success states, notifications, and delight moments.
-                  </p>
                 </Card>
 
-                {/* Linear Easing */}
-                <Card className="p-6">
-                  <div className="flex justify-between items-start mb-4">
-                    <div>
-                      <h3 className="text-lg font-bold mb-1">Linear</h3>
-                      <code className="text-xs text-[var(--color-text-muted)]">linear</code>
+                {/* Spring Easing (Refined) */}
+                <Card className="p-0 overflow-hidden">
+                  <div className="grid md:grid-cols-2 h-full">
+                    <div className="p-8 flex items-center justify-center bg-[var(--color-surface)] border-r border-[var(--color-border)]">
+                      <div className="relative w-32 h-32 flex items-center justify-center">
+                        <motion.div
+                          className="w-16 h-16 bg-[var(--color-primary)] rounded-xl shadow-md"
+                          animate={{ scale: [1, 1.4, 1], rotate: [0, 10, 0] }}
+                          transition={{
+                            duration: 1.5,
+                            ease: motionTokens.easing.spring as any,
+                            repeat: Infinity,
+                            repeatDelay: 0.5
+                          }}
+                        />
+                      </div>
                     </div>
-                    <div className="bg-[var(--color-surface)] p-2 rounded">
+                    <div className="p-8 flex flex-col justify-center">
+                      <h3 className="text-lg font-bold mb-2">Spring</h3>
+                      <code className="text-xs text-[var(--color-text-muted)] mb-4 block px-2 py-1 bg-[var(--color-surface)] rounded w-fit">{motionTokens.easing.spring}</code>
+                      <p className="text-sm text-[var(--color-text-secondary)]">
+                        An animated curve that overshoots its target slightly before settling, mimicking physical elasticity. Creates a "bouncy," playful, and responsive feel. Great for success states, notifications, and delight moments.
+                      </p>
+                    </div>
+                  </div>
+                </Card>
+
+                {/* Linear Easing (Refined) */}
+                <Card className="p-0 overflow-hidden">
+                  <div className="grid md:grid-cols-2 h-full">
+                    <div className="p-8 flex items-center justify-center bg-[var(--color-surface)] border-r border-[var(--color-border)]">
                       <motion.div
-                        className="w-8 h-8 bg-[var(--color-primary)] rounded-full"
+                        className="w-16 h-16 border-4 border-[var(--color-border)] border-t-[var(--color-primary)] rounded-full"
                         animate={{ rotate: 360 }}
-                        transition={{ duration: 2, ease: "linear", repeat: Infinity }}
+                        transition={{
+                          duration: 1.5,
+                          ease: "linear",
+                          repeat: Infinity
+                        }}
                       />
                     </div>
+                    <div className="p-8 flex flex-col justify-center">
+                      <h3 className="text-lg font-bold mb-2">Linear</h3>
+                      <code className="text-xs text-[var(--color-text-muted)] mb-4 block px-2 py-1 bg-[var(--color-surface)] rounded w-fit">linear</code>
+                      <p className="text-sm text-[var(--color-text-secondary)]">
+                        Constant velocity with no acceleration. Feels mechanical and artificial. Use ONLY for continuous loops (like loading spinners) or opacity fades where acceleration is not visually distinct.
+                      </p>
+                    </div>
                   </div>
-                  <p className="text-sm text-[var(--color-text-secondary)]">
-                    Constant velocity with no acceleration. Feels mechanical. Use ONLY for continuous loops (like spinners) or opacity fades where acceleration isn't noticeable.
-                  </p>
                 </Card>
               </div>
             </div>
