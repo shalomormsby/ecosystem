@@ -1,9 +1,9 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Card, Badge, Code } from '@sds/ui';
-import { useTheme } from '@sds/ui/hooks';
-import { colorTokens, semanticColors, getContrastRatio, meetsContrastRequirements } from '@sds/ui/utils';
+import { Card, Badge, Code } from '@sage/ui';
+import { useTheme } from '@sage/ui/hooks';
+import { colorTokens, semanticColors, getContrastRatio, meetsContrastRequirements } from '@sage/ui/utils';
 
 export function ColorsTab() {
   const { theme, mode, setTheme, setMode } = useTheme();

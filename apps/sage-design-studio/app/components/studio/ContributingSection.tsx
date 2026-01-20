@@ -1,7 +1,7 @@
 'use client';
 
-import { Card } from '@sds/ui';
-import { Breadcrumbs, type BreadcrumbItemLegacy } from '@sds/ui';
+import { Card } from '@sage/ui';
+import { Breadcrumbs, type BreadcrumbItemLegacy } from '@sage/ui';
 import { ArrowRight } from 'lucide-react';
 
 interface ContributingSectionProps {
@@ -58,7 +58,7 @@ export function ContributingSection({ breadcrumbs }: ContributingSectionProps) {
             <div>
               <h3 className="font-semibold mb-2 text-[var(--color-text-primary)]">Verify setup</h3>
               <pre className="bg-[var(--color-surface)] p-4 rounded-md text-sm overflow-x-auto border border-[var(--color-border)]">
-                <code className="text-[var(--color-text-primary)]">pnpm --filter @sds/ui build
+                <code className="text-[var(--color-text-primary)]">pnpm --filter @sage/ui build
                   pnpm --filter sage-design-studio dev</code>
               </pre>
               <p className="text-sm text-[var(--color-text-muted)] mt-2">
@@ -104,7 +104,7 @@ export function ContributingSection({ breadcrumbs }: ContributingSectionProps) {
               <div className="flex-1">
                 <h3 className="font-semibold mb-2 text-[var(--color-text-primary)]">Test locally in studio app</h3>
                 <pre className="bg-[var(--color-surface)] p-4 rounded-md text-sm overflow-x-auto border border-[var(--color-border)]">
-                  <code className="text-[var(--color-text-primary)]">pnpm --filter @sds/ui build
+                  <code className="text-[var(--color-text-primary)]">pnpm --filter @sage/ui build
                     pnpm --filter sage-design-studio dev</code>
                 </pre>
                 <p className="text-sm text-[var(--color-text-muted)] mt-2">
@@ -131,7 +131,7 @@ export function ContributingSection({ breadcrumbs }: ContributingSectionProps) {
               <div>
                 <span className="font-medium text-[var(--color-text-primary)]">Build succeeds</span>
                 <pre className="bg-[var(--color-surface)] p-2 rounded-md text-xs mt-1 border border-[var(--color-border)]">
-                  <code className="text-[var(--color-text-primary)]">pnpm --filter @sds/ui build</code>
+                  <code className="text-[var(--color-text-primary)]">pnpm --filter @sage/ui build</code>
                 </pre>
               </div>
             </label>

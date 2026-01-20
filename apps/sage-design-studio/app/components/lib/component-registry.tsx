@@ -1,4 +1,4 @@
-import { Code, Link, Spinner, ProgressBar, Switch } from '@sds/ui';
+import { Code, Link, Spinner, ProgressBar, Switch } from '@sage/ui';
 import { Home, Search, Settings, User } from 'lucide-react';
 import {
   // Phase 1 & 2 components
@@ -30,7 +30,7 @@ import {
   InputOTP, InputOTPGroup, InputOTPSlot, InputOTPSeparator,
   ResizablePanelGroup, ResizablePanel, ResizableHandle,
   Sidebar, SidebarHeader, SidebarContent, SidebarFooter, SidebarItem,
-} from '@sds/ui';
+} from '@sage/ui';
 
 export interface PropConfig {
   type: 'select' | 'boolean' | 'text' | 'array' | 'object' | 'interface' | 'custom';
@@ -104,7 +104,7 @@ export const componentRegistry: Record<string, ComponentConfig> = {
     codeExamples: [
       {
         title: 'Basic Usage',
-        code: `import { Alert, AlertDescription, AlertTitle } from '@sds/ui';
+        code: `import { Alert, AlertDescription, AlertTitle } from '@sage/ui';
 
 <Alert>
   <AlertTitle>Heads up!</AlertTitle>
@@ -116,7 +116,7 @@ export const componentRegistry: Record<string, ComponentConfig> = {
       },
       {
         title: 'Destructive Variant',
-        code: `import { Alert, AlertDescription, AlertTitle } from '@sds/ui';
+        code: `import { Alert, AlertDescription, AlertTitle } from '@sage/ui';
 
 <Alert variant="destructive">
   <AlertTitle>Error</AlertTitle>
@@ -138,7 +138,7 @@ export const componentRegistry: Record<string, ComponentConfig> = {
 
   Avatar: {
     component: Avatar,
-    description: 'An image element with a fallback for representing the user. Migrated to @sds/ui.',
+    description: 'An image element with a fallback for representing the user. Migrated to @sage/ui.',
     props: {
       className: {
         type: 'text',
@@ -171,7 +171,7 @@ export const componentRegistry: Record<string, ComponentConfig> = {
     codeExamples: [
       {
         title: 'Basic Usage',
-        code: `import { Avatar, AvatarFallback, AvatarImage } from "@sds/ui"
+        code: `import { Avatar, AvatarFallback, AvatarImage } from "@sage/ui"
 
 <Avatar>
   <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
@@ -219,7 +219,7 @@ export const componentRegistry: Record<string, ComponentConfig> = {
     codeExamples: [
       {
         title: 'Basic Usage',
-        code: `import { Button } from '@sds/ui';
+        code: `import { Button } from '@sage/ui';
 
 <Button variant="default" onClick={() => console.log('Clicked!')}>
   Click Me
@@ -228,7 +228,7 @@ export const componentRegistry: Record<string, ComponentConfig> = {
       },
       {
         title: 'All Variants',
-        code: `import { Button } from '@sds/ui';
+        code: `import { Button } from '@sage/ui';
 
 <div className="flex gap-3">
   <Button variant="default">Default</Button>
@@ -242,7 +242,7 @@ export const componentRegistry: Record<string, ComponentConfig> = {
       },
       {
         title: 'Sizes',
-        code: `import { Button } from '@sds/ui';
+        code: `import { Button } from '@sage/ui';
 
 <div className="flex items-center gap-3">
   <Button size="sm">Small</Button>
@@ -265,7 +265,7 @@ export const componentRegistry: Record<string, ComponentConfig> = {
 
   Card: {
     component: Card,
-    description: 'Container component with standard and glass-morphism styling. Migrated to @sds/ui.',
+    description: 'Container component with standard and glass-morphism styling. Migrated to @sage/ui.',
     props: {
       variant: {
         type: 'select',
@@ -309,7 +309,7 @@ export const componentRegistry: Record<string, ComponentConfig> = {
     codeExamples: [
       {
         title: 'Basic Usage',
-        code: `import { Card } from '@sds/ui';
+        code: `import { Card } from '@sage/ui';
 
 <Card>
   <p>Your content goes here</p>
@@ -347,7 +347,7 @@ export const componentRegistry: Record<string, ComponentConfig> = {
       },
       {
         title: 'Structured Content',
-        code: `import { Card, CardHeader, CardTitle, CardContent } from '@sds/ui';
+        code: `import { Card, CardHeader, CardTitle, CardContent } from '@sage/ui';
 
 <Card>
   <CardHeader>
@@ -402,7 +402,7 @@ export const componentRegistry: Record<string, ComponentConfig> = {
     codeExamples: [
       {
         title: 'Basic Usage',
-        code: `import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@sds/ui';
+        code: `import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@sage/ui';
 
 <Dialog>
   <DialogTrigger asChild>
@@ -421,7 +421,7 @@ export const componentRegistry: Record<string, ComponentConfig> = {
       },
       {
         title: 'Confirmation Dialog',
-        code: `import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger, Button } from '@sds/ui';
+        code: `import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger, Button } from '@sage/ui';
 
 <Dialog>
   <DialogTrigger asChild>
@@ -487,7 +487,7 @@ export const componentRegistry: Record<string, ComponentConfig> = {
     codeExamples: [
       {
         title: 'Inline Code',
-        code: `import { Code } from '@sds/ui';
+        code: `import { Code } from '@sage/ui';
 
 <p>
   Use the <Code syntax="keyword">useState</Code> hook to manage component state.
@@ -515,7 +515,7 @@ console.log(greeting);\`)}
         code: `<div className="space-y-2">
   <p>Import the component:</p>
   <Code inline={false} syntax="keyword">
-    import {{ Button }} from '@sds/ui';
+    import {{ Button }} from '@sage/ui';
   </Code>
 
   <p>Then use it with <Code syntax="property">variant</Code> prop.</p>
@@ -571,7 +571,7 @@ console.log(greeting);\`)}
     codeExamples: [
       {
         title: 'Basic Usage',
-        code: `import { Link } from '@sds/ui';
+        code: `import { Link } from '@sage/ui';
 
 <Link href="/about">Learn More</Link>`,
         description: 'Simple link with default styling',
@@ -619,7 +619,7 @@ console.log(greeting);\`)}
 
   Badge: {
     component: Badge,
-    description: 'A small label for displaying status, counts, or categorization. Migrated to @sds/ui.',
+    description: 'A small label for displaying status, counts, or categorization. Migrated to @sage/ui.',
     props: {
       variant: {
         type: 'select',
@@ -652,7 +652,7 @@ console.log(greeting);\`)}
     codeExamples: [
       {
         title: 'Status Badges',
-        code: `import { Badge } from '@sds/ui';
+        code: `import { Badge } from '@sage/ui';
 
 <div className="flex gap-2">
   <Badge variant="success">Active</Badge>
@@ -789,7 +789,7 @@ console.log(greeting);\`)}
     codeExamples: [
       {
         title: 'Basic Structure',
-        code: `import { Sidebar, SidebarHeader, SidebarContent, SidebarFooter, SidebarItem } from '@sds/ui';
+        code: `import { Sidebar, SidebarHeader, SidebarContent, SidebarFooter, SidebarItem } from '@sage/ui';
 import { Home, Settings, User } from 'lucide-react';
 
 export default function AppSidebar() {
@@ -858,7 +858,7 @@ export default function AppSidebar() {
     codeExamples: [
       {
         title: 'Basic Loading State',
-        code: `import { Spinner } from '@sds/ui';
+        code: `import { Spinner } from '@sage/ui';
 
 <div className="flex justify-center p-8">
   <Spinner />
@@ -932,7 +932,7 @@ export default function AppSidebar() {
     codeExamples: [
       {
         title: 'Upload Progress',
-        code: `import { ProgressBar } from '@sds/ui';
+        code: `import { ProgressBar } from '@sage/ui';
 
 const [uploadProgress, setUploadProgress] = useState(0);
 
@@ -1011,7 +1011,7 @@ useEffect(() => {
     codeExamples: [
       {
         title: 'Basic Usage',
-        code: `import { Switch } from '@sds/ui';
+        code: `import { Switch } from '@sage/ui';
 
 const [enabled, setEnabled] = useState(false);
 
@@ -1023,7 +1023,7 @@ const [enabled, setEnabled] = useState(false);
       },
       {
         title: 'With Label',
-        code: `import { Switch } from '@sds/ui';
+        code: `import { Switch } from '@sage/ui';
 
 const [darkMode, setDarkMode] = useState(false);
 
@@ -1035,7 +1035,7 @@ const [darkMode, setDarkMode] = useState(false);
       },
       {
         title: 'Different Sizes',
-        code: `import { Switch } from '@sds/ui';
+        code: `import { Switch } from '@sage/ui';
 
 <div className="flex items-center gap-4">
   <Switch size="sm" checked={true} onCheckedChange={() => {}} />
@@ -1061,7 +1061,7 @@ const [darkMode, setDarkMode] = useState(false);
     codeExamples: [
       {
         title: 'Terms and Conditions',
-        code: `import { Checkbox, Label } from '@sds/ui';
+        code: `import { Checkbox, Label } from '@sage/ui';
 
 <div className="flex items-center space-x-2">
   <Checkbox id="terms" />
@@ -1098,7 +1098,7 @@ const [darkMode, setDarkMode] = useState(false);
     codeExamples: [
       {
         title: 'Basic Usage',
-        code: `import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@sds/ui';
+        code: `import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@sage/ui';
 
 <Select>
   <SelectTrigger className="w-[180px]">
@@ -1154,7 +1154,7 @@ const [darkMode, setDarkMode] = useState(false);
     codeExamples: [
       {
         title: 'Usage',
-        code: `import { Separator } from '@sds/ui';
+        code: `import { Separator } from '@sage/ui';
 
 <div>
   <Separator orientation="vertical" />
@@ -1189,7 +1189,7 @@ const [darkMode, setDarkMode] = useState(false);
     codeExamples: [
       {
         title: 'Usage',
-        code: `import { ScrollArea } from '@sds/ui';
+        code: `import { ScrollArea } from '@sage/ui';
 
 <ScrollArea className="h-[200px] w-[350px] rounded-md border p-4">
   Content...
@@ -1241,7 +1241,7 @@ const [darkMode, setDarkMode] = useState(false);
     codeExamples: [
       {
         title: 'Card Skeleton',
-        code: `import { Skeleton } from '@sds/ui';
+        code: `import { Skeleton } from '@sage/ui';
 
 <div className="space-y-2">
   <Skeleton className="h-12 w-12 rounded-full" />
@@ -1252,7 +1252,7 @@ const [darkMode, setDarkMode] = useState(false);
       },
       {
         title: 'List Skeleton',
-        code: `import { Skeleton } from '@sds/ui';
+        code: `import { Skeleton } from '@sage/ui';
 
 <div className="space-y-3">
   {Array.from({ length: 5 }).map((_, i) => (
@@ -1305,7 +1305,7 @@ const [darkMode, setDarkMode] = useState(false);
     codeExamples: [
       {
         title: 'Basic Usage',
-        code: `import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger, Button } from '@sds/ui';
+        code: `import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger, Button } from '@sage/ui';
 
 <DropdownMenu>
   <DropdownMenuTrigger asChild>
@@ -1366,7 +1366,7 @@ const [darkMode, setDarkMode] = useState(false);
     codeExamples: [
       {
         title: 'Basic Usage',
-        code: `import { RadioGroup, RadioGroupItem } from '@sds/ui';
+        code: `import { RadioGroup, RadioGroupItem } from '@sage/ui';
 
 <RadioGroup defaultValue="option-one">
   <div className="flex items-center space-x-2">
@@ -1426,7 +1426,7 @@ const [darkMode, setDarkMode] = useState(false);
     codeExamples: [
       {
         title: 'Basic Usage',
-        code: `import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger, Button } from '@sds/ui';
+        code: `import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger, Button } from '@sage/ui';
 
 <Sheet>
   <SheetTrigger asChild>
@@ -1506,7 +1506,7 @@ const [darkMode, setDarkMode] = useState(false);
     codeExamples: [
       {
         title: 'Basic Usage',
-        code: `import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@sds/ui';
+        code: `import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@sage/ui';
 
 <Table>
   <TableHeader>
@@ -1558,9 +1558,9 @@ const [darkMode, setDarkMode] = useState(false);
         code: `import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
-import { Button } from "@sds/ui"
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@sds/ui"
-import { Input } from "@sds/ui"
+import { Button } from "@sage/ui"
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@sage/ui"
+import { Input } from "@sage/ui"
 
 const formSchema = z.object({
   username: z.string().min(2, {
@@ -1635,7 +1635,7 @@ function ProfileForm() {
     codeExamples: [
       {
         title: 'Basic Data Table',
-        code: `import { DataTable } from "@sds/ui"
+        code: `import { DataTable } from "@sage/ui"
 import { ColumnDef } from "@tanstack/react-table"
 
 type Payment = {
@@ -1726,15 +1726,15 @@ export function PaymentsTable() {
     codeExamples: [
       {
         title: 'Basic Usage',
-        code: `import { Textarea } from "@sds/ui"
+        code: `import { Textarea } from "@sage/ui"
 
 <Textarea placeholder="Type your message here." />`,
         description: 'Simple textarea',
       },
       {
         title: 'With Label',
-        code: `import { Label } from "@sds/ui"
-import { Textarea } from "@sds/ui"
+        code: `import { Label } from "@sage/ui"
+import { Textarea } from "@sage/ui"
 
 <div className="grid w-full gap-1.5">
   <Label htmlFor="message">Your message</Label>
@@ -1801,14 +1801,14 @@ import { Textarea } from "@sds/ui"
     codeExamples: [
       {
         title: 'Basic Usage',
-        code: `import { Input } from "@sds/ui"
+        code: `import { Input } from "@sage/ui"
 
 <Input type="text" placeholder="Enter text..." />`,
         description: 'Simple text input',
       },
       {
         title: 'With Label',
-        code: `import { Input, Label } from "@sds/ui"
+        code: `import { Input, Label } from "@sage/ui"
 
 <div className="grid w-full max-w-sm items-center gap-1.5">
   <Label htmlFor="email">Email</Label>
@@ -1818,7 +1818,7 @@ import { Textarea } from "@sds/ui"
       },
       {
         title: 'Form Integration',
-        code: `import { Input, Label, Button } from "@sds/ui"
+        code: `import { Input, Label, Button } from "@sage/ui"
 
 <form className="space-y-4">
   <div className="grid w-full items-center gap-1.5">
@@ -1889,7 +1889,7 @@ import { Textarea } from "@sds/ui"
     codeExamples: [
       {
         title: 'Basic Usage',
-        code: `import { Label, Input } from "@sds/ui"
+        code: `import { Label, Input } from "@sage/ui"
 
 <div className="grid w-full items-center gap-1.5">
   <Label htmlFor="email">Email</Label>
@@ -1899,7 +1899,7 @@ import { Textarea } from "@sds/ui"
       },
       {
         title: 'With Checkbox',
-        code: `import { Label, Checkbox } from "@sds/ui"
+        code: `import { Label, Checkbox } from "@sage/ui"
 
 <div className="flex items-center space-x-2">
   <Checkbox id="terms" />
@@ -1909,7 +1909,7 @@ import { Textarea } from "@sds/ui"
       },
       {
         title: 'With Required Field',
-        code: `import { Label, Input } from "@sds/ui"
+        code: `import { Label, Input } from "@sage/ui"
 
 <div className="grid w-full items-center gap-1.5">
   <Label htmlFor="username">
@@ -1975,7 +1975,7 @@ import { Textarea } from "@sds/ui"
     codeExamples: [
       {
         title: 'Basic Usage',
-        code: `import { Combobox } from "@sds/ui"
+        code: `import { Combobox } from "@sage/ui"
 
 const frameworks = [
   { value: "react", label: "React" },
@@ -2033,7 +2033,7 @@ const frameworks = [
   CommandGroup,
   CommandItem,
   CommandSeparator,
-} from "@sds/ui"
+} from "@sage/ui"
 
 <Command className="rounded-lg border shadow-md">
   <CommandInput placeholder="Type a command..." />
@@ -2080,8 +2080,8 @@ const frameworks = [
     codeExamples: [
       {
         title: 'Basic Usage',
-        code: `import { Popover, PopoverContent, PopoverTrigger } from "@sds/ui"
-import { Button } from "@sds/ui"
+        code: `import { Popover, PopoverContent, PopoverTrigger } from "@sage/ui"
+import { Button } from "@sage/ui"
 
 <Popover>
   <PopoverTrigger asChild>
@@ -2142,7 +2142,7 @@ import { Button } from "@sds/ui"
     codeExamples: [
       {
         title: 'Basic Tabs',
-        code: `import { Tabs, TabsContent, TabsList, TabsTrigger } from "@sds/ui"
+        code: `import { Tabs, TabsContent, TabsList, TabsTrigger } from "@sage/ui"
 
 <Tabs defaultValue="account" className="w-[400px]">
   <TabsList>
@@ -2190,7 +2190,7 @@ import { Button } from "@sds/ui"
       {
         title: 'Setup',
         code: `// Add to your root layout
-import { Toaster } from "@sds/ui"
+import { Toaster } from "@sage/ui"
 
 export default function RootLayout({ children }) {
   return (
@@ -2268,7 +2268,7 @@ toast("Event created", {
     codeExamples: [
       {
         title: 'Basic Usage',
-        code: `import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@sds/ui"
+        code: `import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@sage/ui"
 
 <Accordion type="single" collapsible>
   <AccordionItem value="item-1">
@@ -2316,7 +2316,7 @@ toast("Event created", {
     codeExamples: [
       {
         title: 'Confirmation Dialog',
-        code: `import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@sds/ui"
+        code: `import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@sage/ui"
 
 <AlertDialog>
   <AlertDialogTrigger asChild>
@@ -2371,7 +2371,7 @@ toast("Event created", {
     codeExamples: [
       {
         title: 'Basic Usage',
-        code: `import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@sds/ui"
+        code: `import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@sage/ui"
 
 <Collapsible>
   <CollapsibleTrigger>Can I use this in my project?</CollapsibleTrigger>
@@ -2411,7 +2411,7 @@ toast("Event created", {
     codeExamples: [
       {
         title: 'Basic Usage',
-        code: `import { HoverCard, HoverCardContent, HoverCardTrigger } from "@sds/ui"
+        code: `import { HoverCard, HoverCardContent, HoverCardTrigger } from "@sage/ui"
 
 <HoverCard>
   <HoverCardTrigger>Hover me</HoverCardTrigger>
@@ -2450,7 +2450,7 @@ toast("Event created", {
     codeExamples: [
       {
         title: 'Basic Usage',
-        code: `import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@sds/ui"
+        code: `import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@sage/ui"
 
 <TooltipProvider>
   <Tooltip>
@@ -2486,7 +2486,7 @@ toast("Event created", {
     codeExamples: [
       {
         title: 'Basic Usage',
-        code: `import { Slider } from "@sds/ui"
+        code: `import { Slider } from "@sage/ui"
 
 <Slider defaultValue={[50]} max={100} step={1} />`,
         description: 'Range slider with default value',
@@ -2527,7 +2527,7 @@ toast("Event created", {
     codeExamples: [
       {
         title: 'Basic Usage',
-        code: `import { Toggle } from "@sds/ui"
+        code: `import { Toggle } from "@sage/ui"
 
 <Toggle aria-label="Toggle italic">
   Toggle
@@ -2570,7 +2570,7 @@ toast("Event created", {
     codeExamples: [
       {
         title: 'Basic Usage',
-        code: `import { ToggleGroup, ToggleGroupItem } from "@sds/ui"
+        code: `import { ToggleGroup, ToggleGroupItem } from "@sage/ui"
 
 <ToggleGroup type="single">
   <ToggleGroupItem value="a">A</ToggleGroupItem>
@@ -2603,7 +2603,7 @@ toast("Event created", {
     codeExamples: [
       {
         title: 'Image Container',
-        code: `import { AspectRatio } from "@sds/ui"
+        code: `import { AspectRatio } from "@sage/ui"
 
 <AspectRatio ratio={16 / 9}>
   <img src="/photo.jpg" alt="Photo" className="object-cover" />
@@ -2630,7 +2630,7 @@ toast("Event created", {
     codeExamples: [
       {
         title: 'Basic Usage',
-        code: `import { Progress } from "@sds/ui"
+        code: `import { Progress } from "@sage/ui"
 
 <Progress value={33} />`,
         description: 'Progress indicator',
@@ -2668,7 +2668,7 @@ toast("Event created", {
     codeExamples: [
       {
         title: 'Basic Usage',
-        code: `import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@sds/ui"
+        code: `import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@sage/ui"
 
 <Breadcrumb>
   <BreadcrumbList>
@@ -2714,7 +2714,7 @@ toast("Event created", {
     codeExamples: [
       {
         title: 'Basic Usage',
-        code: `import { ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuTrigger } from "@sds/ui"
+        code: `import { ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuTrigger } from "@sage/ui"
 
 <ContextMenu>
   <ContextMenuTrigger>Right click</ContextMenuTrigger>
@@ -2757,7 +2757,7 @@ toast("Event created", {
     codeExamples: [
       {
         title: 'Basic Usage',
-        code: `import { Menubar, MenubarContent, MenubarItem, MenubarMenu, MenubarTrigger } from "@sds/ui"
+        code: `import { Menubar, MenubarContent, MenubarItem, MenubarMenu, MenubarTrigger } from "@sage/ui"
 
 <Menubar>
   <MenubarMenu>
@@ -2802,7 +2802,7 @@ toast("Event created", {
     codeExamples: [
       {
         title: 'Basic Usage',
-        code: `import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger } from "@sds/ui"
+        code: `import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger } from "@sage/ui"
 
 <NavigationMenu>
   <NavigationMenuList>
@@ -2855,7 +2855,7 @@ toast("Event created", {
     codeExamples: [
       {
         title: 'Basic Usage',
-        code: `import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@sds/ui"
+        code: `import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@sage/ui"
 
 <Pagination>
   <PaginationContent>
@@ -2909,7 +2909,7 @@ toast("Event created", {
     codeExamples: [
       {
         title: 'Basic Usage',
-        code: `import { Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerFooter, DrawerHeader, DrawerTitle, DrawerTrigger } from "@sds/ui"
+        code: `import { Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerFooter, DrawerHeader, DrawerTitle, DrawerTrigger } from "@sage/ui"
 
 <Drawer>
   <DrawerTrigger>Open</DrawerTrigger>
@@ -2974,7 +2974,7 @@ toast("Event created", {
     codeExamples: [
       {
         title: 'Basic Usage',
-        code: `import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@sds/ui"
+        code: `import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@sage/ui"
 
 <Carousel>
   <CarouselContent>
@@ -3012,7 +3012,7 @@ toast("Event created", {
     codeExamples: [
       {
         title: 'Basic Usage',
-        code: `import { Calendar } from "@sds/ui"
+        code: `import { Calendar } from "@sage/ui"
 import { useState } from "react"
 
 const [date, setDate] = useState<Date | undefined>(new Date())
@@ -3053,7 +3053,7 @@ const [date, setDate] = useState<Date | undefined>(new Date())
     codeExamples: [
       {
         title: 'Basic Usage',
-        code: `import { DatePicker } from "@sds/ui"
+        code: `import { DatePicker } from "@sage/ui"
 
 <DatePicker
   date={date}
@@ -3096,7 +3096,7 @@ const [date, setDate] = useState<Date | undefined>(new Date())
     codeExamples: [
       {
         title: 'Basic Usage',
-        code: `import { InputOTP, InputOTPGroup, InputOTPSlot } from "@sds/ui"
+        code: `import { InputOTP, InputOTPGroup, InputOTPSlot } from "@sage/ui"
 
 <InputOTP maxLength={6}>
   <InputOTPGroup>
@@ -3149,7 +3149,7 @@ const [date, setDate] = useState<Date | undefined>(new Date())
     codeExamples: [
       {
         title: 'Basic Usage',
-        code: `import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "@sds/ui"
+        code: `import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "@sage/ui"
 
 <ResizablePanelGroup direction="horizontal">
   <ResizablePanel defaultSize={50}>
@@ -3197,7 +3197,7 @@ const [date, setDate] = useState<Date | undefined>(new Date())
     codeExamples: [
       {
         title: 'Basic Usage',
-        code: `import { InputOTP, InputOTPGroup, InputOTPSlot } from "@sds/ui"
+        code: `import { InputOTP, InputOTPGroup, InputOTPSlot } from "@sage/ui"
 
 <InputOTP maxLength={6}>
   <InputOTPGroup>
@@ -3251,7 +3251,7 @@ const [date, setDate] = useState<Date | undefined>(new Date())
     codeExamples: [
       {
         title: 'Basic Usage',
-        code: `import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "@sds/ui"
+        code: `import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "@sage/ui"
 
 <ResizablePanelGroup direction="horizontal">
   <ResizablePanel defaultSize={50}>

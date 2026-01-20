@@ -1,6 +1,6 @@
 'use client';
 
-import { Card, Code, CollapsibleCodeBlock, Breadcrumbs, type BreadcrumbItemLegacy } from '@sds/ui';
+import { Card, Code, CollapsibleCodeBlock, Breadcrumbs, type BreadcrumbItemLegacy } from '@sage/ui';
 import { CheckCircle, XCircle, AlertOctagon, AlertTriangle } from 'lucide-react';
 
 interface AddingComponentsSectionProps {
@@ -108,7 +108,7 @@ export * from './components/[category]/ComponentName';`} defaultCollapsed={false
                     <p className="text-sm text-[var(--color-text-secondary)] mb-2">
                       You MUST rebuild the package for the Studio app to see the new component. The Studio consumes the <i>built</i> version of the library, not the raw source.
                     </p>
-                    <CollapsibleCodeBlock id="meth-3" code="pnpm --filter @sds/ui build" defaultCollapsed={false} showCopy={true} />
+                    <CollapsibleCodeBlock id="meth-3" code="pnpm --filter @sage/ui build" defaultCollapsed={false} showCopy={true} />
                   </div>
                 </li>
 
@@ -226,7 +226,7 @@ export { ComponentName } from './components/ComponentName';`} defaultCollapsed={
                   <span className="flex-shrink-0 w-6 h-6 rounded-full bg-[var(--color-primary)] text-[var(--color-primary-foreground)] flex items-center justify-center text-sm font-semibold">5</span>
                   <div className="flex-1 min-w-0">
                     <h3 className="font-semibold mb-2 text-[var(--color-text-primary)]">Build the package</h3>
-                    <CollapsibleCodeBlock id="add-comp-5" code="pnpm --filter @sds/ui build" defaultCollapsed={false} showCopy={true} />
+                    <CollapsibleCodeBlock id="add-comp-5" code="pnpm --filter @sage/ui build" defaultCollapsed={false} showCopy={true} />
                   </div>
                 </li>
 
@@ -268,7 +268,7 @@ export { ComponentName } from './components/ComponentName';`} defaultCollapsed={
                 <p className="text-sm text-[var(--color-text-primary)] mb-2">
                   <strong>Quick tip:</strong> When adding a component, choose its category based on its primary purpose
                 </p>
-                <CollapsibleCodeBlock id="add-comp-7" code={`import { Input, Button } from '@sds/ui';
+                <CollapsibleCodeBlock id="add-comp-7" code={`import { Input, Button } from '@sage/ui';
 
 export function SearchBar() {
   return (
@@ -335,7 +335,7 @@ export function SearchBar() {
                   <span className="flex-shrink-0 w-6 h-6 rounded-full bg-[var(--color-primary)] text-[var(--color-primary-foreground)] flex items-center justify-center text-sm font-semibold">5</span>
                   <div className="flex-1">
                     <h3 className="font-semibold mb-2 text-[var(--color-text-primary)]">Rebuild package</h3>
-                    <CollapsibleCodeBlock id="add-comp-8" code="pnpm --filter @sds/ui build" defaultCollapsed={false} showCopy={true} />
+                    <CollapsibleCodeBlock id="add-comp-8" code="pnpm --filter @sage/ui build" defaultCollapsed={false} showCopy={true} />
                   </div>
                 </li>
               </ol>
@@ -403,7 +403,7 @@ export const colors: ColorTokens = {
                   <span className="flex-shrink-0 w-6 h-6 rounded-full bg-[var(--color-primary)] text-[var(--color-primary-foreground)] flex items-center justify-center text-sm font-semibold">5</span>
                   <div className="flex-1">
                     <h3 className="font-semibold mb-2 text-[var(--color-text-primary)]">Rebuild package</h3>
-                    <CollapsibleCodeBlock id="add-comp-12" code="pnpm --filter @sds/tokens build" defaultCollapsed={false} showCopy={true} />
+                    <CollapsibleCodeBlock id="add-comp-12" code="pnpm --filter @sage/tokens build" defaultCollapsed={false} showCopy={true} />
                   </div>
                 </li>
               </ol>
@@ -642,7 +642,7 @@ ELIFECYCLE Command failed with exit code 1.`}
                     </li>
                     <li className="flex items-start gap-2">
                       <span className="text-[var(--color-primary)] font-bold">3.</span>
-                      <span>Builds <Code syntax="plain">@sds/ui</Code> first (runs tsup to generate dist files)</span>
+                      <span>Builds <Code syntax="plain">@sage/ui</Code> first (runs tsup to generate dist files)</span>
                     </li>
                     <li className="flex items-start gap-2">
                       <span className="text-[var(--color-primary)] font-bold">4.</span>
@@ -684,7 +684,7 @@ ELIFECYCLE Command failed with exit code 1.`}
                   <h4 className="font-semibold mb-2 text-[var(--color-text-primary)]">Problem</h4>
                   <ul className="list-disc list-inside text-sm text-[var(--color-text-secondary)] space-y-1">
                     <li>Build fails immediately on Vercel but works locally.</li>
-                    <li>Error: <Code syntax="plain">Module not found: Can't resolve '@sds/tokens'</Code> (or similar workspace package).</li>
+                    <li>Error: <Code syntax="plain">Module not found: Can't resolve '@sage/tokens'</Code> (or similar workspace package).</li>
                   </ul>
                 </div>
 
@@ -752,7 +752,7 @@ ELIFECYCLE Command failed with exit code 1.`}
                         <li>Component source: <Code syntax="plain">packages/ui/src/components/[category]/Component.tsx</Code></li>
                         <li>Built to: <Code syntax="plain">packages/ui/dist/index.mjs</Code> (via tsup)</li>
                         <li>Exported by: <Code syntax="plain">packages/ui/package.json</Code> exports field</li>
-                        <li>Imported by: <Code syntax="plain">component-registry.tsx</Code> from '@sds/ui'</li>
+                        <li>Imported by: <Code syntax="plain">component-registry.tsx</Code> from '@sage/ui'</li>
                         <li>Rendered in: Studio app examples</li>
                       </ol>
                     </div>
@@ -772,7 +772,7 @@ ELIFECYCLE Command failed with exit code 1.`}
                       </li>
                       <li className="flex items-start gap-2">
                         <span className="text-[var(--color-primary)] font-bold">3.</span>
-                        <span>Verify examples import correctly: Check component-registry.tsx imports from '@sds/ui'</span>
+                        <span>Verify examples import correctly: Check component-registry.tsx imports from '@sage/ui'</span>
                       </li>
                       <li className="flex items-start gap-2">
                         <span className="text-[var(--color-primary)] font-bold">4.</span>
@@ -821,7 +821,7 @@ ELIFECYCLE Command failed with exit code 1.`}
                       </li>
                       <li className="flex items-start gap-2">
                         <span className="text-[var(--color-primary)] font-bold">3.</span>
-                        <span>Build locally to verify: <Code syntax="plain">pnpm build --filter=@sds/ui</Code></span>
+                        <span>Build locally to verify: <Code syntax="plain">pnpm build --filter=@sage/ui</Code></span>
                       </li>
                       <li className="flex items-start gap-2">
                         <span className="text-[var(--color-primary)] font-bold">4.</span>

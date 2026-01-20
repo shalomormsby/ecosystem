@@ -1,5 +1,5 @@
-import { Button } from '@sds/ui';
-import { Dropdown, Tooltip, ThemeToggle, ThemeSwitcher, FormField, SearchBar, RadioGroup, Breadcrumbs } from '@sds/ui';
+import { Button } from '@sage/ui';
+import { Dropdown, Tooltip, ThemeToggle, ThemeSwitcher, FormField, SearchBar, RadioGroup, Breadcrumbs } from '@sage/ui';
 import type { ComponentConfig } from './component-registry';
 
 export const moleculeRegistry: Record<string, ComponentConfig> = {
@@ -102,7 +102,7 @@ export const moleculeRegistry: Record<string, ComponentConfig> = {
     codeExamples: [
       {
         title: 'Basic Usage',
-        code: `import { Breadcrumbs } from '@sds/ui';
+        code: `import { Breadcrumbs } from '@sage/ui';
 
 <Breadcrumbs
   items={[
@@ -214,7 +214,7 @@ const items: BreadcrumbItem[] = [
     codeExamples: [
       {
         title: 'Basic Usage',
-        code: `import { Dropdown, Button } from '@sds/ui';
+        code: `import { Dropdown, Button } from '@sage/ui';
 
 <Dropdown
   trigger={<Button variant="secondary">Options</Button>}
@@ -345,7 +345,7 @@ const menuItems: DropdownItem[] = [
     codeExamples: [
       {
         title: 'Basic Usage',
-        code: `import { Tooltip, Button } from '@sds/ui';
+        code: `import { Tooltip, Button } from '@sage/ui';
 
 <Tooltip content="Click to save your changes" position="top">
   <Button variant="default">Save</Button>
@@ -423,7 +423,7 @@ const menuItems: DropdownItem[] = [
     codeExamples: [
       {
         title: 'Basic Theme Toggle',
-        code: `import { ThemeToggle } from '@sds/ui';
+        code: `import { ThemeToggle } from '@sage/ui';
 
 <ThemeToggle />`,
         description: 'Simple icon-only theme switcher',
@@ -486,14 +486,14 @@ const menuItems: DropdownItem[] = [
     codeExamples: [
       {
         title: 'Basic Usage',
-        code: `import { ThemeSwitcher } from '@sds/ui';
+        code: `import { ThemeSwitcher } from '@sage/ui';
 
 <ThemeSwitcher />`,
         description: 'Simple theme switcher with expandable options',
       },
       {
         title: 'Expanded by Default',
-        code: `import { ThemeSwitcher } from '@sds/ui';
+        code: `import { ThemeSwitcher } from '@sage/ui';
 
 <ThemeSwitcher defaultExpanded />`,
         description: 'Theme switcher with options panel open by default',
@@ -571,7 +571,7 @@ const menuItems: DropdownItem[] = [
     codeExamples: [
       {
         title: 'Basic Form Field',
-        code: `import { FormField } from '@sds/ui';
+        code: `import { FormField } from '@sage/ui';
 
 <FormField label="Email Address" htmlFor="email">
   <input
@@ -683,7 +683,7 @@ const menuItems: DropdownItem[] = [
     codeExamples: [
       {
         title: 'Basic Search',
-        code: `import { SearchBar } from '@sds/ui';
+        code: `import { SearchBar } from '@sage/ui';
 
 const [results, setResults] = useState([]);
 
@@ -810,7 +810,7 @@ const [results, setResults] = useState([]);
     codeExamples: [
       {
         title: 'Subscription Plan Selector',
-        code: `import { RadioGroup } from '@sds/ui';
+        code: `import { RadioGroup } from '@sage/ui';
 
 const [plan, setPlan] = useState('pro');
 

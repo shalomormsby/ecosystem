@@ -1,6 +1,6 @@
 'use client';
 
-import { CollapsibleCodeBlock } from '@sds/ui';
+import { CollapsibleCodeBlock } from '@sage/ui';
 
 interface CodeSnippetProps {
   code: string;

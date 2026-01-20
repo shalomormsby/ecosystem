@@ -1,9 +1,9 @@
 'use client';
 
 import { useState } from 'react';
-import { Card, Button } from '@sds/ui';
-import { Code, CollapsibleCodeBlock } from '@sds/ui';
-import { useTheme } from '@sds/ui/hooks';
+import { Card, Button } from '@sage/ui';
+import { Code, CollapsibleCodeBlock } from '@sage/ui';
+import { useTheme } from '@sage/ui/hooks';
 import {
   Sliders, Building2, Leaf, Zap, Sun, Moon, Laptop, Palette, Bot, BookOpen,
   Construction, XCircle, CheckCircle, Heart, Search, Sprout, Check
@@ -432,7 +432,7 @@ export function OverviewSection() {
               <div>
                 <CollapsibleCodeBlock
                   id="syntax-parser-demo"
-                  code={`import { parseCode } from '@sds/ui';
+                  code={`import { parseCode } from '@sage/ui';
 
 const code = \`function hello() {
   return "world";
@@ -475,7 +475,7 @@ const tokens = parseCode(code, 'typescript');
               <div>
                 <CollapsibleCodeBlock
                   id="motion-control-demo"
-                  code={`import { useMotion } from '@sds/ui';
+                  code={`import { useMotion } from '@sage/ui';
 
 export function MyComponent() {
   const { motionLevel, setMotionLevel } = useMotion();
@@ -558,7 +558,7 @@ export function MyComponent() {
 
               <CollapsibleCodeBlock
                 id="theme-switching-demo"
-                code={`import { useTheme } from '@sds/ui';
+                code={`import { useTheme } from '@sage/ui';
 
 export function ThemeSwitcher() {
   const { theme, setTheme, mode, setMode } = useTheme();
@@ -778,14 +778,14 @@ export function ThemeSwitcher() {
           </div>
           <CollapsibleCodeBlock
             id="tokens-example"
-            code={`import { colorTokens, spacingTokens } from '@sds/ui/tokens';
+            code={`import { colorTokens, spacingTokens } from '@sage/ui/tokens';
 
 // Tokens are available for reference
 const primaryColor = colorTokens.studio.light.primary;
 const spacing = spacingTokens.lg; // "1.5rem" (24px)
 
 // But consumed through components:
-import { Button, Text } from '@sds/ui';
+import { Button, Text } from '@sage/ui';
 <Button variant="default">Click me</Button>  // ✅ Correct
 <Text>Hello</Text>                           // ✅ Correct
 
@@ -848,7 +848,7 @@ import { Button, Text } from '@sds/ui';
             id="file-structure"
             code={`ecosystem/
 ├── packages/
-│   ├── ui/                      # @sds/ui - Component library
+│   ├── ui/                      # @sage/ui - Component library
 │   │   └── src/
 │   │       ├── components/
 │   │       │   ├── actions/     # Button, Toggle, ToggleGroup
@@ -861,7 +861,7 @@ import { Button, Text } from '@sds/ui';
 │   │       ├── lib/             # Utilities, validation, animations, stores
 │   │       ├── hooks/           # useTheme, useMotionPreference, useForm
 │   │       └── providers/       # ThemeProvider
-│   └── tokens/                  # @sds/tokens - Design system tokens
+│   └── tokens/                  # @sage/tokens - Design system tokens
 │
 └── apps/
     ├── sage-design-studio/      # This documentation site
@@ -892,11 +892,11 @@ import { Button, Text } from '@sds/ui';
                 </h3>
                 <CollapsibleCodeBlock
                   id="installation"
-                  code={`pnpm add @sds/ui
+                  code={`pnpm add @sage/ui
 # or
-npm install @sds/ui
+npm install @sage/ui
 # or
-yarn add @sds/ui`}
+yarn add @sage/ui`}
                   defaultCollapsed={false}
                   showCopy={true}
                 />
@@ -916,7 +916,7 @@ yarn add @sds/ui`}
                 </h3>
                 <CollapsibleCodeBlock
                   id="basic-usage-example"
-                  code={`import { Button, Card, Badge } from '@sds/ui';
+                  code={`import { Button, Card, Badge } from '@sage/ui';
 
 export function MyComponent() {
   return (
@@ -948,7 +948,7 @@ export function MyComponent() {
                 </h3>
                 <CollapsibleCodeBlock
                   id="theme-provider-example"
-                  code={`import { ThemeProvider } from '@sds/ui/providers';
+                  code={`import { ThemeProvider } from '@sage/ui/providers';
 
 export default function App({ children }) {
   return (
@@ -976,7 +976,7 @@ export default function App({ children }) {
                 </h3>
                 <CollapsibleCodeBlock
                   id="hooks-example"
-                  code={`import { useTheme, useMotionPreference } from '@sds/ui/hooks';
+                  code={`import { useTheme, useMotionPreference } from '@sage/ui/hooks';
 
 export function Controls() {
   const { theme, setTheme, mode, setMode } = useTheme();

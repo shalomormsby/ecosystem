@@ -1,6 +1,6 @@
 'use client';
 
-import { Card, Motion } from '@sds/ui';
+import { Card, Motion } from '@sage/ui';
 import { useRouter } from 'next/navigation';
 const { SplashCursor } = Motion;
 

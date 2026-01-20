@@ -1,7 +1,7 @@
 'use client';
 
-import { Card } from '@sds/ui';
-import { Code, CollapsibleCodeBlock, Breadcrumbs, type BreadcrumbItemLegacy } from '@sds/ui';
+import { Card } from '@sage/ui';
+import { Code, CollapsibleCodeBlock, Breadcrumbs, type BreadcrumbItemLegacy } from '@sage/ui';
 import { CheckCircle, XCircle } from 'lucide-react';
 
 interface CommonPatternsSectionProps {
@@ -54,7 +54,7 @@ export function CommonPatternsSection({ breadcrumbs }: CommonPatternsSectionProp
           </h3>
           <CollapsibleCodeBlock
             id="pattern-code-correct"
-            code={`import { CollapsibleCodeBlock } from '@sds/ui';
+            code={`import { CollapsibleCodeBlock } from '@sage/ui';
 
 // [Recommended]: Automatic syntax highlighting
 <CollapsibleCodeBlock
@@ -74,7 +74,7 @@ console.log(greeting);\`}
           </h3>
           <CollapsibleCodeBlock
             id="pattern-code-wrong"
-            code={`import { Code } from '@sds/ui';
+            code={`import { Code } from '@sage/ui';
 
 // [Avoid]: Single-color text, no syntax highlighting
 <Code inline={false}>{\`const greeting = "Hello World";
@@ -161,7 +161,7 @@ console.log(greeting);\`}</Code>`}
           <h3 className="font-semibold mb-3 text-[var(--color-text-primary)]">
             Components that adapt to the current theme
           </h3>
-          <CollapsibleCodeBlock id="pattern-2" code={`import { useTheme } from '@sds/ui';
+          <CollapsibleCodeBlock id="pattern-2" code={`import { useTheme } from '@sage/ui';
 
 export function ThemedCard() {
   const { theme } = useTheme();
@@ -193,7 +193,7 @@ export function ThemedCard() {
             Using useMotionPreference hook with Framer Motion
           </h3>
           <CollapsibleCodeBlock id="pattern-3" code={`import { motion } from 'framer-motion';
-import { useMotionPreference } from '@sds/ui';
+import { useMotionPreference } from '@sage/ui';
 
 export function AnimatedCard() {
   const shouldReduceMotion = useMotionPreference();
@@ -262,7 +262,7 @@ export function AnimatedCard() {
           <h3 className="font-semibold mb-3 text-[var(--color-text-primary)]">
             Building a SearchBar from Input and Button components
           </h3>
-          <CollapsibleCodeBlock id="pattern-5" code={`import { Input, Button } from '@sds/ui';
+          <CollapsibleCodeBlock id="pattern-5" code={`import { Input, Button } from '@sage/ui';
 
 interface SearchBarProps {
   placeholder?: string;
@@ -303,7 +303,7 @@ export function SearchBar({ placeholder, onSearch }: SearchBarProps) {
           <h3 className="font-semibold mb-3 text-[var(--color-text-primary)]">
             Using the useForm hook for form validation
           </h3>
-          <CollapsibleCodeBlock id="pattern-6" code={`import { useForm, TextField, Button } from '@sds/ui';
+          <CollapsibleCodeBlock id="pattern-6" code={`import { useForm, TextField, Button } from '@sage/ui';
 
 export function LoginForm() {
   const { values, errors, handleChange, handleSubmit } = useForm({
@@ -355,7 +355,7 @@ export function LoginForm() {
           <h3 className="font-semibold mb-3 text-[var(--color-text-primary)]">
             Using the useToast hook for notifications
           </h3>
-          <CollapsibleCodeBlock id="pattern-7" code={`import { useToast, Button, ToastProvider } from '@sds/ui';
+          <CollapsibleCodeBlock id="pattern-7" code={`import { useToast, Button, ToastProvider } from '@sage/ui';
 
 function MyComponent() {
   const { toast } = useToast();
@@ -397,7 +397,7 @@ export function App() {
             Using the Modal component with state management
           </h3>
           <CollapsibleCodeBlock id="pattern-8" code={`import { useState } from 'react';
-import { Modal, Button } from '@sds/ui';
+import { Modal, Button } from '@sage/ui';
 
 export function ConfirmDialog() {
   const [isOpen, setIsOpen] = useState(false);

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Card } from '@sds/ui';
+import { Card } from '@sage/ui';
 import type { ComponentConfig } from '../../lib/component-registry';
 import { CodeSnippet } from './CodeSnippet';
 import { JsonLdMetadata } from '../../JsonLdMetadata';
@@ -31,8 +31,8 @@ export function EnhancedComponentPlayground({ componentName, config }: Component
   const installCommand = designSystemComponents.includes(componentName)
     ? `# Install @ecosystem/design-system to use ${componentName}
 pnpm add @ecosystem/design-system`
-    : `# Install @sds/ui to use ${componentName}
-pnpm add @sds/ui`;
+    : `# Install @sage/ui to use ${componentName}
+pnpm add @sage/ui`;
 
   // Generate import statement
   const generateImportStatement = () => {
@@ -45,7 +45,7 @@ pnpm add @sds/ui`;
 
     const packageName = designSystemComponents.includes(componentName)
       ? '@ecosystem/design-system'
-      : '@sds/ui';
+      : '@sage/ui';
 
     return `import { ${relatedExports.join(', ')} } from '${packageName}';`;
   };

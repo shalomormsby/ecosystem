@@ -1,5 +1,5 @@
 {
-  "name": "@sds/config",
+  "name": "@sage/config",
   "version": "0.0.1",
   "main": "index.js",
   "exports": {

@@ -23,7 +23,7 @@ This document tracks planned improvements and enhancements to the Sage Design Sy
 ### Phase 2: Package Migration (Careful Execution)
 *Goal: Rename packages to align with new brand. Proposed Naming: `@sage/*` or `@sage-ui/*`.*
 
-- [ ] **Package Renaming**:
+- [x] **Package Renaming**:
     - `@sds/ui` -> `@sage/ui` (The Primitives)
     - `@sds/tokens` -> `@sage/tokens`
     - `@sds/mcp-server` -> `@sage/mcp`
@@ -31,11 +31,11 @@ This document tracks planned improvements and enhancements to the Sage Design Sy
     - `@sage/hooks` (New utility belt)
     - `@sage/charts` (Recharts wrapper)
     - `@sage/templates` (Future Tier 3)
-- [ ] **Refactor Consumers**:
+- [x] **Refactor Consumers**:
     - Update imports in `apps/sage-design-studio`
     - Update imports in `apps/portfolio`
     - Update imports in `apps/ecosystem-creative-powerup`
-- [ ] **Infrastructure**:
+- [x] **Infrastructure**:
     - Update `tsconfig.json` paths.
     - Update `turbo.json` pipeline configuration.
 

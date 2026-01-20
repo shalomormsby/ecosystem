@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { Button } from '@sds/ui';
+import { Button } from '@sage/ui';
 
 export default function NotFound() {
   return (

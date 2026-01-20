@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { ThemeSwitcher } from '@sds/ui';
+import { ThemeSwitcher } from '@sage/ui';
 
 /**
  * Mode switcher for the design system documentation

@@ -1,9 +1,9 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Card, Button, Badge, Code, CollapsibleCodeBlock } from '@sds/ui';
-import { TextField, TertiaryNav, Breadcrumbs, type BreadcrumbItemLegacy } from '@sds/ui';
-import { useForm, useTheme, useToast } from '@sds/ui';
+import { Card, Button, Badge, Code, CollapsibleCodeBlock } from '@sage/ui';
+import { TextField, TertiaryNav, Breadcrumbs, type BreadcrumbItemLegacy } from '@sage/ui';
+import { useForm, useTheme, useToast } from '@sage/ui';
 
 interface HooksSectionProps {
   activeItemId?: string;
@@ -164,7 +164,7 @@ export function HooksSection({ activeItemId, breadcrumbs, onItemChange }: HooksS
                 <Card className="p-6">
                   <h5 className="font-medium text-[var(--color-text-primary)] mb-3">Built-in Patterns</h5>
                   <p className="text-sm text-[var(--color-text-secondary)] mb-4">
-                    Import from <Code syntax="plain" className="">@sds/ui/utils</Code>
+                    Import from <Code syntax="plain" className="">@sage/ui/utils</Code>
                   </p>
                   <div className="space-y-2 text-sm">
                     <div className="flex justify-between items-center">
@@ -230,7 +230,7 @@ export function HooksSection({ activeItemId, breadcrumbs, onItemChange }: HooksS
                     id="hook-1"
                     title="validateField()"
                     language="typescript"
-                    code={`import { validateField, patterns } from '@sds/ui/utils';
+                    code={`import { validateField, patterns } from '@sage/ui/utils';
  
  const emailError = validateField('invalid-email', {
    required: true,
@@ -257,7 +257,7 @@ export function HooksSection({ activeItemId, breadcrumbs, onItemChange }: HooksS
                     id="hook-2"
                     title="validateForm()"
                     language="typescript"
-                    code={`import { validateForm, patterns } from '@sds/ui/utils';
+                    code={`import { validateForm, patterns } from '@sage/ui/utils';
  
  const values = {
    email: 'invalid-email',
@@ -298,7 +298,7 @@ export function HooksSection({ activeItemId, breadcrumbs, onItemChange }: HooksS
                   id="hook-3"
                   title="useForm Example"
                   language="typescript"
-                  code={`import { useForm, patterns } from '@sds/ui';
+                  code={`import { useForm, patterns } from '@sage/ui';
  
  function LoginForm() {
    const form = useForm({
@@ -505,7 +505,7 @@ function UseThemeSection() {
             id="hook-4"
             title="useTheme Example"
             language="typescript"
-            code={`import { useTheme } from '@sds/ui';
+            code={`import { useTheme } from '@sage/ui';
  
  function ThemeControls() {
    const { theme, mode, setTheme, setMode } = useTheme();
@@ -584,7 +584,7 @@ function UseToastSection() {
             id="hook-5"
             title="useToast Example"
             language="typescript"
-            code={`import { useToast } from '@sds/ui';
+            code={`import { useToast } from '@sage/ui';
  
  function MyComponent() {
    const { toast } = useToast();
@@ -641,7 +641,7 @@ function UseMotionPreferenceSection() {
             id="hook-6"
             title="Motion Preference Example"
             language="typescript"
-            code={`import { useMotionPreference } from '@sds/ui';
+            code={`import { useMotionPreference } from '@sage/ui';
  import { motion } from 'framer-motion';
  
  function AnimatedComponent() {
@@ -667,14 +667,14 @@ function UseMotionPreferenceSection() {
         </h4>
         <Card className="p-6">
           <p className="text-sm text-[var(--color-text-secondary)] mb-4">
-            Combine with animation utilities from <Code syntax="plain" className="">@sds/ui/utils</Code> for motion-aware animations:
+            Combine with animation utilities from <Code syntax="plain" className="">@sage/ui/utils</Code> for motion-aware animations:
           </p>
           <CollapsibleCodeBlock
             id="hook-7"
             title="Animation Presets Example"
             language="typescript"
-            code={`import { useMotionPreference } from '@sds/ui';
- import { presets, scaleDuration } from '@sds/ui/utils';
+            code={`import { useMotionPreference } from '@sage/ui';
+ import { presets, scaleDuration } from '@sage/ui/utils';
  import { motion } from 'framer-motion';
  
  function Card() {

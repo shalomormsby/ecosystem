@@ -1310,7 +1310,7 @@ function AnimatedComponent() {
 
 // 1. Imports (external, then internal, then types)
 import { motion } from 'framer-motion'
-import { cn } from '@ecosystem/utils'
+import { cn } from '@sage/utils'
 import type { ComponentNameProps } from './ComponentName.types'
 
 // 2. Types (if not in separate file)

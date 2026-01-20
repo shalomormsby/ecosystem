@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { TertiaryNav, Breadcrumbs, type BreadcrumbItemLegacy } from '@sds/ui';
+import { TertiaryNav, Breadcrumbs, type BreadcrumbItemLegacy } from '@sage/ui';
 import { ColorsTab } from './ColorsTab';
 import { TypographyTab } from './TypographyTab';
 import { SpacingTab } from './SpacingTab';

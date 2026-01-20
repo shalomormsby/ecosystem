@@ -88,7 +88,7 @@ ecosystem/
 │   │   └── app/components/lib/component-registry.tsx # Source of Truth for Docs Nav
 │   └── mobile/              # (Archived) Do not edit.
 ├── packages/
-│   ├── tokens/              # (@sds/tokens) Design tokens (studio.ts)
+│   ├── tokens/              # (@sage/tokens) Design tokens (studio.ts)
 │   ├── ui/                  # (@sds/ui) The Product. src/components/*.tsx
 │   ├── config/              # Shared configurations (tailwind).
 │   └── core/                # (@sds/core) Shared Logic (hooks/utils).

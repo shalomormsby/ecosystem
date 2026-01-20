@@ -53,7 +53,7 @@ ecosystem/
 │   │       ├── lib/
 │   │       ├── hooks/
 │   │       └── providers/
-│   └── tokens/                  # @sds/tokens - Design system tokens
+│   └── tokens/                  # @sage/tokens - Design system tokens
 └── apps/
     └── sage-design-studio/      # Documentation & playground
 ```
@@ -75,7 +75,7 @@ ecosystem/
 pnpm add @ecosystem/design-system
 
 // SHOULD BE:
-pnpm add @sds/ui @sds/tokens
+pnpm add @sds/ui @sage/tokens
 ```
 
 **Basic Usage (Lines ~905-918):**
@@ -133,7 +133,7 @@ ecosystem/
 │   │       ├── lib/utils.ts
 │   │       ├── hooks/
 │   │       └── providers/
-│   └── tokens/                 # @sds/tokens - Design system tokens
+│   └── tokens/                 # @sage/tokens - Design system tokens
 ```
 
 **External Links (Multiple locations):**
@@ -658,7 +658,7 @@ Before updating code examples, verify these components exist in `@sds/ui`:
 
 Documentation updates are **COMPLETE** when:
 
-✅ All code examples use `@sds/ui` and `@sds/tokens`
+✅ All code examples use `@sds/ui` and `@sage/tokens`
 ✅ All file paths show functional categories (actions/forms/navigation/etc.)
 ✅ Architecture section explains functional organization, not atomic design
 ✅ Build commands reference `@sds/ui` not `@ecosystem/design-system`

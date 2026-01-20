@@ -32,7 +32,7 @@ ecosystem/
 │   ├── sage-design-studio/  # The Documentation & Dev Environment (Next.js)
 │   └── mobile/              # (Archived) Do not edit.
 ├── packages/
-│   ├── tokens/              # (@sds/tokens) JSON/TS design definitions (Colors, Type).
+│   ├── tokens/              # (@sage/tokens) JSON/TS design definitions (Colors, Type).
 │   ├── ui/                  # (@sds/ui) The Product. Reusable React Components.
 │   ├── config/              # Shared configurations.
 │   └── core/                # (@sds/core) Shared Logic/Hooks (Future home of ThemeProvider).
@@ -66,7 +66,7 @@ check `apps/sage-design-studio/app/universal/page.tsx` to see migrated component
 **Goal:** Introduce the elements that make an app feel "expensive."
 - [ ] **Framer Motion:** Add layout animations (AnimatePresence) to `Toast` and `Dialog`.
 - [ ] **Complex Atoms:** `Dialog` (Modal), `Sheet` (Slide-over), `DropdownMenu`, `Tooltip`.
-- [ ] **Micro-interactions:** Hover states, specific easings in `@sds/tokens`.
+- [ ] **Micro-interactions:** Hover states, specific easings in `@sage/tokens`.
 
 ### Phase 4: Consumption Verification
 **Goal:** Build a real app `apps/portfolio` using *only* `@sds/ui`.

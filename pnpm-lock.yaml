@@ -14,7 +14,7 @@ importers:
 
   apps/creative-powerup:
     dependencies:
-      '@sds/ui':
+      '@sage/ui':
         specifier: workspace:*
         version: link:../../packages/ui
       '@vercel/analytics':
@@ -36,7 +36,7 @@ importers:
         specifier: ^5.0.9
         version: 5.0.9(@types/react@19.2.7)(react@19.2.3)(use-sync-external-store@1.6.0(react@19.2.3))
     devDependencies:
-      '@sds/config':
+      '@sage/config':
         specifier: workspace:*
         version: link:../../packages/config
       '@types/node':
@@ -75,13 +75,13 @@ importers:
       '@rn-primitives/slot':
         specifier: ^1.2.0
         version: 1.2.0(react-native-web@0.19.13(react-dom@19.2.3(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0)
-      '@sds/config':
+      '@sage/config':
         specifier: workspace:*
         version: link:../../packages/config
-      '@sds/tokens':
+      '@sage/tokens':
         specifier: workspace:*
         version: link:../../packages/tokens
-      '@sds/ui':
+      '@sage/ui':
         specifier: workspace:*
         version: link:../../packages/ui
       class-variance-authority:
@@ -157,7 +157,7 @@ importers:
       '@next/mdx':
         specifier: ^16.0.10
         version: 16.1.0(@mdx-js/loader@3.1.1)(@mdx-js/react@3.1.1(@types/react@19.2.7)(react@19.2.3))
-      '@sds/ui':
+      '@sage/ui':
         specifier: workspace:*
         version: link:../../packages/ui
       '@vercel/analytics':
@@ -224,10 +224,10 @@ importers:
 
   apps/sage-design-studio:
     dependencies:
-      '@sds/core':
+      '@sage/core':
         specifier: workspace:*
         version: link:../../packages/core
-      '@sds/ui':
+      '@sage/ui':
         specifier: workspace:*
         version: link:../../packages/ui
       '@vercel/analytics':
@@ -264,7 +264,7 @@ importers:
         specifier: ^3.4.0
         version: 3.4.0
     devDependencies:
-      '@sds/config':
+      '@sage/config':
         specifier: workspace:*
         version: link:../../packages/config
       '@types/node':
@@ -358,10 +358,10 @@ importers:
         specifier: ^5.0.2
         version: 5.0.9(@types/react@19.2.7)(react@19.2.3)(use-sync-external-store@1.6.0(react@19.2.3))
     devDependencies:
-      '@sds/config':
+      '@sage/config':
         specifier: workspace:*
         version: link:../config
-      '@sds/tokens':
+      '@sage/tokens':
         specifier: workspace:*
         version: link:../tokens
       '@types/react':
@@ -482,7 +482,7 @@ importers:
       '@radix-ui/react-tooltip':
         specifier: ^1.2.8
         version: 1.2.8(@types/react-dom@19.2.3(@types/react@19.2.7))(@types/react@19.2.7)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
-      '@sds/tokens':
+      '@sage/tokens':
         specifier: workspace:*
         version: link:../tokens
       '@tanstack/react-table':
@@ -540,7 +540,7 @@ importers:
         specifier: ^5.0.9
         version: 5.0.9(@types/react@19.2.7)(react@19.2.3)(use-sync-external-store@1.6.0(react@19.2.3))
     devDependencies:
-      '@sds/config':
+      '@sage/config':
         specifier: workspace:*
         version: link:../config
       '@types/react':

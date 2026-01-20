@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Typewriter, Card, Slider, Label, CollapsibleCodeBlock, Switch, Input } from '@sds/ui';
+import { Typewriter, Card, Slider, Label, CollapsibleCodeBlock, Switch, Input } from '@sage/ui';
 import { RefreshCcw } from 'lucide-react';
 
 export function TypewriterPage() {
@@ -133,7 +133,7 @@ export function TypewriterPage() {
                 <CollapsibleCodeBlock
                     id="typewriter-playground"
                     title="Code"
-                    code={`import { Typewriter } from '@sds/ui';
+                    code={`import { Typewriter } from '@sage/ui';
 
 <Typewriter 
   text="${text}"

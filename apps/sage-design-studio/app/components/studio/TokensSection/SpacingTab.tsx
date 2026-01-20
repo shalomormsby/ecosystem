@@ -1,6 +1,6 @@
 'use client';
 
-import { Card, Code } from '@sds/ui';
+import { Card, Code } from '@sage/ui';
 
 /**
  * SpacingTab Component

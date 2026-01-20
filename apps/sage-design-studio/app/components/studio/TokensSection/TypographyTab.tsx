@@ -1,8 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { Card, Code } from '@sds/ui';
-import { typographySystem } from '@sds/ui';
+import { Card, Code } from '@sage/ui';
+import { typographySystem } from '@sage/ui';
 import { Building2, Leaf, Zap } from 'lucide-react';
 
 // Font CSS variable mapping for each theme

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Breadcrumbs, TertiaryNav, CollapsibleCodeBlock, Card, PageTemplate, Footer, Brand, type BreadcrumbItemLegacy } from '@sds/ui';
+import { Breadcrumbs, TertiaryNav, CollapsibleCodeBlock, Card, PageTemplate, Footer, Brand, type BreadcrumbItemLegacy } from '@sage/ui';
 import { ExternalLink, Layout, Ruler, Type, LayoutGrid, Scale, Sparkles, ArrowDown, Lightbulb } from 'lucide-react';
 
 interface TemplatesSectionProps {
@@ -85,7 +85,7 @@ function OverviewContent() {
 function PageTemplateContent() {
   const [activeSection, setActiveSection] = useState('overview');
 
-  const basicUsageCode = `import {PageTemplate, Brand, Footer} from '@sds/ui';
+  const basicUsageCode = `import {PageTemplate, Brand, Footer} from '@sage/ui';
 
       function MyPage() {
   return (

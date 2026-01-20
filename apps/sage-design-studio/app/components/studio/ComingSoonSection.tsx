@@ -1,6 +1,6 @@
 'use client';
 
-import { Card } from '@sds/ui';
+import { Card } from '@sage/ui';
 
 interface ComingSoonSectionProps {
   title: string;

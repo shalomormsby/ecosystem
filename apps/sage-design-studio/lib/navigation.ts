@@ -1,4 +1,4 @@
-import type { HeaderNavLink } from '@sds/ui';
+import type { HeaderNavLink } from '@sage/ui';
 
 export const ecosystemNavigation: HeaderNavLink[] = [
   {

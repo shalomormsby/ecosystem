@@ -2,7 +2,7 @@ import type { Config } from "tailwindcss";
 import path from "path";
 
 const config: Config = {
-  presets: [require("@sds/config/tailwind")],
+  presets: [require("@sage/config/tailwind")],
   content: [
     path.join(__dirname, "../../packages/ui/src/**/*.{js,ts,jsx,tsx}"),
     "./app/**/*.{js,ts,jsx,tsx,mdx}",

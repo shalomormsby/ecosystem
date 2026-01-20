@@ -1,7 +1,7 @@
 'use client';
 
-import { Button } from '@sds/ui';
-import { GitHubIcon } from '@sds/ui';
+import { Button } from '@sage/ui';
+import { GitHubIcon } from '@sage/ui';
 
 /**
  * StudioHero Component

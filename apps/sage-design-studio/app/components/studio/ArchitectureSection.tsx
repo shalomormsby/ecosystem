@@ -1,6 +1,6 @@
 'use client';
 
-import { Card, Code, CollapsibleCodeBlock, Breadcrumbs, type BreadcrumbItemLegacy } from '@sds/ui';
+import { Card, Code, CollapsibleCodeBlock, Breadcrumbs, type BreadcrumbItemLegacy } from '@sage/ui';
 import { ArrowRight } from 'lucide-react';
 
 interface ArchitectureSectionProps {

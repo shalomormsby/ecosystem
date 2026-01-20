@@ -1,6 +1,6 @@
 'use client';
 
-import { Card, Backgrounds } from '@sds/ui';
+import { Card, Backgrounds } from '@sage/ui';
 import { useRouter } from 'next/navigation';
 const { WarpBackground, FaultyTerminal } = Backgrounds;
 

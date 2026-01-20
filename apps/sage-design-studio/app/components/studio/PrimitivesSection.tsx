@@ -1,10 +1,10 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Card, Button, Slider, CollapsibleCodeBlock, Switch, Label, SecondaryNav } from '@sds/ui';
+import { Card, Button, Slider, CollapsibleCodeBlock, Switch, Label, SecondaryNav } from '@sage/ui';
 import { motion, AnimatePresence } from 'framer-motion';
 import { RotateCcw, Play, CheckCircle, XCircle } from 'lucide-react';
-import { baseTokens, motion as motionTokens } from '@sds/ui/tokens';
+import { baseTokens, motion as motionTokens } from '@sage/ui/tokens';
 
 // Types for our Motion Playground
 type DurationToken = keyof typeof baseTokens.duration;

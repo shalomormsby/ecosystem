@@ -9,8 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@sds/core": "workspace:*",
-    "@sds/ui": "workspace:*",
+    "@sage/core": "workspace:*",
+    "@sage/ui": "workspace:*",
     "@vercel/analytics": "^1.6.1",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
@@ -24,7 +24,7 @@
     "tailwind-merge": "^3.4.0"
   },
   "devDependencies": {
-    "@sds/config": "workspace:*",
+    "@sage/config": "workspace:*",
     "@types/node": "^22.10.5",
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",

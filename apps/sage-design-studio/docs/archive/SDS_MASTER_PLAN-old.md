@@ -42,7 +42,7 @@ ecosystem/
 │   ├── web/                 # (Existing) Portfolio/Studio (Next.js)
 │   └── mobile/              # (New) iOS/Android App (Expo)
 ├── packages/
-│   ├── tokens/              # (@sds/tokens) The "Brain". JSON/TS definitions.
+│   ├── tokens/              # (@sage/tokens) The "Brain". JSON/TS definitions.
 │   ├── ui/                  # (@sds/ui) Universal Components (Button, Card).
 │   ├── core/                # (@sds/core) Logic, Hooks, Stores.
 │   └── config/              # Shared configurations (Tailwind, ESLint).
@@ -67,7 +67,7 @@ To ensure shipping velocity, we explicitly de-scope the following:
 ## 4. Phased Implementation Plan
 
 ### Phase 1: The Foundation (Tokens)
-**Goal:** Establish `@sds/tokens` as the single source of truth without breaking the current Studio.
+**Goal:** Establish `@sage/tokens` as the single source of truth without breaking the current Studio.
 - [x] Create `packages/tokens` and move generic token logic there.
 - [x] Create `packages/config` with a shared Tailwind config.
 - [x] Update `design-system` (Web) to import from `packages/tokens`.
@@ -83,7 +83,7 @@ To ensure shipping velocity, we explicitly de-scope the following:
 ### Phase 3: The Mobile Entry
 **Goal:** Boot up the iOS environment.
 - [x] Initialize `apps/mobile` (Expo).
-- [x] Configure to consume `@sds/ui` and `@sds/tokens`.
+- [x] Configure to consume `@sds/ui` and `@sage/tokens`.
 - **Exit Criteria:** `apps/mobile` runs in an iOS Simulator and displays the Universal Button. (Configured ✅ - Ready for local simulator launch)
 
 ### Phase 4: Workflow Validation (Solito)

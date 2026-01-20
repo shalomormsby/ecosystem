@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Breadcrumbs, type BreadcrumbItemLegacy } from '@sds/ui';
+import { Breadcrumbs, type BreadcrumbItemLegacy } from '@sage/ui';
 import { OverviewTab } from './OverviewTab';
 import { InstallationTab } from './InstallationTab';
 import { ToolsTab } from './ToolsTab';

@@ -6,7 +6,7 @@ As we migrate to the "Sage Stack" (Universal Monorepo), the existing "How it Wor
 
 ### 1. Overview / Introduction
 - **Current:** Describes a single `design-system` package.
-- **New:** Needs to describe the "Universal Brain" architecture (`@sds/tokens`, `@sds/ui`, `@sds/core`).
+- **New:** Needs to describe the "Universal Brain" architecture (`@sage/tokens`, `@sds/ui`, `@sds/core`).
 
 ### 2. Getting Started
 - **Current:** `pnpm install @ecosystem/design-system`
@@ -15,7 +15,7 @@ As we migrate to the "Sage Stack" (Universal Monorepo), the existing "How it Wor
     - How to use Solito for shared screens.
 
 ### 3. "How it Works"
-- **Tokens:** Update to reflect `@sds/tokens` workspace.
+- **Tokens:** Update to reflect `@sage/tokens` workspace.
 - **Components:** Explain `rn-primitives` and `NativeWind` usage (Universal components).
 
 ## Action Plan

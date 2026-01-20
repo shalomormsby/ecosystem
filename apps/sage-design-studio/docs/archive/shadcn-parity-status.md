@@ -28,7 +28,7 @@ This project aims to achieve 100% parity with Shadcn/ui component library in the
 ├── packages/
 │   ├── ui/                          # @sds/ui - Component library
 │   │   └── src/components/          # All UI components
-│   ├── tokens/                      # @sds/tokens - Design tokens
+│   ├── tokens/                      # @sage/tokens - Design tokens
 │   │   └── src/studio.ts            # Studio theme tokens
 │   └── config/
 │       └── tailwind/                # Shared Tailwind config

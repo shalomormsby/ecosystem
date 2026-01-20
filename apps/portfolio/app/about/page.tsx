@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Button, Breadcrumbs } from '@sds/ui';
+import { Button, Breadcrumbs } from '@sage/ui';
 
 export default function About() {
     return (

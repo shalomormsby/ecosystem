@@ -1,5 +1,5 @@
 {
-  "name": "@sds/mcp-server",
+  "name": "@sage/mcp",
   "version": "0.1.0",
   "description": "Model Context Protocol server for Sage Design System",
   "main": "dist/index.js",

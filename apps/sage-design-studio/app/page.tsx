@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { generateBreadcrumbs, type BreadcrumbItemLegacy, type RouteConfig } from '@sds/ui';
+import { generateBreadcrumbs, type BreadcrumbItemLegacy, type RouteConfig } from '@sage/ui';
 import { ModeSwitcher } from './components/ModeSwitcher';
 import { NavigationSidebar } from './components/NavigationSidebar';
 import { SearchCommandPalette } from './components/SearchCommandPalette';

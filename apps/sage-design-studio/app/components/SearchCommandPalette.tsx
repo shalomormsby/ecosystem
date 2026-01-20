@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef, useCallback } from 'react';
-import { Card } from '@sds/ui';
+import { Card } from '@sage/ui';
 import { searchContent, getResultTypeIcon, type SearchResult } from '../lib/search-index';
 
 interface SearchCommandPaletteProps {

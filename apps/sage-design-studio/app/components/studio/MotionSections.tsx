@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Breadcrumbs, type BreadcrumbItemLegacy } from '@sds/ui';
+import { Breadcrumbs, type BreadcrumbItemLegacy } from '@sage/ui';
 
 // Landing Pages
 import { PrimitivesSection } from './PrimitivesSection';

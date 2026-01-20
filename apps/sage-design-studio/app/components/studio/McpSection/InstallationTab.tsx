@@ -1,6 +1,6 @@
 'use client';
 
-import { Card, Badge, CollapsibleCodeBlock } from '@sds/ui';
+import { Card, Badge, CollapsibleCodeBlock } from '@sage/ui';
 
 export function InstallationTab() {
     return (

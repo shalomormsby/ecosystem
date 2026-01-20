@@ -9,7 +9,7 @@ import {
   SidebarContent,
   SidebarFooter,
   SidebarItem,
-} from '@sds/ui';
+} from '@sage/ui';
 
 interface NavigationSidebarProps {
   activeSection: string;

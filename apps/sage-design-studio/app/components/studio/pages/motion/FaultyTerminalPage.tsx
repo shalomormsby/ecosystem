@@ -1,11 +1,11 @@
 'use client';
 
 import { useState } from 'react';
-import { Card, CollapsibleCodeBlock, Label, Switch, Slider, Backgrounds } from '@sds/ui';
+import { Card, CollapsibleCodeBlock, Label, Switch, Slider, Backgrounds } from '@sage/ui';
 import { Terminal } from 'lucide-react';
 const { FaultyTerminal } = Backgrounds;
 
-const TERMINAL_CODE = `import { Backgrounds } from '@sds/ui';
+const TERMINAL_CODE = `import { Backgrounds } from '@sage/ui';
 const { FaultyTerminal } = Backgrounds;
 
 export default function NotFoundPage() {

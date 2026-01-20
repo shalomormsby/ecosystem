@@ -118,7 +118,7 @@ Layout (8)         → Accordion, AspectRatio, Carousel, Collapsible,
 |-------|-----------|---------|
 | **Primitives** | Radix UI | Headless accessible components |
 | **Styling** | Tailwind CSS | Utility-first with custom animations |
-| **Tokens** | @sds/tokens | Universal design tokens (CSS vars) |
+| **Tokens** | @sage/tokens | Universal design tokens (CSS vars) |
 | **Animation** | CSS Keyframes | Radix data attributes (`data-[state=open]`) |
 | **Framework** | Next.js 15+ | Server Components, App Router |
 | **Build** | tsup + tsc | ESM/CJS bundles with declarations |
@@ -141,7 +141,7 @@ ecosystem/
 │   │       │   └── layout/
 │   │       ├── lib/utils.ts        # cn() helper
 │   │       └── index.ts            # Barrel exports
-│   ├── tokens/                      # @sds/tokens - Design system tokens
+│   ├── tokens/                      # @sage/tokens - Design system tokens
 │   │   └── src/studio.ts
 │   ├── config/                      # Shared configs (Tailwind)
 │   │   └── tailwind/index.js
@@ -421,13 +421,13 @@ Modern design systems have abandoned rigid Atomic Design hierarchies (atoms/mole
 
 **Subpath Exports Configuration (2026-01-15):**
 - ✅ Configured package.json exports field for better developer experience:
-  - `@sds/ui/tokens` - Re-exports from @sds/tokens
+  - `@sds/ui/tokens` - Re-exports from @sage/tokens
   - `@sds/ui/hooks` - useTheme, useMotionPreference, useForm
   - `@sds/ui/utils` - animations, breadcrumbs, colors, utils, validation, syntax-parser
   - `@sds/ui/providers` - ThemeProvider
 - ✅ Created entry point files: `src/tokens.ts`, `src/hooks.ts`, `src/utils.ts`, `src/providers.ts`
 - ✅ Updated build configuration to generate TypeScript declarations (tsup --dts)
-- ✅ Moved @sds/tokens from devDependencies to dependencies
+- ✅ Moved @sage/tokens from devDependencies to dependencies
 - ✅ Added framer-motion as peer dependency for VariableWeightText component
 
 **Components Migrated (44+ components):**
@@ -710,7 +710,7 @@ pnpm build
 
 # Rebuild specific package
 pnpm build --filter=@sds/ui
-pnpm build --filter=@sds/tokens
+pnpm build --filter=@sage/tokens
 pnpm build --filter=@ecosystem/sage-design-studio
 
 # Start Studio dev server

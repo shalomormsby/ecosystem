@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Card, CollapsibleCodeBlock, Label, Slider, Switch, Button } from '@sds/ui';
+import { Card, CollapsibleCodeBlock, Label, Slider, Switch, Button } from '@sage/ui';
 import { Target, MousePointer2 } from 'lucide-react';
 import TargetCursor from '../../examples/target-cursor/TargetCursor';
 

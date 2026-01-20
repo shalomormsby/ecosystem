@@ -22,7 +22,7 @@ import {
     ScrollArea,
     Skeleton,
     useToast,
-} from '@sds/ui';
+} from '@sage/ui';
 
 export default function UniversalPage() {
     const { toast } = useToast();
@@ -41,7 +41,7 @@ export default function UniversalPage() {
                             <CardDescription>A web-first component library.</CardDescription>
                         </CardHeader>
                         <CardContent>
-                            <p>This is a standard card component migrated to @sds/ui. It supports all the nice things like hover effects and proper theming.</p>
+                            <p>This is a standard card component migrated to @sage/ui. It supports all the nice things like hover effects and proper theming.</p>
                         </CardContent>
                         <CardFooter>
                             <Button>Get Started</Button>

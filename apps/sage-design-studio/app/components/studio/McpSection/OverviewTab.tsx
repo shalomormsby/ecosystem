@@ -1,6 +1,6 @@
 'use client';
 
-import { Card, Badge } from '@sds/ui';
+import { Card, Badge } from '@sage/ui';
 import { Bot, Zap, Search, Package, Terminal } from 'lucide-react';
 
 export function OverviewTab() {

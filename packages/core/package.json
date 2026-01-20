@@ -1,5 +1,5 @@
 {
-  "name": "@sds/core",
+  "name": "@sage/core",
   "version": "0.0.1",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
@@ -18,8 +18,8 @@
     "zustand": "^5.0.2"
   },
   "devDependencies": {
-    "@sds/config": "workspace:*",
-    "@sds/tokens": "workspace:*",
+    "@sage/config": "workspace:*",
+    "@sage/tokens": "workspace:*",
     "@types/react": "^19.0.0",
     "tsup": "^8.0.0",
     "typescript": "^5.0.0"
