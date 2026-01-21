@@ -1,8 +1,10 @@
 'use client';
 import React from 'react';
-import { SlidersHorizontal, Sun, Moon, SunMoon, Building2, Leaf, Zap, X } from 'lucide-react';
+import { SlidersHorizontal, Sun, Moon, SunMoon, Building2, Leaf, Zap, X, Palette } from 'lucide-react';
 import { useCustomizer } from '../../lib/store/customizer';
 import { useThemeStore } from '../../lib/store/theme';
+import { ColorPicker } from '../forms/ColorPicker';
+import { Button } from '../actions/Button';
 
 export interface CustomizerPanelProps {
     /**
@@ -22,8 +24,34 @@ export interface CustomizerPanelProps {
 export const CustomizerPanel = ({ mode = 'full', showMotionIntensity = false }: CustomizerPanelProps) => {
     const [mounted, setMounted] = React.useState(false);
     const [isOpen, setIsOpen] = React.useState(false);
-    const { motion, setMotion } = useCustomizer();
+    const {
+        motion,
+        setMotion,
+        setCustomPrimaryColor,
+        getActiveColorPalette,
+        resetCustomColors
+    } = useCustomizer();
     const { theme, mode: colorMode, setTheme, setMode } = useThemeStore();
+
+    // Get current custom colors
+    const currentPalette = getActiveColorPalette(theme, colorMode);
+    const [tempPrimaryColor, setTempPrimaryColor] = React.useState(currentPalette?.primary || '#0a0a0a');
+
+    // Update temp color when palette changes
+    React.useEffect(() => {
+        if (currentPalette) {
+            setTempPrimaryColor(currentPalette.primary);
+        }
+    }, [currentPalette]);
+
+    const handleApplyColor = () => {
+        setCustomPrimaryColor(theme, colorMode, tempPrimaryColor);
+    };
+
+    const handleResetColors = () => {
+        resetCustomColors(theme, colorMode);
+        setTempPrimaryColor('#0a0a0a');
+    };
 
     React.useEffect(() => {
         setMounted(true);
@@ -169,6 +197,50 @@ export const CustomizerPanel = ({ mode = 'full', showMotionIntensity = false }: 
                         ))}
                     </div>
                 </div>
+
+                {/* Primary Color Customizer - Full mode only */}
+                {mode === 'full' && (
+                    <div className="pt-4 border-t border-[var(--color-border)]">
+                        <div className="flex items-center gap-2 mb-3">
+                            <Palette className="w-4 h-4 opacity-80" />
+                            <label className="text-sm font-medium opacity-80">Primary Color</label>
+                        </div>
+
+                        <ColorPicker
+                            description="Customize the primary brand color for this theme and mode"
+                            value={tempPrimaryColor}
+                            onChange={setTempPrimaryColor}
+                        />
+
+                        {/* Action Buttons */}
+                        <div className="flex gap-2 mt-4">
+                            <Button
+                                onClick={handleApplyColor}
+                                size="sm"
+                                className="flex-1"
+                                disabled={currentPalette?.primary === tempPrimaryColor}
+                            >
+                                Apply Color
+                            </Button>
+                            {currentPalette && (
+                                <Button
+                                    onClick={handleResetColors}
+                                    variant="outline"
+                                    size="sm"
+                                >
+                                    Reset
+                                </Button>
+                            )}
+                        </div>
+
+                        {/* Status Indicator */}
+                        {currentPalette && (
+                            <p className="text-xs opacity-60 mt-2">
+                                Custom color active for {theme} {colorMode} mode
+                            </p>
+                        )}
+                    </div>
+                )}
             </div>
         </div>
     );

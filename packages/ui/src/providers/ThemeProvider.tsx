@@ -7,6 +7,7 @@
 
 import { useEffect, useState } from 'react';
 import { useThemeStore } from '../lib/store/theme';
+import { useCustomizer, type ColorPalette } from '../lib/store/customizer';
 import { studioTokens, sageTokens, voltTokens, syntaxColors, codeColors } from '@sage/tokens';
 import type { ThemeName, ColorMode } from '@sage/tokens';
 
@@ -125,8 +126,58 @@ function getThemeVars(theme: ThemeName, mode: ColorMode): Record<string, string>
   };
 }
 
+/**
+ * Merge custom color palette with base theme tokens
+ * This is where "change once, ripple everywhere" happens!
+ */
+function mergeCustomColorTokens(
+  baseTokens: Record<string, string>,
+  customPalette: ColorPalette
+): Record<string, string> {
+  return {
+    ...baseTokens,
+
+    // Override primary color
+    '--color-primary': customPalette.primary,
+    '--color-primary-foreground': customPalette.primaryForeground,
+
+    // Apply color scale (for utilities like bg-primary/50)
+    '--color-primary-50': customPalette.scale[50],
+    '--color-primary-100': customPalette.scale[100],
+    '--color-primary-200': customPalette.scale[200],
+    '--color-primary-300': customPalette.scale[300],
+    '--color-primary-400': customPalette.scale[400],
+    '--color-primary-500': customPalette.scale[500],
+    '--color-primary-600': customPalette.scale[600],
+    '--color-primary-700': customPalette.scale[700],
+    '--color-primary-800': customPalette.scale[800],
+    '--color-primary-900': customPalette.scale[900],
+
+    // Override secondary color if provided (advanced mode)
+    ...(customPalette.secondary && {
+      '--color-secondary': customPalette.secondary,
+      '--color-secondary-foreground': customPalette.secondaryForeground || baseTokens['--color-secondary-foreground'],
+    }),
+
+    // Override accent color if provided (advanced mode)
+    ...(customPalette.accent && {
+      '--color-accent': customPalette.accent,
+      '--color-accent-foreground': customPalette.accentForeground || baseTokens['--color-accent-foreground'],
+    }),
+
+    // Apply ALL derived tokens from dependency graph
+    // This automatically updates:
+    // - Links (--color-link, --color-link-hover)
+    // - Focus rings (--color-ring)
+    // - Charts (--chart-1, --chart-2, --chart-3, --chart-4, --chart-5)
+    // - Buttons, badges, and any other dependent tokens
+    ...customPalette.derivedTokens,
+  };
+}
+
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const { theme, mode } = useThemeStore();
+  const getActiveColorPalette = useCustomizer((state) => state.getActiveColorPalette);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [mounted, setMounted] = useState(false);
 
@@ -144,26 +195,39 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
     // Apply theme vars to :root
     const root = document.documentElement;
-    const vars = getThemeVars(theme, mode);
+
+    // 1. Get base theme tokens
+    const baseTokens = getThemeVars(theme, mode);
+
+    // 2. Get custom color palette (if exists)
+    const customPalette = getActiveColorPalette(theme, mode);
+
+    // 3. Merge tokens (custom overrides base)
+    const finalTokens = customPalette
+      ? mergeCustomColorTokens(baseTokens, customPalette)
+      : baseTokens;
 
     // Apply transition class
     root.classList.add('theme-transitioning');
 
     // Apply CSS variables
-    Object.entries(vars).forEach(([key, value]) => {
-      root.style.setProperty(key, value);
+    requestAnimationFrame(() => {
+      Object.entries(finalTokens).forEach(([key, value]) => {
+        root.style.setProperty(key, value);
+      });
+
+      // Set data attributes for theme and mode
+      root.setAttribute('data-theme', theme);
+      root.setAttribute('data-mode', mode);
+      root.setAttribute('data-custom-colors', customPalette ? 'active' : 'default');
+
+      // Toggle 'dark' class for Tailwind dark: modifier support
+      if (mode === 'dark') {
+        root.classList.add('dark');
+      } else {
+        root.classList.remove('dark');
+      }
     });
-
-    // Set data attributes for theme and mode
-    root.setAttribute('data-theme', theme);
-    root.setAttribute('data-mode', mode);
-
-    // Toggle 'dark' class for Tailwind dark: modifier support
-    if (mode === 'dark') {
-      root.classList.add('dark');
-    } else {
-      root.classList.remove('dark');
-    }
 
     // End transition after animation completes
     const timeout = setTimeout(() => {
@@ -172,7 +236,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     }, 400); // 400ms = 300ms transition + 100ms buffer
 
     return () => clearTimeout(timeout);
-  }, [theme, mode, mounted]);
+  }, [theme, mode, mounted, getActiveColorPalette]);
 
   // Don't render children until mounted (prevents flash)
   if (!mounted) {

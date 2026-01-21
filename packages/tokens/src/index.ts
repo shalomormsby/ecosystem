@@ -8,6 +8,9 @@ export * from './sage';
 export * from './volt';
 export * from './typography';
 export * from './syntax';
+export * from './color-palettes';
+export * from './color-utils';
+export * from './token-graph';
 
 /**
  * Theme names

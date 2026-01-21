@@ -1,4 +1,5 @@
 export * from './Checkbox';
+export * from './ColorPicker';
 export * from './Combobox';
 export * from './FilterButton';
 export * from './Form';

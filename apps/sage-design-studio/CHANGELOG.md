@@ -1,11 +1,25 @@
 # Changelog
 
-All notable changes to the Sage Design Studio will be documented in this file.
+All notable changes to Sage UI will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+### Added - Charts Experience (2026-01-20)
+
+#### Interactive Chart Previews
+- **New `ChartPreview` Component**: Encapsulated all chart examples (Bar, Line, Area, Pie) in a standardized preview container.
+- **"View Code" Functionality**:
+  - Users can now toggle source code visibility for each chart.
+  - Integrated `CollapsibleCodeBlock` with syntax highlighting and "Copy" button.
+  - Provides copy-paste ready code snippets for quick implementation.
+
+#### Visual Enhancements
+- **Charts Overview**: Added mini, non-interactive chart visualizations to the category cards for better "glanceability".
+- **Pie Chart**: Corrected animation direction to open clockwise (`endAngle={-270}`).
+- **Line Chart**: Fixed visibility issue by correcting CSS variable resolution in `chartConfig` (removed invalid `hsl()` wrapper around hex variables).
 
 ### Added - Motion Component Migration (2026-01-17)
 

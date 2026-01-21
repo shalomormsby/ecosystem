@@ -321,6 +321,157 @@ export function meetsContrastRequirements(
 }
 
 /**
+ * Convert hex to HSL for manipulation
+ */
+export function hexToHSL(hex: string): { h: number; s: number; l: number } {
+  const rgb = hexToRgb(hex);
+  if (!rgb) return { h: 0, s: 0, l: 0 };
+
+  const r = rgb.r / 255;
+  const g = rgb.g / 255;
+  const b = rgb.b / 255;
+
+  const max = Math.max(r, g, b);
+  const min = Math.min(r, g, b);
+  let h = 0, s = 0, l = (max + min) / 2;
+
+  if (max !== min) {
+    const d = max - min;
+    s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+
+    switch (max) {
+      case r: h = ((g - b) / d + (g < b ? 6 : 0)) / 6; break;
+      case g: h = ((b - r) / d + 2) / 6; break;
+      case b: h = ((r - g) / d + 4) / 6; break;
+    }
+  }
+
+  return {
+    h: Math.round(h * 360),
+    s: Math.round(s * 100),
+    l: Math.round(l * 100),
+  };
+}
+
+/**
+ * Convert HSL to hex
+ */
+export function hslToHex(h: number, s: number, l: number): string {
+  h = h / 360;
+  s = s / 100;
+  l = l / 100;
+
+  let r, g, b;
+
+  if (s === 0) {
+    r = g = b = l;
+  } else {
+    const hue2rgb = (p: number, q: number, t: number) => {
+      if (t < 0) t += 1;
+      if (t > 1) t -= 1;
+      if (t < 1/6) return p + (q - p) * 6 * t;
+      if (t < 1/2) return q;
+      if (t < 2/3) return p + (q - p) * (2/3 - t) * 6;
+      return p;
+    };
+
+    const q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+    const p = 2 * l - q;
+
+    r = hue2rgb(p, q, h + 1/3);
+    g = hue2rgb(p, q, h);
+    b = hue2rgb(p, q, h - 1/3);
+  }
+
+  const toHex = (x: number) => {
+    const hex = Math.round(x * 255).toString(16);
+    return hex.length === 1 ? '0' + hex : hex;
+  };
+
+  return `#${toHex(r)}${toHex(g)}${toHex(b)}`;
+}
+
+/**
+ * Adjust lightness of a hex color
+ * @param hex - Input color
+ * @param percent - Amount to adjust (-100 to 100)
+ */
+export function adjustLightness(hex: string, percent: number): string {
+  const hsl = hexToHSL(hex);
+  const newL = Math.max(0, Math.min(100, hsl.l + percent));
+  return hslToHex(hsl.h, hsl.s, newL);
+}
+
+/**
+ * Adjust saturation of a hex color
+ * @param hex - Input color
+ * @param percent - Amount to adjust (-100 to 100)
+ */
+export function adjustSaturation(hex: string, percent: number): string {
+  const hsl = hexToHSL(hex);
+  const newS = Math.max(0, Math.min(100, hsl.s + percent));
+  return hslToHex(hsl.h, newS, hsl.l);
+}
+
+/**
+ * Rotate hue of a hex color
+ * @param hex - Input color
+ * @param degrees - Degrees to rotate (0-360)
+ */
+export function rotateHue(hex: string, degrees: number): string {
+  const hsl = hexToHSL(hex);
+  const newH = (hsl.h + degrees) % 360;
+  return hslToHex(newH, hsl.s, hsl.l);
+}
+
+/**
+ * Add opacity to a hex color (returns rgba CSS value)
+ * @param hex - Input color
+ * @param opacity - Opacity (0-1)
+ */
+export function adjustOpacity(hex: string, opacity: number): string {
+  const rgb = hexToRgb(hex);
+  if (!rgb) return hex;
+  return `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${opacity})`;
+}
+
+/**
+ * Get optimal foreground color (white or black) for a background
+ * Uses WCAG contrast formula
+ */
+export function getOptimalForeground(
+  bgHex: string,
+  whiteHex: string = '#ffffff',
+  blackHex: string = '#000000'
+): string {
+  const whiteRatio = getContrastRatio(bgHex, whiteHex);
+  const blackRatio = getContrastRatio(bgHex, blackHex);
+
+  return whiteRatio > blackRatio ? whiteHex : blackHex;
+}
+
+/**
+ * Generate a complete tint/shade scale (like Tailwind)
+ * Returns 50, 100, 200, ..., 900 variants
+ */
+export function generateColorScale(baseHex: string): Record<number, string> {
+  const hsl = hexToHSL(baseHex);
+
+  return {
+    50:  hslToHex(hsl.h, Math.max(hsl.s - 10, 20), 95),
+    100: hslToHex(hsl.h, Math.max(hsl.s - 5, 30), 90),
+    200: hslToHex(hsl.h, hsl.s, 80),
+    300: hslToHex(hsl.h, hsl.s, 70),
+    400: hslToHex(hsl.h, hsl.s, 60),
+    500: baseHex,  // Base color
+    600: hslToHex(hsl.h, Math.min(hsl.s + 5, 100), 45),
+    700: hslToHex(hsl.h, Math.min(hsl.s + 10, 100), 35),
+    800: hslToHex(hsl.h, Math.min(hsl.s + 15, 100), 25),
+    900: hslToHex(hsl.h, Math.min(hsl.s + 20, 100), 15),
+  };
+}
+
+/**
  * Color utilities for common operations
  */
 export const colorUtils = {
@@ -329,6 +480,14 @@ export const colorUtils = {
   getForegroundColor,
   getSemanticColorPair,
   hexToRgb,
+  hexToHSL,
+  hslToHex,
+  adjustLightness,
+  adjustSaturation,
+  rotateHue,
+  adjustOpacity,
+  getOptimalForeground,
+  generateColorScale,
   getContrastRatio,
   meetsContrastRequirements,
 } as const;
