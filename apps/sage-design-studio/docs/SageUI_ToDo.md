@@ -4,6 +4,260 @@ This document tracks planned improvements and enhancements to the Sage UI.
 
 ---
 
+## 🎨 Dynamic Color Customization System
+**Date Started:** 2026-01-20
+**Status:** Week 1-2 Complete, Week 3-4 Planned
+**Priority:** High
+
+### Project Overview
+Enable users to define a primary color in the Customizer that automatically ripples throughout the ENTIRE Sage UI interface, updating 15+ dependent tokens (buttons, links, charts, focus rings, etc.). Includes curated palette library to solve the "blank page problem."
+
+### Implementation Phases
+
+#### ✅ Week 1-2: Curated Palette Library + UI (COMPLETE)
+
+**Phase 1A: Color Engine & Token Infrastructure**
+- [x] Create `@sage/tokens/color-utils.ts` - Standalone color transformation utilities
+  - [x] `hexToHSL()` / `hslToHex()` - Bidirectional color space conversion
+  - [x] `adjustLightness()` - Perceptually uniform tint/shade generation
+  - [x] `adjustSaturation()` - Saturation manipulation for color harmony
+  - [x] `rotateHue()` - Hue rotation for complementary/analogous colors
+  - [x] `getContrastRatio()` - WCAG contrast ratio calculation
+  - [x] `getOptimalForeground()` - Auto-accessible foreground color selection
+- [x] Create `@sage/tokens/token-graph.ts` - Token dependency mapping system
+  - [x] Map 15+ CSS variables that derive from `--color-primary`
+  - [x] UI tokens: `--color-link`, `--color-link-hover`, `--color-ring`, `--color-accent`
+  - [x] Chart tokens: `--chart-1` through `--chart-5` with intelligent derivations
+  - [x] Mode-aware derivations (different transforms for light vs dark)
+  - [x] `computeDerivedTokens()` function for single-call updates
+- [x] Enhance `@sage/ui/lib/colors.ts` with HSL transformations
+  - [x] `generateColorScale()` - Tailwind-style 50-900 tint/shade variants
+
+**Phase 1B: Curated Palette Library**
+- [x] Create `@sage/tokens/color-palettes.ts` with 21 curated palettes
+  - [x] Professional (5): Midnight Sapphire, Forest Executive, Burgundy Trust, Slate Corporate, Navy Prestige
+  - [x] Creative (3): Coral Sunset, Teal Wave, Purple Dream
+  - [x] Natural (2): Earth Tones, Ocean Breeze
+  - [x] Vibrant (2): Electric Lime, Sunset Orange
+  - [x] Minimal (3): Monochrome, Pure Black, Soft Neutral
+  - [x] Tech (3): Cyber Blue, Matrix Green, Developer Dark
+  - [x] Warm (3): Golden Hour, Rust & Clay, Peach Cream
+- [x] Add palette metadata (mood tags, WCAG compliance, best use cases, inspiration)
+
+**Phase 1C: State Management**
+- [x] Rewrite `@sage/ui/lib/store/customizer.ts` with Zustand
+  - [x] Per-theme, per-mode storage: `customColors[theme][mode]`
+  - [x] `ColorPalette` interface with primary/secondary/accent + scale + derived tokens
+  - [x] `setCustomPrimaryColor()` action with full palette generation
+  - [x] `resetCustomColors()` action for clearing customizations
+  - [x] `getActiveColorPalette()` getter
+  - [x] Zustand persist middleware with version migration (v2)
+  - [x] localStorage persistence across browser sessions
+
+**Phase 1D: Theme Provider Integration**
+- [x] Enhance `@sage/ui/providers/ThemeProvider.tsx`
+  - [x] `mergeCustomColorTokens()` - Non-destructive overlay function
+  - [x] Smart merge strategy (base tokens + custom palette + derived tokens)
+  - [x] Batched DOM updates via `requestAnimationFrame()`
+  - [x] `data-custom-colors` attribute for debugging
+  - [x] Reactive updates on theme/mode/palette changes
+
+**Phase 1E: UI Components**
+- [x] Create `@sage/ui/components/forms/ColorPicker.tsx`
+  - [x] Dual input methods (visual picker + hex text input)
+  - [x] Real-time hex validation
+  - [x] Live color preview swatch
+  - [x] Error states and validation
+  - [x] Two-way binding between picker and text input
+- [x] Create `apps/sage-design-studio/app/components/studio/TokensSection/PalettesTab.tsx`
+  - [x] Category filter buttons (7 categories with icons)
+  - [x] WCAG compliance filter toggle
+  - [x] Palette grid with color swatches
+  - [x] Mood tags and "Best for" use cases
+  - [x] One-click "Apply Palette" functionality
+  - [x] Active state indicator
+  - [x] Responsive grid layout (1-3 columns)
+- [x] Update `@sage/ui/components/layout/CustomizerPanel.tsx`
+  - [x] Add "Primary Color" section with Palette icon
+  - [x] Integrate ColorPicker component
+  - [x] Add Apply/Reset buttons
+  - [x] Show status indicator when custom colors active
+  - [x] Disable "Apply" button when no changes
+
+**Phase 1F: Component Registration & Documentation**
+- [x] Add PalettesTab to navigation tree
+- [x] Add PalettesTab to search index with comprehensive keywords
+- [x] Document entire system in CHANGELOG.md
+  - [x] Architecture decisions (HSL color space, token dependency graph)
+  - [x] Files created and modified
+  - [x] User flow walkthrough
+  - [x] Benefits and future enhancements
+
+**Phase 1G: Build & Deployment**
+- [x] Fix circular dependency (tokens ← ui)
+- [x] Add missing `@sage/tokens` dependency to sage-design-studio
+- [x] Verify local build successful
+- [x] Verify Vercel deployment successful
+- [x] Production verification
+
+**Commits:**
+- `e6a5d98` - fix(sage-design-studio): Add missing @sage/tokens dependency for Vercel build
+- `3fcb1b1` - docs: Document dynamic color customization system and register PalettesTab
+
+---
+
+#### 📋 Week 3: Primary + Secondary Color Support (PLANNED)
+
+**Phase 2A: Advanced Mode Toggle**
+- [ ] Add `customizationMode` toggle to CustomizerPanel UI
+  - [ ] Simple mode: Single primary color (current behavior)
+  - [ ] Advanced mode: Discrete Primary, Secondary, and Accent controls
+- [ ] Update `useCustomizer` store to track active mode
+- [ ] Show/hide secondary and accent pickers based on mode
+
+**Phase 2B: Secondary Color Support**
+- [ ] Add secondary color picker to CustomizerPanel (Advanced mode only)
+- [ ] Implement `setCustomSecondaryColor()` with derived token computation
+- [ ] Update ThemeProvider to merge secondary color tokens
+- [ ] Add secondary color to palette preview in PalettesTab
+- [ ] Test secondary color derivations in light and dark modes
+
+**Phase 2C: Accent Color Support**
+- [ ] Add accent color picker to CustomizerPanel (Advanced mode only)
+- [ ] Implement `setCustomAccentColor()` with derived token computation
+- [ ] Update ThemeProvider to merge accent color tokens
+- [ ] Add accent color to palette preview in PalettesTab
+- [ ] Test accent color derivations in light and dark modes
+
+**Phase 2D: Mode Switching UX**
+- [ ] Add informational tooltip explaining Simple vs Advanced modes
+- [ ] Show warning when switching from Advanced → Simple (loses secondary/accent)
+- [ ] Implement confirmation dialog for destructive mode changes
+- [ ] Preserve primary color when switching modes
+
+**Phase 2E: Testing & Validation**
+- [ ] Test all three colors working together in both modes
+- [ ] Verify token dependency graph updates correctly
+- [ ] Test palette application in Advanced mode
+- [ ] Verify reset functionality works for all colors
+- [ ] Browser testing across themes and color modes
+
+---
+
+#### 📋 Week 4: Integration + Polish (PLANNED)
+
+**Phase 3A: Palette Enhancements**
+- [ ] Add "Save Custom Palette" functionality
+  - [ ] Allow users to save their custom color combinations
+  - [ ] Store saved palettes in localStorage
+  - [ ] Add "My Palettes" category to PalettesTab
+  - [ ] Enable delete/rename of saved palettes
+- [ ] Add palette export/import
+  - [ ] Export custom palette as JSON
+  - [ ] Import palette from JSON file
+  - [ ] Share palettes via URL parameters (optional)
+
+**Phase 3B: Color Picker Enhancements**
+- [ ] Add recently used colors
+  - [ ] Track last 5-10 colors used
+  - [ ] Show as quick-select swatches
+- [ ] Add color harmony suggestions
+  - [ ] Show complementary color
+  - [ ] Show analogous colors
+  - [ ] Show triadic colors
+- [ ] Improve color picker accessibility
+  - [ ] Add keyboard navigation
+  - [ ] Improve screen reader labels
+  - [ ] Add color name/description
+
+**Phase 3C: Live Preview**
+- [ ] Add "Preview" mode before applying colors
+  - [ ] Show temporary preview without committing to store
+  - [ ] Add "Apply" and "Cancel" buttons
+  - [ ] Show before/after comparison (optional)
+- [ ] Add real-time preview while dragging color picker
+
+**Phase 3D: Documentation & Examples**
+- [ ] Create video tutorial for color customization
+- [ ] Add "How to customize colors" guide to Getting Started
+- [ ] Create example use cases (personal branding, client projects, etc.)
+- [ ] Document color psychology and palette selection best practices
+- [ ] Add accessibility guidelines for color selection
+
+**Phase 3E: Performance & Polish**
+- [ ] Optimize color derivation calculations
+  - [ ] Cache computed color scales
+  - [ ] Debounce real-time updates
+- [ ] Add loading states for palette application
+- [ ] Improve transition animations when colors change
+- [ ] Test performance with rapid color changes
+- [ ] Memory leak testing (localStorage growth)
+
+**Phase 3F: Advanced Features (Optional)**
+- [ ] Gradient generation from primary color
+- [ ] Dark mode intelligence (auto-adjust lightness for dark mode)
+- [ ] Color blindness simulation mode
+- [ ] Auto-generate complementary palette from single color
+- [ ] AI-powered palette suggestions based on brand keywords
+
+---
+
+### Success Metrics
+
+**Week 1-2 (Complete):**
+- ✅ 21 curated palettes available
+- ✅ ColorPicker component functional
+- ✅ PalettesTab UI complete and responsive
+- ✅ Primary color customization working
+- ✅ 15+ tokens update automatically from primary color
+- ✅ Production deployment successful
+
+**Week 3 (Planned):**
+- [ ] Advanced mode toggle functional
+- [ ] Secondary and accent color pickers working
+- [ ] All three colors can be customized independently
+- [ ] Mode switching doesn't lose data unexpectedly
+- [ ] Browser tested across all themes and modes
+
+**Week 4 (Planned):**
+- [ ] Save/load custom palettes working
+- [ ] Export/import functionality complete
+- [ ] Live preview mode functional
+- [ ] Documentation complete with video tutorial
+- [ ] Performance optimization verified
+- [ ] Zero console errors or warnings
+
+---
+
+### Known Issues & Risks
+
+**Current Issues:**
+- None (Week 1-2 complete with no known issues)
+
+**Week 3 Risks:**
+- Advanced mode UI could become cluttered (mitigation: collapsible sections)
+- Color harmony between primary/secondary/accent needs careful testing
+- Mode switching confirmation UX needs careful design
+
+**Week 4 Risks:**
+- localStorage size limits with many saved palettes (mitigation: limit to 10 saved)
+- Live preview performance on slower devices (mitigation: debounce updates)
+- Export/import security (mitigation: validate JSON structure)
+
+---
+
+### Future Enhancements (Beyond Week 4)
+
+- [ ] Palette sharing community (public palette gallery)
+- [ ] AI-powered palette generation from image upload
+- [ ] Seasonal palette recommendations
+- [ ] Integration with design tools (Figma plugin)
+- [ ] Color analytics (most popular palettes, usage patterns)
+- [ ] A/B testing support (test two color schemes)
+- [ ] Programmatic API for color customization
+
+---
+
 ## 🚀 Strategic Rebrand: Sage UI -> Sage UI
 **Date Added:** 2026-01-20
 **Priority:** Critical
