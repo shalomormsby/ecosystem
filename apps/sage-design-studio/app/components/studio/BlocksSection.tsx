@@ -356,27 +356,14 @@ export function BlocksSection({ activeItemId, breadcrumbs, onItemChange }: Block
 
   return (
     <div className="space-y-8 w-full min-w-0">
-      <div>
-        <h2 className="text-3xl font-bold mb-2 text-[var(--color-text-primary)]">
-          Patterns
-        </h2>
+      {/* Breadcrumbs */}
+      {breadcrumbs && breadcrumbs.length > 1 && (
+        <div>
+          <Breadcrumbs variant="subtle" items={breadcrumbs} />
+        </div>
+      )}
 
-        <p className="text-lg text-[var(--color-text-secondary)] mb-2">
-          <strong>UI Composites:</strong> Reusable combinations of components that form distinct, functional sections of an interface.
-        </p>
-        <p className="text-base text-[var(--color-text-muted)] mb-4">
-          Comprehensive, interactive patterns that assemble multiple primitives into cohesive experiences.
-        </p>
-
-        {/* Breadcrumbs - positioned after title and description */}
-        {breadcrumbs && breadcrumbs.length > 1 && (
-          <div className="mt-6">
-            <Breadcrumbs variant="subtle" items={breadcrumbs} />
-          </div>
-        )}
-      </div>
-
-      {/* Pattern Display with spacing for sticky nav */}
+      {/* Block Display with spacing for sticky nav */}
       <div className="mt-4">
         {/* Page Layout Component */}
         {selectedPattern === 'PageLayout' && (
