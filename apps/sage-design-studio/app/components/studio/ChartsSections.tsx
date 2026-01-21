@@ -36,6 +36,230 @@ const chartConfig = {
     },
 } satisfies ChartConfig;
 
+// ... imports
+import { Button, CollapsibleCodeBlock } from '@sage/ui';
+import { Copy, Eye, EyeOff } from 'lucide-react';
+
+// ... (existing imports and types)
+
+// ... (existing chartData and chartConfig)
+
+const BAR_CHART_CODE = `import { Bar, BarChart, CartesianGrid, XAxis } from "recharts"
+import { ChartContainer, ChartTooltip, ChartTooltipContent, ChartLegend, ChartLegendContent } from "@sage/charts"
+
+export function Component() {
+  return (
+    <ChartContainer config={chartConfig} className="min-h-[200px] w-full">
+      <BarChart accessibilityLayer data={chartData}>
+        <CartesianGrid vertical={false} />
+        <XAxis
+          dataKey="month"
+          tickLine={false}
+          tickMargin={10}
+          axisLine={false}
+          tickFormatter={(value) => value.slice(0, 3)}
+        />
+        <ChartTooltip content={<ChartTooltipContent />} />
+        <ChartLegend content={<ChartLegendContent />} />
+        <Bar dataKey="desktop" fill="var(--color-desktop)" radius={4} />
+        <Bar dataKey="mobile" fill="var(--color-mobile)" radius={4} />
+      </BarChart>
+    </ChartContainer>
+  )
+}
+`;
+
+const LINE_CHART_CODE = `import { CartesianGrid, Line, LineChart, XAxis } from "recharts"
+import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@sage/charts"
+
+export function Component() {
+  return (
+    <ChartContainer config={chartConfig} className="min-h-[200px] w-full">
+      <LineChart
+        accessibilityLayer
+        data={chartData}
+        margin={{
+          left: 12,
+          right: 12,
+        }}
+      >
+        <CartesianGrid vertical={false} />
+        <XAxis
+          dataKey="month"
+          tickLine={false}
+          axisLine={false}
+          tickMargin={8}
+          tickFormatter={(value) => value.slice(0, 3)}
+        />
+        <ChartTooltip
+          cursor={false}
+          content={<ChartTooltipContent hideLabel />}
+        />
+        <Line
+          dataKey="desktop"
+          type="natural"
+          stroke="var(--color-desktop)"
+          strokeWidth={2}
+          dot={false}
+        />
+      </LineChart>
+    </ChartContainer>
+  )
+}
+`;
+
+const AREA_CHART_CODE = `import { Area, AreaChart, CartesianGrid, XAxis } from "recharts"
+import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@sage/charts"
+
+export function Component() {
+  return (
+    <ChartContainer config={chartConfig} className="min-h-[200px] w-full">
+      <AreaChart
+        accessibilityLayer
+        data={chartData}
+        margin={{
+          left: 12,
+          right: 12,
+        }}
+      >
+        <CartesianGrid vertical={false} />
+        <XAxis
+          dataKey="month"
+          tickLine={false}
+          axisLine={false}
+          tickMargin={8}
+          tickFormatter={(value) => value.slice(0, 3)}
+        />
+        <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
+        <defs>
+          <linearGradient id="fillDesktop" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="5%" stopColor="var(--color-desktop)" stopOpacity={0.8} />
+            <stop offset="95%" stopColor="var(--color-desktop)" stopOpacity={0.1} />
+          </linearGradient>
+          <linearGradient id="fillMobile" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="5%" stopColor="var(--color-mobile)" stopOpacity={0.8} />
+            <stop offset="95%" stopColor="var(--color-mobile)" stopOpacity={0.1} />
+          </linearGradient>
+        </defs>
+        <Area
+          dataKey="mobile"
+          type="natural"
+          fill="url(#fillMobile)"
+          fillOpacity={0.4}
+          stroke="var(--color-mobile)"
+          stackId="a"
+        />
+        <Area
+          dataKey="desktop"
+          type="natural"
+          fill="url(#fillDesktop)"
+          fillOpacity={0.4}
+          stroke="var(--color-desktop)"
+          stackId="a"
+        />
+      </AreaChart>
+    </ChartContainer>
+  )
+}
+`;
+
+const PIE_CHART_CODE = `import * as React from "react"
+import { Label, Pie, PieChart } from "recharts"
+import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@sage/charts"
+
+export function Component() {
+  const totalVisitors = React.useMemo(() => {
+    return chartData.reduce((acc, curr) => acc + curr.desktop, 0)
+  }, [])
+
+  return (
+    <ChartContainer config={chartConfig} className="mx-auto aspect-square max-h-[250px]">
+      <PieChart>
+        <ChartTooltip
+          cursor={false}
+          content={<ChartTooltipContent hideLabel />}
+        />
+        <Pie
+          data={chartData}
+          dataKey="desktop"
+          nameKey="month"
+          innerRadius={60}
+          strokeWidth={5}
+        >
+          <Label
+            content={({ viewBox }) => {
+              if (viewBox && "cx" in viewBox && "cy" in viewBox) {
+                return (
+                  <text
+                    x={viewBox.cx}
+                    y={viewBox.cy}
+                    textAnchor="middle"
+                    dominantBaseline="middle"
+                  >
+                    <tspan
+                      x={viewBox.cx}
+                      y={viewBox.cy}
+                      className="fill-foreground text-3xl font-bold"
+                    >
+                      {totalVisitors.toLocaleString()}
+                    </tspan>
+                    <tspan
+                      x={viewBox.cx}
+                      y={(viewBox.cy || 0) + 24}
+                      className="fill-muted-foreground"
+                    >
+                      Visitors
+                    </tspan>
+                  </text>
+                )
+              }
+            }}
+          />
+        </Pie>
+      </PieChart>
+    </ChartContainer>
+  )
+}
+`;
+
+function ChartPreview({ title, children, code }: { title: string; children: React.ReactNode; code: string }) {
+    const [showCode, setShowCode] = useState(false);
+
+    return (
+        <div className="space-y-4">
+            <div className="flex items-center justify-between">
+                <h2 className="text-2xl font-bold text-[var(--color-text-primary)]">{title}</h2>
+                <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setShowCode(!showCode)}
+                    className="gap-2"
+                >
+                    {showCode ? <EyeOff size={16} /> : <Eye size={16} />}
+                    {showCode ? 'Hide Code' : 'View Code'}
+                </Button>
+            </div>
+            <Card className="flex flex-col overflow-hidden">
+                <div className="p-6 border-b border-[var(--color-border)] bg-[var(--color-surface)]">
+                    {children}
+                </div>
+                {showCode && (
+                    <div className="bg-[var(--color-surface-subtle)] border-t border-[var(--color-border)]">
+                        <CollapsibleCodeBlock
+                            id={`code-${title.toLowerCase().replace(/\s+/g, '-')}`}
+                            title="Source"
+                            language="tsx"
+                            code={code}
+                            defaultCollapsed={false}
+                            showCopy={true}
+                        />
+                    </div>
+                )}
+            </Card>
+        </div>
+    );
+}
+
 export function ChartsSections({ activeItemId, breadcrumbs, onItemChange }: ChartsSectionsProps) {
     const [activeTab, setActiveTab] = useState<ChartsTab>('overview');
 
@@ -88,126 +312,116 @@ export function ChartsSections({ activeItemId, breadcrumbs, onItemChange }: Char
 
                 {/* --- BAR CHART --- */}
                 {activeTab === 'bar-chart' && (
-                    <section className="space-y-6">
-                        <h2 className="text-2xl font-bold text-[var(--color-text-primary)]">Bar Chart</h2>
-                        <Card className="p-6">
-                            <ChartContainer config={chartConfig} className="min-h-[300px] w-full">
-                                <BarChart data={chartData}>
-                                    <CartesianGrid vertical={false} />
-                                    <XAxis
-                                        dataKey="month"
-                                        tickLine={false}
-                                        tickMargin={10}
-                                        axisLine={false}
-                                        tickFormatter={(value) => value.slice(0, 3)}
-                                    />
-                                    <ChartTooltip content={<ChartTooltipContent />} />
-                                    <ChartLegend content={<ChartLegendContent />} />
-                                    <Bar dataKey="desktop" fill="var(--color-chart-1)" radius={4} />
-                                    <Bar dataKey="mobile" fill="var(--color-chart-2)" radius={4} />
-                                </BarChart>
-                            </ChartContainer>
-                        </Card>
-                    </section>
+                    <ChartPreview title="Bar Chart" code={BAR_CHART_CODE}>
+                        <ChartContainer config={chartConfig} className="min-h-[300px] w-full">
+                            <BarChart data={chartData}>
+                                <CartesianGrid vertical={false} />
+                                <XAxis
+                                    dataKey="month"
+                                    tickLine={false}
+                                    tickMargin={10}
+                                    axisLine={false}
+                                    tickFormatter={(value) => value.slice(0, 3)}
+                                />
+                                <ChartTooltip content={<ChartTooltipContent />} />
+                                <ChartLegend content={<ChartLegendContent />} />
+                                <Bar dataKey="desktop" fill="var(--color-desktop)" radius={4} />
+                                <Bar dataKey="mobile" fill="var(--color-mobile)" radius={4} />
+                            </BarChart>
+                        </ChartContainer>
+                    </ChartPreview>
                 )}
 
                 {/* --- LINE CHART --- */}
                 {activeTab === 'line-chart' && (
-                    <section className="space-y-6">
-                        <h2 className="text-2xl font-bold text-[var(--color-text-primary)]">Line Chart</h2>
-                        <Card className="p-6">
-                            <ChartContainer config={chartConfig} className="min-h-[300px] w-full">
-                                <LineChart
-                                    data={chartData}
-                                    margin={{
-                                        left: 12,
-                                        right: 12,
-                                    }}
-                                >
-                                    <CartesianGrid vertical={false} />
-                                    <XAxis
-                                        dataKey="month"
-                                        tickLine={false}
-                                        axisLine={false}
-                                        tickMargin={8}
-                                        tickFormatter={(value) => value.slice(0, 3)}
-                                    />
-                                    <ChartTooltip
-                                        cursor={false}
-                                        content={<ChartTooltipContent hideLabel />}
-                                    />
-                                    <Line
-                                        dataKey="desktop"
-                                        type="natural"
-                                        stroke="var(--color-chart-1)"
-                                        strokeWidth={2}
-                                        dot={false}
-                                    />
-                                </LineChart>
-                            </ChartContainer>
-                        </Card>
-                    </section>
+                    <ChartPreview title="Line Chart" code={LINE_CHART_CODE}>
+                        <ChartContainer config={chartConfig} className="min-h-[300px] w-full">
+                            <LineChart
+                                data={chartData}
+                                margin={{
+                                    left: 12,
+                                    right: 12,
+                                }}
+                            >
+                                <CartesianGrid vertical={false} />
+                                <XAxis
+                                    dataKey="month"
+                                    tickLine={false}
+                                    axisLine={false}
+                                    tickMargin={8}
+                                    tickFormatter={(value) => value.slice(0, 3)}
+                                />
+                                <ChartTooltip
+                                    cursor={false}
+                                    content={<ChartTooltipContent hideLabel />}
+                                />
+                                <Line
+                                    dataKey="desktop"
+                                    type="natural"
+                                    stroke="var(--color-desktop)"
+                                    strokeWidth={2}
+                                    dot={false}
+                                />
+                            </LineChart>
+                        </ChartContainer>
+                    </ChartPreview>
                 )}
 
                 {/* --- AREA CHART --- */}
                 {activeTab === 'area-chart' && (
-                    <section className="space-y-6">
-                        <h2 className="text-2xl font-bold text-[var(--color-text-primary)]">Area Chart</h2>
-                        <Card className="p-6">
-                            <ChartContainer config={chartConfig} className="min-h-[300px] w-full">
-                                <AreaChart
-                                    data={chartData}
-                                    margin={{
-                                        left: 12,
-                                        right: 12,
-                                    }}
-                                >
-                                    <CartesianGrid vertical={false} />
-                                    <XAxis
-                                        dataKey="month"
-                                        tickLine={false}
-                                        axisLine={false}
-                                        tickMargin={8}
-                                        tickFormatter={(value) => value.slice(0, 3)}
-                                    />
-                                    <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
-                                    <defs>
-                                        <linearGradient id="fillDesktop" x1="0" y1="0" x2="0" y2="1">
-                                            <stop offset="5%" stopColor="var(--color-chart-1)" stopOpacity={0.8} />
-                                            <stop offset="95%" stopColor="var(--color-chart-1)" stopOpacity={0.1} />
-                                        </linearGradient>
-                                        <linearGradient id="fillMobile" x1="0" y1="0" x2="0" y2="1">
-                                            <stop offset="5%" stopColor="var(--color-chart-2)" stopOpacity={0.8} />
-                                            <stop offset="95%" stopColor="var(--color-chart-2)" stopOpacity={0.1} />
-                                        </linearGradient>
-                                    </defs>
-                                    <Area
-                                        dataKey="mobile"
-                                        type="natural"
-                                        fill="url(#fillMobile)"
-                                        fillOpacity={0.4}
-                                        stroke="var(--color-chart-2)"
-                                        stackId="a"
-                                    />
-                                    <Area
-                                        dataKey="desktop"
-                                        type="natural"
-                                        fill="url(#fillDesktop)"
-                                        fillOpacity={0.4}
-                                        stroke="var(--color-chart-1)"
-                                        stackId="a"
-                                    />
-                                </AreaChart>
-                            </ChartContainer>
-                        </Card>
-                    </section>
+                    <ChartPreview title="Area Chart" code={AREA_CHART_CODE}>
+                        <ChartContainer config={chartConfig} className="min-h-[300px] w-full">
+                            <AreaChart
+                                data={chartData}
+                                margin={{
+                                    left: 12,
+                                    right: 12,
+                                }}
+                            >
+                                <CartesianGrid vertical={false} />
+                                <XAxis
+                                    dataKey="month"
+                                    tickLine={false}
+                                    axisLine={false}
+                                    tickMargin={8}
+                                    tickFormatter={(value) => value.slice(0, 3)}
+                                />
+                                <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
+                                <defs>
+                                    <linearGradient id="fillDesktop" x1="0" y1="0" x2="0" y2="1">
+                                        <stop offset="5%" stopColor="var(--color-desktop)" stopOpacity={0.8} />
+                                        <stop offset="95%" stopColor="var(--color-desktop)" stopOpacity={0.1} />
+                                    </linearGradient>
+                                    <linearGradient id="fillMobile" x1="0" y1="0" x2="0" y2="1">
+                                        <stop offset="5%" stopColor="var(--color-mobile)" stopOpacity={0.8} />
+                                        <stop offset="95%" stopColor="var(--color-mobile)" stopOpacity={0.1} />
+                                    </linearGradient>
+                                </defs>
+                                <Area
+                                    dataKey="mobile"
+                                    type="natural"
+                                    fill="url(#fillMobile)"
+                                    fillOpacity={0.4}
+                                    stroke="var(--color-mobile)"
+                                    stackId="a"
+                                />
+                                <Area
+                                    dataKey="desktop"
+                                    type="natural"
+                                    fill="url(#fillDesktop)"
+                                    fillOpacity={0.4}
+                                    stroke="var(--color-desktop)"
+                                    stackId="a"
+                                />
+                            </AreaChart>
+                        </ChartContainer>
+                    </ChartPreview>
                 )}
 
                 {/* --- PIE CHART --- */}
                 {activeTab === 'pie-chart' && (
-                    <section className="space-y-6">
-                        <h2 className="text-2xl font-bold text-[var(--color-text-primary)]">Pie Chart</h2>
-                        <Card className="flex flex-col p-6">
+                    <ChartPreview title="Pie Chart" code={PIE_CHART_CODE}>
+                        <Card className="flex flex-col p-6 border-0 shadow-none">
                             <ChartContainer config={chartConfig} className="mx-auto aspect-square max-h-[250px] w-full">
                                 <PieChart>
                                     <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
@@ -251,7 +465,7 @@ export function ChartsSections({ activeItemId, breadcrumbs, onItemChange }: Char
                                 </PieChart>
                             </ChartContainer>
                         </Card>
-                    </section>
+                    </ChartPreview>
                 )}
             </div>
         </div>
