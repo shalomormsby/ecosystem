@@ -113,18 +113,6 @@ export function ColorPicker({
           )}
         </div>
       </div>
-
-      {/* Current Color Preview */}
-      {isValid && (
-        <div className="flex items-center gap-2 text-xs text-muted-foreground">
-          <div
-            className="w-8 h-8 rounded border border-border"
-            style={{ backgroundColor: hexInput }}
-            title={hexInput}
-          />
-          <span className="font-mono">{hexInput.toUpperCase()}</span>
-        </div>
-      )}
     </div>
   );
 }

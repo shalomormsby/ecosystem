@@ -762,15 +762,15 @@ export const searchIndex: SearchResult[] = [
     keywords: ['template', 'page', 'layout', 'swiss grid', 'header', 'breadcrumbs', 'title', 'subtitle', 'structure', 'composition'],
   },
 
-  // Patterns
+  // Blocks
   {
     id: 'customizer',
     title: 'Customizer',
     description: 'A floating panel for real-time theme and preference customization with motion controls',
     type: 'component',
-    category: 'Patterns',
-    path: 'patterns-customizer',
-    keywords: ['customizer', 'theme', 'preferences', 'floating panel', 'real-time', 'motion', 'settings'],
+    category: 'Blocks',
+    path: 'blocks-customizer',
+    keywords: ['customizer', 'theme', 'preferences', 'floating panel', 'real-time', 'motion', 'settings', 'blocks', 'patterns'],
   },
 ];
 

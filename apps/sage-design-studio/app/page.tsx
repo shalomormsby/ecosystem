@@ -13,7 +13,7 @@ import { CommonPatternsSection } from './components/studio/CommonPatternsSection
 import { ContributingSection } from './components/studio/ContributingSection';
 import { TokensSection } from './components/studio/TokensSection';
 import { ComponentsSection } from './components/studio/ComponentsSection';
-import { PatternsSection } from './components/studio/PatternsSection';
+import { BlocksSection } from './components/studio/BlocksSection';
 import { HooksSection } from './components/studio/HooksSection';
 import { TemplatesSection } from './components/studio/TemplatesSection';
 import { ChartsSections } from './components/studio/ChartsSections';
@@ -35,7 +35,7 @@ type Section =
   | 'feedback'
   | 'data-display'
   | 'layout'
-  | 'patterns'
+  | 'blocks'
   | 'hooks'
   | 'templates'
   | 'charts'
@@ -160,8 +160,8 @@ const routeConfig: RouteConfig = {
       separator: { label: 'Separator' },
     }
   },
-  patterns: {
-    label: 'Patterns',
+  blocks: {
+    label: 'Blocks',
     children: {
       'page-layout': { label: 'Page Layout' },
       'primary-nav': { label: 'Primary Nav' },
@@ -212,7 +212,7 @@ export default function StudioPage() {
     const validSections: Section[] = [
       'overview', 'architecture', 'adding-components', 'common-patterns',
       'contributing', 'mcp-server', 'tokens', 'actions', 'forms', 'navigation',
-      'overlays', 'feedback', 'data-display', 'layout', 'patterns',
+      'overlays', 'feedback', 'data-display', 'layout', 'blocks',
       'hooks', 'templates', 'motion'
     ];
 
@@ -247,7 +247,7 @@ export default function StudioPage() {
       const validSections: Section[] = [
         'overview', 'architecture', 'adding-components', 'common-patterns',
         'contributing', 'mcp-server', 'tokens', 'actions', 'forms', 'navigation',
-        'overlays', 'feedback', 'data-display', 'layout', 'patterns',
+        'overlays', 'feedback', 'data-display', 'layout', 'blocks',
         'hooks', 'templates', 'charts', 'motion'
       ];
 
@@ -300,7 +300,7 @@ export default function StudioPage() {
     const validSections: Section[] = [
       'overview', 'architecture', 'adding-components', 'common-patterns',
       'contributing', 'mcp-server', 'tokens', 'actions', 'forms', 'navigation',
-      'overlays', 'feedback', 'data-display', 'layout', 'patterns',
+      'overlays', 'feedback', 'data-display', 'layout', 'blocks',
       'hooks', 'templates', 'motion'
     ];
 
@@ -416,9 +416,9 @@ export default function StudioPage() {
               />
             )}
 
-            {/* Patterns Section */}
-            {activeSection === 'patterns' && (
-              <PatternsSection
+            {/* Blocks Section */}
+            {activeSection === 'blocks' && (
+              <BlocksSection
                 activeItemId={activeItemId}
                 breadcrumbs={breadcrumbs}
                 onItemChange={(itemId) => setActiveItemId(itemId)}

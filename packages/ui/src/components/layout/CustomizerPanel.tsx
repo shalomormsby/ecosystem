@@ -24,14 +24,13 @@ export interface CustomizerPanelProps {
 export const CustomizerPanel = ({ mode = 'full', showMotionIntensity = false }: CustomizerPanelProps) => {
     const [mounted, setMounted] = React.useState(false);
     const [isOpen, setIsOpen] = React.useState(false);
+    const panelRef = React.useRef<HTMLDivElement>(null);
     const {
         motion,
         setMotion,
         customizationMode,
         setCustomizationMode,
-        setCustomPrimaryColor,
-        setCustomSecondaryColor,
-        setCustomAccentColor,
+        applyColorPalette,
         getActiveColorPalette,
         resetCustomColors
     } = useCustomizer();
@@ -53,11 +52,12 @@ export const CustomizerPanel = ({ mode = 'full', showMotionIntensity = false }: 
     }, [currentPalette]);
 
     const handleApplyColor = () => {
-        setCustomPrimaryColor(theme, colorMode, tempPrimaryColor);
-        if (customizationMode === 'advanced') {
-            setCustomSecondaryColor(theme, colorMode, tempSecondaryColor);
-            setCustomAccentColor(theme, colorMode, tempAccentColor);
-        }
+        // Apply all colors atomically, clearing secondary/accent in simple mode
+        applyColorPalette(theme, colorMode, {
+            primary: tempPrimaryColor,
+            secondary: customizationMode === 'advanced' ? tempSecondaryColor : undefined,
+            accent: customizationMode === 'advanced' ? tempAccentColor : undefined,
+        });
     };
 
     const handleResetColors = () => {
@@ -70,6 +70,27 @@ export const CustomizerPanel = ({ mode = 'full', showMotionIntensity = false }: 
     React.useEffect(() => {
         setMounted(true);
     }, []);
+
+    // Handle click outside to close panel
+    React.useEffect(() => {
+        if (!isOpen) return;
+
+        const handleClickOutside = (event: MouseEvent) => {
+            if (panelRef.current && !panelRef.current.contains(event.target as Node)) {
+                setIsOpen(false);
+            }
+        };
+
+        // Add small delay to prevent immediate closing when opening
+        const timeoutId = setTimeout(() => {
+            document.addEventListener('mousedown', handleClickOutside);
+        }, 100);
+
+        return () => {
+            clearTimeout(timeoutId);
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [isOpen]);
 
     if (!mounted) return null;
 
@@ -88,12 +109,15 @@ export const CustomizerPanel = ({ mode = 'full', showMotionIntensity = false }: 
 
     return (
         <div
+            ref={panelRef}
             className={`
                 fixed bottom-4 right-4 z-50
                 bg-background p-6 rounded-2xl shadow-2xl border border-[var(--color-glass-border)]
                 text-foreground
                 left-4 sm:left-auto
                 w-auto sm:w-80
+                max-h-[calc(100vh-2rem)]
+                overflow-y-auto
             `}
             style={{
                 boxShadow: 'var(--effect-shadow-xl)',

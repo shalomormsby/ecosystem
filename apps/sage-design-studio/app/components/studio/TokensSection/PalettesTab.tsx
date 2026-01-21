@@ -31,7 +31,7 @@ import {
 import { useTheme } from '@sage/ui/hooks';
 import { useCustomizer } from '@sage/ui';
 import { colorPalettes, type PaletteCategory } from '@sage/tokens';
-import { Check, MoreVertical, Edit, Type, Trash2, Plus } from 'lucide-react';
+import { Check, MoreVertical, Edit, Trash2, Plus } from 'lucide-react';
 
 const CATEGORIES: { value: PaletteCategory | 'all' | 'custom'; label: string; icon: string }[] = [
   { value: 'all', label: 'All', icon: '✨' },
@@ -49,7 +49,6 @@ export function PalettesTab() {
   const [selectedCategory, setSelectedCategory] = useState<PaletteCategory | 'all' | 'custom'>('all');
   const [accessibleOnly, setAccessibleOnly] = useState(false);
   const [editingPalette, setEditingPalette] = useState<any>(null);
-  const [renamingPalette, setRenamingPalette] = useState<any>(null);
   const [deletingPalette, setDeletingPalette] = useState<any>(null);
   const [creatingPalette, setCreatingPalette] = useState(false);
   const [newPaletteName, setNewPaletteName] = useState('');
@@ -60,12 +59,11 @@ export function PalettesTab() {
 
   const { theme, mode } = useTheme();
   const {
-    setCustomPrimaryColor,
+    applyColorPalette,
     getActiveColorPalette,
     resetCustomColors,
     getSavedPalettes,
     deletePalette,
-    renamePalette,
     updatePalette,
     savePalette,
   } = useCustomizer();
@@ -87,7 +85,12 @@ export function PalettesTab() {
     const palette = allPalettes.find(p => p.id === paletteId);
     if (!palette) return;
 
-    setCustomPrimaryColor(theme, mode, palette.primary);
+    // Apply all three colors atomically in a single update
+    applyColorPalette(theme, mode, {
+      primary: palette.primary,
+      secondary: palette.secondary,
+      accent: palette.accent,
+    });
   };
 
   const handleDeletePalette = (paletteId: string) => {
@@ -95,48 +98,22 @@ export function PalettesTab() {
     setDeletingPalette(null);
   };
 
-  const handleRenamePalette = () => {
-    if (renamingPalette && newPaletteName.trim()) {
-      const isCustom = renamingPalette.category === 'custom';
-
-      if (isCustom) {
-        // Rename existing custom palette
-        renamePalette(renamingPalette.id, newPaletteName.trim());
-      } else {
-        // Create a copy of curated palette with new name
-        savePalette({
-          name: newPaletteName.trim(),
-          description: renamingPalette.description || `Custom version of ${renamingPalette.name}`,
-          primary: renamingPalette.primary,
-          secondary: renamingPalette.secondary,
-          accent: renamingPalette.accent,
-          wcagAA: renamingPalette.wcagAA || false,
-          wcagAAA: renamingPalette.wcagAAA || false,
-          mood: renamingPalette.mood || [],
-          bestFor: renamingPalette.bestFor,
-        });
-      }
-
-      setRenamingPalette(null);
-      setNewPaletteName('');
-    }
-  };
-
   const handleEditPalette = () => {
-    if (editingPalette) {
+    if (editingPalette && newPaletteName.trim()) {
       const isCustom = editingPalette.category === 'custom';
 
       if (isCustom) {
-        // Update existing custom palette
+        // Update existing custom palette (including name)
         updatePalette(editingPalette.id, {
+          name: newPaletteName.trim(),
           primary: editedPrimaryColor,
           secondary: editedSecondaryColor,
           accent: editedAccentColor,
         });
       } else {
-        // Create a copy of curated palette with edited colors
+        // Create a copy of curated palette with edited colors and name
         savePalette({
-          name: `${editingPalette.name} (Custom)`,
+          name: newPaletteName.trim(),
           description: editingPalette.description || `Custom version of ${editingPalette.name}`,
           primary: editedPrimaryColor,
           secondary: editedSecondaryColor,
@@ -149,6 +126,7 @@ export function PalettesTab() {
       }
 
       setEditingPalette(null);
+      setNewPaletteName('');
     }
   };
 
@@ -185,9 +163,24 @@ export function PalettesTab() {
         <h3 className="text-lg font-semibold mb-2">Curated Color Palettes</h3>
         <p className="text-sm text-[var(--color-text-secondary)]">
           Pre-designed, accessible color schemes for quick customization.
-          Choose a palette to instantly update your {mode} mode theme.
+          Choose a palette to instantly update your theme.
         </p>
       </div>
+
+      {/* Color Logic Explanation */}
+      <Card className="p-4 bg-[var(--color-surface)] border-[var(--color-border)]">
+        <div className="space-y-2">
+          <p className="text-sm font-medium">How Color Customization Works</p>
+          <ul className="text-xs text-[var(--color-text-secondary)] space-y-1 list-disc list-inside">
+            <li><strong>Primary</strong>: Main brand color for buttons, links, and key UI elements</li>
+            <li><strong>Secondary</strong>: Supporting color for less prominent actions (Advanced mode)</li>
+            <li><strong>Accent</strong>: Highlight color for special elements and call-to-actions (Advanced mode)</li>
+          </ul>
+          <p className="text-xs text-[var(--color-text-tertiary)] italic mt-2">
+            Colors are saved per theme ({theme}) and mode ({mode}). Switch modes in the Customizer panel.
+          </p>
+        </div>
+      </Card>
 
       {/* Current Status */}
       {currentPalette && (
@@ -199,9 +192,9 @@ export function PalettesTab() {
                 style={{ backgroundColor: currentPalette.primary }}
               />
               <div>
-                <p className="text-sm font-medium">Custom color active</p>
+                <p className="text-sm font-medium">Custom colors active</p>
                 <p className="text-xs text-[var(--color-text-secondary)] font-mono">
-                  {currentPalette.primary.toUpperCase()}
+                  Primary: {currentPalette.primary.toUpperCase()}
                 </p>
               </div>
             </div>
@@ -298,6 +291,7 @@ export function PalettesTab() {
                     <DropdownMenuItem onClick={(e) => {
                       e.stopPropagation();
                       setEditingPalette(palette);
+                      setNewPaletteName(palette.name);
                       setEditedPrimaryColor(palette.primary);
                       setEditedSecondaryColor(palette.secondary || palette.primary);
                       setEditedAccentColor(palette.accent);
@@ -305,29 +299,17 @@ export function PalettesTab() {
                       <Edit className="mr-2 h-4 w-4" />
                       {isCustom ? 'Edit' : 'Edit (creates copy)'}
                     </DropdownMenuItem>
-                    <DropdownMenuItem onClick={(e) => {
-                      e.stopPropagation();
-                      setRenamingPalette(palette);
-                      setNewPaletteName(palette.name);
-                    }}>
-                      <Type className="mr-2 h-4 w-4" />
-                      {isCustom ? 'Rename' : 'Rename (creates copy)'}
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem
+                      className="text-red-600"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setDeletingPalette(palette);
+                      }}
+                    >
+                      <Trash2 className="mr-2 h-4 w-4" />
+                      Delete
                     </DropdownMenuItem>
-                    {isCustom && (
-                      <>
-                        <DropdownMenuSeparator />
-                        <DropdownMenuItem
-                          className="text-red-600"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            setDeletingPalette(palette);
-                          }}
-                        >
-                          <Trash2 className="mr-2 h-4 w-4" />
-                          Delete
-                        </DropdownMenuItem>
-                      </>
-                    )}
                   </DropdownMenuContent>
                 </DropdownMenu>
               </div>
@@ -454,58 +436,35 @@ export function PalettesTab() {
         </AlertDialogContent>
       </AlertDialog>
 
-      {/* Rename Dialog */}
-      <Dialog open={!!renamingPalette} onOpenChange={() => {
-        setRenamingPalette(null);
+      {/* Edit Palette Dialog */}
+      <Dialog open={!!editingPalette} onOpenChange={() => {
+        setEditingPalette(null);
         setNewPaletteName('');
       }}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Rename Palette</DialogTitle>
-            <DialogDescription>
-              Give your palette a new name
-            </DialogDescription>
-          </DialogHeader>
-          <div className="space-y-4 py-4">
-            <div className="space-y-2">
-              <Label htmlFor="palette-name">Palette Name</Label>
-              <Input
-                id="palette-name"
-                value={newPaletteName}
-                onChange={(e) => setNewPaletteName(e.target.value)}
-                placeholder={renamingPalette?.name}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter') handleRenamePalette();
-                }}
-              />
-            </div>
-          </div>
-          <DialogFooter>
-            <Button variant="outline" onClick={() => {
-              setRenamingPalette(null);
-              setNewPaletteName('');
-            }}>
-              Cancel
-            </Button>
-            <Button onClick={handleRenamePalette} disabled={!newPaletteName.trim()}>
-              Rename
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
-
-      {/* Edit Palette Dialog */}
-      <Dialog open={!!editingPalette} onOpenChange={() => setEditingPalette(null)}>
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Edit Palette</DialogTitle>
             <DialogDescription>
               {editingPalette?.category === 'custom'
-                ? 'Modify the colors in your palette'
+                ? 'Modify the name and colors of your palette'
                 : 'Editing will create a custom copy of this palette'}
             </DialogDescription>
           </DialogHeader>
           <div className="space-y-4 py-4">
+            <div className="space-y-2">
+              <Label htmlFor="edit-palette-name">Palette Name</Label>
+              <Input
+                id="edit-palette-name"
+                value={newPaletteName}
+                onChange={(e) => setNewPaletteName(e.target.value)}
+                placeholder="Enter palette name"
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' && newPaletteName.trim()) {
+                    handleEditPalette();
+                  }
+                }}
+              />
+            </div>
             <div className="space-y-2">
               <Label>Primary Color</Label>
               <ColorPicker
@@ -529,10 +488,13 @@ export function PalettesTab() {
             </div>
           </div>
           <DialogFooter>
-            <Button variant="outline" onClick={() => setEditingPalette(null)}>
+            <Button variant="outline" onClick={() => {
+              setEditingPalette(null);
+              setNewPaletteName('');
+            }}>
               Cancel
             </Button>
-            <Button onClick={handleEditPalette}>
+            <Button onClick={handleEditPalette} disabled={!newPaletteName.trim()}>
               {editingPalette?.category === 'custom' ? 'Save Changes' : 'Create Copy'}
             </Button>
           </DialogFooter>

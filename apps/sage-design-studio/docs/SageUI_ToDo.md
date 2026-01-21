@@ -408,3 +408,125 @@ High-impact tasks to evolve the Sage UI Motion section and make it as useful as 
     - Create a standard `<PageTransition>` component for seamless navigation. (Impact: High)
 - [ ] **Interactive "Scroll" Components**
     - Add `ScrollReveal` or `Parallax` components. (Impact: High)
+
+---
+
+## 🏠 Create Sage UI Home and Landing Page
+**Date Added:** 2026-01-21
+**Priority:** Critical
+**Status:** Planned
+**Impact:** Very High (First Impression)
+
+### Objective
+Create a landing page that instantly communicates the purpose, structure, and value of Sage UI to both technical users and executive stakeholders (CDOs, design leaders).
+
+### Core Message: "Sage UI - A Systematic Design Language"
+
+**The Four-Layer Hierarchy:**
+
+**1. Design Tokens (Foundation Layer)**
+The atomic values that define your brand's visual language—colors, typography, spacing, shadows, and motion. Tokens ensure consistency across all implementations and enable dynamic theming.
+
+*Value*: Single source of truth for design decisions, enabling brand consistency and theme flexibility.
+
+**2. Components (Element Layer)**
+Primitive, reusable UI elements—buttons, inputs, cards, dialogs—that implement design tokens and handle core interactions. Each component follows accessibility standards (WCAG AA/AAA) and responds to theme customization.
+
+*Value*: Accelerated development with pre-built, accessible, production-ready elements.
+
+**3. Blocks (Pattern Layer)**
+Pre-composed sections combining multiple components into common UI patterns—hero sections, feature grids, pricing tables, testimonial layouts. Blocks are context-aware compositions that solve specific design problems.
+
+*Value*: Rapid prototyping and consistent implementation of proven UX patterns across products.
+
+**4. Templates (Page Layer)**
+Complete page layouts that combine blocks into cohesive experiences—landing pages, dashboards, documentation sites. Templates demonstrate best-practice composition and provide production-ready starting points.
+
+*Value*: Accelerated time-to-market with battle-tested layouts that maintain brand consistency.
+
+### Design Philosophy
+Each layer builds upon the previous, creating a systematic approach where changes cascade intelligently—updating a color token automatically refines all components, blocks, and templates that use it.
+
+### Why This Resonates with CDOs
+- **Strategic thinking**: Systematic approach to design at scale
+- **Efficiency**: Reusability at every layer reduces redundancy
+- **Flexibility**: Customizable at the foundation without rebuilding
+- **Quality**: Accessibility and best practices baked in from the start
+
+### Implementation Requirements
+
+**Visual Design Inspiration:**
+- https://ui.mantine.dev/ - Clean hierarchy, interactive demos
+- https://chakra-ui.com/ - Component showcase, clear structure
+- https://m3.material.io/ - Systematic thinking, design principles
+- https://ui.shadcn.com/ - Modern aesthetic, developer-friendly
+
+**Must-Have Elements:**
+1. **Hero Section**
+   - Clear headline conveying systematic design language
+   - Visual diagram showing the 4-layer hierarchy
+   - Primary CTA ("Get Started" / "Explore Components")
+   - Secondary CTA ("View Templates" / "See Examples")
+
+2. **The Four Layers Section**
+   - Visual cards for each layer (Tokens → Components → Blocks → Templates)
+   - Interactive preview showing how changes cascade through layers
+   - Value proposition for each layer
+   - Icon/illustration for each layer concept
+
+3. **Live Examples**
+   - Interactive component playground
+   - Theme switcher showing dynamic theming in action
+   - Before/after comparisons showing the power of token-based design
+   - Real product examples built with Sage UI
+
+4. **Key Features Grid**
+   - Accessibility-first approach
+   - Dynamic theming system
+   - Responsive by default
+   - Developer-friendly API
+   - Production-ready components
+   - Open source / MIT licensed
+
+5. **Use Cases / Audience**
+   - Not just for solopreneurs (broader appeal)
+   - Design teams scaling design systems
+   - Product teams shipping faster
+   - Agencies building client projects
+   - Startups needing production-ready UI
+
+6. **Social Proof** (when available)
+   - Built with Sage UI showcase
+   - GitHub stars / npm downloads
+   - Community testimonials
+
+7. **Get Started Section**
+   - Installation command
+   - Quick start guide
+   - Link to documentation
+   - Link to component library
+
+**Technical Requirements:**
+- Must be responsive (mobile-first)
+- Must demonstrate Sage UI's own components
+- Must load quickly (<2s LCP)
+- Must be accessible (WCAG AA minimum)
+- Must include meta tags for social sharing
+- Must have clear navigation to docs/components/templates
+
+**Content Goals:**
+- Inspiring but not overwhelming
+- Professional but approachable
+- Technical but understandable by non-technical stakeholders
+- Clear value proposition within 5 seconds
+- Call-to-action within first screen
+
+### Success Metrics
+- [ ] Clear understanding of Sage UI structure within 30 seconds of landing
+- [ ] Compelling reason to explore further (low bounce rate)
+- [ ] Smooth path to documentation / getting started
+- [ ] Appeals to both developers and design leadership
+- [ ] Showcases visual quality and attention to detail
+- [ ] Mobile experience as polished as desktop
+
+---

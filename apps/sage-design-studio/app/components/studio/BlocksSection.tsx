@@ -6,9 +6,9 @@ import { Header, SecondaryNav, TertiaryNav, Footer, Modal, ToastProvider, useToa
 import { SlidersHorizontal, Sun, Moon, SunMoon, Building2, Leaf, Zap, X } from 'lucide-react';
 import type { SyntaxToken } from '@sage/ui';
 
-type PatternType = 'PageLayout' | 'PrimaryNav' | 'SecondaryNav' | 'TertiaryNav' | 'FirstStack' | 'SecondStack' | 'Footer' | 'Toast' | 'Modal' | 'CollapsibleCodeBlock' | 'Customizer';
+type BlockType = 'PageLayout' | 'PrimaryNav' | 'SecondaryNav' | 'TertiaryNav' | 'FirstStack' | 'SecondStack' | 'Footer' | 'Toast' | 'Modal' | 'CollapsibleCodeBlock' | 'Customizer';
 
-interface PatternsSectionProps {
+interface BlocksSectionProps {
   activeItemId?: string;
   breadcrumbs?: BreadcrumbItemLegacy[];
   onItemChange?: (itemId: string) => void;
@@ -310,8 +310,8 @@ function CustomizerDemoLightweight() {
   );
 }
 
-export function PatternsSection({ activeItemId, breadcrumbs, onItemChange }: PatternsSectionProps) {
-  const [selectedPattern, setSelectedPattern] = useState<PatternType>('PrimaryNav');
+export function BlocksSection({ activeItemId, breadcrumbs, onItemChange }: BlocksSectionProps) {
+  const [selectedPattern, setSelectedPattern] = useState<BlockType>('PrimaryNav');
 
   // Update selected pattern when activeItemId changes
   useEffect(() => {
@@ -321,7 +321,7 @@ export function PatternsSection({ activeItemId, breadcrumbs, onItemChange }: Pat
       const patternName = activeItemId
         .split('-')
         .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-        .join('') as PatternType;
+        .join('') as BlockType;
 
       if (['PageLayout', 'PrimaryNav', 'SecondaryNav', 'TertiaryNav', 'FirstStack', 'SecondStack', 'Footer', 'Toast', 'Modal', 'CollapsibleCodeBlock', 'Customizer'].includes(patternName)) {
         setSelectedPattern(patternName);
@@ -330,7 +330,7 @@ export function PatternsSection({ activeItemId, breadcrumbs, onItemChange }: Pat
   }, [activeItemId]);
 
   // Handle pattern selection and notify parent
-  const handlePatternChange = (id: PatternType) => {
+  const handlePatternChange = (id: BlockType) => {
     setSelectedPattern(id);
     // Convert PascalCase to kebab-case for parent state (e.g., 'PrimaryNav' -> 'primary-nav')
     const kebabCase = id

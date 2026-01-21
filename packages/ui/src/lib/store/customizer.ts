@@ -83,6 +83,12 @@ interface CustomizerState {
     hexColor: string
   ) => void;
 
+  applyColorPalette: (
+    theme: ThemeName,
+    mode: ColorMode,
+    colors: { primary: string; secondary?: string; accent?: string }
+  ) => void;
+
   resetCustomColors: (theme: ThemeName, mode?: ColorMode) => void;
 
   getActiveColorPalette: (theme: ThemeName, mode: ColorMode) => ColorPalette | null;
@@ -195,6 +201,52 @@ export const useCustomizer = create<CustomizerState>()(
                   ...derivedTokens,
                 },
               },
+            },
+          },
+        }));
+      },
+
+      applyColorPalette: (theme, mode, colors: { primary: string; secondary?: string; accent?: string }) => {
+        // Generate complete color palette with all three colors in a single atomic update
+        const scale = generateColorScale(colors.primary);
+        const primaryForeground = getOptimalForeground(colors.primary);
+
+        // Compute all derived tokens
+        let derivedTokens = computeDerivedTokens('--color-primary', colors.primary, mode);
+
+        // Add secondary color if provided
+        let secondary = colors.secondary;
+        let secondaryForeground = secondary ? getOptimalForeground(secondary) : undefined;
+        if (secondary) {
+          const secondaryDerived = computeDerivedTokens('--color-secondary', secondary, mode);
+          derivedTokens = { ...derivedTokens, ...secondaryDerived };
+        }
+
+        // Add accent color if provided
+        let accent = colors.accent;
+        let accentForeground = accent ? getOptimalForeground(accent) : undefined;
+        if (accent) {
+          const accentDerived = computeDerivedTokens('--color-accent', accent, mode);
+          derivedTokens = { ...derivedTokens, ...accentDerived };
+        }
+
+        const palette: ColorPalette = {
+          primary: colors.primary,
+          primaryForeground,
+          secondary,
+          secondaryForeground,
+          accent,
+          accentForeground,
+          scale,
+          derivedTokens,
+        };
+
+        set((state) => ({
+          customColors: {
+            ...state.customColors,
+            [theme]: {
+              ...state.customColors[theme],
+              [mode]: palette,
             },
           },
         }));

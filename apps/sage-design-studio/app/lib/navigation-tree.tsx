@@ -235,25 +235,25 @@ export const navigationTree: NavigationItem[] = [
     ],
   },
   {
-    id: 'patterns',
-    label: 'Patterns',
+    id: 'blocks',
+    label: 'Blocks',
     icon: <Layers className="w-4 h-4" />,
     children: [
       {
         id: 'app-shell',
         label: 'App Shell',
         children: [
-          { id: 'page-layout', label: 'Page Layout', section: 'patterns' },
-          { id: 'primary-nav', label: 'Primary Nav', section: 'patterns' },
-          { id: 'secondary-nav', label: 'Secondary Nav', section: 'patterns' },
-          { id: 'footer', label: 'Footer', section: 'patterns' },
+          { id: 'page-layout', label: 'Page Layout', section: 'blocks' },
+          { id: 'primary-nav', label: 'Primary Nav', section: 'blocks' },
+          { id: 'secondary-nav', label: 'Secondary Nav', section: 'blocks' },
+          { id: 'footer', label: 'Footer', section: 'blocks' },
         ],
       },
       {
         id: 'customization',
         label: 'Customization',
         children: [
-          { id: 'customizer', label: 'Customizer', section: 'patterns' },
+          { id: 'customizer', label: 'Customizer', section: 'blocks' },
           { id: 'theme-toggle', label: 'Theme Toggle', section: 'forms' }, // Moved to forms
         ],
       },
@@ -261,7 +261,7 @@ export const navigationTree: NavigationItem[] = [
         id: 'code',
         label: 'Code',
         children: [
-          { id: 'collapsible-code-block', label: 'Code Block', section: 'patterns' },
+          { id: 'collapsible-code-block', label: 'Code Block', section: 'blocks' },
         ],
       },
     ],
