@@ -31,7 +31,7 @@ import {
 import { useTheme } from '@sage/ui/hooks';
 import { useCustomizer } from '@sage/ui';
 import { colorPalettes, type PaletteCategory } from '@sage/tokens';
-import { Check, MoreVertical, Edit, Type, Trash2 } from 'lucide-react';
+import { Check, MoreVertical, Edit, Type, Trash2, Plus } from 'lucide-react';
 
 const CATEGORIES: { value: PaletteCategory | 'all' | 'custom'; label: string; icon: string }[] = [
   { value: 'all', label: 'All', icon: '✨' },
@@ -51,7 +51,9 @@ export function PalettesTab() {
   const [editingPalette, setEditingPalette] = useState<any>(null);
   const [renamingPalette, setRenamingPalette] = useState<any>(null);
   const [deletingPalette, setDeletingPalette] = useState<any>(null);
+  const [creatingPalette, setCreatingPalette] = useState(false);
   const [newPaletteName, setNewPaletteName] = useState('');
+  const [newPaletteDescription, setNewPaletteDescription] = useState('');
   const [editedPrimaryColor, setEditedPrimaryColor] = useState('');
   const [editedAccentColor, setEditedAccentColor] = useState('');
 
@@ -64,6 +66,7 @@ export function PalettesTab() {
     deletePalette,
     renamePalette,
     updatePalette,
+    savePalette,
   } = useCustomizer();
 
   const currentPalette = getActiveColorPalette(theme, mode);
@@ -93,7 +96,25 @@ export function PalettesTab() {
 
   const handleRenamePalette = () => {
     if (renamingPalette && newPaletteName.trim()) {
-      renamePalette(renamingPalette.id, newPaletteName.trim());
+      const isCustom = renamingPalette.category === 'custom';
+
+      if (isCustom) {
+        // Rename existing custom palette
+        renamePalette(renamingPalette.id, newPaletteName.trim());
+      } else {
+        // Create a copy of curated palette with new name
+        savePalette({
+          name: newPaletteName.trim(),
+          description: renamingPalette.description || `Custom version of ${renamingPalette.name}`,
+          primary: renamingPalette.primary,
+          accent: renamingPalette.accent,
+          wcagAA: renamingPalette.wcagAA || false,
+          wcagAAA: renamingPalette.wcagAAA || false,
+          mood: renamingPalette.mood || [],
+          bestFor: renamingPalette.bestFor,
+        });
+      }
+
       setRenamingPalette(null);
       setNewPaletteName('');
     }
@@ -101,11 +122,49 @@ export function PalettesTab() {
 
   const handleEditPalette = () => {
     if (editingPalette) {
-      updatePalette(editingPalette.id, {
+      const isCustom = editingPalette.category === 'custom';
+
+      if (isCustom) {
+        // Update existing custom palette
+        updatePalette(editingPalette.id, {
+          primary: editedPrimaryColor,
+          accent: editedAccentColor,
+        });
+      } else {
+        // Create a copy of curated palette with edited colors
+        savePalette({
+          name: `${editingPalette.name} (Custom)`,
+          description: editingPalette.description || `Custom version of ${editingPalette.name}`,
+          primary: editedPrimaryColor,
+          accent: editedAccentColor,
+          wcagAA: editingPalette.wcagAA || false,
+          wcagAAA: editingPalette.wcagAAA || false,
+          mood: editingPalette.mood || [],
+          bestFor: editingPalette.bestFor,
+        });
+      }
+
+      setEditingPalette(null);
+    }
+  };
+
+  const handleCreatePalette = () => {
+    if (newPaletteName.trim() && editedPrimaryColor && editedAccentColor) {
+      savePalette({
+        name: newPaletteName.trim(),
+        description: newPaletteDescription.trim() || 'Custom palette',
         primary: editedPrimaryColor,
         accent: editedAccentColor,
+        wcagAA: false,
+        wcagAAA: false,
+        mood: [],
       });
-      setEditingPalette(null);
+
+      setCreatingPalette(false);
+      setNewPaletteName('');
+      setNewPaletteDescription('');
+      setEditedPrimaryColor('');
+      setEditedAccentColor('');
     }
   };
 
@@ -188,6 +247,7 @@ export function PalettesTab() {
 
       {/* Palette Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {/* Existing Palettes */}
         {filteredPalettes.map(palette => {
           const isActive = currentPalette?.primary === palette.primary;
           const isCustom = palette.category === 'custom';
@@ -201,53 +261,55 @@ export function PalettesTab() {
                 ${isActive ? 'ring-2 ring-[var(--color-primary)]' : ''}
               `}
             >
-              {/* Dropdown Menu for Custom Palettes */}
-              {isCustom && (
-                <div className="absolute top-2 right-2 z-10">
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        className="h-8 w-8 p-0"
-                        onClick={(e) => e.stopPropagation()}
-                      >
-                        <MoreVertical className="h-4 w-4" />
-                      </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                      <DropdownMenuItem onClick={(e) => {
-                        e.stopPropagation();
-                        setEditingPalette(palette);
-                        setEditedPrimaryColor(palette.primary);
-                        setEditedAccentColor(palette.accent);
-                      }}>
-                        <Edit className="mr-2 h-4 w-4" />
-                        Edit
-                      </DropdownMenuItem>
-                      <DropdownMenuItem onClick={(e) => {
-                        e.stopPropagation();
-                        setRenamingPalette(palette);
-                        setNewPaletteName(palette.name);
-                      }}>
-                        <Type className="mr-2 h-4 w-4" />
-                        Rename
-                      </DropdownMenuItem>
-                      <DropdownMenuSeparator />
-                      <DropdownMenuItem
-                        className="text-red-600"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          setDeletingPalette(palette);
-                        }}
-                      >
-                        <Trash2 className="mr-2 h-4 w-4" />
-                        Delete
-                      </DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                </div>
-              )}
+              {/* Dropdown Menu for All Palettes */}
+              <div className="absolute top-2 right-2 z-10">
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="h-8 w-8 p-0"
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      <MoreVertical className="h-4 w-4" />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end">
+                    <DropdownMenuItem onClick={(e) => {
+                      e.stopPropagation();
+                      setEditingPalette(palette);
+                      setEditedPrimaryColor(palette.primary);
+                      setEditedAccentColor(palette.accent);
+                    }}>
+                      <Edit className="mr-2 h-4 w-4" />
+                      {isCustom ? 'Edit' : 'Edit (creates copy)'}
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={(e) => {
+                      e.stopPropagation();
+                      setRenamingPalette(palette);
+                      setNewPaletteName(palette.name);
+                    }}>
+                      <Type className="mr-2 h-4 w-4" />
+                      {isCustom ? 'Rename' : 'Rename (creates copy)'}
+                    </DropdownMenuItem>
+                    {isCustom && (
+                      <>
+                        <DropdownMenuSeparator />
+                        <DropdownMenuItem
+                          className="text-red-600"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setDeletingPalette(palette);
+                          }}
+                        >
+                          <Trash2 className="mr-2 h-4 w-4" />
+                          Delete
+                        </DropdownMenuItem>
+                      </>
+                    )}
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </div>
 
               {/* Color Preview */}
               <div className="flex gap-2 mb-3">
@@ -331,6 +393,22 @@ export function PalettesTab() {
             </Card>
           );
         })}
+
+        {/* Create New Palette Card */}
+        <Card
+          className="p-4 cursor-pointer transition-all border-dashed border-2 hover:shadow-lg hover:border-[var(--color-primary)] flex flex-col items-center justify-center min-h-[300px]"
+          onClick={() => {
+            setCreatingPalette(true);
+            setEditedPrimaryColor('#0066cc');
+            setEditedAccentColor('#ff6b35');
+          }}
+        >
+          <Plus className="h-12 w-12 mb-3 text-[var(--color-text-secondary)]" />
+          <p className="text-lg font-medium text-[var(--color-text-secondary)]">Create New Palette</p>
+          <p className="text-sm text-[var(--color-text-tertiary)] mt-1">
+            Design your own color scheme
+          </p>
+        </Card>
       </div>
 
       {filteredPalettes.length === 0 && (
@@ -403,7 +481,9 @@ export function PalettesTab() {
           <DialogHeader>
             <DialogTitle>Edit Palette</DialogTitle>
             <DialogDescription>
-              Modify the colors in your palette
+              {editingPalette?.category === 'custom'
+                ? 'Modify the colors in your palette'
+                : 'Editing will create a custom copy of this palette'}
             </DialogDescription>
           </DialogHeader>
           <div className="space-y-4 py-4">
@@ -427,7 +507,75 @@ export function PalettesTab() {
               Cancel
             </Button>
             <Button onClick={handleEditPalette}>
-              Save Changes
+              {editingPalette?.category === 'custom' ? 'Save Changes' : 'Create Copy'}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Create New Palette Dialog */}
+      <Dialog open={creatingPalette} onOpenChange={setCreatingPalette}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Create New Palette</DialogTitle>
+            <DialogDescription>
+              Design your own custom color palette
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4 py-4">
+            <div className="space-y-2">
+              <Label htmlFor="new-palette-name">Palette Name</Label>
+              <Input
+                id="new-palette-name"
+                value={newPaletteName}
+                onChange={(e) => setNewPaletteName(e.target.value)}
+                placeholder="My Custom Palette"
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' && newPaletteName.trim() && editedPrimaryColor && editedAccentColor) {
+                    handleCreatePalette();
+                  }
+                }}
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="new-palette-description">Description (optional)</Label>
+              <Input
+                id="new-palette-description"
+                value={newPaletteDescription}
+                onChange={(e) => setNewPaletteDescription(e.target.value)}
+                placeholder="A description of your palette"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label>Primary Color</Label>
+              <ColorPicker
+                value={editedPrimaryColor}
+                onChange={setEditedPrimaryColor}
+              />
+            </div>
+            <div className="space-y-2">
+              <Label>Accent Color</Label>
+              <ColorPicker
+                value={editedAccentColor}
+                onChange={setEditedAccentColor}
+              />
+            </div>
+          </div>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => {
+              setCreatingPalette(false);
+              setNewPaletteName('');
+              setNewPaletteDescription('');
+              setEditedPrimaryColor('');
+              setEditedAccentColor('');
+            }}>
+              Cancel
+            </Button>
+            <Button
+              onClick={handleCreatePalette}
+              disabled={!newPaletteName.trim() || !editedPrimaryColor || !editedAccentColor}
+            >
+              Create Palette
             </Button>
           </DialogFooter>
         </DialogContent>
