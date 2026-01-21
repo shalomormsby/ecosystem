@@ -181,9 +181,10 @@ function mergeCustomColorTokens(
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const { theme, mode } = useThemeStore();
-  // Subscribe directly to the custom colors data, not the getter function
-  // This ensures the component re-renders when custom colors change
-  const customColors = useCustomizer((state) => state.customColors);
+  // Use specific selector to get the exact palette for current theme/mode
+  // This fixes the issue where full object subscription might miss updates or cause hydration issues
+  const customPalette = useCustomizer((state) => state.customColors?.[theme]?.[mode]);
+
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [mounted, setMounted] = useState(false);
 
@@ -205,8 +206,16 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     // 1. Get base theme tokens
     const baseTokens = getThemeVars(theme, mode);
 
-    // 2. Get custom color palette (if exists)
-    const customPalette = customColors?.[theme]?.[mode] || null;
+    // 2. Custom palette is now derived directly from store selector
+
+    // DEBUG: Log the values to diagnose mismatch
+    console.log('[ThemeProvider] Update:', {
+      theme,
+      mode,
+      hasCustomPalette: !!customPalette,
+      customPrimary: customPalette?.primary,
+      timestamp: new Date().toISOString()
+    });
 
     // 3. Merge tokens (custom overrides base)
     const finalTokens = customPalette
@@ -240,7 +249,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     }, 400); // 400ms = 300ms transition + 100ms buffer
 
     return () => clearTimeout(timeout);
-  }, [theme, mode, mounted, customColors]);
+  }, [theme, mode, mounted, customPalette]);
 
   // Don't render children until mounted (prevents flash)
   if (!mounted) {

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   Card,
   Button,
@@ -28,7 +28,7 @@ import {
   Label,
   ColorPicker,
 } from '@sage/ui';
-import { useTheme } from '@sage/ui/hooks';
+import { useTheme } from '@sage/ui';
 import { useCustomizer } from '@sage/ui';
 import { colorPalettes, type PaletteCategory } from '@sage/tokens';
 import { Check, MoreVertical, Edit, Trash2, Plus } from 'lucide-react';
@@ -58,6 +58,14 @@ export function PalettesTab() {
   const [editedAccentColor, setEditedAccentColor] = useState('');
 
   const { theme, mode } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  // Prevent hydration mismatch
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+
 
   // Use proper Zustand selectors for reactive state
   const applyColorPalette = useCustomizer(state => state.applyColorPalette);
@@ -69,6 +77,10 @@ export function PalettesTab() {
 
   // Subscribe to entire customColors object to ensure reactivity, then derive current palette
   const customColors = useCustomizer(state => state.customColors);
+
+  if (!mounted) {
+    return null;
+  }
   const currentPalette = customColors?.[theme]?.[mode] || null;
 
   // Combine curated and saved palettes

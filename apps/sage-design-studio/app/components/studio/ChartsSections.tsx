@@ -185,6 +185,8 @@ export function Component() {
           nameKey="month"
           innerRadius={60}
           strokeWidth={5}
+          startAngle={90}
+          endAngle={-270}
         >
           <Label
             content={({ viewBox }) => {
@@ -332,7 +334,7 @@ export function ChartsSections({ activeItemId, breadcrumbs, onItemChange }: Char
                   <div className="mb-4 pointer-events-none flex justify-center">
                     <ChartContainer config={chartConfig} className="aspect-square h-[100px]">
                       <PieChart>
-                        <Pie data={chartData} dataKey="desktop" innerRadius={25} outerRadius={40} strokeWidth={2} endAngle={-270} />
+                        <Pie data={chartData} dataKey="desktop" innerRadius={25} outerRadius={40} strokeWidth={2} startAngle={90} endAngle={-270} />
                       </PieChart>
                     </ChartContainer>
                   </div>
@@ -465,6 +467,7 @@ export function ChartsSections({ activeItemId, breadcrumbs, onItemChange }: Char
                     nameKey="month"
                     innerRadius={60}
                     strokeWidth={5}
+                    startAngle={90}
                     endAngle={-270}
                   >
                     <Label
