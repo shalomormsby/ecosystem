@@ -19,6 +19,21 @@ export interface ColorPalette {
   derivedTokens: Record<string, string>;    // Computed dependent tokens
 }
 
+export interface SavedPalette {
+  id: string;                               // Unique ID
+  name: string;                             // User-defined name
+  description: string;                      // Palette description
+  primary: string;                          // Primary color hex
+  accent: string;                           // Accent color hex
+  secondary?: string;                       // Optional secondary color
+  category: 'custom';                       // Always 'custom' for user palettes
+  wcagAA: boolean;                          // Calculated accessibility
+  wcagAAA: boolean;                         // Calculated accessibility
+  createdAt: number;                        // Timestamp
+  mood: string[];                           // Mood tags
+  bestFor?: string[];                       // Best use cases
+}
+
 export interface ColorCustomization {
   mode: CustomizationMode;
   palette: ColorPalette | null;
@@ -39,6 +54,9 @@ interface CustomizerState {
       [mode in ColorMode]?: ColorPalette;
     };
   };
+
+  // Saved custom palettes
+  savedPalettes: SavedPalette[];
 
   // Motion actions
   setMotion: (level: number) => void;
@@ -68,6 +86,13 @@ interface CustomizerState {
   resetCustomColors: (theme: ThemeName, mode?: ColorMode) => void;
 
   getActiveColorPalette: (theme: ThemeName, mode: ColorMode) => ColorPalette | null;
+
+  // Saved palette actions
+  savePalette: (palette: Omit<SavedPalette, 'id' | 'createdAt' | 'category'>) => void;
+  updatePalette: (id: string, updates: Partial<SavedPalette>) => void;
+  renamePalette: (id: string, newName: string) => void;
+  deletePalette: (id: string) => void;
+  getSavedPalettes: () => SavedPalette[];
 }
 
 export const useCustomizer = create<CustomizerState>()(
@@ -77,6 +102,7 @@ export const useCustomizer = create<CustomizerState>()(
       prefersReducedMotion: false,
       customizationMode: 'simple',
       customColors: {},
+      savedPalettes: [],
 
       setMotion: (level) => set({ motion: level }),
       setPrefersReducedMotion: (value) => set({ prefersReducedMotion: value }),
@@ -198,15 +224,57 @@ export const useCustomizer = create<CustomizerState>()(
       getActiveColorPalette: (theme, mode) => {
         return get().customColors[theme]?.[mode] || null;
       },
+
+      // Saved palette management
+      savePalette: (paletteData) => {
+        const id = `custom-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+        const newPalette: SavedPalette = {
+          ...paletteData,
+          id,
+          category: 'custom',
+          createdAt: Date.now(),
+        };
+
+        set((state) => ({
+          savedPalettes: [...state.savedPalettes, newPalette],
+        }));
+      },
+
+      updatePalette: (id, updates) => {
+        set((state) => ({
+          savedPalettes: state.savedPalettes.map((p) =>
+            p.id === id ? { ...p, ...updates } : p
+          ),
+        }));
+      },
+
+      renamePalette: (id, newName) => {
+        set((state) => ({
+          savedPalettes: state.savedPalettes.map((p) =>
+            p.id === id ? { ...p, name: newName } : p
+          ),
+        }));
+      },
+
+      deletePalette: (id) => {
+        set((state) => ({
+          savedPalettes: state.savedPalettes.filter((p) => p.id !== id),
+        }));
+      },
+
+      getSavedPalettes: () => {
+        return get().savedPalettes;
+      },
     }),
     {
       name: 'ecosystem-customizer',
-      version: 2,
+      version: 3,
       partialize: (state) => ({
         motion: state.motion,
         prefersReducedMotion: state.prefersReducedMotion,
         customizationMode: state.customizationMode,
         customColors: state.customColors,
+        savedPalettes: state.savedPalettes,
       }),
     }
   )

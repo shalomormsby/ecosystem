@@ -13,6 +13,7 @@ export * from './components/actions/Magnetic';
 
 // Forms
 export * from './components/forms/Checkbox';
+export * from './components/forms/ColorPicker';
 export * from './components/forms/Combobox';
 export * from './components/forms/FilterButton';
 export * from './components/forms/Form';

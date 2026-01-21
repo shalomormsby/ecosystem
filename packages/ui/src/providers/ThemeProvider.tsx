@@ -177,7 +177,9 @@ function mergeCustomColorTokens(
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const { theme, mode } = useThemeStore();
-  const getActiveColorPalette = useCustomizer((state) => state.getActiveColorPalette);
+  // Subscribe directly to the custom colors data, not the getter function
+  // This ensures the component re-renders when custom colors change
+  const customColors = useCustomizer((state) => state.customColors);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [mounted, setMounted] = useState(false);
 
@@ -200,7 +202,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     const baseTokens = getThemeVars(theme, mode);
 
     // 2. Get custom color palette (if exists)
-    const customPalette = getActiveColorPalette(theme, mode);
+    const customPalette = customColors?.[theme]?.[mode] || null;
 
     // 3. Merge tokens (custom overrides base)
     const finalTokens = customPalette
@@ -234,7 +236,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     }, 400); // 400ms = 300ms transition + 100ms buffer
 
     return () => clearTimeout(timeout);
-  }, [theme, mode, mounted, getActiveColorPalette]);
+  }, [theme, mode, mounted, customColors]);
 
   // Don't render children until mounted (prevents flash)
   if (!mounted) {
