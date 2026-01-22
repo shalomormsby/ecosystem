@@ -165,6 +165,16 @@ export const sageTokens = {
     },
   },
 
+  interactions: {
+    hover: {
+      overlayColor: 'var(--color-interaction-overlay)',
+      opacity: 'var(--opacity-interaction-hover)',
+    },
+    active: {
+      scale: 'var(--scale-interaction-active)',
+    },
+  },
+
   typography: {
     heading: {
       fontFamily: 'var(--font-sage-serif)', // Lora serif

@@ -107,10 +107,10 @@ const SidebarItem = React.forwardRef<HTMLButtonElement, SidebarItemProps>(
             <Comp
                 ref={ref}
                 className={cn(
-                    "w-full flex items-center gap-2 px-3 py-2 text-sm transition-colors rounded-md",
+                    "w-full flex items-center gap-2 px-3 py-2 text-sm transition-colors rounded-md sage-interactive",
                     isActive
                         ? "bg-primary text-primary-foreground font-medium"
-                        : "text-muted-foreground hover:bg-muted hover:text-foreground",
+                        : "text-muted-foreground hover:text-foreground",
                     depth === 0 && !isActive ? "font-medium text-foreground" : "",
                     className
                 )}

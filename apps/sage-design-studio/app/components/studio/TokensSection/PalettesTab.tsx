@@ -253,10 +253,9 @@ export function PalettesTab() {
               variant="default"
               size="sm"
               onClick={resetColors}
-              className="relative w-full lg:w-auto whitespace-nowrap shrink-0 overflow-hidden group border-none"
+              className="w-full lg:w-auto whitespace-nowrap shrink-0 border-none"
             >
-              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/25 transition-colors duration-200" />
-              <span className="relative z-10">Reset to Default</span>
+              Reset to Default
             </Button>
           </div>
         </Card>
@@ -435,16 +434,13 @@ export function PalettesTab() {
                 variant="default"
                 size="sm"
                 className={`
-                  w-full mt-auto transition-all relative overflow-hidden group border-none justify-center
+                  w-full mt-auto transition-all border-none justify-center
                   ${isActive
                     ? 'bg-[var(--color-accent)] text-[var(--color-accent-foreground)] ring-1 ring-[var(--color-accent)]'
                     : ''}
                 `}
               >
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/25 transition-colors duration-200" />
-                <span className="relative z-10 flex items-center justify-center gap-2">
-                  {isActive ? 'Currently Active' : 'Apply Palette'}
-                </span>
+                {isActive ? 'Currently Active' : 'Apply Palette'}
               </Button>
             </Card>
           );

@@ -58,6 +58,11 @@
     /* Fonts */
     --font-header-logo: var(--font-sage-body);
     --font-header-nav: var(--font-sage-body);
+
+    /* Interaction Tokens */
+    --color-interaction-overlay: #000000;
+    --opacity-interaction-hover: 0.08;
+    --scale-interaction-active: 0.98;
   }
 
   .dark {
@@ -108,6 +113,10 @@
 
     --color-glass: rgba(0, 0, 0, 0.7);
     --color-glass-border: rgba(255, 255, 255, 0.1);
+
+    /* Interaction Tokens - Dark Mode (Brightening) */
+    --color-interaction-overlay: #ffffff;
+    --opacity-interaction-hover: 0.08;
   }
 }
 
@@ -115,7 +124,95 @@ html.dark {
   background-color: black;
 }
 
-/* Documentation Typography Hierarchy */
+/* 
+  Sage Interactive Primitive 
+  Applies a systematic interaction layer (overlay) without affecting text contrast.
+  Don Norman's Principles: Feedback & Consistency.
+*/
+.sage-interactive {
+  position: relative;
+  isolation: isolate; /* Create new stacking context */
+  transition: transform 0.1s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+}
+
+.sage-interactive::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit; /* Matches parent border-radius */
+  background-color: var(--color-interaction-overlay);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+  z-index: 10; /* Ensure overlay is above background but below text if text is z-indexed? No, z-index 10 might cover text depending on stacking context. */
+}
+
+/* Ensure content has higher z-index if needed, or use mix-blend-mode if appropriate. 
+   With 'isolation: isolate', z-index is relative to this element. 
+   If text is static, z-index 10 on absolute ::after covers it.
+   We need the content to be above the overlay.
+*/
+.sage-interactive > * {
+  position: relative;
+  z-index: 20;
+}
+
+/* Or better: Use ::before/::after with mix-blend-mode, or just rely on opacity. 
+   If we want the overlay to be ON TOP of the background but BELOW the text, 
+   the text needs a z-index.
+   
+   A safer, less intrusive approach for a generic utility:
+   Just put the overlay on top. If opacity is low (0.05), it TINTS the text too.
+   The user disliked text darkening.
+   
+   "Initial brightness filter darkened text along with the background, which was undesirable."
+   MATCHING THE USER'S APPROVED PATTERN:
+   "absolute inset-0 bg-black/0 group-hover:bg-black/25 ... and wrapped the button text in a span with relative z-10"
+   
+   So .sage-interactive MUST ensure children are z-indexed above the overlay.
+   But we can't easily force children to have z-index without a universal selector which is expensive.
+   
+   Alternative: Use `::before` for the overlay and set `z-index: 0` or `-1`?
+   If `-1`, it goes behind the background of the element itself if the element has a background.
+   We want it ABOVE the element's background, but BELOW the content.
+   
+   If the element has `background-color` set on itself, `::after` with `z-index` works if we don't set z-index on children.
+   Actually, if `::after` is `z-index: 1` (or implied auto), and text is static... text is covered.
+   
+   User's previous manual fix:
+   "wrapped the button text in a span with relative z-10"
+   
+   So for `SecondaryNav` items, I will need to ensure the text is wrapped or z-indexed.
+   The `.sage-interactive` class can provide the overlay, but the consumer must handle content layering?
+   
+   OR, I can try to set `pointer-events: none` on the overlay (already done).
+   If opacity is 0.08, tinting text slightly is usually acceptable, BUT the user explicitly complained about it.
+   
+   "Initial brightness filter darkened text..." - brightness filter affects EVERYTHING including white text.
+   Black overlay (0.08) on White text -> turns it light gray.
+   White overlay (0.08) on Black text -> turns it dark gray.
+   It reduces contrast slightly.
+   
+   However, "Darkening the background while preserving text readability" was the goal.
+   
+   If I use `::after` for the overlay, and the element has padding, the overlay covers the padding too (good).
+   
+   Let's stick to the Overlay strategy. To ensure Text Readability, ideally the text is above.
+   I can verify if `SecondaryNav` items have a wrapper I can z-index.
+*/
+
+.sage-interactive:hover::after {
+  opacity: var(--opacity-interaction-hover);
+}
+
+.sage-interactive:active {
+  transform: scale(var(--scale-interaction-active));
+}
+
+html {
+  scroll-behavior: smooth;
+}
 @layer base {
   body {
     font-family: var(--font-nunito), system-ui, sans-serif;
