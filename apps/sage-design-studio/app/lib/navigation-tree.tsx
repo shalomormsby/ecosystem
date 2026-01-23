@@ -233,7 +233,7 @@ export const navigationTree: NavigationItem[] = [
           { id: 'card', label: 'Card', section: 'data-display' },
           { id: 'data-table', label: 'Data Table', section: 'data-display' },
           { id: 'table', label: 'Table', section: 'data-display' },
-          { id: 'open-graph-card', label: 'Open Graph Card', section: 'data-display' },
+          { id: 'table', label: 'Table', section: 'data-display' },
         ],
       },
       {
@@ -280,6 +280,13 @@ export const navigationTree: NavigationItem[] = [
         label: 'Code',
         children: [
           { id: 'collapsible-code-block', label: 'Code Block', section: 'blocks' },
+        ],
+      },
+      {
+        id: 'social',
+        label: 'Social',
+        children: [
+          { id: 'open-graph-card', label: 'Open Graph Card', section: 'blocks' },
         ],
       },
     ],

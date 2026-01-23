@@ -99,8 +99,8 @@ export const searchIndex: SearchResult[] = [
     title: 'Open Graph Card',
     description: 'A specialized component for generating social preview images',
     type: 'component',
-    category: 'Data Display',
-    path: '#data-display/open-graph-card',
+    category: 'Blocks',
+    path: '#blocks/social/open-graph-card',
     keywords: ['og', 'opengraph', 'social', 'preview', 'card', 'meta'],
   },
 

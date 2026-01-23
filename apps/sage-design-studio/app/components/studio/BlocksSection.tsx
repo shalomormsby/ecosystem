@@ -6,8 +6,10 @@ import { Header, SecondaryNav, TertiaryNav, Footer, Modal, ToastProvider, useToa
 import { SlidersHorizontal, Sun, Moon, SunMoon, Building2, Leaf, Zap, X } from 'lucide-react';
 import type { SyntaxToken } from '@sage/ui';
 import { HeroBlockPage } from './pages/blocks/HeroBlockPage';
+import { EnhancedComponentPlayground } from './ComponentsSection/EnhancedComponentPlayground';
+import { componentRegistry } from '../lib/component-registry';
 
-type BlockType = 'PageLayout' | 'PrimaryNav' | 'SecondaryNav' | 'TertiaryNav' | 'FirstStack' | 'SecondStack' | 'Footer' | 'Toast' | 'Modal' | 'CollapsibleCodeBlock' | 'HeroBlock';
+type BlockType = 'PageLayout' | 'PrimaryNav' | 'SecondaryNav' | 'TertiaryNav' | 'FirstStack' | 'SecondStack' | 'Footer' | 'Toast' | 'Modal' | 'CollapsibleCodeBlock' | 'HeroBlock' | 'OpenGraphCard';
 
 interface BlocksSectionProps {
   activeItemId?: string;
@@ -111,7 +113,7 @@ export function BlocksSection({ activeItemId, breadcrumbs, onItemChange }: Block
         .map(word => word.charAt(0).toUpperCase() + word.slice(1))
         .join('') as BlockType;
 
-      if (['PageLayout', 'PrimaryNav', 'SecondaryNav', 'TertiaryNav', 'FirstStack', 'SecondStack', 'Footer', 'Toast', 'Modal', 'CollapsibleCodeBlock', 'HeroBlock'].includes(patternName)) {
+      if (['PageLayout', 'PrimaryNav', 'SecondaryNav', 'TertiaryNav', 'FirstStack', 'SecondStack', 'Footer', 'Toast', 'Modal', 'CollapsibleCodeBlock', 'HeroBlock', 'OpenGraphCard'].includes(patternName)) {
         setSelectedPattern(patternName);
       }
     }
@@ -790,6 +792,14 @@ const sections = [
 
         {/* Hero Block Component */}
         {selectedPattern === 'HeroBlock' && <HeroBlockPage />}
+
+        {/* OpenGraphCard Component */}
+        {selectedPattern === 'OpenGraphCard' && componentRegistry['OpenGraphCard'] && (
+          <EnhancedComponentPlayground
+            componentName="OpenGraphCard"
+            config={componentRegistry['OpenGraphCard']}
+          />
+        )}
 
         {/* 2nd Stacking Row Component */}
         {selectedPattern === 'SecondStack' && (

@@ -42,7 +42,7 @@ const COMPONENT_CATEGORIES = {
   'data-display': {
     label: 'Data Display',
     description: 'Presenting information visually',
-    components: ['Avatar', 'Badge', 'Calendar', 'Card', 'DataTable', 'Table', 'OpenGraphCard'],
+    components: ['Avatar', 'Badge', 'Calendar', 'Card', 'DataTable', 'Table'],
   },
   layout: {
     label: 'Layout',

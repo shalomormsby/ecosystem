@@ -3302,6 +3302,6 @@ export default function MyOGImage() {
         description: 'Using the component in an opengraph-image.tsx file',
       },
     ],
-    sourceUrl: 'https://github.com/shalomormsby/ecosystem/blob/main/packages/ui/src/components/data-display/OpenGraphCard.tsx',
+    sourceUrl: 'https://github.com/shalomormsby/ecosystem/blob/main/packages/ui/src/components/blocks/social/OpenGraphCard.tsx',
   },
 };
