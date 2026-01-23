@@ -72,7 +72,7 @@ export default function Error({
           <p className="text-sm text-[var(--color-text-muted)] pt-4">
             If this problem persists, please{' '}
             <a
-              href="https://github.com/shalom-ormsby/ecosystem/issues"
+              href="https://github.com/shalomormsby/ecosystem/issues"
               target="_blank"
               rel="noopener noreferrer"
               className="text-[var(--color-primary)] hover:underline"

@@ -244,7 +244,7 @@ function formatInstallationInstructions(component: ComponentMetadata): string {
 
   output += `## Additional Resources\n\n`;
   output += `- **Documentation:** https://studio.shalomormsby.com/#${component.category}/${component.name.toLowerCase().replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase()}\n`;
-  output += `- **GitHub:** https://github.com/shalom-ormsby/ecosystem/tree/main/packages/ui/src/components/${component.category}\n`;
+  output += `- **GitHub:** https://github.com/shalomormsby/ecosystem/tree/main/packages/ui/src/components/${component.category}\n`;
 
   return output;
 }

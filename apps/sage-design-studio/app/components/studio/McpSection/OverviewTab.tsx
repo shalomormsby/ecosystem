@@ -129,7 +129,7 @@ export function OverviewTab() {
                             View the complete README and API documentation
                         </p>
                         <a
-                            href="https://github.com/shalom-ormsby/ecosystem/tree/main/packages/sds-mcp-server"
+                            href="https://github.com/shalomormsby/ecosystem/tree/main/packages/sds-mcp-server"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="text-sm text-[var(--color-primary)] hover:underline"
@@ -172,7 +172,7 @@ export function OverviewTab() {
                             Found a bug or have a feature request?
                         </p>
                         <a
-                            href="https://github.com/shalom-ormsby/ecosystem/issues"
+                            href="https://github.com/shalomormsby/ecosystem/issues"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="text-sm text-[var(--color-primary)] hover:underline"

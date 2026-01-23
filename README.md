@@ -28,7 +28,7 @@ This ecosystem expresses one unified vision through multiple products:
 
 ```bash
 # Clone and install
-git clone https://github.com/shalom-ormsby/ecosystem.git
+git clone https://github.com/shalomormsby/ecosystem.git
 cd ecosystem
 pnpm install
 

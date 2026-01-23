@@ -39,7 +39,7 @@ export function ContributingSection({ breadcrumbs }: ContributingSectionProps) {
             <div>
               <h3 className="font-semibold mb-2 text-[var(--color-text-primary)]">Clone the repository</h3>
               <pre className="bg-[var(--color-surface)] p-4 rounded-md text-sm overflow-x-auto border border-[var(--color-border)]">
-                <code className="text-[var(--color-text-primary)]">git clone https://github.com/shalom-ormsby/ecosystem.git
+                <code className="text-[var(--color-text-primary)]">git clone https://github.com/shalomormsby/ecosystem.git
                   cd ecosystem</code>
               </pre>
             </div>
@@ -250,7 +250,7 @@ This component embodies [principle from DESIGN-PHILOSOPHY.md]
             <div className="p-4 bg-[var(--color-surface)] rounded-md border border-[var(--color-border)]">
               <h3 className="font-semibold mb-2 text-[var(--color-text-primary)]">Link to Design Philosophy</h3>
               <p className="text-sm text-[var(--color-text-secondary)]">
-                Reference specific principles from <a href="https://github.com/shalom-ormsby/ecosystem/blob/main/DESIGN-PHILOSOPHY.md" target="_blank" rel="noopener noreferrer" className="text-[var(--color-primary)] hover:underline">DESIGN-PHILOSOPHY.md</a> that your contribution addresses.
+                Reference specific principles from <a href="https://github.com/shalomormsby/ecosystem/blob/main/DESIGN-PHILOSOPHY.md" target="_blank" rel="noopener noreferrer" className="text-[var(--color-primary)] hover:underline">DESIGN-PHILOSOPHY.md</a> that your contribution addresses.
                 This helps reviewers understand your design decisions.
               </p>
             </div>

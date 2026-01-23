@@ -141,7 +141,7 @@ const items: BreadcrumbItem[] = [
         description: 'TypeScript definition for breadcrumb items',
       },
     ],
-    sourceUrl: 'https://github.com/shalom-ormsby/ecosystem/blob/main/design-system/molecules/Breadcrumbs/Breadcrumbs.tsx',
+    sourceUrl: 'https://github.com/shalomormsby/ecosystem/blob/main/design-system/molecules/Breadcrumbs/Breadcrumbs.tsx',
     accessibilityNotes: [
       'Uses semantic <nav> element with configurable aria-label (default: "Breadcrumb")',
       'Ordered list <ol> with <li> items for screen reader navigation',
@@ -275,7 +275,7 @@ const menuItems: DropdownItem[] = [
         description: 'Managing dropdown state and handling selections',
       },
     ],
-    sourceUrl: 'https://github.com/shalom-ormsby/ecosystem/blob/main/design-system/molecules/Dropdown/Dropdown.tsx',
+    sourceUrl: 'https://github.com/shalomormsby/ecosystem/blob/main/design-system/molecules/Dropdown/Dropdown.tsx',
   },
 
   Tooltip: {
@@ -395,7 +395,7 @@ const menuItems: DropdownItem[] = [
         description: 'Showcase of all four positioning options',
       },
     ],
-    sourceUrl: 'https://github.com/shalom-ormsby/ecosystem/blob/main/design-system/molecules/Tooltip/Tooltip.tsx',
+    sourceUrl: 'https://github.com/shalomormsby/ecosystem/blob/main/design-system/molecules/Tooltip/Tooltip.tsx',
   },
 
   ThemeToggle: {
@@ -458,7 +458,7 @@ const menuItems: DropdownItem[] = [
         description: 'Theme toggle in settings with description',
       },
     ],
-    sourceUrl: 'https://github.com/shalom-ormsby/ecosystem/blob/main/design-system/molecules/ThemeToggle/ThemeToggle.tsx',
+    sourceUrl: 'https://github.com/shalomormsby/ecosystem/blob/main/design-system/molecules/ThemeToggle/ThemeToggle.tsx',
   },
 
   ThemeSwitcher: {
@@ -510,7 +510,7 @@ const menuItems: DropdownItem[] = [
         description: 'Theme switcher positioned in header with dropdown panel',
       },
     ],
-    sourceUrl: 'https://github.com/shalom-ormsby/ecosystem/blob/main/design-system/molecules/ThemeSwitcher/ThemeSwitcher.tsx',
+    sourceUrl: 'https://github.com/shalomormsby/ecosystem/blob/main/design-system/molecules/ThemeSwitcher/ThemeSwitcher.tsx',
   },
 
   FormField: {
@@ -631,7 +631,7 @@ const menuItems: DropdownItem[] = [
         description: 'Multiple form fields in a complete form',
       },
     ],
-    sourceUrl: 'https://github.com/shalom-ormsby/ecosystem/blob/main/design-system/molecules/Form/FormField.tsx',
+    sourceUrl: 'https://github.com/shalomormsby/ecosystem/blob/main/design-system/molecules/Form/FormField.tsx',
   },
 
   SearchBar: {
@@ -737,7 +737,7 @@ const [results, setResults] = useState([]);
         description: 'Search bar with dropdown results',
       },
     ],
-    sourceUrl: 'https://github.com/shalom-ormsby/ecosystem/blob/main/design-system/molecules/Form/SearchBar.tsx',
+    sourceUrl: 'https://github.com/shalomormsby/ecosystem/blob/main/design-system/molecules/Form/SearchBar.tsx',
   },
 
   RadioGroup: {
@@ -857,7 +857,7 @@ const [plan, setPlan] = useState('pro');
         description: 'Radio group with disabled option',
       },
     ],
-    sourceUrl: 'https://github.com/shalom-ormsby/ecosystem/blob/main/design-system/molecules/Form/RadioGroup.tsx',
+    sourceUrl: 'https://github.com/shalomormsby/ecosystem/blob/main/design-system/molecules/Form/RadioGroup.tsx',
   },
 
 

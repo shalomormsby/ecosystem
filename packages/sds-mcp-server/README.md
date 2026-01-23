@@ -205,13 +205,13 @@ The server runs in stdio mode, communicating via stdin/stdout per the MCP specif
 ## Documentation
 
 - **Full Documentation**: https://studio.shalomormsby.com/
-- **GitHub**: https://github.com/shalom-ormsby/ecosystem
+- **GitHub**: https://github.com/shalomormsby/ecosystem
 - **MCP Specification**: https://modelcontextprotocol.io/
 
 ## Support
 
 For issues or questions:
-- GitHub Issues: https://github.com/shalom-ormsby/ecosystem/issues
+- GitHub Issues: https://github.com/shalomormsby/ecosystem/issues
 - Documentation: https://studio.shalomormsby.com/#mcp-server
 
 ## License

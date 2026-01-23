@@ -3,7 +3,7 @@ id: cosmograph-prd
 title: Shalom's Cosmograph PRD
 type: document
 platform: github
-url: https://github.com/shalom-ormsby/ecosystem
+url: https://github.com/shalomormsby/ecosystem
 date: 2024-12-22
 themes:
   - transparency
@@ -50,4 +50,4 @@ The graph doesn't impose structure—it exposes structure that was always there.
 
 ---
 
-[Read the full PRD](https://github.com/shalom-ormsby/ecosystem/blob/main/Shalom's-Cosmograph-PRD.md)
+[Read the full PRD](https://github.com/shalomormsby/ecosystem/blob/main/Shalom's-Cosmograph-PRD.md)

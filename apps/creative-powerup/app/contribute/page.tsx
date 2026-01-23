@@ -59,7 +59,7 @@ export default function ContributePage() {
               Steps:
             </p>
             <ol className="space-y-2 text-sm text-foreground/80 list-decimal list-inside">
-              <li>Go to <a href="https://github.com/shalom-ormsby/ecosystem" className="text-primary hover:underline" target="_blank" rel="noopener noreferrer">github.com/shalom-ormsby/ecosystem</a></li>
+              <li>Go to <a href="https://github.com/shalomormsby/ecosystem" className="text-primary hover:underline" target="_blank" rel="noopener noreferrer">github.com/shalomormsby/ecosystem</a></li>
               <li>Click the "Fork" button in the top-right corner</li>
               <li>Click "Create fork" (keep the default settings)</li>
               <li>You now have your own copy! The URL will be: github.com/YOUR-USERNAME/ecosystem</li>
@@ -243,13 +243,13 @@ import { useMotionPreference } from '@sage/ui/hooks';`}</code>
         <div className="space-y-3">
           <div>
             <strong className="text-foreground">GitHub Discussions:</strong>{' '}
-            <a href="https://github.com/shalom-ormsby/ecosystem/discussions" className="text-primary hover:underline" target="_blank" rel="noopener noreferrer">
+            <a href="https://github.com/shalomormsby/ecosystem/discussions" className="text-primary hover:underline" target="_blank" rel="noopener noreferrer">
               Ask a question →
             </a>
           </div>
           <div>
             <strong className="text-foreground">GitHub Issues:</strong>{' '}
-            <a href="https://github.com/shalom-ormsby/ecosystem/issues" className="text-primary hover:underline" target="_blank" rel="noopener noreferrer">
+            <a href="https://github.com/shalomormsby/ecosystem/issues" className="text-primary hover:underline" target="_blank" rel="noopener noreferrer">
               Report a bug →
             </a>
           </div>

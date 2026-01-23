@@ -193,7 +193,7 @@ export function OverviewSection() {
             <p className="text-xs text-[var(--color-text-muted)]">
               → Read{' '}
               <a
-                href="https://github.com/shalom-ormsby/ecosystem/blob/main/AGENTS.md"
+                href="https://github.com/shalomormsby/ecosystem/blob/main/AGENTS.md"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-[var(--color-primary)] hover:underline"
@@ -262,7 +262,7 @@ export function OverviewSection() {
               <p className="text-xs text-[var(--color-text-muted)] mt-3">
                 → See{' '}
                 <a
-                  href="https://github.com/shalom-ormsby/ecosystem/blob/main/apps/sage-design-studio/docs/SAGE_DESIGN_SYSTEM_STRATEGY.md"
+                  href="https://github.com/shalomormsby/ecosystem/blob/main/apps/sage-design-studio/docs/SAGE_DESIGN_SYSTEM_STRATEGY.md"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-[var(--color-primary)] hover:underline"
@@ -348,7 +348,7 @@ export function OverviewSection() {
               <p className="text-xs text-[var(--color-text-secondary)]">
                 Design tokens as importable JavaScript objects. Comprehensive prop tables and examples for every component. AI collaboration history documented in{' '}
                 <a
-                  href="https://github.com/shalom-ormsby/ecosystem/blob/main/AGENTS.md"
+                  href="https://github.com/shalomormsby/ecosystem/blob/main/AGENTS.md"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-[var(--color-primary)] hover:underline"
@@ -387,7 +387,7 @@ export function OverviewSection() {
 
         <div className="mt-6 text-center">
           <a
-            href="https://github.com/shalom-ormsby/ecosystem/blob/main/DESIGN-PHILOSOPHY.md"
+            href="https://github.com/shalomormsby/ecosystem/blob/main/DESIGN-PHILOSOPHY.md"
             target="_blank"
             rel="noopener noreferrer"
             className="text-[var(--color-primary)] hover:underline text-sm font-medium"
@@ -645,7 +645,7 @@ export function ThemeSwitcher() {
                 2. Browse Components →
               </a>
               <a
-                href="https://github.com/shalom-ormsby/ecosystem/tree/main/packages/ui"
+                href="https://github.com/shalomormsby/ecosystem/tree/main/packages/ui"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="block text-[var(--color-primary)] hover:underline"
@@ -665,7 +665,7 @@ export function ThemeSwitcher() {
             </p>
             <div className="space-y-2 text-sm">
               <a
-                href="https://github.com/shalom-ormsby/ecosystem/blob/main/apps/sage-design-studio/docs/SAGE_DESIGN_SYSTEM_STRATEGY.md"
+                href="https://github.com/shalomormsby/ecosystem/blob/main/apps/sage-design-studio/docs/SAGE_DESIGN_SYSTEM_STRATEGY.md"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="block text-[var(--color-primary)] hover:underline"
@@ -676,7 +676,7 @@ export function ThemeSwitcher() {
                 2. Explore Tokens →
               </a>
               <a
-                href="https://github.com/shalom-ormsby/ecosystem/blob/main/DESIGN-PHILOSOPHY.md"
+                href="https://github.com/shalomormsby/ecosystem/blob/main/DESIGN-PHILOSOPHY.md"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="block text-[var(--color-primary)] hover:underline"
@@ -696,7 +696,7 @@ export function ThemeSwitcher() {
             </p>
             <div className="space-y-2 text-sm">
               <a
-                href="https://github.com/shalom-ormsby/ecosystem/blob/main/apps/sage-design-studio/docs/SAGE_DESIGN_SYSTEM_STRATEGY.md#architecture"
+                href="https://github.com/shalomormsby/ecosystem/blob/main/apps/sage-design-studio/docs/SAGE_DESIGN_SYSTEM_STRATEGY.md#architecture"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="block text-[var(--color-primary)] hover:underline"
@@ -704,7 +704,7 @@ export function ThemeSwitcher() {
                 1. Architecture Guide →
               </a>
               <a
-                href="https://github.com/shalom-ormsby/ecosystem/blob/main/apps/sage-design-studio/docs/SAGE_DESIGN_SYSTEM_STRATEGY.md#development-workflow"
+                href="https://github.com/shalomormsby/ecosystem/blob/main/apps/sage-design-studio/docs/SAGE_DESIGN_SYSTEM_STRATEGY.md#development-workflow"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="block text-[var(--color-primary)] hover:underline"
@@ -712,7 +712,7 @@ export function ThemeSwitcher() {
                 2. Component Workflow →
               </a>
               <a
-                href="https://github.com/shalom-ormsby/ecosystem"
+                href="https://github.com/shalomormsby/ecosystem"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="block text-[var(--color-primary)] hover:underline"
@@ -732,7 +732,7 @@ export function ThemeSwitcher() {
             </p>
             <div className="space-y-2 text-sm">
               <a
-                href="https://github.com/shalom-ormsby/ecosystem/blob/main/AGENTS.md"
+                href="https://github.com/shalomormsby/ecosystem/blob/main/AGENTS.md"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="block text-[var(--color-primary)] hover:underline"
@@ -740,7 +740,7 @@ export function ThemeSwitcher() {
                 1. AGENTS.md →
               </a>
               <a
-                href="https://github.com/shalom-ormsby/ecosystem/blob/main/apps/sage-design-studio/docs/SAGE_DESIGN_SYSTEM_STRATEGY.md"
+                href="https://github.com/shalomormsby/ecosystem/blob/main/apps/sage-design-studio/docs/SAGE_DESIGN_SYSTEM_STRATEGY.md"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="block text-[var(--color-primary)] hover:underline"
@@ -1018,7 +1018,7 @@ export function Controls() {
             </p>
             <div className="space-y-2 text-sm">
               <a
-                href="https://github.com/shalom-ormsby/ecosystem/blob/main/apps/sage-design-studio/docs/SAGE_DESIGN_SYSTEM_STRATEGY.md"
+                href="https://github.com/shalomormsby/ecosystem/blob/main/apps/sage-design-studio/docs/SAGE_DESIGN_SYSTEM_STRATEGY.md"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="block text-[var(--color-primary)] hover:underline"
@@ -1042,7 +1042,7 @@ export function Controls() {
             </p>
             <div className="space-y-2 text-sm">
               <a
-                href="https://github.com/shalom-ormsby/ecosystem/blob/main/apps/sage-design-studio/docs/SAGE_DESIGN_SYSTEM_STRATEGY.md#development-workflow"
+                href="https://github.com/shalomormsby/ecosystem/blob/main/apps/sage-design-studio/docs/SAGE_DESIGN_SYSTEM_STRATEGY.md#development-workflow"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="block text-[var(--color-primary)] hover:underline"
@@ -1050,7 +1050,7 @@ export function Controls() {
                 → Component Workflow
               </a>
               <a
-                href="https://github.com/shalom-ormsby/ecosystem/blob/main/apps/sage-design-studio/docs/SAGE_DESIGN_SYSTEM_STRATEGY.md#architecture"
+                href="https://github.com/shalomormsby/ecosystem/blob/main/apps/sage-design-studio/docs/SAGE_DESIGN_SYSTEM_STRATEGY.md#architecture"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="block text-[var(--color-primary)] hover:underline"
@@ -1071,7 +1071,7 @@ export function Controls() {
             </p>
             <div className="space-y-2 text-sm">
               <a
-                href="https://github.com/shalom-ormsby/ecosystem/blob/main/apps/sage-design-studio/docs/SAGE_DESIGN_SYSTEM_STRATEGY.md#roadmap"
+                href="https://github.com/shalomormsby/ecosystem/blob/main/apps/sage-design-studio/docs/SAGE_DESIGN_SYSTEM_STRATEGY.md#roadmap"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="block text-[var(--color-primary)] hover:underline"
@@ -1097,7 +1097,7 @@ export function Controls() {
                 If you're developing or modifying Sage Design Studio (this documentation site), start here:
               </p>
               <a
-                href="https://github.com/shalom-ormsby/ecosystem/blob/main/apps/sage-design-studio/README.md"
+                href="https://github.com/shalomormsby/ecosystem/blob/main/apps/sage-design-studio/README.md"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-sm text-[var(--color-primary)] hover:underline font-medium"
@@ -1120,7 +1120,7 @@ export function Controls() {
           </p>
           <div className="flex items-center justify-center gap-4">
             <a
-              href="https://github.com/shalom-ormsby/ecosystem"
+              href="https://github.com/shalomormsby/ecosystem"
               target="_blank"
               rel="noopener noreferrer"
             >

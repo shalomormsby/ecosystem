@@ -30,7 +30,7 @@ export default function Home() {
               Philosophy is meaningful when embodied.
             </p>
             <Link
-              href="https://github.com/shalom-ormsby/ecosystem/blob/main/DESIGN-PHILOSOPHY.md"
+              href="https://github.com/shalomormsby/ecosystem/blob/main/DESIGN-PHILOSOPHY.md"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -153,7 +153,7 @@ export default function Home() {
           },
         ]}
         socialLinks={{
-          github: 'https://github.com/shalom-ormsby',
+          github: 'https://github.com/shalomormsby',
           linkedin: 'https://www.linkedin.com/in/shalomormsby',
           email: 'shalom@shalomormsby.com',
         }}

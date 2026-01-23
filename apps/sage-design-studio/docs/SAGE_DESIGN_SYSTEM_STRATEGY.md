@@ -1069,7 +1069,7 @@ The Model Context Protocol (MCP) is an open standard for connecting AI assistant
 - **Zod:** https://zod.dev/
 
 ### Internal Resources
-- **GitHub:** https://github.com/shalom-ormsby/ecosystem
+- **GitHub:** https://github.com/shalomormsby/ecosystem
 - **Studio (dev):** http://localhost:3001
 - **Vercel (prod):** [URL TBD]
 

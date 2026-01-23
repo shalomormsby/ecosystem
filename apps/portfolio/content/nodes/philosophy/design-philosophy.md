@@ -3,7 +3,7 @@ id: design-philosophy
 title: Design Philosophy
 type: document
 platform: github
-url: https://github.com/shalom-ormsby/ecosystem/blob/main/DESIGN-PHILOSOPHY.md
+url: https://github.com/shalomormsby/ecosystem/blob/main/DESIGN-PHILOSOPHY.md
 date: 2024-12-15
 themes:
   - design-philosophy
@@ -53,4 +53,4 @@ This ecosystem demonstrates that:
 
 ---
 
-[Read the full philosophy](https://github.com/shalom-ormsby/ecosystem/blob/main/DESIGN-PHILOSOPHY.md)
+[Read the full philosophy](https://github.com/shalomormsby/ecosystem/blob/main/DESIGN-PHILOSOPHY.md)

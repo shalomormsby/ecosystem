@@ -192,8 +192,8 @@ Part of the ecosystem monorepo. See repository root for license information.
 ## Need Help?
 
 - **In-app guide**: Visit `/contribute` for step-by-step instructions
-- **GitHub Discussions**: [Ask questions](https://github.com/shalom-ormsby/ecosystem/discussions)
-- **Issues**: [Report bugs](https://github.com/shalom-ormsby/ecosystem/issues)
+- **GitHub Discussions**: [Ask questions](https://github.com/shalomormsby/ecosystem/discussions)
+- **Issues**: [Report bugs](https://github.com/shalomormsby/ecosystem/issues)
 
 ---
 

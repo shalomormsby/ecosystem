@@ -25,7 +25,7 @@ export default function LandingPage() {
             className="gap-2"
           >
             <a
-              href="https://github.com/shalom-ormsby/ecosystem"
+              href="https://github.com/shalomormsby/ecosystem"
               target="_blank"
               rel="noopener noreferrer"
             >

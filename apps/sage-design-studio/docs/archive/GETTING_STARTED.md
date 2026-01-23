@@ -244,7 +244,7 @@ These are documented in section components (MoleculesSection.tsx, OrganismsSecti
            description: 'A simple badge',
          },
        ],
-       sourceUrl: 'https://github.com/shalom-ormsby/ecosystem/blob/main/design-system/atoms/Badge/Badge.tsx',
+       sourceUrl: 'https://github.com/shalomormsby/ecosystem/blob/main/design-system/atoms/Badge/Badge.tsx',
        accessibilityNotes: [
          'Uses semantic HTML with proper contrast ratios',
        ],

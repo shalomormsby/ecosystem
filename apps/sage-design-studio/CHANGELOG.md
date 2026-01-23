@@ -979,5 +979,5 @@ See `QUALITY_VERIFICATION_REPORT.md` for detailed testing checklists.
 
 ---
 
-[Unreleased]: https://github.com/shalom-ormsby/ecosystem/compare/v2.0.0...HEAD
-[2.0.0]: https://github.com/shalom-ormsby/ecosystem/releases/tag/v2.0.0
+[Unreleased]: https://github.com/shalomormsby/ecosystem/compare/v2.0.0...HEAD
+[2.0.0]: https://github.com/shalomormsby/ecosystem/releases/tag/v2.0.0

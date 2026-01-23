@@ -36,7 +36,7 @@ export function StudioHero() {
           {/* CTA: Centered with generous spacing (mb-16 = 64px = 8 units) */}
           <div className="mb-16">
             <a
-              href="https://github.com/shalom-ormsby/ecosystem"
+              href="https://github.com/shalomormsby/ecosystem"
               target="_blank"
               rel="noopener noreferrer"
             >

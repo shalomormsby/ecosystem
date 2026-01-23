@@ -2,8 +2,8 @@
 
 **Migration Date:** 2026-01-03
 **Migration Type:** Clean copy (Option 2)
-**Source:** `github.com/shalom-ormsby/sagestocks`
-**Destination:** `github.com/shalom-ormsby/ecosystem/apps/sage-stocks`
+**Source:** `github.com/shalomormsby/sagestocks`
+**Destination:** `github.com/shalomormsby/ecosystem/apps/sage-stocks`
 
 ## Migration Summary
 

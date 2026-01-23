@@ -369,7 +369,7 @@ The answer that best serves the human wins.
 
 ```bash
 # Clone the repo
-git clone https://github.com/shalom-ormsby/ecosystem.git
+git clone https://github.com/shalomormsby/ecosystem.git
 cd ecosystem
 
 # Install dependencies (this will install for all workspaces)

@@ -59,7 +59,7 @@ This site itself is an embodiment of these principles. It's:
 
 **Email**: [shalom@shalomormsby.com](mailto:shalom@shalomormsby.com)
 **LinkedIn**: [linkedin.com/in/shalomormsby](https://www.linkedin.com/in/shalomormsby)
-**GitHub**: [github.com/shalom-ormsby](https://github.com/shalom-ormsby)
+**GitHub**: [github.com/shalomormsby](https://github.com/shalomormsby)
 **Substack**: [Love Is the Way](https://shalomormsby.substack.com/)
 
 ---

@@ -99,7 +99,7 @@ export default function CaseStudiesPage() {
           },
         ]}
         socialLinks={{
-          github: 'https://github.com/shalom-ormsby',
+          github: 'https://github.com/shalomormsby',
           linkedin: 'https://www.linkedin.com/in/shalomormsby',
           email: 'shalom@shalomormsby.com',
         }}

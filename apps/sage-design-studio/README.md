@@ -117,7 +117,7 @@ To add a new component to the playground:
       description: 'Simple example showing default usage',
     },
   ],
-  sourceUrl: 'https://github.com/shalom-ormsby/ecosystem/blob/main/packages/ui/src/components/[category]/YourComponent/YourComponent.tsx',
+  sourceUrl: 'https://github.com/shalomormsby/ecosystem/blob/main/packages/ui/src/components/[category]/YourComponent/YourComponent.tsx',
   accessibilityNotes: [
     'Uses semantic HTML elements',
     'Keyboard navigable with Tab/Enter',
