@@ -150,14 +150,15 @@ export function OpenGraphCardPage() {
                 });
 
                 if (!response.ok) {
-                    throw new Error('Failed to sync to Edge Config');
+                    const errorData = await response.json();
+                    throw new Error(errorData.error || 'Failed to sync to Edge Config');
                 }
 
                 // Success feedback could go here (toast, etc)
                 console.log('Successfully synced to Edge Config');
-            } catch (err) {
+            } catch (err: any) {
                 console.error('Failed to sync active design:', err);
-                alert('Saved locally, but failed to sync to Edge Config. Check your Vercel credentials.');
+                alert(`Saved locally, but failed to sync to Edge Config: ${err.message}`);
             } finally {
                 setIsSyncing(false);
             }
