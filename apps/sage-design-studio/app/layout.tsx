@@ -7,6 +7,21 @@ import './globals.css';
 export const metadata: Metadata = {
   title: 'Sage UI',
   description: 'The Solopreneur\'s Development Stack. AI-Native components for velocity.',
+  metadataBase: new URL('https://ui.shalomormsby.com'),
+  openGraph: {
+    title: 'Sage UI',
+    description: 'The Solopreneur\'s Development Stack. AI-Native components for velocity.',
+    url: 'https://ui.shalomormsby.com',
+    siteName: 'Sage UI',
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Sage UI',
+    description: 'The Solopreneur\'s Development Stack. AI-Native components for velocity.',
+    creator: '@shalomormsby',
+  },
 };
 
 export default function RootLayout({
