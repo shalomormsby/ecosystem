@@ -22,14 +22,11 @@ export function SageHero() {
                 </span>
             }
             description="Ship stunning, full-stack web applications faster with a systematic collection of tokens, components, and templates."
-            badge="v2.0 Now Available"
+            badge="Human Touch x AI Power"
             primaryCta={{
                 label: "Get Started",
-                onClick: () => router.push('/docs#overview')
-            }}
-            secondaryCta={{
-                label: "Explore Library",
-                onClick: () => router.push('/docs#actions')
+                onClick: () => router.push('/docs#overview'),
+                variant: 'secondary'
             }}
             background={
                 <OrbBackground
@@ -41,7 +38,7 @@ export function SageHero() {
             }
         >
             <div className="mt-8 h-8 flex items-center justify-center text-[var(--color-text-secondary)] font-medium">
-                <span className="mr-2">Ship faster with systematic</span>
+                <span className="mr-2">Build smarter with Sage UI</span>
                 <span className="text-[var(--color-primary)]">
                     <Typewriter
                         text={['Tokens.', 'Components.', 'Blocks.', 'Templates.']}

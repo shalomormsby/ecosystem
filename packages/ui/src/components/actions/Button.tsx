@@ -4,14 +4,14 @@ import { cn } from '../../lib/utils';
 import { Slot } from '@radix-ui/react-slot';
 
 const buttonVariants = cva(
-    'inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 sage-interactive',
+    'inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 sage-interactive [&_svg]:transition-transform [&_svg]:duration-300 hover:[&_svg]:translate-x-1',
     {
         variants: {
             variant: {
                 default: 'bg-primary text-primary-foreground shadow',
                 destructive: 'bg-destructive text-destructive-foreground shadow-sm',
-                outline: 'border border-input bg-transparent shadow-sm hover:text-accent-foreground',
-                secondary: 'bg-secondary text-secondary-foreground shadow-sm',
+                outline: 'border border-input bg-transparent shadow-sm hover:bg-primary hover:text-primary-foreground hover:border-primary',
+                secondary: 'bg-black/5 dark:bg-white/10 backdrop-blur-md border border-black/5 dark:border-white/10 text-secondary-foreground shadow-sm hover:bg-primary hover:text-primary-foreground dark:hover:bg-primary dark:hover:text-primary-foreground',
                 ghost: 'hover:text-accent-foreground',
                 link: 'text-primary underline-offset-4 hover:underline',
             },

@@ -28,7 +28,7 @@ export const useThemeStore = create<ThemeState>()(
   persist(
     (set, get) => ({
       // Defaults
-      theme: 'studio',
+      theme: 'volt',
       mode: 'dark',
 
       // Actions

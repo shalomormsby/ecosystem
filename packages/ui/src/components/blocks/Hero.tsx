@@ -17,6 +17,7 @@ export interface HeroBlockProps {
         label: string;
         onClick?: () => void;
         href?: string;
+        variant?: "default" | "secondary" | "outline" | "ghost" | "link" | "destructive";
     };
     secondaryCta?: {
         label: string;
@@ -124,7 +125,7 @@ export function HeroBlock({
                 {/* CTAs */}
                 <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
                     {primaryCta && (
-                        <Button size="lg" variant="default" onClick={primaryCta.onClick}>
+                        <Button size="lg" variant={primaryCta.variant || "default"} onClick={primaryCta.onClick}>
                             {primaryCta.label}
                             <ArrowRight className="w-4 h-4 ml-2" />
                         </Button>

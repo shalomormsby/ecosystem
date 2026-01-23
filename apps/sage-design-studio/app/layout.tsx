@@ -15,7 +15,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={allFontVariables}>
+    <html lang="en" className={allFontVariables} suppressHydrationWarning>
       <body className="overflow-x-hidden" suppressHydrationWarning>
         <ThemeProvider>
           <ToastProvider position="bottom-right">
