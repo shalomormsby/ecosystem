@@ -233,6 +233,7 @@ export const navigationTree: NavigationItem[] = [
           { id: 'card', label: 'Card', section: 'data-display' },
           { id: 'data-table', label: 'Data Table', section: 'data-display' },
           { id: 'table', label: 'Table', section: 'data-display' },
+          { id: 'open-graph-card', label: 'Open Graph Card', section: 'data-display' },
         ],
       },
       {

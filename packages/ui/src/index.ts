@@ -83,6 +83,7 @@ export * from './components/data-display/Table';
 export * from './components/data-display/Text';
 export * from './components/data-display/VariableWeightText';
 export * from './components/data-display/Typewriter';
+export * from './components/data-display/OpenGraphCard';
 
 // Layout
 export * from './components/layout/Accordion';

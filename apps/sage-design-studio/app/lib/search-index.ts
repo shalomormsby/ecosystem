@@ -94,6 +94,15 @@ export const searchIndex: SearchResult[] = [
     path: '#motion/faulty-terminal',
     keywords: ['motion', 'background', 'crt', 'retro', 'glitch', 'terminal', 'scanline', 'cyberpunk'],
   },
+  {
+    id: 'open-graph-card',
+    title: 'Open Graph Card',
+    description: 'A specialized component for generating social preview images',
+    type: 'component',
+    category: 'Data Display',
+    path: '#data-display/open-graph-card',
+    keywords: ['og', 'opengraph', 'social', 'preview', 'card', 'meta'],
+  },
 
   // Atoms
   {

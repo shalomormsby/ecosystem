@@ -5,7 +5,7 @@ import { Analytics } from '@vercel/analytics/next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Sage Studio',
+  title: 'Sage UI',
   description: 'The Solopreneur\'s Development Stack. AI-Native components for velocity.',
 };
 

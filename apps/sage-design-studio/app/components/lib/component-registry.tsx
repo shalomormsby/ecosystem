@@ -30,6 +30,7 @@ import {
   InputOTP, InputOTPGroup, InputOTPSlot, InputOTPSeparator,
   ResizablePanelGroup, ResizablePanel, ResizableHandle,
   Sidebar, SidebarHeader, SidebarContent, SidebarFooter, SidebarItem,
+  OpenGraphCard,
 } from '@sage/ui';
 
 export interface PropConfig {
@@ -3266,5 +3267,41 @@ const [date, setDate] = useState<Date | undefined>(new Date())
       },
     ],
     sourceUrl: 'https://github.com/shalomormsby/ecosystem/blob/main/packages/ui/src/components/Resizable.tsx',
+  },
+
+  OpenGraphCard: {
+    component: OpenGraphCard,
+    description: 'A specialized component designed for generating Open Graph images (1200x630px), featuring the Sage branding with ethereal gradients.',
+    props: {
+      title: {
+        type: 'text',
+        default: 'Sage UI',
+        description: 'Main title text',
+      },
+      description: {
+        type: 'text',
+        default: "The Solopreneur's Development Stack",
+        description: 'Subtitle or description text',
+      },
+    },
+    examples: [
+      {
+        label: 'Default',
+        props: {},
+        children: null,
+      },
+    ],
+    codeExamples: [
+      {
+        title: 'Basic Usage',
+        code: `import { OpenGraphCard } from '@sage/ui';
+
+export default function MyOGImage() {
+  return <OpenGraphCard title="My Page" description="A description" />;
+}`,
+        description: 'Using the component in an opengraph-image.tsx file',
+      },
+    ],
+    sourceUrl: 'https://github.com/shalomormsby/ecosystem/blob/main/packages/ui/src/components/data-display/OpenGraphCard.tsx',
   },
 };

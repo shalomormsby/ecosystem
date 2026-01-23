@@ -8,6 +8,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 
+### Added - Open Graph System (2026-01-23)
+- **OpenGraphCard** component (`@sage/ui`) designed for generating consistent, high-quality social preview images via `next/og`.
+- **Dynamic OG Image**: Implemented `apps/sage-design-studio/app/opengraph-image.tsx` using the new component.
+
 ### Fixed - Motion System & Visuals (2026-01-22)
 
 #### Motion System Standardization
