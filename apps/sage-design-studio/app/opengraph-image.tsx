@@ -109,185 +109,58 @@ function isLightColor(hex: string): boolean {
 }
 
 export default async function Image() {
-    // Default fallback config
-    const defaultConfig: OGCardConfig = {
-        title: 'Sage UI',
-        description: 'Lovable by Design',
-        variant: 'gradient' as const,
-        gradient: {
-            type: 'radial' as const,
-            position: 'circle at 50% 0%',
-            colors: ['#a855f7', '#3b0764'], // Purple gradient
-        },
-        titleFontSize: 96,
-        descriptionFontSize: 42,
-        showIcon: false,
-        fontFamily: 'Space Grotesk',
-    };
+    console.log('[OG Image] Starting image generation...');
 
-    let config = defaultConfig;
-
-    // Attempt to load dynamic config from Edge Config
     try {
-        if (process.env.EDGE_CONFIG) {
-            const edgeConfig = createClient(process.env.EDGE_CONFIG);
-            const dynamicConfig = await edgeConfig.get<OGCardConfig>('og_card_config');
-
-            if (dynamicConfig) {
-                console.log('[OG Image] Loaded config from Edge Config:', JSON.stringify(dynamicConfig));
-                config = { ...defaultConfig, ...dynamicConfig };
-            } else {
-                console.log('[OG Image] No custom config found in Edge Config, using default');
-            }
-        } else {
-            console.warn('[OG Image] EDGE_CONFIG environment variable not set, using default config');
-        }
-    } catch (e) {
-        console.error('[OG Image] Failed to load Edge Config:', e);
-        console.log('[OG Image] Falling back to default config');
-    }
-
-    // Load font (with error handling to prevent crashes)
-    const fontFamily = config.fontFamily || 'Space Grotesk';
-    let fontData: ArrayBuffer | null = null;
-    try {
-        fontData = await loadFont(fontFamily);
-        if (fontData) {
-            console.log(`[OG Image] Successfully loaded font: ${fontFamily}`);
-        }
-    } catch (error) {
-        console.error(`[OG Image] Font loading failed for ${fontFamily}, using fallback:`, error);
-    }
-
-    // Build gradient background
-    const background = buildGradientCSS(config.gradient);
-    const accentColor = '#ffffff';
-
-    // Determine if background is light
-    const firstColor = config.gradient.colors[0] || '#0a0a0a';
-    const isLight = isLightColor(firstColor);
-    const textColor = isLight ? '#0a0a0a' : 'white';
-
-    // Determine if we should show the icon
-    const showIcon = config.showIcon !== false;
-
-    // Build fonts array (Satori requires this format)
-    const fonts = fontData
-        ? [
-              {
-                  name: fontFamily,
-                  data: fontData,
-                  style: 'normal' as const,
-                  weight: 400 as const,
-              },
-          ]
-        : [];
-
-    return new ImageResponse(
-        (
-            <div
-                style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    width: '1200px',
-                    height: '630px',
-                    background,
-                    padding: '80px',
-                    position: 'relative',
-                    overflow: 'hidden',
-                    fontFamily,
-                    color: textColor,
-                }}
-            >
-                {/* Ambient Lighting Mesh - only render for dark themes */}
-                <div
-                    style={{
-                        position: 'absolute',
-                        top: '-50%',
-                        left: '-50%',
-                        width: '200%',
-                        height: '200%',
-                        background: `radial-gradient(circle at 50% 50%, ${accentColor} 0%, transparent 60%)`,
-                        opacity: isLight ? 0 : 0.15,
-                        transform: 'scale(1.5)',
-                        pointerEvents: 'none',
-                    }}
-                />
-
-                {/* Content Container */}
+        // Simplified test - hardcoded values first to verify rendering works
+        return new ImageResponse(
+            (
                 <div
                     style={{
                         display: 'flex',
-                        flexDirection: 'column',
+                        width: '100%',
+                        height: '100%',
+                        backgroundColor: '#a855f7',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        gap: '24px',
-                        zIndex: 10,
-                        maxWidth: '1000px',
-                        textAlign: 'center',
                     }}
                 >
-                    {/* Brand Logo/Icon - always render but hide with opacity if not needed */}
                     <div
                         style={{
-                            width: '64px',
-                            height: '64px',
-                            borderRadius: '20px',
-                            background: isLight ? '#0a0a0a' : 'white',
-                            display: showIcon ? 'flex' : 'none',
+                            display: 'flex',
+                            flexDirection: 'column',
                             alignItems: 'center',
-                            justifyContent: 'center',
-                            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
-                            marginBottom: '16px',
                         }}
                     >
                         <div
                             style={{
-                                width: '24px',
-                                height: '24px',
-                                borderRadius: '50%',
-                                background: isLight ? 'white' : accentColor,
+                                fontSize: 96,
+                                fontWeight: 900,
+                                color: 'white',
                             }}
-                        />
+                        >
+                            Sage UI
+                        </div>
+                        <div
+                            style={{
+                                fontSize: 42,
+                                fontWeight: 500,
+                                color: 'white',
+                                marginTop: 24,
+                            }}
+                        >
+                            Lovable by Design
+                        </div>
                     </div>
-
-                    {/* Title */}
-                    <h1
-                        style={{
-                            fontSize: `${config.titleFontSize}px`,
-                            fontWeight: 900,
-                            margin: 0,
-                            letterSpacing: '-0.04em',
-                            lineHeight: 1.1,
-                            textShadow: isLight ? 'none' : '0 4px 30px rgba(0,0,0,0.3)',
-                        }}
-                    >
-                        {config.title}
-                    </h1>
-
-                    {/* Description */}
-                    <p
-                        style={{
-                            fontSize: `${config.descriptionFontSize}px`,
-                            fontWeight: 500,
-                            opacity: 0.9,
-                            margin: 0,
-                            letterSpacing: '-0.01em',
-                            lineHeight: 1.4,
-                            maxWidth: '900px',
-                            display: config.description ? 'block' : 'none',
-                        }}
-                    >
-                        {config.description || ''}
-                    </p>
                 </div>
-            </div>
-        ),
-        {
-            ...size,
-            fonts,
-        }
-    );
+            ),
+            {
+                width: 1200,
+                height: 630,
+            }
+        );
+    } catch (error) {
+        console.error('[OG Image] ERROR generating image:', error);
+        throw error;
+    }
 }
