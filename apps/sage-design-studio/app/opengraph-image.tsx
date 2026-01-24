@@ -36,42 +36,57 @@ interface OGCardConfig {
     fontFamily?: string;
 }
 
-// Supported fonts with their Google Fonts URLs (Regular 400 weight)
-const FONT_URLS: Record<string, string> = {
-    'Space Grotesk': 'https://fonts.gstatic.com/s/spacegrotesk/v16/V8mQoQDjQSkFtoMM3T6r8E7mF71Q-gOoraIAEj7oUXskPMBBSSJLm2E.woff',
-    'Inter': 'https://fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hiA.woff',
-    'Lora': 'https://fonts.gstatic.com/s/lora/v32/0QI6MX1D_JOuGQbT0gvTJPa787weuxJBkq0.woff2',
-    'Roboto': 'https://fonts.gstatic.com/s/roboto/v30/KFOmCnqEu92Fr1Mu72xKOzY.woff',
-    'Outfit': 'https://fonts.gstatic.com/s/outfit/v11/QGYyz_MVcBeNP4NjuGObqx1XmO1I4W61O4a0Ew.woff',
-    'Manrope': 'https://fonts.gstatic.com/s/manrope/v14/xn7_YHE41ni1AdIRqAuZuw1Bx9mbZk59FO_F87jxeN7B.woff2',
-    'Instrument Sans': 'https://fonts.gstatic.com/s/instrumentsans/v1/pximypc9vsFDm051Uf6KVwgkfoSbK_-6GUo1nvtOb_mi.woff2',
-    'Fira Code': 'https://fonts.gstatic.com/s/firacode/v21/uU9eCBsR6Z2vfE9aq3bL0fxyUs4tcw4W_D1sFVc.woff2',
-    'JetBrains Mono': 'https://fonts.gstatic.com/s/jetbrainsmono/v18/tDbY2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKxTOlOVkWM.woff',
-    'Playfair Display': 'https://fonts.gstatic.com/s/playfairdisplay/v36/nuFvD-vYSZviVYUb_rj3ij__anPXJzDwcbmjWBN2PKdFvXDXbtM.woff',
-    'Source Sans Pro': 'https://fonts.gstatic.com/s/sourcesanspro/v22/6xK3dSBYKcSV-LCoeQqfX1RYOo3qOK7lujVj9w.woff2',
-    'Open Sans': 'https://fonts.gstatic.com/s/opensans/v35/memSYaGs126MiZpBA-UvWbX2vVnXBbObj2OVZyOOSr4dVJWUgsjZ0B4gaVI.woff2',
-    'Quicksand': 'https://fonts.gstatic.com/s/quicksand/v30/6xK-dSZaM9iE8KbpRA_LJ3z8mH9BOJvgkP8o58a-wg.woff2',
-    'Cormorant Garamond': 'https://fonts.gstatic.com/s/cormorantgaramond/v16/co3bmX5slCNuHLi8bLeY9MK7whWMhyjQAllvuQWJ5heb_w.woff2',
-    'Raleway': 'https://fonts.gstatic.com/s/raleway/v28/1Ptxg8zYS_SKggPN4iEgvnHyvveLxVvaorCIPrEVIT9d0c8.woff2',
-};
-
 /**
  * Load font data from Google Fonts
+ *
+ * IMPORTANT: Satori only supports TTF, OTF, and WOFF (NOT WOFF2).
+ * We must use an old browser User-Agent to force Google Fonts to return TTF/OTF.
+ *
+ * Reference: https://github.com/vercel/satori/blob/main/playground/pages/api/font.ts
  */
-async function loadFont(fontFamily: string): Promise<ArrayBuffer | null> {
-    const url = FONT_URLS[fontFamily];
-    if (!url) {
-        console.warn(`[OG Image] Font "${fontFamily}" not found in FONT_URLS, using fallback`);
-        return null;
-    }
-
+async function loadFont(fontFamily: string, weight = 400): Promise<ArrayBuffer | null> {
     try {
-        const response = await fetch(url);
-        if (!response.ok) {
-            console.error(`[OG Image] Failed to fetch font "${fontFamily}":`, response.statusText);
+        // Normalize font family for Google Fonts API (replace spaces with +)
+        const fontParam = fontFamily.replace(/ /g, '+');
+
+        // Fetch CSS from Google Fonts with old browser User-Agent to get TTF/OTF
+        const cssUrl = `https://fonts.googleapis.com/css2?family=${fontParam}:wght@${weight}`;
+        const cssResponse = await fetch(cssUrl, {
+            headers: {
+                // Critical: Old browser User-Agent forces Google to return TTF/OTF instead of WOFF2
+                'User-Agent': 'Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; de-at) AppleWebKit/533.21.1 (KHTML, like Gecko) Version/5.0.5 Safari/533.21.1',
+            },
+        });
+
+        if (!cssResponse.ok) {
+            console.error(`[OG Image] Failed to fetch font CSS for "${fontFamily}":`, cssResponse.statusText);
             return null;
         }
-        return await response.arrayBuffer();
+
+        const css = await cssResponse.text();
+
+        // Extract font URL from CSS (matches TTF or OTF format)
+        const fontUrlMatch = css.match(/src: url\((.+)\) format\('(opentype|truetype)'\)/);
+
+        if (!fontUrlMatch || !fontUrlMatch[1]) {
+            console.error(`[OG Image] Could not extract font URL from CSS for "${fontFamily}"`);
+            return null;
+        }
+
+        const fontUrl = fontUrlMatch[1];
+
+        // Fetch the actual font file
+        const fontResponse = await fetch(fontUrl);
+
+        if (!fontResponse.ok) {
+            console.error(`[OG Image] Failed to fetch font file for "${fontFamily}":`, fontResponse.statusText);
+            return null;
+        }
+
+        const fontData = await fontResponse.arrayBuffer();
+        console.log(`[OG Image] Successfully loaded font: ${fontFamily} (${(fontData.byteLength / 1024).toFixed(1)}KB)`);
+
+        return fontData;
     } catch (error) {
         console.error(`[OG Image] Error loading font "${fontFamily}":`, error);
         return null;
@@ -161,15 +176,16 @@ export default async function Image() {
         console.error(`[OG Image] Font loading failed for ${fontFamily}, using fallback:`, error);
     }
 
-    // IMPORTANT: Satori doesn't support CSS gradients
-    // Use solid background color (first color from gradient config)
-    const backgroundColor = config.gradient.colors[0] || '#a855f7';
+    // Build gradient using buildGradientCSS (Satori supports gradients via backgroundImage)
+    const backgroundImage = buildGradientCSS(config.gradient);
 
-    // Determine text color based on background luminosity
-    const isLight = isLightColor(backgroundColor);
+    // Determine text color based on first gradient color luminosity
+    const firstColor = config.gradient.colors[0] || '#a855f7';
+    const isLight = isLightColor(firstColor);
     const textColor = isLight ? '#0a0a0a' : '#ffffff';
 
     // Build fonts array (Satori requires this format)
+    // CRITICAL: If no font is loaded, Satori will crash
     const fonts = fontData
         ? [
               {
@@ -184,7 +200,7 @@ export default async function Image() {
     console.log('[OG Image] Rendering with config:', {
         title: config.title,
         description: config.description,
-        backgroundColor,
+        backgroundImage,
         textColor,
         fontFamily,
         hasFont: !!fontData,
@@ -198,7 +214,7 @@ export default async function Image() {
                         display: 'flex',
                         width: '100%',
                         height: '100%',
-                        backgroundColor,
+                        backgroundImage, // Satori supports gradients via backgroundImage property
                         alignItems: 'center',
                         justifyContent: 'center',
                         padding: '80px',
