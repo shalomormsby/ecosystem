@@ -147,9 +147,17 @@ export default async function Image() {
         console.log('[OG Image] Falling back to default config');
     }
 
-    // Load font
+    // Load font (with error handling to prevent crashes)
     const fontFamily = config.fontFamily || 'Space Grotesk';
-    const fontData = await loadFont(fontFamily);
+    let fontData: ArrayBuffer | null = null;
+    try {
+        fontData = await loadFont(fontFamily);
+        if (fontData) {
+            console.log(`[OG Image] Successfully loaded font: ${fontFamily}`);
+        }
+    } catch (error) {
+        console.error(`[OG Image] Font loading failed for ${fontFamily}, using fallback:`, error);
+    }
 
     // Build gradient background
     const background = buildGradientCSS(config.gradient);
@@ -162,6 +170,18 @@ export default async function Image() {
 
     // Determine if we should show the icon
     const showIcon = config.showIcon !== false;
+
+    // Build fonts array (Satori requires this format)
+    const fonts = fontData
+        ? [
+              {
+                  name: fontFamily,
+                  data: fontData,
+                  style: 'normal' as const,
+                  weight: 400 as const,
+              },
+          ]
+        : [];
 
     return new ImageResponse(
         (
@@ -181,21 +201,20 @@ export default async function Image() {
                     color: textColor,
                 }}
             >
-                {/* Ambient Lighting Mesh (optional, only for dark themes) */}
-                {!isLight && (
-                    <div
-                        style={{
-                            position: 'absolute',
-                            top: '-50%',
-                            left: '-50%',
-                            width: '200%',
-                            height: '200%',
-                            background: `radial-gradient(circle at 50% 50%, ${accentColor} 0%, transparent 60%)`,
-                            opacity: 0.15,
-                            transform: 'scale(1.5)',
-                        }}
-                    />
-                )}
+                {/* Ambient Lighting Mesh - only render for dark themes */}
+                <div
+                    style={{
+                        position: 'absolute',
+                        top: '-50%',
+                        left: '-50%',
+                        width: '200%',
+                        height: '200%',
+                        background: `radial-gradient(circle at 50% 50%, ${accentColor} 0%, transparent 60%)`,
+                        opacity: isLight ? 0 : 0.15,
+                        transform: 'scale(1.5)',
+                        pointerEvents: 'none',
+                    }}
+                />
 
                 {/* Content Container */}
                 <div
@@ -210,31 +229,29 @@ export default async function Image() {
                         textAlign: 'center',
                     }}
                 >
-                    {/* Brand Logo/Icon */}
-                    {showIcon && (
+                    {/* Brand Logo/Icon - always render but hide with opacity if not needed */}
+                    <div
+                        style={{
+                            width: '64px',
+                            height: '64px',
+                            borderRadius: '20px',
+                            background: isLight ? '#0a0a0a' : 'white',
+                            display: showIcon ? 'flex' : 'none',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
+                            marginBottom: '16px',
+                        }}
+                    >
                         <div
                             style={{
-                                width: '64px',
-                                height: '64px',
-                                borderRadius: '20px',
-                                background: isLight ? '#0a0a0a' : 'white',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
-                                marginBottom: '16px',
+                                width: '24px',
+                                height: '24px',
+                                borderRadius: '50%',
+                                background: isLight ? 'white' : accentColor,
                             }}
-                        >
-                            <div
-                                style={{
-                                    width: '24px',
-                                    height: '24px',
-                                    borderRadius: '50%',
-                                    background: isLight ? 'white' : accentColor,
-                                }}
-                            />
-                        </div>
-                    )}
+                        />
+                    </div>
 
                     {/* Title */}
                     <h1
@@ -251,36 +268,26 @@ export default async function Image() {
                     </h1>
 
                     {/* Description */}
-                    {config.description && (
-                        <p
-                            style={{
-                                fontSize: `${config.descriptionFontSize}px`,
-                                fontWeight: 500,
-                                opacity: 0.9,
-                                margin: 0,
-                                letterSpacing: '-0.01em',
-                                lineHeight: 1.4,
-                                maxWidth: '900px',
-                            }}
-                        >
-                            {config.description}
-                        </p>
-                    )}
+                    <p
+                        style={{
+                            fontSize: `${config.descriptionFontSize}px`,
+                            fontWeight: 500,
+                            opacity: 0.9,
+                            margin: 0,
+                            letterSpacing: '-0.01em',
+                            lineHeight: 1.4,
+                            maxWidth: '900px',
+                            display: config.description ? 'block' : 'none',
+                        }}
+                    >
+                        {config.description || ''}
+                    </p>
                 </div>
             </div>
         ),
         {
             ...size,
-            fonts: fontData
-                ? [
-                      {
-                          name: fontFamily,
-                          data: fontData,
-                          style: 'normal',
-                          weight: 400,
-                      },
-                  ]
-                : [],
+            fonts,
         }
     );
 }
