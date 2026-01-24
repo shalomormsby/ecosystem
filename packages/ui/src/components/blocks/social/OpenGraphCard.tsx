@@ -20,6 +20,7 @@ export interface OpenGraphCardProps extends React.HTMLAttributes<HTMLDivElement>
     accentColor?: string;  // Override accent color (hex)
     titleFontSize?: number;  // Title font size in px (default: 96)
     descriptionFontSize?: number;  // Description font size in px (default: 42)
+    fontFamily?: string;  // Font family name (default: 'sans-serif')
 }
 
 /**
@@ -76,6 +77,7 @@ export function OpenGraphCard({
     accentColor,
     titleFontSize = 96,
     descriptionFontSize = 42,
+    fontFamily = 'sans-serif',
     className,
     ...props
 }: OpenGraphCardProps) {
@@ -139,7 +141,7 @@ export function OpenGraphCard({
                 padding: '80px',
                 position: 'relative',
                 overflow: 'hidden',
-                fontFamily: 'sans-serif',
+                fontFamily,
                 color: activeStyle.textColor || 'white',
                 ...props.style,
             }}

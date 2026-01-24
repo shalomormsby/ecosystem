@@ -11,6 +11,11 @@ import {
     ColorPicker,
     CollapsibleCodeBlock,
     Badge,
+    Select,
+    SelectTrigger,
+    SelectContent,
+    SelectItem,
+    SelectValue,
     type GradientConfig,
 } from '@sage/ui';
 import { Eye, Code, Download, Save, Check, Trash2, RefreshCw } from 'lucide-react';
@@ -27,9 +32,29 @@ interface SavedOGDesign {
     gradientAngle: number;
     gradientColor1: string;
     gradientColor2: string;
+    fontFamily: string;
     createdAt: number;
     isActive?: boolean;
 }
+
+// Available fonts for OG cards
+const AVAILABLE_FONTS = [
+    'Space Grotesk',
+    'Inter',
+    'Lora',
+    'Roboto',
+    'Outfit',
+    'Manrope',
+    'Instrument Sans',
+    'Fira Code',
+    'JetBrains Mono',
+    'Playfair Display',
+    'Source Sans Pro',
+    'Open Sans',
+    'Quicksand',
+    'Cormorant Garamond',
+    'Raleway',
+].sort();
 
 export function OpenGraphCardPage() {
     // State for all customizable properties
@@ -42,6 +67,7 @@ export function OpenGraphCardPage() {
     const [gradientAngle, setGradientAngle] = useState(135);
     const [gradientColor1, setGradientColor1] = useState('#171717');
     const [gradientColor2, setGradientColor2] = useState('#0a0a0a');
+    const [fontFamily, setFontFamily] = useState('Space Grotesk');
     const [activeTab, setActiveTab] = useState<'preview' | 'code'>('preview');
 
     // Saved designs
@@ -75,6 +101,7 @@ export function OpenGraphCardPage() {
             gradientAngle,
             gradientColor1,
             gradientColor2,
+            fontFamily,
             createdAt: Date.now(),
         };
 
@@ -97,6 +124,7 @@ export function OpenGraphCardPage() {
         setGradientAngle(design.gradientAngle);
         setGradientColor1(design.gradientColor1);
         setGradientColor2(design.gradientColor2);
+        setFontFamily(design.fontFamily || 'Space Grotesk');
     };
 
     // Delete a saved design
@@ -138,7 +166,8 @@ export function OpenGraphCardPage() {
                     },
                     titleFontSize: activeDesign.titleFontSize,
                     descriptionFontSize: activeDesign.descriptionFontSize,
-                    showIcon: activeDesign.showIcon, // ✅ Include icon preference
+                    showIcon: activeDesign.showIcon,
+                    fontFamily: activeDesign.fontFamily || 'Space Grotesk',
                 };
 
                 const response = await fetch('/api/edge-config', {
@@ -183,6 +212,7 @@ export function OpenGraphCardPage() {
   },
   titleFontSize: ${design.titleFontSize},
   descriptionFontSize: ${design.descriptionFontSize},
+  fontFamily: '${design.fontFamily || 'Space Grotesk'}',
 };`;
     };
 
@@ -216,6 +246,7 @@ export function OpenGraphCardPage() {
       }}`;
         const titleFontCode = titleFontSize !== 96 ? `\n      titleFontSize={${titleFontSize}}` : '';
         const descFontCode = descriptionFontSize !== 42 ? `\n      descriptionFontSize={${descriptionFontSize}}` : '';
+        const fontCode = fontFamily !== 'Space Grotesk' ? `\n      fontFamily="${fontFamily}"` : '';
 
         return `import { OpenGraphCard } from '@sage/ui';
 
@@ -224,7 +255,7 @@ export default function OGImage() {
     <OpenGraphCard
       title="${title}"
       description="${description}"
-      variant="gradient"${iconCode}${gradientCode}${titleFontCode}${descFontCode}
+      variant="gradient"${iconCode}${gradientCode}${titleFontCode}${descFontCode}${fontCode}
     />
   );
 }`;
@@ -325,6 +356,23 @@ export default function OGImage() {
                                         onChange={(e) => setDescriptionFontSize(Number(e.target.value))}
                                         className="w-full h-2 bg-[var(--color-surface)] rounded-lg appearance-none cursor-pointer accent-[var(--color-primary)]"
                                     />
+                                </div>
+
+                                {/* Font Family */}
+                                <div className="space-y-2 pt-2">
+                                    <Label htmlFor="font-family">Font Family</Label>
+                                    <Select value={fontFamily} onValueChange={setFontFamily}>
+                                        <SelectTrigger id="font-family">
+                                            <SelectValue />
+                                        </SelectTrigger>
+                                        <SelectContent>
+                                            {AVAILABLE_FONTS.map((font) => (
+                                                <SelectItem key={font} value={font}>
+                                                    {font}
+                                                </SelectItem>
+                                            ))}
+                                        </SelectContent>
+                                    </Select>
                                 </div>
                             </div>
                         </div>
@@ -610,6 +658,7 @@ export default function OGImage() {
                                                 gradient={gradientConfig}
                                                 titleFontSize={titleFontSize}
                                                 descriptionFontSize={descriptionFontSize}
+                                                fontFamily={fontFamily}
                                             />
                                         </div>
                                     </div>

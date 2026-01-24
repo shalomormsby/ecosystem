@@ -33,6 +33,49 @@ interface OGCardConfig {
     titleFontSize: number;
     descriptionFontSize: number;
     showIcon?: boolean;
+    fontFamily?: string;
+}
+
+// Supported fonts with their Google Fonts URLs (Regular 400 weight)
+const FONT_URLS: Record<string, string> = {
+    'Space Grotesk': 'https://fonts.gstatic.com/s/spacegrotesk/v16/V8mQoQDjQSkFtoMM3T6r8E7mF71Q-gOoraIAEj7oUXskPMBBSSJLm2E.woff',
+    'Inter': 'https://fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hiA.woff',
+    'Lora': 'https://fonts.gstatic.com/s/lora/v32/0QI6MX1D_JOuGQbT0gvTJPa787weuxJBkq0.woff2',
+    'Roboto': 'https://fonts.gstatic.com/s/roboto/v30/KFOmCnqEu92Fr1Mu72xKOzY.woff',
+    'Outfit': 'https://fonts.gstatic.com/s/outfit/v11/QGYyz_MVcBeNP4NjuGObqx1XmO1I4W61O4a0Ew.woff',
+    'Manrope': 'https://fonts.gstatic.com/s/manrope/v14/xn7_YHE41ni1AdIRqAuZuw1Bx9mbZk59FO_F87jxeN7B.woff2',
+    'Instrument Sans': 'https://fonts.gstatic.com/s/instrumentsans/v1/pximypc9vsFDm051Uf6KVwgkfoSbK_-6GUo1nvtOb_mi.woff2',
+    'Fira Code': 'https://fonts.gstatic.com/s/firacode/v21/uU9eCBsR6Z2vfE9aq3bL0fxyUs4tcw4W_D1sFVc.woff2',
+    'JetBrains Mono': 'https://fonts.gstatic.com/s/jetbrainsmono/v18/tDbY2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKxTOlOVkWM.woff',
+    'Playfair Display': 'https://fonts.gstatic.com/s/playfairdisplay/v36/nuFvD-vYSZviVYUb_rj3ij__anPXJzDwcbmjWBN2PKdFvXDXbtM.woff',
+    'Source Sans Pro': 'https://fonts.gstatic.com/s/sourcesanspro/v22/6xK3dSBYKcSV-LCoeQqfX1RYOo3qOK7lujVj9w.woff2',
+    'Open Sans': 'https://fonts.gstatic.com/s/opensans/v35/memSYaGs126MiZpBA-UvWbX2vVnXBbObj2OVZyOOSr4dVJWUgsjZ0B4gaVI.woff2',
+    'Quicksand': 'https://fonts.gstatic.com/s/quicksand/v30/6xK-dSZaM9iE8KbpRA_LJ3z8mH9BOJvgkP8o58a-wg.woff2',
+    'Cormorant Garamond': 'https://fonts.gstatic.com/s/cormorantgaramond/v16/co3bmX5slCNuHLi8bLeY9MK7whWMhyjQAllvuQWJ5heb_w.woff2',
+    'Raleway': 'https://fonts.gstatic.com/s/raleway/v28/1Ptxg8zYS_SKggPN4iEgvnHyvveLxVvaorCIPrEVIT9d0c8.woff2',
+};
+
+/**
+ * Load font data from Google Fonts
+ */
+async function loadFont(fontFamily: string): Promise<ArrayBuffer | null> {
+    const url = FONT_URLS[fontFamily];
+    if (!url) {
+        console.warn(`[OG Image] Font "${fontFamily}" not found in FONT_URLS, using fallback`);
+        return null;
+    }
+
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            console.error(`[OG Image] Failed to fetch font "${fontFamily}":`, response.statusText);
+            return null;
+        }
+        return await response.arrayBuffer();
+    } catch (error) {
+        console.error(`[OG Image] Error loading font "${fontFamily}":`, error);
+        return null;
+    }
 }
 
 /**
@@ -79,6 +122,7 @@ export default async function Image() {
         titleFontSize: 96,
         descriptionFontSize: 42,
         showIcon: false,
+        fontFamily: 'Space Grotesk',
     };
 
     let config = defaultConfig;
@@ -102,6 +146,10 @@ export default async function Image() {
         console.error('[OG Image] Failed to load Edge Config:', e);
         console.log('[OG Image] Falling back to default config');
     }
+
+    // Load font
+    const fontFamily = config.fontFamily || 'Space Grotesk';
+    const fontData = await loadFont(fontFamily);
 
     // Build gradient background
     const background = buildGradientCSS(config.gradient);
@@ -129,7 +177,7 @@ export default async function Image() {
                     padding: '80px',
                     position: 'relative',
                     overflow: 'hidden',
-                    fontFamily: 'sans-serif',
+                    fontFamily,
                     color: textColor,
                 }}
             >
@@ -223,6 +271,16 @@ export default async function Image() {
         ),
         {
             ...size,
+            fonts: fontData
+                ? [
+                      {
+                          name: fontFamily,
+                          data: fontData,
+                          style: 'normal',
+                          weight: 400,
+                      },
+                  ]
+                : [],
         }
     );
 }
