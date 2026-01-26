@@ -1,3 +1,7 @@
+'use client';
+
+import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { Header, Button } from '@sage/ui';
 import { Github } from 'lucide-react';
 import { SageHero } from './components/landing/SageHero';
@@ -7,6 +11,14 @@ import { BuilderSection } from './components/landing/BuilderSection';
 import { CallToAction } from './components/landing/CallToAction';
 
 export default function LandingPage() {
+  const router = useRouter();
+
+  useEffect(() => {
+    if (window.location.hash) {
+      router.replace(`/docs${window.location.hash}`);
+    }
+  }, [router]);
+
   return (
     <main className="min-h-screen bg-[var(--color-background)] selection:bg-[var(--color-primary)] selection:text-white">
       <Header

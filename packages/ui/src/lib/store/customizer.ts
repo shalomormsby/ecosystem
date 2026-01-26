@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import { computeDerivedTokens } from '@sage/tokens';
+import { computeDerivedTokens, type FontTheme } from '@sage/tokens';
 import {
   generateColorScale,
   getOptimalForeground,
@@ -41,6 +41,12 @@ export interface SavedPalette {
   rationale?: string;
 }
 
+export interface SavedFontTheme extends FontTheme {
+  id: string;                               // Unique ID (overrides FontTheme.id)
+  createdAt: number;                        // Timestamp
+  category: 'custom';                       // Always 'custom' for user font themes
+}
+
 export interface ColorCustomization {
   mode: CustomizationMode;
   palette: ColorPalette | null;
@@ -64,6 +70,16 @@ interface CustomizerState {
 
   // Saved custom palettes
   savedPalettes: SavedPalette[];
+
+  // Font theme customization
+  customFontThemes: {
+    [theme in ThemeName]?: {
+      [mode in ColorMode]?: FontTheme;
+    };
+  };
+
+  // Saved custom font themes
+  savedFontThemes: SavedFontTheme[];
 
   // Motion actions
   setMotion: (level: number) => void;
@@ -113,6 +129,25 @@ interface CustomizerState {
   deletePalette: (id: string) => void;
   reorderPalettes: (palettes: SavedPalette[]) => void;
   getSavedPalettes: () => SavedPalette[];
+
+  // Font theme actions
+  applyFontTheme: (
+    theme: ThemeName,
+    mode: ColorMode,
+    fontTheme: FontTheme
+  ) => void;
+
+  resetCustomFonts: (theme: ThemeName, mode?: ColorMode) => void;
+
+  getActiveFontTheme: (theme: ThemeName, mode: ColorMode) => FontTheme | null;
+
+  // Saved font theme actions
+  saveFontTheme: (fontTheme: Omit<SavedFontTheme, 'id' | 'createdAt' | 'category'>) => void;
+  updateFontTheme: (id: string, updates: Partial<SavedFontTheme>) => void;
+  renameFontTheme: (id: string, newName: string) => void;
+  deleteFontTheme: (id: string) => void;
+  reorderFontThemes: (fontThemes: SavedFontTheme[]) => void;
+  getSavedFontThemes: () => SavedFontTheme[];
 }
 
 export const useCustomizer = create<CustomizerState>()(
@@ -123,6 +158,8 @@ export const useCustomizer = create<CustomizerState>()(
       customizationMode: 'simple',
       customColors: {},
       savedPalettes: [],
+      customFontThemes: {},
+      savedFontThemes: [],
 
       setMotion: (level) => set({ motion: level }),
       setPrefersReducedMotion: (value) => set({ prefersReducedMotion: value }),
@@ -343,16 +380,102 @@ export const useCustomizer = create<CustomizerState>()(
       getSavedPalettes: () => {
         return get().savedPalettes;
       },
+
+      // Font theme management
+      applyFontTheme: (theme, mode, fontTheme) => {
+        set((state) => ({
+          customFontThemes: {
+            ...state.customFontThemes,
+            [theme]: {
+              ...state.customFontThemes[theme],
+              [mode]: fontTheme,
+            },
+          },
+        }));
+      },
+
+      resetCustomFonts: (theme, mode) => {
+        if (mode) {
+          // Reset specific mode
+          set((state) => ({
+            customFontThemes: {
+              ...state.customFontThemes,
+              [theme]: {
+                ...state.customFontThemes[theme],
+                [mode]: undefined,
+              },
+            },
+          }));
+        } else {
+          // Reset entire theme
+          set((state) => {
+            const { [theme]: _, ...rest } = state.customFontThemes;
+            return { customFontThemes: rest };
+          });
+        }
+      },
+
+      getActiveFontTheme: (theme, mode) => {
+        return get().customFontThemes[theme]?.[mode] || null;
+      },
+
+      // Saved font theme management
+      saveFontTheme: (fontThemeData) => {
+        const id = `font-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+        const newFontTheme: SavedFontTheme = {
+          ...fontThemeData,
+          id,
+          category: 'custom',
+          createdAt: Date.now(),
+          isCustom: true,
+        };
+
+        set((state) => ({
+          savedFontThemes: [...state.savedFontThemes, newFontTheme],
+        }));
+      },
+
+      updateFontTheme: (id, updates) => {
+        set((state) => ({
+          savedFontThemes: state.savedFontThemes.map((ft) =>
+            ft.id === id ? { ...ft, ...updates } : ft
+          ),
+        }));
+      },
+
+      renameFontTheme: (id, newName) => {
+        set((state) => ({
+          savedFontThemes: state.savedFontThemes.map((ft) =>
+            ft.id === id ? { ...ft, name: newName } : ft
+          ),
+        }));
+      },
+
+      deleteFontTheme: (id) => {
+        set((state) => ({
+          savedFontThemes: state.savedFontThemes.filter((ft) => ft.id !== id),
+        }));
+      },
+
+      reorderFontThemes: (fontThemes) => {
+        set({ savedFontThemes: fontThemes });
+      },
+
+      getSavedFontThemes: () => {
+        return get().savedFontThemes;
+      },
     }),
     {
       name: 'ecosystem-customizer',
-      version: 3,
+      version: 4,
       partialize: (state) => ({
         motion: state.motion,
         prefersReducedMotion: state.prefersReducedMotion,
         customizationMode: state.customizationMode,
         customColors: state.customColors,
         savedPalettes: state.savedPalettes,
+        customFontThemes: state.customFontThemes,
+        savedFontThemes: state.savedFontThemes,
       }),
     }
   )

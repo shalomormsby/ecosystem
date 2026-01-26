@@ -4,8 +4,10 @@ import { useState, useEffect } from 'react';
 import { Breadcrumbs, type BreadcrumbItemLegacy } from '@sage/ui';
 import { PalettesTab } from './PalettesTab';
 import { CustomizerTab } from './CustomizerTab';
+import { TypographyTab } from './TypographyTab';
+import { TypographyPlayground } from '../pages/typography/TypographyPlayground';
 
-type ThemeTab = 'palettes' | 'customizer';
+type ThemeTab = 'palettes' | 'customizer' | 'typography' | 'typography-playground';
 
 interface ThemesSectionProps {
     activeItemId?: string;
@@ -18,7 +20,7 @@ export function ThemesSection({ activeItemId, breadcrumbs, onItemChange }: Theme
 
     // Update active tab when activeItemId changes
     useEffect(() => {
-        if (activeItemId && ['palettes', 'customizer'].includes(activeItemId)) {
+        if (activeItemId && ['palettes', 'customizer', 'typography', 'typography-playground'].includes(activeItemId)) {
             setActiveTab(activeItemId as ThemeTab);
         }
     }, [activeItemId]);
@@ -38,6 +40,8 @@ export function ThemesSection({ activeItemId, breadcrumbs, onItemChange }: Theme
             <div className="mt-4">
                 {activeTab === 'palettes' && <PalettesTab />}
                 {activeTab === 'customizer' && <CustomizerTab />}
+                {activeTab === 'typography' && <TypographyTab onNavigateToPlayground={() => onItemChange?.('typography-playground')} />}
+                {activeTab === 'typography-playground' && <TypographyPlayground />}
             </div>
         </div>
     );

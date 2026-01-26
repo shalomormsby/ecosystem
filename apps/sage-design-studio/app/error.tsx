@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
-import { Button } from '@sage/ui';
+import { Button, FaultyTerminal } from '@sage/ui';
 
 export default function Error({
   error,
@@ -16,8 +16,13 @@ export default function Error({
   }, [error]);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[var(--color-background)] px-4">
-      <div className="max-w-md w-full py-12 text-center">
+    <div className="min-h-screen relative flex items-center justify-center overflow-hidden bg-black">
+      {/* Background */}
+      <div className="absolute inset-0 z-0">
+        <FaultyTerminal tint="#ef4444" />
+      </div>
+
+      <div className="max-w-md w-full px-6 py-12 text-center relative z-10 dark">
         <div className="space-y-6">
           {/* Error Icon - 404 Text */}
           <div className="flex justify-center select-none">

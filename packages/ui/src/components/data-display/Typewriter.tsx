@@ -102,7 +102,7 @@ export function Typewriter({
     }, [text, speed, delay, loop, loopDelay, shouldAnimate, scale]); // Re-run effect if props change
 
     return (
-        <Component className={cn("inline-flex items-center", className)}>
+        <Component className={cn("inline", className)}>
             <span>{displayedText}</span>
             {showCursor && (
                 <motion.span

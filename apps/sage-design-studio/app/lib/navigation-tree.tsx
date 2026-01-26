@@ -90,70 +90,6 @@ export const navigationTree: NavigationItem[] = [
     ],
   },
   {
-    id: 'themes',
-    label: 'Themes',
-    icon: <Sparkles className="w-4 h-4" />, // Using Sparkles temporarily or another icon
-    children: [
-      {
-        id: 'palettes',
-        label: 'Palettes',
-        section: 'themes',
-      },
-      {
-        id: 'customizer',
-        label: 'Customizer',
-        section: 'themes',
-      },
-    ],
-  },
-  {
-    id: 'motion',
-    label: 'Motion',
-    icon: <div className="w-4 h-4 flex items-center justify-center font-bold text-xs" style={{ fontFamily: 'serif', fontStyle: 'italic' }}>ƒ</div>,
-    children: [
-      {
-        id: 'primitives',
-        label: 'Primitives',
-        section: 'motion',
-      },
-      {
-        id: 'text-effects',
-        label: 'Text Effects',
-        section: 'motion',
-        children: [
-          { id: 'variable-weight', label: 'Variable Weight', section: 'motion' },
-          { id: 'typewriter', label: 'Typewriter', section: 'motion' },
-        ],
-      },
-      {
-        id: 'backgrounds',
-        label: 'Backgrounds',
-        section: 'motion',
-        children: [
-          { id: 'warp-speed', label: 'Warp Speed', section: 'motion' },
-          { id: 'faulty-terminal', label: 'Faulty Terminal', section: 'motion' },
-        ],
-      },
-      {
-        id: 'cursors',
-        label: 'Cursors',
-        section: 'motion',
-        children: [
-          { id: 'target-cursor', label: 'Target', section: 'motion' },
-          { id: 'splash-cursor', label: 'Splash', section: 'motion' },
-        ],
-      },
-      {
-        id: 'micro-interactions',
-        label: 'Micro-Interactions',
-        section: 'motion',
-        children: [
-          { id: 'magnetic', label: 'Magnetic', section: 'motion' },
-        ],
-      },
-    ],
-  },
-  {
     id: 'components',
     label: 'Components',
     icon: <Component className="w-4 h-4" />,
@@ -287,6 +223,80 @@ export const navigationTree: NavigationItem[] = [
         label: 'Social',
         children: [
           { id: 'open-graph-card', label: 'Open Graph Card', section: 'blocks' },
+        ],
+      },
+    ],
+  },
+  {
+    id: 'themes',
+    label: 'Themes',
+    icon: <Sparkles className="w-4 h-4" />, // Using Sparkles temporarily or another icon
+    children: [
+      {
+        id: 'palettes',
+        label: 'Color Palettes',
+        section: 'themes',
+      },
+      {
+        id: 'typography',
+        label: 'Typography',
+        section: 'themes',
+      },
+      {
+        id: 'typography-playground',
+        label: 'Typography Playground',
+        section: 'themes',
+      },
+      {
+        id: 'customizer',
+        label: 'Customizer',
+        section: 'themes',
+      },
+    ],
+  },
+  {
+    id: 'motion',
+    label: 'Motion',
+    icon: <div className="w-4 h-4 flex items-center justify-center font-bold text-xs" style={{ fontFamily: 'serif', fontStyle: 'italic' }}>ƒ</div>,
+    children: [
+      {
+        id: 'primitives',
+        label: 'Primitives',
+        section: 'motion',
+      },
+      {
+        id: 'text-effects',
+        label: 'Text Effects',
+        section: 'motion',
+        children: [
+          { id: 'variable-weight', label: 'Variable Weight', section: 'motion' },
+          { id: 'typewriter', label: 'Typewriter', section: 'motion' },
+        ],
+      },
+      {
+        id: 'backgrounds',
+        label: 'Backgrounds',
+        section: 'motion',
+        children: [
+          { id: 'warp-speed', label: 'Warp Speed', section: 'motion' },
+          { id: 'faulty-terminal', label: 'Faulty Terminal', section: 'motion' },
+        ],
+      },
+      {
+        id: 'cursors',
+        label: 'Cursors',
+        section: 'motion',
+        children: [
+          { id: 'target-cursor', label: 'Target', section: 'motion' },
+          { id: 'splash-cursor', label: 'Splash', section: 'motion' },
+        ],
+      },
+      {
+        id: 'micro-interactions',
+        label: 'Micro-Interactions',
+        section: 'motion',
+        children: [
+          { id: 'magnetic', label: 'Magnetic', section: 'motion' },
         ],
       },
     ],

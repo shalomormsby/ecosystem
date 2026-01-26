@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { ThemeProvider, ToastProvider, CustomizerPanel } from '@sage/ui';
+import { ThemeProvider, ToastProvider, CustomizerPanel, TooltipProvider } from '@sage/ui';
 import { allFontVariables } from '../lib/fonts';
 import { Analytics } from '@vercel/analytics/next';
 import './globals.css';
@@ -34,8 +34,10 @@ export default function RootLayout({
       <body className="overflow-x-hidden" suppressHydrationWarning>
         <ThemeProvider>
           <ToastProvider position="bottom-right">
-            {children}
-            <CustomizerPanel />
+            <TooltipProvider>
+              {children}
+              <CustomizerPanel />
+            </TooltipProvider>
           </ToastProvider>
         </ThemeProvider>
         <Analytics />

@@ -37,23 +37,37 @@ interface SavedOGDesign {
     isActive?: boolean;
 }
 
-// Available fonts for OG cards
+// Available fonts for OG cards (matching typography system fonts)
 const AVAILABLE_FONTS = [
-    'Space Grotesk',
-    'Inter',
-    'Lora',
-    'Roboto',
-    'Outfit',
-    'Manrope',
-    'Instrument Sans',
-    'Fira Code',
-    'JetBrains Mono',
-    'Playfair Display',
-    'Source Sans Pro',
-    'Open Sans',
-    'Quicksand',
+    'Abril Fatface',
     'Cormorant Garamond',
+    'Fira Code',
+    'Fredoka',
+    'IBM Plex Mono',
+    'IBM Plex Sans',
+    'Instrument Sans',
+    'Inter',
+    'JetBrains Mono',
+    'Karla',
+    'Lato',
+    'Libre Bodoni',
+    'Lora',
+    'Manrope',
+    'Merriweather',
+    'Montserrat',
+    'Nunito',
+    'Nunito Sans',
+    'Open Sans',
+    'Outfit',
+    'Playfair Display',
+    'Poppins',
+    'Quicksand',
     'Raleway',
+    'Roboto',
+    'Roboto Mono',
+    'Source Sans 3',
+    'Space Grotesk',
+    'Work Sans',
 ].sort();
 
 export function OpenGraphCardPage() {

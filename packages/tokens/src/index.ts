@@ -11,6 +11,7 @@ export * from './syntax';
 export * from './color-palettes';
 export * from './color-utils';
 export * from './token-graph';
+export * from './fontThemes';
 
 /**
  * Theme names

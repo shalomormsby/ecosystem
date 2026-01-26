@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { generateBreadcrumbs, type BreadcrumbItemLegacy, type RouteConfig } from '@sage/ui';
+import NotFound from '../not-found';
 import { ModeSwitcher } from '../components/ModeSwitcher';
 import { NavigationSidebar } from '../components/NavigationSidebar';
 import { SearchCommandPalette } from '../components/SearchCommandPalette';
@@ -215,6 +216,8 @@ export default function StudioPage() {
     const [breadcrumbs, setBreadcrumbs] = useState<BreadcrumbItemLegacy[]>([]);
     const [isInitialized, setIsInitialized] = useState(false);
 
+    const [isNotFound, setIsNotFound] = useState(false);
+
     // Initialize from URL hash on mount
     useEffect(() => {
         const hash = window.location.hash.slice(1); // Remove '#'
@@ -234,6 +237,9 @@ export default function StudioPage() {
         } else if (section === 'resources') {
             section = 'templates';
             itemId = itemId || 'templates';
+        } else if (section === 'getting-started') {
+            section = 'overview';
+            itemId = itemId || 'overview';
         }
 
         const validSections: Section[] = [
@@ -246,14 +252,19 @@ export default function StudioPage() {
         if (validSections.includes(section as Section)) {
             setActiveSection(section as Section);
             setActiveItemId(itemId || section);
+            setIsNotFound(false);
+        } else {
+            setIsNotFound(true);
         }
 
         setIsInitialized(true);
     }, []);
 
+
+
     // Sync state to URL hash whenever navigation changes
     useEffect(() => {
-        if (!isInitialized) return;
+        if (!isInitialized || isNotFound) return;
 
         const hash = activeItemId && activeItemId !== activeSection
             ? `#${activeSection}/${activeItemId}`
@@ -262,7 +273,7 @@ export default function StudioPage() {
         if (window.location.hash !== hash) {
             window.history.replaceState(null, '', hash);
         }
-    }, [activeSection, activeItemId, isInitialized]);
+    }, [activeSection, activeItemId, isInitialized, isNotFound]);
 
     // Listen for hash changes (back/forward button, direct links)
     useEffect(() => {
@@ -283,6 +294,9 @@ export default function StudioPage() {
             } else if (section === 'resources') {
                 section = 'templates';
                 itemId = itemId || 'templates';
+            } else if (section === 'getting-started') {
+                section = 'overview';
+                itemId = itemId || 'overview';
             }
 
             const validSections: Section[] = [
@@ -295,7 +309,10 @@ export default function StudioPage() {
             if (validSections.includes(section as Section)) {
                 setActiveSection(section as Section);
                 setActiveItemId(itemId || section);
+                setIsNotFound(false);
                 window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else {
+                setIsNotFound(true);
             }
         };
 
@@ -330,6 +347,7 @@ export default function StudioPage() {
         if (path === 'overview') {
             setActiveSection('overview');
             setActiveItemId('overview');
+            setIsNotFound(false);
             return;
         }
 
@@ -347,8 +365,12 @@ export default function StudioPage() {
             if (validSections.includes(section as Section)) {
                 setActiveSection(section as Section);
                 setActiveItemId(itemId || section);
+                setIsNotFound(false);
                 window.scrollTo({ top: 0, behavior: 'smooth' });
                 return;
+            } else {
+                // Invalid search result or custom path
+                // Might handle this differently, but for now assuming search results are valid
             }
         }
 
@@ -369,16 +391,19 @@ export default function StudioPage() {
             // Remaining parts form the item ID
             const itemId = parts.slice(1).join('-');
             setActiveItemId(itemId || potentialSection);
+            setIsNotFound(false);
         } else {
             // Fallback/Legacy handling
             if (path.startsWith('adding-components')) {
                 setActiveSection('adding-components');
                 const itemId = path.replace('adding-components-', '');
                 setActiveItemId(itemId);
+                setIsNotFound(false);
             } else if (path.startsWith('tokens')) {
                 setActiveSection('tokens');
                 const itemId = path.replace('tokens-', '');
                 setActiveItemId(itemId);
+                setIsNotFound(false);
             } else if (path.startsWith('atoms') || path.startsWith('molecules')) {
                 // Redirect legacy atoms/molecules searches to new structure if possible
             }
@@ -391,6 +416,10 @@ export default function StudioPage() {
     const isComponentSection = (section: Section) =>
         ['actions', 'forms', 'navigation', 'overlays', 'feedback', 'data-display', 'layout'].includes(section);
 
+    if (isInitialized && isNotFound) {
+        return <NotFound />;
+    }
+
     return (
         <div className="min-h-screen bg-[var(--color-background)] flex">
             {/* Sidebar + Content Layout */}
@@ -400,6 +429,7 @@ export default function StudioPage() {
                 onNavigate={(section, itemId) => {
                     setActiveSection(section as Section);
                     setActiveItemId(itemId || section);
+                    setIsNotFound(false);
                     setSidebarOpen(false); // Close sidebar on mobile after navigation
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                 }}
