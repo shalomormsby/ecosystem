@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@shalomormsby/ui": "workspace:*",
+    "@thesage/ui": "workspace:*",
     "@vercel/analytics": "^1.6.1",
     "framer-motion": "^12.23.26",
     "next": "^16.0.10",
@@ -18,7 +18,7 @@
     "zustand": "^5.0.9"
   },
   "devDependencies": {
-    "@sage/config": "workspace:*",
+    "@thesage/config": "workspace:*",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",

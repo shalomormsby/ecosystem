@@ -1,6 +1,6 @@
 /**
  * Providers subpath export
- * Allows: import { ... } from '@sage/ui/providers'
+ * Allows: import { ... } from '@thesage/ui/providers'
  */
 
 // Re-export all providers

@@ -1,7 +1,7 @@
 /**
  * Tokens subpath export
- * Allows: import { ... } from '@sage/ui/tokens'
+ * Allows: import { ... } from '@thesage/ui/tokens'
  */
 
-// Re-export all tokens from @sage/tokens
-export * from '@sage/tokens';
+// Re-export all tokens from @thesage/tokens
+export * from '@thesage/tokens';

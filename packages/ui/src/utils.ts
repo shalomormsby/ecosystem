@@ -1,6 +1,6 @@
 /**
  * Utils subpath export
- * Allows: import { ... } from '@sage/ui/utils'
+ * Allows: import { ... } from '@thesage/ui/utils'
  */
 
 // Re-export all utilities

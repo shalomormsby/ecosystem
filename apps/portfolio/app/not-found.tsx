@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Button } from '@sage/ui';
+import { Button } from '@thesage/ui';
 
 export default function NotFound() {
     return (

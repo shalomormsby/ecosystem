@@ -1,7 +1,7 @@
 'use client';
 
 import NextLink from 'next/link';
-import { PageTemplate, Footer, Brand } from '@sage/ui';
+import { PageTemplate, Footer, Brand } from '@thesage/ui';
 import { ecosystemNavigation } from '@/lib/navigation';
 import { NavigationFallback } from '@/components/cosmograph/NavigationFallback';
 import type { Node } from '@/lib/content/types';
@@ -60,7 +60,7 @@ export function CosmographClient({ nodes }: CosmographClientProps) {
             {
               title: 'Tools',
               links: [
-                { label: 'Sage Design Studio', href: 'https://ui.shalomormsby.com', external: true },
+                { label: 'Sage Studio', href: 'https://ui.shalomormsby.com', external: true },
                 { label: 'Cosmograph', href: '/cosmograph' },
                 { label: 'Sage Stocks', href: '/sage-stocks' },
               ],

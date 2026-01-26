@@ -1,7 +1,7 @@
 'use client';
 
 import NextLink from 'next/link';
-import { Card, Link, Header, Footer } from '@sage/ui';
+import { Card, Link, Header, Footer } from '@thesage/ui';
 import { ecosystemNavigation } from '../lib/navigation';
 
 export default function Home() {
@@ -105,7 +105,7 @@ export default function Home() {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  → Sage Design Studio
+                  → Sage Studio
                 </Link>
                 <Link href="/cosmograph" className="block">
                   → Cosmograph (Explore Everything)
@@ -145,7 +145,7 @@ export default function Home() {
           {
             title: 'Tools',
             links: [
-              { label: 'Sage Design Studio', href: 'https://ui.shalomormsby.com', external: true },
+              { label: 'Sage Studio', href: 'https://ui.shalomormsby.com', external: true },
               { label: 'Cosmograph', href: '/cosmograph' },
               { label: 'Sage Stocks', href: 'https://stocks.shalomormsby.com/', external: true },
               { label: 'SageOS', href: '/sageos' },

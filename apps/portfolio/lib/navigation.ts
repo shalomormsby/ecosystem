@@ -1,4 +1,4 @@
-import type { HeaderNavLink } from '@sage/ui';
+import type { HeaderNavLink } from '@thesage/ui';
 
 export const ecosystemNavigation: HeaderNavLink[] = [
   {
@@ -20,7 +20,7 @@ export const ecosystemNavigation: HeaderNavLink[] = [
   {
     label: 'Tools',
     children: [
-      { label: 'Sage Design Studio', href: 'https://ui.shalomormsby.com' },
+      { label: 'Sage Studio', href: 'https://ui.shalomormsby.com' },
       { label: 'Cosmograph', href: '/cosmograph' },
       { label: 'Sage Stocks', href: '/sage-stocks' },
       { label: 'SageOS', href: '/sageos' },

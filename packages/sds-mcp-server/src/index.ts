@@ -16,7 +16,7 @@
  *   "mcpServers": {
  *     "sds": {
  *       "command": "npx",
- *       "args": ["@sage/mcp"]
+ *       "args": ["@thesage/mcp"]
  *     }
  *   }
  * }
@@ -199,7 +199,7 @@ function formatComponentDetails(component: ComponentMetadata): string {
   }
 
   output += `## Import\n`;
-  output += `\`\`\`typescript\nimport { ${component.name} } from '@sage/ui';\n\`\`\`\n\n`;
+  output += `\`\`\`typescript\nimport { ${component.name} } from '@thesage/ui';\n\`\`\`\n\n`;
 
   output += `## Documentation\n`;
   output += `View full documentation at: https://ui.shalomormsby.com/#${component.category}/${component.name.toLowerCase().replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase()}\n`;
@@ -213,13 +213,13 @@ function formatComponentDetails(component: ComponentMetadata): string {
 function formatInstallationInstructions(component: ComponentMetadata): string {
   let output = `# Install ${component.name}\n\n`;
 
-  output += `## 1. Install @sage/ui package\n\n`;
+  output += `## 1. Install @thesage/ui package\n\n`;
   output += `\`\`\`bash\n`;
-  output += `pnpm add @sage/ui\n`;
+  output += `pnpm add @thesage/ui\n`;
   output += `# or\n`;
-  output += `npm install @sage/ui\n`;
+  output += `npm install @thesage/ui\n`;
   output += `# or\n`;
-  output += `yarn add @sage/ui\n`;
+  output += `yarn add @thesage/ui\n`;
   output += `\`\`\`\n\n`;
 
   if (component.dependencies.length > 0) {
@@ -232,7 +232,7 @@ function formatInstallationInstructions(component: ComponentMetadata): string {
 
   output += `## ${component.dependencies.length > 0 ? '3' : '2'}. Import and use\n\n`;
   output += `\`\`\`typescript\n`;
-  output += `import { ${component.name} } from '@sage/ui';\n\n`;
+  output += `import { ${component.name} } from '@thesage/ui';\n\n`;
   output += `export function MyComponent() {\n`;
   output += `  return (\n`;
   output += `    <${component.name}>\n`;

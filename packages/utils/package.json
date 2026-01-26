@@ -1,7 +1,9 @@
 {
-  "name": "@sage/utils",
+  "name": "@thesage/utils",
   "version": "0.1.0",
-  "private": true,
+  "publishConfig": {
+    "access": "public"
+  },
   "description": "Shared utility functions for the ecosystem",
   "main": "./src/index.ts",
   "types": "./src/index.ts",

@@ -15,7 +15,7 @@ The purpose of this open source monorepo isn't just to answer this question; it'
 This ecosystem expresses one unified vision through multiple products:
 
 - **[Portfolio](https://www.shalomormsby.com/)** — My design philosophy in action. Currently being built from the ground-up entirely with Sage UI components.
-- **[Sage Design Studio](https://ui.shalomormsby.com/)** — Interactive documentation platform for the Sage UI. A comprehensive suite of functional components, patterns, and templates that optimize human and AI-assisted creativity. Purpose-built for solopreneurs who want to build digital products not only with speed but also with precise creative control. 
+- **[Sage Studio](https://ui.shalomormsby.com/)** — Interactive documentation platform for the Sage UI. A comprehensive suite of functional components, patterns, and templates that optimize human and AI-assisted creativity. Purpose-built for solopreneurs who want to build digital products not only with speed but also with precise creative control. 
 - **[Creative Powerup](https://ecosystem-creative-powerup.vercel.app/)** — Community platform and experiment gallery for purpose-driven innovators *(in development)*
 - **[Sage Stocks](https://stocks.shalomormsby.com/)** — AI-powered investment intelligence that respects user agency *(migration pending)*
 - **SageOS** — Personal operating system for creative work *(Currently a WiP. To apply as a beta tester, email Shalom.)*
@@ -177,7 +177,7 @@ Three custom React hooks for common patterns:
 
 ### Interactive Documentation
 
-The **Sage Design Studio** app ([apps/sage-design-studio](apps/sage-design-studio)) provides:
+The **Sage Studio** app ([apps/web](apps/web)) provides:
 - **Component playground** with live prop controls
 - **Token visualization** for all design tokens across themes
 - **Code examples** with automatic syntax highlighting
@@ -187,7 +187,7 @@ The **Sage Design Studio** app ([apps/sage-design-studio](apps/sage-design-studi
 
 Visit the live documentation at [https://ui.shalomormsby.com/](https://ui.shalomormsby.com/)
 
-[Full Design System Documentation →](apps/sage-design-studio/docs/SAGE_DESIGN_SYSTEM_STRATEGY.md)
+[Full Design System Documentation →](apps/web/docs/SAGE_DESIGN_SYSTEM_STRATEGY.md)
 
 ---
 
@@ -197,12 +197,12 @@ Visit the live documentation at [https://ui.shalomormsby.com/](https://ui.shalom
 ecosystem/
 ├── apps/                      # Next.js applications
 │   ├── portfolio/             # Proof of philosophy (production-ready)
-│   ├── sage-design-studio/    # Interactive design system docs (production)
+│   ├── web/    # Interactive design system docs (production)
 │   ├── creative-powerup/      # Experiment gallery (in development)
 │   ├── sage-stocks/           # Migration pending
 │   └── sageos/                # Future
 ├── packages/                  # Shared packages
-│   ├── ui/                    # @sage/ui - Component library
+│   ├── ui/                    # @thesage/ui - Component library
 │   │   └── src/
 │   │       ├── components/    # 48+ functionally-organized components
 │   │       │   ├── actions/   # Button, Toggle, ToggleGroup
@@ -217,7 +217,7 @@ ecosystem/
 │   │       ├── features/      # Customizer (philosophy-embodying)
 │   │       ├── lib/           # Store, utils, validation, animations
 │   │       └── index.ts       # Main export barrel
-│   ├── tokens/                # @sage/tokens - Design decisions as code
+│   ├── tokens/                # @thesage/tokens - Design decisions as code
 │   │   ├── studio/            # Studio theme tokens
 │   │   ├── sage/              # Sage theme tokens
 │   │   ├── volt/              # Volt theme tokens
@@ -255,7 +255,7 @@ ecosystem/
 
 ### Reference Documentation
 
-- **[SAGE_DESIGN_SYSTEM_STRATEGY.md](apps/sage-design-studio/docs/SAGE_DESIGN_SYSTEM_STRATEGY.md)** — Design system architecture, components, tokens, and usage.
+- **[SAGE_DESIGN_SYSTEM_STRATEGY.md](apps/web/docs/SAGE_DESIGN_SYSTEM_STRATEGY.md)** — Design system architecture, components, tokens, and usage.
 - **[apps/portfolio/README.md](apps/portfolio/README.md)** — Portfolio app setup and context.
 - **[docs/mcp-setup.md](docs/mcp-setup.md)** — Configure MCP servers for AI coding assistants.
 
@@ -284,7 +284,7 @@ All preferences persist to localStorage. This isn't a settings panel hidden in a
 Visual properties defined in code, not locked in Figma. Colors, spacing, typography, motion—all exposed as importable JavaScript.
 
 ```typescript
-import { spacing, typography } from '@sage/tokens'
+import { spacing, typography } from '@thesage/tokens'
 ```
 
 ### Motion That Respects Users
@@ -339,7 +339,7 @@ The work is the proof. Every component, every interaction, every line of code de
 
 **Production Ready (v1.0):**
 - **Design system** — Complete with 27 components, 3 themes, comprehensive token system
-- **Sage Design Studio** — Interactive documentation with LLM optimization (Phase 7 complete)
+- **Sage Studio** — Interactive documentation with LLM optimization (Phase 7 complete)
 - **Portfolio app** — Living showcase with Customizer integration
 
 **In Active Development:**

@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from 'react';
 import Link from 'next/link';
-import { Card, Badge, Heading, Text, SearchBar, FilterButton, Button } from '@sage/ui';
+import { Card, Badge, Heading, Text, SearchBar, FilterButton, Button } from '@thesage/ui';
 import { ChevronRight } from 'lucide-react';
 import type { Node, Cluster } from '@/lib/content/types';
 

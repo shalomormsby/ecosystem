@@ -1,7 +1,7 @@
 'use client';
 
 import NextLink from 'next/link';
-import { Header, Footer, Card, Link, Breadcrumbs } from '@sage/ui';
+import { Header, Footer, Card, Link, Breadcrumbs } from '@thesage/ui';
 import { ecosystemNavigation } from '@/lib/navigation';
 
 export default function CaseStudiesPage() {
@@ -59,7 +59,7 @@ export default function CaseStudiesPage() {
                   </Link>
                   {' '}or{' '}
                   <Link variant="inline" href="https://ui.shalomormsby.com">
-                    Sage Design Studio
+                    Sage Studio
                   </Link>
                   .
                 </p>
@@ -91,7 +91,7 @@ export default function CaseStudiesPage() {
           {
             title: 'Tools',
             links: [
-              { label: 'Sage Design Studio', href: 'https://ui.shalomormsby.com', external: true },
+              { label: 'Sage Studio', href: 'https://ui.shalomormsby.com', external: true },
               { label: 'Cosmograph', href: '/cosmograph' },
               { label: 'Sage Stocks', href: 'https://stocks.shalomormsby.com/', external: true },
               { label: 'SageOS', href: '/sageos' },

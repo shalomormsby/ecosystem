@@ -1,6 +1,9 @@
 {
-  "name": "@sage/core",
+  "name": "@thesage/core",
   "version": "0.0.1",
+  "publishConfig": {
+    "access": "public"
+  },
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
@@ -18,8 +21,8 @@
     "zustand": "^5.0.2"
   },
   "devDependencies": {
-    "@sage/config": "workspace:*",
-    "@sage/tokens": "workspace:*",
+    "@thesage/config": "workspace:*",
+    "@thesage/tokens": "workspace:*",
     "@types/react": "^19.0.0",
     "tsup": "^8.0.0",
     "typescript": "^5.0.0"

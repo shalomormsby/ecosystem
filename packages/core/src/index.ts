@@ -1,5 +1,5 @@
 /**
- * @sage/core
+ * @thesage/core
  * Core functionality for the Sage UI
  */
 

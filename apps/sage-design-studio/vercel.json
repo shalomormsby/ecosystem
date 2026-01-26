@@ -1,4 +1,0 @@
-{
-  "buildCommand": "pnpm turbo run build --filter=@ecosystem/sage-design-studio",
-  "installCommand": "pnpm install"
-}

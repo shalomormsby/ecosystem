@@ -24,10 +24,10 @@ Successfully resolved the first critical blocker from the documentation audit by
 **Files Updated:**
 - `packages/ui/package.json` - Changed package name, added npm metadata (author, repository, homepage, bugs, publishConfig)
 - `packages/sds-mcp-server/package.json` - Changed package name, added npm metadata
-- `apps/sage-design-studio/app/components/studio/OverviewSection.tsx` - Updated all `@sage/ui` → `@shalomormsby/ui`
-- `apps/sage-design-studio/app/components/studio/McpSection/InstallationTab.tsx` - Updated all `@sage/mcp` → `@shalomormsby/mcp`
+- `apps/web/app/components/studio/OverviewSection.tsx` - Updated all `@thesage/ui` → `@shalomormsby/ui`
+- `apps/web/app/components/studio/McpSection/InstallationTab.tsx` - Updated all `@thesage/mcp` → `@shalomormsby/mcp`
 - `packages/sds-mcp-server/README.md` - Updated package name references
-- `apps/sage-design-studio/docs/DOCUMENTATION-AUDIT.md` - Single consolidated audit doc (NEW)
+- `apps/web/docs/DOCUMENTATION-AUDIT.md` - Single consolidated audit doc (NEW)
 
 **Impact:**
 - ✅ Installation instructions now work: `npm install @shalomormsby/ui`
@@ -63,7 +63,7 @@ Conducted a rigorous CTO-level audit of the Getting Started and MCP Server docum
 **Audit Findings:**
 
 **CRITICAL BLOCKERS (P0):**
-1. **Packages Not Published** - `@sage/ui` and `@sage/mcp` return 404 from npm, making installation instructions impossible to follow
+1. **Packages Not Published** - `@thesage/ui` and `@thesage/mcp` return 404 from npm, making installation instructions impossible to follow
 2. **Component Count Inaccurate** - Documentation claims "48 components" but reality is 60+ exported, 36 in MCP registry
 3. **Missing Prerequisites** - No documentation of required Node.js version, peer dependencies (react, framer-motion), or Tailwind configuration
 
@@ -98,7 +98,7 @@ Created comprehensive 4-phase implementation plan:
 
 **Deliverables:**
 
-1. **Audit Document:** `apps/sage-design-studio/docs/SAGE-UI-AUDIT.md`
+1. **Audit Document:** `apps/web/docs/SAGE-UI-AUDIT.md`
    - Complete issue descriptions with file paths and line numbers
    - Evidence from actual codebase
    - Concrete solutions for each issue
@@ -126,7 +126,7 @@ The documentation is well-written and thoughtfully structured, but currently des
 **Recommendation:** DO NOT show documentation to Teg or external reviewers until Phase 0 (Critical Blockers) is complete.
 
 **Files Changed:**
-- Added: `apps/sage-design-studio/docs/SAGE-UI-AUDIT.md` (comprehensive audit with implementation plan)
+- Added: `apps/web/docs/SAGE-UI-AUDIT.md` (comprehensive audit with implementation plan)
 - Updated: `CHANGELOG.md` (this entry)
 
 **Next Steps:**
@@ -162,7 +162,7 @@ Completed Phase 7 with a professional-grade Typography Playground - a full-page 
 #### Typography Playground Component
 
 **Created: `TypographyPlayground.tsx`** (~700 lines)
-Location: `apps/sage-design-studio/app/components/studio/pages/typography/TypographyPlayground.tsx`
+Location: `apps/web/app/components/studio/pages/typography/TypographyPlayground.tsx`
 
 **Layout:**
 - Sidebar (left) - Preset selector + Collapsible accordions for each type level
@@ -215,7 +215,7 @@ Location: `apps/sage-design-studio/app/components/studio/pages/typography/Typogr
    - Reset to Preset button (restores selected preset defaults)
    - Responsive design (mobile/tablet/desktop)
    - Keyboard accessible (Tab, Arrow keys, Enter)
-   - Motion preferences respected (via existing @sage/ui components)
+   - Motion preferences respected (via existing @thesage/ui components)
 
 #### Integration & Navigation
 
@@ -254,7 +254,7 @@ Location: `apps/sage-design-studio/app/components/studio/pages/typography/Typogr
 - Screen reader compatible (semantic HTML, proper labels)
 - Focus indicators on all interactive elements
 - Follows WCAG AA contrast guidelines
-- Uses existing @sage/ui components (Button, Select, Slider, etc.)
+- Uses existing @thesage/ui components (Button, Select, Slider, etc.)
 
 **Export Formats:**
 
@@ -303,7 +303,7 @@ Location: `apps/sage-design-studio/app/components/studio/pages/typography/Typogr
 #### Files Created
 
 ```
-apps/sage-design-studio/app/components/studio/pages/typography/
+apps/web/app/components/studio/pages/typography/
 └── TypographyPlayground.tsx  # 702 lines - Main playground component
 ```
 
@@ -313,11 +313,11 @@ apps/sage-design-studio/app/components/studio/pages/typography/
 packages/tokens/src/
 └── fontThemes.ts  # +89 lines - Added TypographyScale, TypeLevel, generateScale()
 
-apps/sage-design-studio/app/components/studio/ThemesSection/
+apps/web/app/components/studio/ThemesSection/
 ├── index.tsx       # +4 lines - Added typography-playground tab
 └── TypographyTab.tsx  # +23 lines - Added Customize button
 
-apps/sage-design-studio/app/lib/
+apps/web/app/lib/
 └── navigation-tree.tsx  # +4 lines - Added playground navigation entry
 ```
 
@@ -336,7 +336,7 @@ All Phase 7 success criteria met:
 - [x] Keyboard accessible (Tab, Arrow keys, Enter, Escape)
 - [x] Responsive on mobile, tablet, desktop
 - [x] Zero console errors or warnings
-- [x] Build succeeds: `pnpm build --filter @ecosystem/sage-design-studio`
+- [x] Build succeeds: `pnpm build --filter @ecosystem/web`
 
 #### What's Next
 
@@ -449,13 +449,13 @@ Completed the final phase of the Typography System with comprehensive documentat
 
 **Files Created:**
 ```
-apps/sage-design-studio/docs/
+apps/web/docs/
 └── TYPOGRAPHY_SYSTEM_DOCUMENTATION.md  # NEW - Complete user & technical docs
 ```
 
 **Files Updated:**
 ```
-apps/sage-design-studio/app/components/studio/ThemesSection/
+apps/web/app/components/studio/ThemesSection/
 └── TypographyTab.tsx  # UPDATED - Added Tooltip imports, font pairing education
 ```
 
@@ -539,7 +539,7 @@ Work Sans
 #### Verification
 
 ```
-✅ sage-design-studio builds successfully (7.5s compile)
+✅ web builds successfully (7.5s compile)
 ✅ AVAILABLE_FONTS updated with 29 fonts
 ✅ Source Sans Pro deprecated font fixed
 ✅ All typography system fonts included
@@ -551,7 +551,7 @@ Work Sans
 
 **Files Updated:**
 ```
-apps/sage-design-studio/app/components/studio/pages/blocks/
+apps/web/app/components/studio/pages/blocks/
 └── OpenGraphCardPage.tsx  # UPDATED - Expanded AVAILABLE_FONTS (29 fonts)
 ```
 
@@ -648,7 +648,7 @@ Built the complete Typography showcase page with full CRUD functionality for fon
 #### Verification
 
 ```
-✅ sage-design-studio builds successfully (4.8s compile)
+✅ web builds successfully (4.8s compile)
 ✅ TypographyTab component complete
 ✅ Navigation integrated
 ✅ 18 font themes displaying
@@ -662,7 +662,7 @@ Built the complete Typography showcase page with full CRUD functionality for fon
 
 **File Structure:**
 ```
-apps/sage-design-studio/
+apps/web/
 ├── app/
 │   ├── components/studio/ThemesSection/
 │   │   ├── TypographyTab.tsx          # NEW - Main tab component (680 lines)
@@ -746,7 +746,7 @@ Implemented a comprehensive font loading system that manages 30+ Google Fonts fo
 
 ```typescript
 import { useFontThemeLoader } from '@/hooks/useFontThemeLoader'
-import { fontThemes } from '@sage/tokens'
+import { fontThemes } from '@thesage/tokens'
 
 function FontThemePreview() {
   const voltTheme = fontThemes.find(ft => ft.id === 'volt')
@@ -789,7 +789,7 @@ function FontThemePreview() {
 
 **Verification:**
 - ✅ All 30+ fonts loading correctly
-- ✅ sage-design-studio builds successfully
+- ✅ web builds successfully
 - ✅ Font registry complete
 - ✅ Hooks working correctly
 - ✅ CSS variables applying properly
@@ -854,8 +854,8 @@ Extended the existing Zustand customizer store to manage font theme state with f
 
 **Usage Example:**
 ```typescript
-import { useCustomizer } from '@sage/ui'
-import { fontThemes } from '@sage/tokens'
+import { useCustomizer } from '@thesage/ui'
+import { fontThemes } from '@thesage/tokens'
 
 const { applyFontTheme, getActiveFontTheme, saveFontTheme } = useCustomizer()
 
@@ -925,7 +925,7 @@ Created comprehensive font theme library to enable typography customization acro
 **Export Integration:**
 - Added to `packages/tokens/src/index.ts`
 - TypeScript declarations generated
-- Available via `import { fontThemes, FontTheme } from '@sage/tokens'`
+- Available via `import { fontThemes, FontTheme } from '@thesage/tokens'`
 
 **Verification:**
 - ✅ Package builds successfully
@@ -967,7 +967,7 @@ Transformed the OpenGraphCard component from a basic, hard-to-customize componen
 
 #### Interactive Playground Features
 
-**Created Custom OpenGraphCardPage** (`apps/sage-design-studio/app/components/studio/pages/blocks/OpenGraphCardPage.tsx`):
+**Created Custom OpenGraphCardPage** (`apps/web/app/components/studio/pages/blocks/OpenGraphCardPage.tsx`):
 
 **Real-Time Controls:**
 - **Content Section:**
@@ -1005,7 +1005,7 @@ Transformed the OpenGraphCard component from a basic, hard-to-customize componen
 
 #### Production Integration
 
-**Updated opengraph-image.tsx** (`apps/sage-design-studio/app/opengraph-image.tsx`):
+**Updated opengraph-image.tsx** (`apps/web/app/opengraph-image.tsx`):
 - Replaced custom ImageResponse JSX with OpenGraphCard component
 - Uses same component as playground for consistency
 - Easy-to-update config object structure
@@ -1051,13 +1051,13 @@ Transformed the OpenGraphCard component from a basic, hard-to-customize componen
 
 **Files Modified:**
 - `packages/ui/src/components/blocks/social/OpenGraphCard.tsx` - Added new props, fixed icon logic
-- `apps/sage-design-studio/app/components/studio/pages/blocks/OpenGraphCardPage.tsx` - New interactive playground (400+ lines)
-- `apps/sage-design-studio/app/components/studio/BlocksSection.tsx` - Route to custom page
-- `apps/sage-design-studio/app/opengraph-image.tsx` - Updated to use OpenGraphCard component
-- `apps/sage-design-studio/docs/SageUI_ToDo.md` - Added comprehensive GradientBuilder guidance (~400 lines)
+- `apps/web/app/components/studio/pages/blocks/OpenGraphCardPage.tsx` - New interactive playground (400+ lines)
+- `apps/web/app/components/studio/BlocksSection.tsx` - Route to custom page
+- `apps/web/app/opengraph-image.tsx` - Updated to use OpenGraphCard component
+- `apps/web/docs/SageUI_ToDo.md` - Added comprehensive GradientBuilder guidance (~400 lines)
 
 **Build Status:**
-- @sage/ui: 405.91 KB (CJS), 370.75 KB (ESM)
+- @thesage/ui: 405.91 KB (CJS), 370.75 KB (ESM)
 - TypeScript declarations generated successfully
 - All builds passing, zero breaking changes
 
@@ -1086,7 +1086,7 @@ This update transforms OpenGraphCard from a developer-only component requiring m
 
 ### Phase 4: Legacy Migration Complete ✅
 
-**Migration from @ecosystem/design-system to @sage/ui - 100% Complete**
+**Migration from @ecosystem/design-system to @thesage/ui - 100% Complete**
 
 After careful migration work started on 2026-01-14, Phase 4 is now complete with all legacy components successfully migrated to the new functional organization structure.
 
@@ -1094,10 +1094,10 @@ After careful migration work started on 2026-01-14, Phase 4 is now complete with
 
 **Package Architecture Improvements:**
 - Configured `package.json` exports field for improved developer experience:
-  - `@sage/ui/tokens` - Re-exports from @sage/tokens for unified token access
-  - `@sage/ui/hooks` - useTheme, useMotionPreference, useForm hooks
-  - `@sage/ui/utils` - animations, breadcrumbs, colors, utils, validation, syntax-parser
-  - `@sage/ui/providers` - ThemeProvider for theme management
+  - `@thesage/ui/tokens` - Re-exports from @thesage/tokens for unified token access
+  - `@thesage/ui/hooks` - useTheme, useMotionPreference, useForm hooks
+  - `@thesage/ui/utils` - animations, breadcrumbs, colors, utils, validation, syntax-parser
+  - `@thesage/ui/providers` - ThemeProvider for theme management
 - Created dedicated entry point files:
   - `src/tokens.ts` - Token re-exports
   - `src/hooks.ts` - Hook aggregation
@@ -1108,11 +1108,11 @@ After careful migration work started on 2026-01-14, Phase 4 is now complete with
   - Updated build script to process all entry points
   - Generates proper `.d.ts` files for all subpath exports
 - Fixed package dependencies:
-  - Moved `@sage/tokens` from devDependencies to dependencies
+  - Moved `@thesage/tokens` from devDependencies to dependencies
   - Added `framer-motion` as peer dependency for VariableWeightText component
 
 **Benefits:**
-- Cleaner import patterns: `import { useTheme } from '@sage/ui/hooks'`
+- Cleaner import patterns: `import { useTheme } from '@thesage/ui/hooks'`
 - Better tree-shaking with dedicated entry points
 - Full TypeScript support with generated declarations
 - Easier to navigate and discover utilities
@@ -1186,8 +1186,8 @@ Components created during migration that didn't exist in legacy package:
 
 **Portfolio App (15 files):**
 - Fixed legacy import paths:
-  - `@sage/ui/atoms` → `@sage/ui`
-  - `@sage/ui/features/customizer` → `@sage/ui`
+  - `@thesage/ui/atoms` → `@thesage/ui`
+  - `@thesage/ui/features/customizer` → `@thesage/ui`
 - Updated component APIs:
   - SearchInput → SearchBar (new onChange handler: `(e) => setValue(e.target.value)`)
   - Badge variant API: `variant="primary"` → `variant="default"` (shadcn compatibility)
@@ -1202,20 +1202,20 @@ Components created during migration that didn't exist in legacy package:
   - `components/ExperimentCard.tsx` - Card import
   - `app/contribute/page.tsx` - Documentation code examples
 
-**Sage Design Studio App (26+ files):**
-- Updated all component imports to use `@sage/ui` root import
+**Sage Studio App (26+ files):**
+- Updated all component imports to use `@thesage/ui` root import
 - No breaking changes - all components work with updated imports
 
 #### Build Verification ✅
 
 **All packages and applications build successfully:**
 
-- ✅ `@sage/ui` package:
+- ✅ `@thesage/ui` package:
   - Compiled successfully with all TypeScript declarations
   - All subpath exports working correctly
   - Zero TypeScript errors
 
-- ✅ Sage Design Studio:
+- ✅ Sage Studio:
   - Compiled successfully in 5.0s
   - All components render correctly
   - MCP server integration functional
@@ -1289,7 +1289,7 @@ delete mode 100644 design-system/utils/*
    - No runtime errors
 
 5. **Developer Experience**
-   - Cleaner import patterns (`@sage/ui/hooks`, `@sage/ui/utils`)
+   - Cleaner import patterns (`@thesage/ui/hooks`, `@thesage/ui/utils`)
    - Full IntelliSense support with TypeScript declarations
    - Better discoverability with subpath exports
    - Consistent API patterns across components
@@ -1312,7 +1312,7 @@ With Phase 4 complete, the foundation is now set for:
 - Going directly to migration since all usage is internal (3 apps only)
 - No external consumers to notify or provide migration guides for
 
-#### Infrastructure Setup in @sage/ui ✅
+#### Infrastructure Setup in @thesage/ui ✅
 
 **Utilities:**
 - Added `lib/syntax-parser/` - Complete tokenizer system for code syntax highlighting
@@ -1335,7 +1335,7 @@ With Phase 4 complete, the foundation is now set for:
 
 #### Components Migrated to Functional Categories ✅
 
-Migrated 15+ critical components from `@ecosystem/design-system` to `@sage/ui`:
+Migrated 15+ critical components from `@ecosystem/design-system` to `@thesage/ui`:
 
 - **Actions:** Link
 - **Forms:** ThemeSwitcher, ThemeToggle
@@ -1366,7 +1366,7 @@ Migrated 15+ critical components from `@ecosystem/design-system` to `@sage/ui`:
 #### MCP Server Integration ✅
 
 **Claude Desktop Configuration:**
-- Added @sage/mcp to Claude Desktop config
+- Added @thesage/mcp to Claude Desktop config
 - Configuration file: `~/Library/Application Support/Claude/claude_desktop_config.json`
 - Uses local path: `node /Users/shalomormsby/Developer/work/ecosystem/packages/sds-mcp-server/dist/index.js`
 - Enables Claude Desktop to browse, search, and install all 48 Sage UI components via natural language
@@ -1384,12 +1384,12 @@ Migrated 15+ critical components from `@ecosystem/design-system` to `@sage/ui`:
 
 ### Remaining Work (Phase 4 - ~70% to go)
 
-1. **Copy ~40 remaining components** from design-system to @sage/ui
-2. **Build @sage/ui package** and resolve TypeScript errors
+1. **Copy ~40 remaining components** from design-system to @thesage/ui
+2. **Build @thesage/ui package** and resolve TypeScript errors
 3. **Migrate app imports:**
    - Portfolio (~10 files)
    - Creative Powerup (~3 files)
-   - Sage Design Studio (~30+ files)
+   - Sage Studio (~30+ files)
 4. **Remove legacy package** and delete design-system directory
 5. **Verify all apps build successfully**
 
@@ -1409,7 +1409,7 @@ After extensive development, testing, and documentation, we're proud to release 
 - **Comprehensive token system** (colors, typography, spacing, motion, syntax highlighting)
 - **Full accessibility support** (WCAG AA compliance, motion preferences, keyboard navigation)
 - **3 custom hooks** (useTheme, useMotionPreference, useForm)
-- **Interactive documentation** via Sage Design Studio with LLM optimization
+- **Interactive documentation** via Sage Studio with LLM optimization
 - **Automatic syntax parser** (~2KB) for code highlighting
 - **User-controlled motion system** (0-10 scale with system preference sync)
 - **The Customizer** - Philosophy-embodying feature for theme/motion control
@@ -1431,7 +1431,7 @@ This release represents the culmination of the vision: a design system that embo
 
 ## 2026-01-02
 
-### Added - Sage Design Studio Phase 7 Completion & Breadcrumb Navigation System
+### Added - Sage Studio Phase 7 Completion & Breadcrumb Navigation System
 
 #### Phase 7: LLM Optimization - COMPLETE
 - **JSON-LD structured data** for all components using Schema.org vocabulary
@@ -1447,7 +1447,7 @@ This release represents the culmination of the vision: a design system that embo
 - Parse structured metadata for semantic understanding
 
 #### Breadcrumb Navigation System
-- **Universal breadcrumb implementation** across all Sage Design Studio sections
+- **Universal breadcrumb implementation** across all Sage Studio sections
 - **Three breadcrumb variants** - Default, Compact, and Custom separator support
 - **Context-aware navigation** - Automatically generates breadcrumbs based on section hierarchy
 - **Consistent positioning** - After page title, before description across all docs
@@ -1478,7 +1478,7 @@ This release represents the culmination of the vision: a design system that embo
 #### Customizer Component Integration
 - **CustomizerDemoFull component** - Complete demonstration of Customizer capabilities
 - **CustomizerDemoLightweight component** - Minimal implementation example
-- **Customizer integration** into Sage Design Studio documentation
+- **Customizer integration** into Sage Studio documentation
 - **Demo fixes** for proper Customizer display and interaction
 
 #### Code Display & Syntax Highlighting
@@ -1541,7 +1541,7 @@ const tokens = useMemo(() => {
 ### Fixed - Comprehensive Code Block Documentation Update
 
 #### Problem
-Code blocks throughout Sage Design Studio lacked multi-color syntax highlighting despite the parser being built. All code examples used `Code inline={false}` which only applies single-color styling.
+Code blocks throughout Sage Studio lacked multi-color syntax highlighting despite the parser being built. All code examples used `Code inline={false}` which only applies single-color styling.
 
 #### Solution
 **Systematically replaced 36 instances** of `Code inline={false}` with `CollapsibleCodeBlock` across 6 documentation files:
@@ -1577,7 +1577,7 @@ Code blocks throughout Sage Design Studio lacked multi-color syntax highlighting
   - Component comparison guide (when to use `Code` vs `CollapsibleCodeBlock`)
   - Updated package exports to include syntax parser utilities
 
-- **Sage Design Studio README** - Added "Syntax Highlighting" feature section highlighting:
+- **Sage Studio README** - Added "Syntax Highlighting" feature section highlighting:
   - Zero-configuration automatic parsing
   - Lightweight implementation details
   - Theme-aware color system
@@ -1591,10 +1591,10 @@ Code blocks throughout Sage Design Studio lacked multi-color syntax highlighting
   - Usage examples (auto-parsing, manual tokenization, CSS variables)
 
 ### Results
-- ✅ All code blocks in Sage Design Studio now have multi-color syntax highlighting
+- ✅ All code blocks in Sage Studio now have multi-color syntax highlighting
 - ✅ Comprehensive documentation across all README files
 - **Live examples visible at https://ui.shalomormsby.com/ (Design Tokens > Syntax)**
-- ✅ Build verified successfully (sage-design-studio compiled in 6.5s)
+- ✅ Build verified successfully (web compiled in 6.5s)
 - ✅ Zero external dependencies added
 - ✅ WCAG AA contrast maintained in both light and dark modes
 

@@ -180,7 +180,7 @@ The AI will use `install_component` to provide:
 
 The MCP server consists of:
 
-1. **Component Registry** (`src/registry.ts`) - Metadata for all 48 @sage/ui components
+1. **Component Registry** (`src/registry.ts`) - Metadata for all 48 @thesage/ui components
 2. **MCP Server** (`src/index.ts`) - Model Context Protocol implementation
 3. **Tool Handlers** - Four tools for listing, searching, viewing, and installing
 

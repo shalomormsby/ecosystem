@@ -20,10 +20,10 @@ You're working on **Shalom's Creative Ecosystem** - a monorepo demonstrating tha
 
 ### Recent Achievements (What We've Built)
 
-1. **Phase 4 Complete (Jan 2026):** Successfully migrated from `@ecosystem/design-system` to `@sage/ui` with functional organization
+1. **Phase 4 Complete (Jan 2026):** Successfully migrated from `@ecosystem/design-system` to `@thesage/ui` with functional organization
    - 44+ components migrated to functional categories (actions, forms, navigation, overlays, feedback, data-display, layout)
    - Zero breaking changes across 3 applications
-   - Subpath exports configured (`@sage/ui/hooks`, `@sage/ui/utils`, `@sage/ui/providers`)
+   - Subpath exports configured (`@thesage/ui/hooks`, `@thesage/ui/utils`, `@thesage/ui/providers`)
    - Complete TypeScript declaration support
 
 2. **Design System (v1.0 - Production Ready):**
@@ -35,7 +35,7 @@ You're working on **Shalom's Creative Ecosystem** - a monorepo demonstrating tha
 
 3. **Applications:**
    - **Portfolio** (production) - Proof of philosophy with Customizer integration
-   - **Sage Design Studio** (production) - Interactive docs with LLM optimization, JSON-LD metadata
+   - **Sage Studio** (production) - Interactive docs with LLM optimization, JSON-LD metadata
    - **Creative Powerup** (in development) - Experiment gallery and community platform
 
 ### Architecture Patterns We've Established
@@ -72,7 +72,7 @@ You're working on **Shalom's Creative Ecosystem** - a monorepo demonstrating tha
 
 2. **[AGENTS.md](../AGENTS.md)** - Comprehensive technical guide. File organization, coding standards, workflows, dev environment setup, troubleshooting. Your primary technical reference.
 
-3. **[.agent/workflows/register-new-component.md](../.agent/workflows/register-new-component.md)** - Step-by-step workflow for adding components to @sage/ui and registering them in Sage Design Studio. **Follow this workflow whenever creating a new component.**
+3. **[.agent/workflows/register-new-component.md](../.agent/workflows/register-new-component.md)** - Step-by-step workflow for adding components to @thesage/ui and registering them in Sage Studio. **Follow this workflow whenever creating a new component.**
 
 4. **[CHANGELOG.md](../CHANGELOG.md)** - Recent work history. Check this to understand what's been done before starting new work.
 
@@ -90,9 +90,9 @@ Summary:
 1. Create in `packages/ui/src/components/[category]/ComponentName.tsx` (use functional category)
 2. Export from category index: `packages/ui/src/components/[category]/index.ts`
 3. Export from main entry: `packages/ui/src/index.ts`
-4. Build library: `pnpm build --filter @sage/ui`
+4. Build library: `pnpm build --filter @thesage/ui`
 5. Register in Studio: Create page, add to section router, sidebar navigation, search index
-6. Verify build: `pnpm build --filter @ecosystem/sage-design-studio`
+6. Verify build: `pnpm build --filter @ecosystem/web`
 
 **Do not skip steps.** Incomplete registration = component not discoverable in Studio.
 
@@ -142,22 +142,22 @@ From [AGENTS.md - File Organization Rules](../AGENTS.md#file-organization-rules)
 
 **Main exports (most common):**
 ```typescript
-import { Button, Card, useTheme, CustomizerPanel } from '@sage/ui'
-import { spacing, typography } from '@sage/tokens'
+import { Button, Card, useTheme, CustomizerPanel } from '@thesage/ui'
+import { spacing, typography } from '@thesage/tokens'
 ```
 
 **Subpath exports (for explicit paths):**
 ```typescript
-import { useMotionPreference, useTheme } from '@sage/ui/hooks'
-import { ThemeProvider } from '@sage/ui/providers'
-import { cn, parseCode } from '@sage/ui/utils'
-import { spacing } from '@sage/ui/tokens' // Re-exported from @sage/tokens
+import { useMotionPreference, useTheme } from '@thesage/ui/hooks'
+import { ThemeProvider } from '@thesage/ui/providers'
+import { cn, parseCode } from '@thesage/ui/utils'
+import { spacing } from '@thesage/ui/tokens' // Re-exported from @thesage/tokens
 ```
 
 **Never use these (legacy):**
 ```typescript
 // ❌ OLD - Don't use
-import { Button } from '@sage/ui/atoms'
+import { Button } from '@thesage/ui/atoms'
 import { Card } from '@ecosystem/design-system'
 ```
 
@@ -169,7 +169,7 @@ import { Card } from '@ecosystem/design-system'
 
 ```typescript
 // ✅ ALWAYS check motion preference
-import { useMotionPreference } from '@sage/ui/hooks'
+import { useMotionPreference } from '@thesage/ui/hooks'
 
 function AnimatedComponent() {
   const { shouldAnimate, scale } = useMotionPreference()
@@ -189,17 +189,17 @@ function AnimatedComponent() {
 
 ### Use Design System Components First
 
-**Rule:** ALWAYS search for existing @sage/ui components before writing custom JSX or CSS.
+**Rule:** ALWAYS search for existing @thesage/ui components before writing custom JSX or CSS.
 
 ```typescript
 // ✅ GOOD - Use design system component
-import { Card, Button } from '@sage/ui'
+import { Card, Button } from '@thesage/ui'
 
 // ❌ BAD - Custom implementation
 <div className="rounded-lg border bg-card p-6">
 ```
 
-**If component doesn't exist:** Mention to user and offer to create it in @sage/ui. Don't hack together one-off solutions in app layer.
+**If component doesn't exist:** Mention to user and offer to create it in @thesage/ui. Don't hack together one-off solutions in app layer.
 
 ### CSS Variables Over Hardcoded Colors
 
@@ -248,11 +248,11 @@ className="bg-neutral-100" // Even Tailwind neutrals
 ```bash
 # Start development
 pnpm dev --filter portfolio           # Start portfolio app
-pnpm dev --filter sage-design-studio  # Start Studio app
+pnpm dev --filter web  # Start Studio app
 
 # Build packages and apps
 pnpm build                            # Build everything (design system first, then apps)
-pnpm build --filter @sage/ui          # Build design system only
+pnpm build --filter @thesage/ui          # Build design system only
 pnpm build --filter portfolio         # Build specific app
 
 # Quality checks
@@ -263,7 +263,7 @@ pnpm typecheck                        # Check TypeScript
 rm -rf .turbo packages/ui/dist apps/*/.next && pnpm build
 ```
 
-**Build order:** Turborepo automatically builds @sage/ui before apps (dependency-aware).
+**Build order:** Turborepo automatically builds @thesage/ui before apps (dependency-aware).
 
 ---
 
@@ -352,7 +352,7 @@ Format:
 | State | Zustand 5 | With localStorage persistence |
 | Package Manager | pnpm 8.15.0+ | Workspace support required |
 | Monorepo | Turborepo | Task orchestration, caching |
-| Build | tsup 8.5.1 | For @sage/ui package (ESM + CJS) |
+| Build | tsup 8.5.1 | For @thesage/ui package (ESM + CJS) |
 | Deployment | Vercel | Next.js optimized |
 
 **Testing:** Not yet configured. Consider Vitest + Testing Library when needed.
@@ -451,9 +451,9 @@ From [DESIGN-PHILOSOPHY.md](../DESIGN-PHILOSOPHY.md):
 
 ## Troubleshooting Quick Reference
 
-**Build fails with "Cannot find module @sage/ui":**
+**Build fails with "Cannot find module @thesage/ui":**
 ```bash
-pnpm build --filter @sage/ui
+pnpm build --filter @thesage/ui
 ```
 
 **Stale cache issues:**
@@ -472,7 +472,7 @@ pnpm install
 **TypeScript errors after pulling:**
 ```bash
 pnpm typecheck
-pnpm build --filter @sage/ui  # Regenerate type definitions
+pnpm build --filter @thesage/ui  # Regenerate type definitions
 ```
 
 **Full troubleshooting guide:** [The Studio Troubleshooting Guide](https://ui.shalomormsby.com/#adding-components/troubleshooting)
@@ -486,7 +486,7 @@ pnpm build --filter @sage/ui  # Regenerate type definitions
 - **[.agent/workflows/register-new-component.md](../.agent/workflows/register-new-component.md)** - Component registration workflow
 - **[README.md](../README.md)** - Project overview
 - **[CHANGELOG.md](../CHANGELOG.md)** - Work history
-- **[apps/sage-design-studio/docs/SAGE_DESIGN_SYSTEM_STRATEGY.md](../apps/sage-design-studio/docs/SAGE_DESIGN_SYSTEM_STRATEGY.md)** - Design system architecture and usage
+- **[apps/web/docs/SAGE_DESIGN_SYSTEM_STRATEGY.md](../apps/web/docs/SAGE_DESIGN_SYSTEM_STRATEGY.md)** - Design system architecture and usage
 
 ---
 
@@ -494,12 +494,12 @@ pnpm build --filter @sage/ui  # Regenerate type definitions
 
 **Live Sites:**
 - Portfolio: https://www.shalomormsby.com/
-- Sage Design Studio: https://ui.shalomormsby.com/
+- Sage Studio: https://ui.shalomormsby.com/
 - Creative Powerup: https://ecosystem-creative-powerup.vercel.app/
 
 **Development:**
 - Portfolio: http://localhost:3000
-- Sage Design Studio: http://localhost:3001 (or next available port)
+- Sage Studio: http://localhost:3001 (or next available port)
 
 ---
 

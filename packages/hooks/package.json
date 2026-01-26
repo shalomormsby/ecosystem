@@ -1,7 +1,9 @@
 {
-    "name": "@sage/hooks",
+    "name": "@thesage/hooks",
     "version": "0.1.0",
-    "private": true,
+    "publishConfig": {
+        "access": "public"
+    },
     "description": "Utility hooks for Sage UI",
     "main": "./dist/index.js",
     "module": "./dist/index.mjs",
@@ -22,7 +24,7 @@
         "react": ">=18"
     },
     "devDependencies": {
-        "@sage/config": "workspace:*",
+        "@thesage/config": "workspace:*",
         "@types/node": "^25.0.9",
         "@types/react": "^19.0.0",
         "tsup": "^8.0.0",

@@ -152,15 +152,15 @@ What would delight the human, create joy, or expand their degrees of freedom?
 ```
 ecosystem/
 ├── apps/                     ← Portfolio, Sage Stocks, Creative Powerup, SageOS
-│   └── sage-design-studio/   ← Documentation & playground
+│   └── web/   ← Documentation & playground
 ├── packages/
-│   ├── ui/                   ← @sage/ui - Component library
+│   ├── ui/                   ← @thesage/ui - Component library
 │   │   └── src/
 │   │       ├── components/   ← Functionally organized (actions, forms, navigation, etc.)
 │   │       ├── lib/          ← Utilities, validation, animations
 │   │       ├── hooks/        ← useTheme, useMotionPreference, etc.
 │   │       └── providers/    ← ThemeProvider, etc.
-│   ├── tokens/               ← @sage/tokens - Design system tokens
+│   ├── tokens/               ← @thesage/tokens - Design system tokens
 │   └── config/               ← Shared config (Tailwind, etc.)
 ```
 
@@ -206,7 +206,7 @@ This ecosystem demonstrates that:
 - `README.md` — Ecosystem overview and getting started
 - `AGENTS.md` — Technical setup and agent guidelines (read this second)
 - `apps/[app-name]/README.md` — App-specific setup instructions
-- `apps/sage-design-studio/docs/SAGE_DESIGN_SYSTEM_STRATEGY.md` — Design system strategy and usage
+- `apps/web/docs/SAGE_DESIGN_SYSTEM_STRATEGY.md` — Design system strategy and usage
 
 ---
 

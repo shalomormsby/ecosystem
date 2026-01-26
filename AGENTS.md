@@ -15,15 +15,15 @@ ecosystem/
 │   ├── sage-stocks/            # Next.js 15 — AI-powered investment intelligence
 │   ├── creative-powerup/       # Next.js 15 — Community platform
 │   ├── sageos/                 # Future — Personal operating system
-│   └── sage-design-studio/     # Documentation & playground
+│   └── web/     # Documentation & playground
 ├── packages/
-│   ├── ui/                     # @sage/ui — Component library (THE HEART)
+│   ├── ui/                     # @thesage/ui — Component library (THE HEART)
 │   │   └── src/
 │   │       ├── components/     # Functionally organized (actions, forms, navigation, etc.)
 │   │       ├── lib/            # Utilities, validation, animations
 │   │       ├── hooks/          # useTheme, useMotionPreference, etc.
 │   │       └── providers/      # ThemeProvider, etc.
-│   ├── tokens/                 # @sage/tokens — Design system tokens
+│   ├── tokens/                 # @thesage/tokens — Design system tokens
 │   └── config/                 # Shared config (Tailwind, etc.)
 └── docs/                       # Documentation including MCP setup
 ```
@@ -183,7 +183,7 @@ START: What are you creating?
 ├─ Documentation?
 │  ├─ Multi-app documentation → docs/
 │  ├─ App-specific → apps/<app>/README.md or apps/<app>/docs/
-│  └─ Design system docs → apps/sage-design-studio/docs/
+│  └─ Design system docs → apps/web/docs/
 │
 ├─ Config File?
 │  ├─ Affects entire monorepo → Root (e.g., turbo.json, .mcp.json)
@@ -210,7 +210,7 @@ START: What are you creating?
 Multiple README.md files exist at different levels:
 - `/README.md` — Ecosystem overview (for GitHub visitors)
 - `/apps/<app>/README.md` — App-specific setup and context
-- `/apps/sage-design-studio/docs/SAGE_DESIGN_SYSTEM_STRATEGY.md` — Design system strategy and usage
+- `/apps/web/docs/SAGE_DESIGN_SYSTEM_STRATEGY.md` — Design system strategy and usage
 
 Always reference by full path.
 
@@ -298,7 +298,7 @@ Example:
 
 **Adhere to these rules STRICTLY. They prevent code bloat, design drift, and maintenance nightmares.**
 
-1. **SDS Components First:** ALWAYS search for and use existing `@sage/ui` components (Card, Button, Badge, etc.) before writing any custom JSX or CSS.
+1. **SDS Components First:** ALWAYS search for and use existing `@thesage/ui` components (Card, Button, Badge, etc.) before writing any custom JSX or CSS.
 2. **Prop-Based Styling:** Use component props (e.g., `hoverEffect`, `variant`, `size`) to achieve desired styles. DO NOT reimplement built-in behaviors with custom utility classes (e.g., don't write `hover:shadow-lg` if `hoverEffect={true}` exists).
 3. **No Ad-Hoc CSS:** Avoid generating arbitrary Tailwind classes if an Sage UI component can handle the use case.
 4. **Demand New Components:** If a Sage UI component does not exist to meet a web dev need, **mention this to the user** and offer to create a new Sage UI component to meet this need. Do not hack together a one-off solution in the app layer.
@@ -387,7 +387,7 @@ After installation, verify everything is working:
 # 1. Check pnpm version
 pnpm --version  # Should be 8.15.0 or higher
 
-# 2. Verify @sage/ui built successfully
+# 2. Verify @thesage/ui built successfully
 ls packages/ui/dist  # Should show index.js, index.d.ts, etc.
 
 # 3. Start portfolio app
@@ -422,10 +422,10 @@ If port 3000 is taken, Next.js will automatically use the next available port (3
 
 ### Common Setup Issues
 
-**"Cannot find module '@sage/ui'"**
+**"Cannot find module '@thesage/ui'"**
 ```bash
 # Solution: Build the design system first
-pnpm build --filter @sage/ui
+pnpm build --filter @thesage/ui
 ```
 
 **pnpm install fails**
@@ -503,7 +503,7 @@ This monorepo uses Turborepo for orchestration. The `turbo.json` at root defines
 pnpm build
 
 # Build only design system
-pnpm build --filter @sage/ui
+pnpm build --filter @thesage/ui
 
 # Build specific app
 pnpm build --filter portfolio
@@ -564,11 +564,11 @@ vercel --prod
 
 **When ready to publish:**
 1. Update version in `packages/ui/package.json`
-2. Build: `pnpm build --filter @sage/ui`
+2. Build: `pnpm build --filter @thesage/ui`
 3. Publish: `cd packages/ui && npm publish`
 4. Update CHANGELOG.md with version and changes
 
-**Package name:** `@sage/ui` (or update before publishing)
+**Package name:** `@thesage/ui` (or update before publishing)
 
 #### Other Apps
 
@@ -592,7 +592,7 @@ Before deploying any app:
 **"Module not found" errors during build:**
 ```bash
 # Design system not built
-pnpm build --filter @sage/ui
+pnpm build --filter @thesage/ui
 
 # Stale node_modules
 rm -rf node_modules apps/*/node_modules packages/*/node_modules
@@ -663,14 +663,14 @@ jobs:
 | Layer | Technology | Version | Notes |
 |-------|------------|---------|-------|
 | **Framework** | Next.js (App Router) | 16.0.10 | Server components, streaming |
-| **React** | React | 18.3.1 (@sage/ui)<br>19.2.1 (portfolio) | Using latest features |
+| **React** | React | 18.3.1 (@thesage/ui)<br>19.2.1 (portfolio) | Using latest features |
 | **Language** | TypeScript | 5.x | Strict mode enabled |
 | **Styling** | Tailwind CSS | 3.x | Via CSS variables from design system |
 | **Animation** | Framer Motion | 12.23.26 | Respects motion preferences |
 | **State Management** | Zustand | 5.0.9 | With localStorage persistence |
 | **Package Manager** | pnpm | 8.15.0 | Workspace support required |
 | **Monorepo** | Turborepo | latest | Task orchestration, caching |
-| **Build Tool** | tsup | 8.5.1 | For @sage/ui package |
+| **Build Tool** | tsup | 8.5.1 | For @thesage/ui package |
 | **Deployment** | Vercel | - | Next.js optimized platform |
 
 ### Data & Content
@@ -724,13 +724,13 @@ The design system is the **heart** of this ecosystem. Every app imports from it.
 
 ### Package Structure
 
-The design system is published as `@sage/ui` and consumed via workspace references:
+The design system is published as `@thesage/ui` and consumed via workspace references:
 
 ```json
 // In your app's package.json
 {
   "dependencies": {
-    "@sage/ui": "workspace:*"
+    "@thesage/ui": "workspace:*"
   }
 }
 ```
@@ -741,18 +741,18 @@ The package supports both main and scoped exports for tree-shaking:
 
 ```typescript
 // Main export (most common - imports from packages/ui/src/index.ts)
-import { Button, Card, useTheme, CustomizerPanel } from '@sage/ui'
+import { Button, Card, useTheme, CustomizerPanel } from '@thesage/ui'
 
 // Scoped exports (for specific imports) - all available via subpath exports
-import { useMotionPreference, useTheme } from '@sage/ui/hooks'
-import { ThemeProvider } from '@sage/ui/providers'
-import { cn } from '@sage/ui/utils'
+import { useMotionPreference, useTheme } from '@thesage/ui/hooks'
+import { ThemeProvider } from '@thesage/ui/providers'
+import { cn } from '@thesage/ui/utils'
 // Note: Tokens are from separate package
-import { spacing, typography } from '@sage/tokens'
+import { spacing, typography } from '@thesage/tokens'
 ```
 
 **When to use which:**
-- Use main export for most cases: `import { Button } from '@sage/ui'`
+- Use main export for most cases: `import { Button } from '@thesage/ui'`
 - Use scoped exports when you want explicit paths or better IDE autocomplete
 
 ### Design Tokens
@@ -760,7 +760,7 @@ import { spacing, typography } from '@sage/tokens'
 Tokens are the single source of truth for visual properties:
 
 ```typescript
-import { spacing, typography } from '@sage/ui/tokens'
+import { spacing, typography } from '@thesage/ui/tokens'
 
 // Spacing scale
 spacing.xs    // 4px
@@ -768,7 +768,7 @@ spacing.sm    // 8px
 spacing.md    // 16px
 spacing.lg    // 24px
 spacing.xl    // 32px
-// ... see apps/sage-design-studio/docs/SAGE_DESIGN_SYSTEM_STRATEGY.md for complete token documentation
+// ... see apps/web/docs/SAGE_DESIGN_SYSTEM_STRATEGY.md for complete token documentation
 
 // Typography
 typography.fonts.sans      // Theme-specific sans-serif
@@ -776,7 +776,7 @@ typography.fonts.serif     // Theme-specific serif (Sage theme)
 typography.fonts.mono      // Theme-specific monospace
 typography.sizes.base      // 16px
 typography.weights.semibold // 600
-// ... see apps/sage-design-studio/docs/SAGE_DESIGN_SYSTEM_STRATEGY.md for complete typography scale
+// ... see apps/web/docs/SAGE_DESIGN_SYSTEM_STRATEGY.md for complete typography scale
 ```
 
 **Colors are CSS variables** applied by ThemeProvider:
@@ -788,7 +788,7 @@ const styles = {
   color: 'var(--color-text-primary)',
   borderColor: 'var(--color-border)',
 }
-// See apps/sage-design-studio/docs/SAGE_DESIGN_SYSTEM_STRATEGY.md for complete list of CSS variables
+// See apps/web/docs/SAGE_DESIGN_SYSTEM_STRATEGY.md for complete list of CSS variables
 ```
 
 ### Flagship Features
@@ -797,7 +797,7 @@ Three features embody the philosophy. Here's their current status:
 
 1. **Customizer** — User control made tangible ✅ **IMPLEMENTED**
    - Location: `packages/ui/src/features/customizer/`
-   - Import: `import { CustomizerPanel } from '@sage/ui'`
+   - Import: `import { CustomizerPanel } from '@thesage/ui'`
    - Features:
      - Motion intensity slider (0-10 scale, respects `prefers-reduced-motion`)
      - Theme selector (Studio, Sage, Volt)
@@ -844,7 +844,7 @@ The ecosystem uses **Zustand** for client-side state management with localStorag
 
 ```typescript
 // Theme store
-import { useTheme } from '@sage/ui/hooks'
+import { useTheme } from '@thesage/ui/hooks'
 
 function ThemeSelector() {
   const { theme, mode, setTheme, setMode, toggleMode } = useTheme()
@@ -857,7 +857,7 @@ function ThemeSelector() {
 }
 
 // Customizer store
-import { useMotionPreference } from '@sage/ui/hooks'
+import { useMotionPreference } from '@thesage/ui/hooks'
 
 function AnimatedComponent() {
   const { scale, shouldAnimate } = useMotionPreference()
@@ -998,7 +998,7 @@ export const useMyStore = create<MyState>()(
 
 ### Package Types and Dependency Rules
 
-#### Shared Libraries (@sage/ui, @sage/tokens, packages/*)
+#### Shared Libraries (@thesage/ui, @thesage/tokens, packages/*)
 
 **Rule:** Use `peerDependencies` with version ranges for packages that consuming apps will also depend on (React, framer-motion, etc.)
 
@@ -1034,7 +1034,7 @@ export const useMyStore = create<MyState>()(
   "dependencies": {
     "react": "^19.2.1",                      // Gets 19.x updates, not 20.x
     "next": "^16.0.10",                      // Gets 16.x updates, not 17.x
-    "@sage/ui": "workspace:^" // Always use workspace protocol
+    "@thesage/ui": "workspace:^" // Always use workspace protocol
   }
 }
 ```
@@ -1084,7 +1084,7 @@ export const useMyStore = create<MyState>()(
 
 ### Avoiding Version Conflicts
 
-**Problem:** Portfolio uses React 19, @sage/ui locked to React 18
+**Problem:** Portfolio uses React 19, @thesage/ui locked to React 18
 ```json
 // ❌ This creates conflicts
 // packages/ui/package.json
@@ -1131,7 +1131,7 @@ If **YES**:
 3. Add same packages to `devDependencies` for development
 4. Only put true runtime dependencies in `dependencies`
 
-**Example:** Adding a new @sage/ui feature that uses React:
+**Example:** Adding a new @thesage/ui feature that uses React:
 ```json
 {
   "peerDependencies": {
@@ -1158,13 +1158,13 @@ If **YES**:
    ```json
    {
      "dependencies": {
-       "@sage/ui": "workspace:^"
+       "@thesage/ui": "workspace:^"
      }
    }
    ```
 
 3. **Check peerDependency compatibility:**
-   - If @sage/ui requires React 18+, app must satisfy that
+   - If @thesage/ui requires React 18+, app must satisfy that
    - Run `pnpm install` to see peer dependency warnings
 
 ### Updating Dependencies
@@ -1185,15 +1185,15 @@ When updating a shared library's supported versions:
 3. **Test with all supported versions:**
    ```bash
    # Test with React 18
-   pnpm install --filter @sage/ui react@^18.3.1
-   pnpm test --filter @sage/ui
+   pnpm install --filter @thesage/ui react@^18.3.1
+   pnpm test --filter @thesage/ui
 
    # Test with React 19
-   pnpm install --filter @sage/ui react@^19.2.1
-   pnpm test --filter @sage/ui
+   pnpm install --filter @thesage/ui react@^19.2.1
+   pnpm test --filter @thesage/ui
    ```
 4. **Update CHANGELOG.md** noting new version support
-5. **Bump @sage/ui version** (minor bump for new support)
+5. **Bump @thesage/ui version** (minor bump for new support)
 
 #### Updating App Dependencies
 
@@ -1310,7 +1310,7 @@ function AnimatedComponent() {
 
 // 1. Imports (external, then internal, then types)
 import { motion } from 'framer-motion'
-import { cn } from '@sage/utils'
+import { cn } from '@thesage/utils'
 import type { ComponentNameProps } from './ComponentName.types'
 
 // 2. Types (if not in separate file)
@@ -1736,7 +1736,7 @@ pnpm build
 ### Essential Reading
 
 - **[DESIGN-PHILOSOPHY.md](DESIGN-PHILOSOPHY.md)** — **Read this first.** The North Star. Contains the four principles that guide all decisions.
-- **[apps/sage-design-studio/docs/SAGE_DESIGN_SYSTEM_STRATEGY.md](apps/sage-design-studio/docs/SAGE_DESIGN_SYSTEM_STRATEGY.md)** — Design system architecture, components, usage guide. Reference this for import paths and component APIs.
+- **[apps/web/docs/SAGE_DESIGN_SYSTEM_STRATEGY.md](apps/web/docs/SAGE_DESIGN_SYSTEM_STRATEGY.md)** — Design system architecture, components, usage guide. Reference this for import paths and component APIs.
 - **[CHANGELOG.md](CHANGELOG.md)** — Project history. Check here to see what's been done recently before starting work.
 
 ### Configuration Files

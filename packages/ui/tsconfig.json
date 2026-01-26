@@ -10,7 +10,7 @@
         "skipLibCheck": true,
         "outDir": "dist",
         "paths": {
-            "@sage/tokens": [
+            "@thesage/tokens": [
                 "../tokens/src/index.ts"
             ]
         }

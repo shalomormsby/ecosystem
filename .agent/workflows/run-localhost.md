@@ -23,9 +23,9 @@ To run the local development server efficiently and avoid common pitfalls (like 
 2.  **Run with Filters (Recommended)**:
     Instead of running the entire monorepo (which is heavy), run only the app you are working on and its dependencies.
     
-    *   **For Sage Design Studio**:
+    *   **For Sage Studio**:
         ```bash
-        pnpm turbo run dev --filter=@ecosystem/sage-design-studio...
+        pnpm turbo run dev --filter=@ecosystem/web...
         ```
     
     *   **For Creative Powerup**:

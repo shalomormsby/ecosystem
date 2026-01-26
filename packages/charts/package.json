@@ -1,7 +1,9 @@
 {
-    "name": "@sage/charts",
+    "name": "@thesage/charts",
     "version": "0.1.0",
-    "private": true,
+    "publishConfig": {
+        "access": "public"
+    },
     "description": "Chart components for Sage UI",
     "main": "./dist/index.js",
     "module": "./dist/index.mjs",
@@ -23,7 +25,7 @@
         "recharts": "^2.12.0"
     },
     "devDependencies": {
-        "@sage/config": "workspace:*",
+        "@thesage/config": "workspace:*",
         "@types/react": "^19.0.0",
         "tsup": "^8.0.0",
         "typescript": "^5.0.0"

@@ -1,7 +1,7 @@
 'use client';
 
 import { useThemeStore } from '../lib/store/theme';
-import type { ThemeName, ColorMode } from '@sage/tokens';
+import type { ThemeName, ColorMode } from '@thesage/tokens';
 
 export interface ThemeHook {
   /**

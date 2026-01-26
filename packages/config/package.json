@@ -1,6 +1,9 @@
 {
-  "name": "@sage/config",
+  "name": "@thesage/config",
   "version": "0.0.1",
+  "publishConfig": {
+    "access": "public"
+  },
   "main": "index.js",
   "exports": {
     "./tailwind": "./tailwind/index.js"
