@@ -237,9 +237,9 @@ export default function StudioPage() {
         } else if (section === 'resources') {
             section = 'templates';
             itemId = itemId || 'templates';
-        } else if (section === 'getting-started') {
+        } else if (section === 'getting-started' || section === 'quick-start') {
             section = 'overview';
-            itemId = itemId || 'overview';
+            itemId = itemId || 'quick-start';
         }
 
         const validSections: Section[] = [
@@ -294,9 +294,9 @@ export default function StudioPage() {
             } else if (section === 'resources') {
                 section = 'templates';
                 itemId = itemId || 'templates';
-            } else if (section === 'getting-started') {
+            } else if (section === 'getting-started' || section === 'quick-start') {
                 section = 'overview';
-                itemId = itemId || 'overview';
+                itemId = itemId || 'quick-start';
             }
 
             const validSections: Section[] = [
@@ -310,7 +310,16 @@ export default function StudioPage() {
                 setActiveSection(section as Section);
                 setActiveItemId(itemId || section);
                 setIsNotFound(false);
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+
+                // Try to scroll to specific element if it exists, otherwise top
+                setTimeout(() => {
+                    const element = document.getElementById(itemId || section);
+                    if (element) {
+                        element.scrollIntoView({ behavior: 'smooth' });
+                    } else {
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }
+                }, 100);
             } else {
                 setIsNotFound(true);
             }

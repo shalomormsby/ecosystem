@@ -12,7 +12,6 @@ import {
   SelectItem,
   SelectValue,
   Slider,
-  Switch,
   Accordion,
   AccordionItem,
   AccordionTrigger,
@@ -23,11 +22,9 @@ import {
   DialogTitle,
   DialogDescription,
   DialogFooter,
-  Badge,
   CollapsibleCodeBlock,
 } from '@sage/ui';
-import { useTheme, useMotionPreference } from '@sage/ui';
-import { fontThemes, generateScale, type FontTheme, type TypographyScale, type TypeLevel } from '@sage/tokens';
+import { fontThemes, generateScale, type TypographyScale, type TypeLevel } from '@sage/tokens';
 import { getAllFontNames, getFontVariable } from '../../../../../lib/fonts-dynamic';
 import {
   Type,
@@ -37,8 +34,6 @@ import {
   RefreshCw,
   Check,
   Copy,
-  Sun,
-  Moon,
 } from 'lucide-react';
 
 // Saved scale interface for localStorage
@@ -84,16 +79,12 @@ const FONT_WEIGHTS = [
 ];
 
 export function TypographyPlayground() {
-  const { theme, mode } = useTheme();
-  const { shouldAnimate } = useMotionPreference();
   const [mounted, setMounted] = useState(false);
 
   // Current typography scale state
   const [currentScale, setCurrentScale] = useState<TypographyScale | null>(null);
   const [selectedPreset, setSelectedPreset] = useState<string>('');
 
-  // Canvas display options
-  const [canvasBackground, setCanvasBackground] = useState<'light' | 'dark'>('light');
 
   // Saved scales
   const [savedScales, setSavedScales] = useState<SavedTypographyScale[]>([]);
@@ -472,7 +463,7 @@ export function TypographyPlayground() {
           {/* Save Section */}
           <div className="space-y-3 pt-4 border-t">
             <Input
-              placeholder="Scale name..."
+              placeholder="Typography theme name..."
               value={scaleName}
               onChange={(e) => setScaleName(e.target.value)}
             />
@@ -490,7 +481,7 @@ export function TypographyPlayground() {
               ) : (
                 <>
                   <Save className="w-4 h-4 mr-2" />
-                  Save Custom Scale
+                  Save Custom Typography Theme
                 </>
               )}
             </Button>
@@ -499,36 +490,14 @@ export function TypographyPlayground() {
 
         {/* Canvas Preview */}
         <Card className="p-8">
-          {/* Canvas Controls */}
-          <div className="flex items-center justify-between mb-6 pb-4 border-b">
+          {/* Canvas Header */}
+          <div className="mb-6 pb-4 border-b">
             <h3 className="text-sm font-medium">Live Preview</h3>
-            <div className="flex items-center gap-2">
-              <span className="text-xs text-muted-foreground">Background:</span>
-              <Button
-                variant={canvasBackground === 'light' ? 'default' : 'outline'}
-                size="sm"
-                onClick={() => setCanvasBackground('light')}
-              >
-                <Sun className="w-4 h-4" />
-              </Button>
-              <Button
-                variant={canvasBackground === 'dark' ? 'default' : 'outline'}
-                size="sm"
-                onClick={() => setCanvasBackground('dark')}
-              >
-                <Moon className="w-4 h-4" />
-              </Button>
-            </div>
           </div>
 
           {/* Canvas Content */}
-          <div
-            className={`space-y-6 p-8 rounded-lg ${
-              canvasBackground === 'dark'
-                ? 'bg-neutral-900 text-white'
-                : 'bg-white text-neutral-900'
-            }`}
-          >
+          <div className="space-y-6 p-16 rounded-lg bg-background text-foreground">
+
             {/* Display */}
             <div>
               <div className="text-xs text-muted-foreground mb-2">
@@ -677,8 +646,7 @@ export function TypographyPlayground() {
               <div className="text-xs text-muted-foreground mb-2">
                 Code • {currentScale.code.size}px • {currentScale.code.fontFamily}
               </div>
-              <pre
-                className="p-4 rounded bg-opacity-50 bg-neutral-800 overflow-x-auto"
+              <div
                 style={{
                   fontFamily: getFontVariable(currentScale.code.fontFamily),
                   fontWeight: currentScale.code.weight,
@@ -687,8 +655,13 @@ export function TypographyPlayground() {
                   letterSpacing: currentScale.code.letterSpacing,
                 }}
               >
-                {CANVAS_CONTENT.code}
-              </pre>
+                <CollapsibleCodeBlock
+                  id="typography-code-preview"
+                  code={CANVAS_CONTENT.code}
+                  language="typescript"
+                  defaultCollapsed={false}
+                />
+              </div>
             </div>
 
             {/* Small */}

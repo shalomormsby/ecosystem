@@ -1,11 +1,26 @@
 {
-    "name": "@sage/ui",
-    "version": "0.0.5",
+    "name": "@shalomormsby/ui",
+    "version": "0.0.9",
     "main": "dist/index.js",
     "module": "dist/index.mjs",
     "types": "dist/index.d.ts",
     "sideEffects": false,
     "license": "MIT",
+    "author": "Shalom Ormsby",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/shalomormsby/ecosystem.git",
+        "directory": "packages/ui"
+    },
+    "homepage": "https://ui.shalomormsby.com",
+    "bugs": "https://github.com/shalomormsby/ecosystem/issues",
+    "publishConfig": {
+        "access": "public"
+    },
+    "files": [
+        "dist",
+        "README.md"
+    ],
     "exports": {
         ".": {
             "types": "./dist/index.d.ts",
@@ -73,7 +88,6 @@
         "@radix-ui/react-toggle": "^1.1.10",
         "@radix-ui/react-toggle-group": "^1.1.11",
         "@radix-ui/react-tooltip": "^1.2.8",
-        "@sage/tokens": "workspace:*",
         "@tanstack/react-table": "^8.21.3",
         "class-variance-authority": "^0.7.0",
         "clsx": "^2.1.0",

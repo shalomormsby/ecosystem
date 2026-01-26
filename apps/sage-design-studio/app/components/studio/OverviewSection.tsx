@@ -1,8 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { Card, Button } from '@sage/ui';
-import { Code, CollapsibleCodeBlock } from '@sage/ui';
+import { Card, Button } from '@shalomormsby/ui';
+import { Code, CollapsibleCodeBlock } from '@shalomormsby/ui';
 import { useTheme } from '@sage/ui/hooks';
 import {
   Sliders, Building2, Leaf, Zap, Sun, Moon, Laptop, Palette, Bot, BookOpen,
@@ -432,7 +432,7 @@ export function OverviewSection() {
               <div>
                 <CollapsibleCodeBlock
                   id="syntax-parser-demo"
-                  code={`import { parseCode } from '@sage/ui';
+                  code={`import { parseCode } from '@shalomormsby/ui';
 
 const code = \`function hello() {
   return "world";
@@ -475,7 +475,7 @@ const tokens = parseCode(code, 'typescript');
               <div>
                 <CollapsibleCodeBlock
                   id="motion-control-demo"
-                  code={`import { useMotionPreference } from '@sage/ui';
+                  code={`import { useMotionPreference } from '@shalomormsby/ui';
 
 export function MotionAwareComponent() {
   const { scale, shouldAnimate } = useMotionPreference();
@@ -556,7 +556,7 @@ export function MotionAwareComponent() {
 
               <CollapsibleCodeBlock
                 id="theme-switching-demo"
-                code={`import { useTheme } from '@sage/ui';
+                code={`import { useTheme } from '@shalomormsby/ui';
 
 export function ThemeSwitcher() {
   const { theme, setTheme, mode, setMode } = useTheme();
@@ -783,7 +783,7 @@ const primaryColor = colorTokens.studio.light.primary;
 const spacing = spacingTokens.lg; // "1.5rem" (24px)
 
 // But consumed through components:
-import { Button, Text } from '@sage/ui';
+import { Button, Text } from '@shalomormsby/ui';
 <Button variant="default">Click me</Button>  // ✅ Correct
 <Text>Hello</Text>                           // ✅ Correct
 
@@ -890,11 +890,11 @@ import { Button, Text } from '@sage/ui';
                 </h3>
                 <CollapsibleCodeBlock
                   id="installation"
-                  code={`pnpm add @sage/ui
+                  code={`pnpm add @shalomormsby/ui
 # or
-npm install @sage/ui
+npm install @shalomormsby/ui
 # or
-yarn add @sage/ui`}
+yarn add @shalomormsby/ui`}
                   defaultCollapsed={false}
                   showCopy={true}
                 />
@@ -914,7 +914,7 @@ yarn add @sage/ui`}
                 </h3>
                 <CollapsibleCodeBlock
                   id="basic-usage-example"
-                  code={`import { Button, Card, Badge } from '@sage/ui';
+                  code={`import { Button, Card, Badge } from '@shalomormsby/ui';
 
 export function MyComponent() {
   return (

@@ -210,11 +210,19 @@ export function TypographyTab({ onNavigateToPlayground }: TypographyTabProps = {
        currentFontTheme?.mono === fontTheme.mono);
     const isCustom = fontTheme.category === 'custom';
 
+    const handleCardClick = () => {
+      if (onNavigateToPlayground) {
+        localStorage.setItem('sage-typography-playground-preset', fontTheme.id);
+        onNavigateToPlayground();
+      }
+    };
+
     return (
       <Card
         key={fontTheme.id}
+        onClick={handleCardClick}
         className={`
-          p-4 transition-all flex flex-col h-full
+          p-4 transition-all flex flex-col h-full cursor-pointer
           ${!isDragging ? 'hover:shadow-lg hover:border-[var(--color-primary)]' : 'shadow-xl'}
           ${isActive ? 'ring-2 ring-[var(--color-primary)]' : ''}
         `}
@@ -388,7 +396,10 @@ export function TypographyTab({ onNavigateToPlayground }: TypographyTabProps = {
         {/* Action Buttons */}
         <div className="flex gap-2 mt-auto">
           <Button
-            onClick={() => applyTheme(fontTheme.id)}
+            onClick={(e) => {
+              e.stopPropagation();
+              applyTheme(fontTheme.id);
+            }}
             variant="default"
             size="sm"
             className={`
