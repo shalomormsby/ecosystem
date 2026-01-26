@@ -1,4 +1,4 @@
 {
-  "buildCommand": "pnpm turbo run build --filter=@ecosystem/web",
+  "buildCommand": "pnpm turbo run build --filter=web",
   "installCommand": "pnpm install"
 }
