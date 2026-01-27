@@ -610,7 +610,7 @@ export default function OGImage() {
                 </div>
 
                 {/* Preview Panel */}
-                <div className="lg:col-span-2 space-y-4">
+                <div className="lg:col-span-2 space-y-4 sticky top-6 max-h-[calc(100vh-3rem)] overflow-y-auto">
                     {/* Tab Switcher */}
                     <div className="flex items-center gap-2">
                         <Button

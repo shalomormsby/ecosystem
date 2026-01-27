@@ -124,6 +124,170 @@ yarn add -D @thesage/mcp`}
                     </Card>
                 </div>
             </section>
+
+            {/* LOCAL DEVELOPMENT SETUP */}
+            <section className="border-t border-[var(--color-border)] pt-12">
+                <h2 className="text-2xl font-bold mb-4 text-[var(--color-text-primary)]">
+                    Local Development Setup
+                </h2>
+                <p className="text-sm text-[var(--color-text-secondary)] mb-6">
+                    If you're contributing to Sage UI or want to use the latest unreleased MCP server, follow these steps:
+                </p>
+
+                {/* Step 1: Clone */}
+                <Card className="p-6 mb-4">
+                    <h3 className="text-lg font-semibold mb-3 text-[var(--color-text-primary)]">
+                        1. Clone the Repository
+                    </h3>
+                    <CollapsibleCodeBlock
+                        id="local-clone"
+                        code={`git clone https://github.com/shalomormsby/ecosystem.git
+cd ecosystem`}
+                        defaultCollapsed={false}
+                        showCopy={true}
+                    />
+                </Card>
+
+                {/* Step 2: Install */}
+                <Card className="p-6 mb-4">
+                    <h3 className="text-lg font-semibold mb-3 text-[var(--color-text-primary)]">
+                        2. Install Dependencies
+                    </h3>
+                    <CollapsibleCodeBlock
+                        id="local-install"
+                        code={`pnpm install`}
+                        defaultCollapsed={false}
+                        showCopy={true}
+                    />
+                </Card>
+
+                {/* Step 3: Build */}
+                <Card className="p-6 mb-4">
+                    <h3 className="text-lg font-semibold mb-3 text-[var(--color-text-primary)]">
+                        3. Build the MCP Server
+                    </h3>
+                    <CollapsibleCodeBlock
+                        id="local-build"
+                        code={`pnpm build --filter @thesage/mcp`}
+                        defaultCollapsed={false}
+                        showCopy={true}
+                    />
+                </Card>
+
+                {/* Step 4: Configure */}
+                <Card className="p-6 mb-4">
+                    <h3 className="text-lg font-semibold mb-3 text-[var(--color-text-primary)]">
+                        4. Configure Your Client
+                    </h3>
+                    <p className="text-sm text-[var(--color-text-secondary)] mb-4">
+                        Update your config to point to the local build:
+                    </p>
+
+                    <div className="space-y-6">
+                        {/* Claude Desktop Local */}
+                        <div>
+                            <div className="flex items-center gap-2 mb-2">
+                                <h4 className="font-semibold text-[var(--color-text-primary)]">Claude Desktop</h4>
+                            </div>
+                            <p className="text-xs text-[var(--color-text-muted)] mb-2 font-mono">
+                                ~/Library/Application Support/Claude/claude_desktop_config.json
+                            </p>
+                            <CollapsibleCodeBlock
+                                id="claude-local-config"
+                                code={`{
+  "mcpServers": {
+    "sds-local": {
+      "command": "node",
+      "args": ["/absolute/path/to/ecosystem/packages/sds-mcp-server/dist/index.js"]
+    }
+  }
+}`}
+                                defaultCollapsed={false}
+                                showCopy={true}
+                            />
+                            <p className="text-xs text-[var(--color-text-muted)] mt-2">
+                                ⚠️ Replace <code className="text-[var(--color-text-primary)]">/absolute/path/to/</code> with your actual clone location.
+                            </p>
+                        </div>
+
+                        {/* Cursor Local */}
+                        <div>
+                            <h4 className="font-semibold mb-2 text-[var(--color-text-primary)]">Cursor</h4>
+                            <p className="text-xs text-[var(--color-text-muted)] mb-2 font-mono">
+                                .cursor/mcp.json (in your project root)
+                            </p>
+                            <CollapsibleCodeBlock
+                                id="cursor-local-config"
+                                code={`{
+  "mcpServers": {
+    "sds-local": {
+      "command": "node",
+      "args": ["/absolute/path/to/ecosystem/packages/sds-mcp-server/dist/index.js"]
+    }
+  }
+}`}
+                                defaultCollapsed={false}
+                                showCopy={true}
+                            />
+                        </div>
+                    </div>
+                </Card>
+
+                {/* Step 5: Restart */}
+                <Card className="p-6 mb-4">
+                    <h3 className="text-lg font-semibold mb-3 text-[var(--color-text-primary)]">
+                        5. Restart Your Client
+                    </h3>
+                    <ul className="text-sm text-[var(--color-text-secondary)] space-y-2 list-disc list-inside">
+                        <li><strong className="text-[var(--color-text-primary)]">Claude Desktop:</strong> Fully quit and restart the application</li>
+                        <li><strong className="text-[var(--color-text-primary)]">Cursor:</strong> Reload window (Cmd/Ctrl + Shift + P → "Reload Window")</li>
+                    </ul>
+                </Card>
+
+                {/* Step 6: Verify */}
+                <Card className="p-6 mb-4">
+                    <h3 className="text-lg font-semibold mb-3 text-[var(--color-text-primary)]">
+                        6. Verify Connection
+                    </h3>
+                    <p className="text-sm text-[var(--color-text-secondary)] mb-2">
+                        Try asking your AI assistant:
+                    </p>
+                    <div className="p-3 bg-[var(--color-surface)] rounded border border-[var(--color-border)] text-sm">
+                        <code className="text-[var(--color-text-primary)]">"Show me all Sage UI components"</code>
+                    </div>
+                    <p className="text-xs text-[var(--color-text-muted)] mt-2">
+                        If it lists components, you're connected!
+                    </p>
+                </Card>
+
+                {/* Making Changes */}
+                <Card className="p-6 bg-[var(--color-surface)]">
+                    <h3 className="text-lg font-semibold mb-3 text-[var(--color-text-primary)]">
+                        Making Changes
+                    </h3>
+                    <p className="text-sm text-[var(--color-text-secondary)] mb-4">
+                        When you modify the MCP server source:
+                    </p>
+                    <CollapsibleCodeBlock
+                        id="local-rebuild"
+                        code={`# Rebuild
+pnpm build --filter @thesage/mcp
+
+# Then restart your MCP client to pick up changes`}
+                        defaultCollapsed={false}
+                        showCopy={true}
+                    />
+                    <p className="text-sm text-[var(--color-text-secondary)] mt-4">
+                        For faster iteration, use watch mode:
+                    </p>
+                    <CollapsibleCodeBlock
+                        id="local-watch"
+                        code={`pnpm dev --filter @thesage/mcp  # Rebuilds on file changes`}
+                        defaultCollapsed={true}
+                        showCopy={true}
+                    />
+                </Card>
+            </section>
         </div>
     );
 }

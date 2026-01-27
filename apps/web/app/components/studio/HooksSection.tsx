@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { Card, Button, Badge, Code, CollapsibleCodeBlock } from '@thesage/ui';
 import { TextField, Breadcrumbs, type BreadcrumbItemLegacy } from '@thesage/ui';
 import { useForm, useTheme, useToast } from '@thesage/ui';
+import { HooksOverview } from './HooksOverview';
 // import { useClipboard } from '@thesage/hooks'; // Uncomment when package export works perfectly
 
 // Mocking useClipboard for now until the package linking is fully propagated
@@ -23,21 +24,27 @@ interface HooksSectionProps {
 }
 
 export function HooksSection({ activeItemId, breadcrumbs, onItemChange }: HooksSectionProps) {
-  const [activeHook, setActiveHook] = useState<string>('useForm');
+  const [activeHook, setActiveHook] = useState<string>('overview');
 
   // Update active hook when activeItemId changes
   useEffect(() => {
     if (activeItemId) {
-      // Map kebab-case ids to camelCase names
-      // e.g., 'use-form' -> 'useForm', 'use-motion-preference' -> 'useMotionPreference'
-      const hookName = activeItemId
-        .split('-')
-        .map((word, index) =>
-          index === 0 ? word : word.charAt(0).toUpperCase() + word.slice(1)
-        )
-        .join('');
+      if (activeItemId === 'hooks') {
+        setActiveHook('overview');
+      } else {
+        // Map kebab-case ids to camelCase names
+        // e.g., 'use-form' -> 'useForm', 'use-motion-preference' -> 'useMotionPreference'
+        const hookName = activeItemId
+          .split('-')
+          .map((word, index) =>
+            index === 0 ? word : word.charAt(0).toUpperCase() + word.slice(1)
+          )
+          .join('');
 
-      setActiveHook(hookName);
+        setActiveHook(hookName);
+      }
+    } else {
+      setActiveHook('overview');
     }
   }, [activeItemId]);
 
@@ -54,6 +61,7 @@ export function HooksSection({ activeItemId, breadcrumbs, onItemChange }: HooksS
 
       {/* Hook Display with spacing for sticky nav */}
       <div className="mt-4">
+        {activeHook === 'overview' && <HooksOverview onNavigate={(id) => onItemChange?.(id)} />}
         {activeHook === 'useForm' && <UseFormSection />}
         {activeHook === 'useTheme' && <UseThemeSection />}
         {activeHook === 'useToast' && <UseToastSection />}

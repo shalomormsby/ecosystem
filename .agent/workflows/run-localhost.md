@@ -25,7 +25,7 @@ To run the local development server efficiently and avoid common pitfalls (like 
     
     *   **For Sage Studio**:
         ```bash
-        pnpm turbo run dev --filter=@ecosystem/web...
+        pnpm turbo run dev --filter=web...
         ```
     
     *   **For Creative Powerup**:

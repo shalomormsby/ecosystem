@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { Breadcrumbs, type BreadcrumbItemLegacy } from '@thesage/ui';
+import { MotionOverview } from './MotionOverview';
 
 // Landing Pages
 import { PrimitivesSection } from './PrimitivesSection';
@@ -21,7 +22,7 @@ import { MagneticPage } from './pages/motion/MagneticPage';
 import { OrbBackgroundPage } from './pages/motion/OrbBackgroundPage';
 
 type MotionTab =
-  | 'primitives' | 'duration' | 'easing'
+  | 'overview' | 'primitives' | 'duration' | 'easing'
   | 'text-effects' | 'variable-weight' | 'typewriter'
   | 'backgrounds' | 'warp-speed' | 'faulty-terminal' | 'orb-background'
   | 'cursors' | 'target-cursor' | 'splash-cursor'
@@ -34,14 +35,19 @@ interface MotionSectionsProps {
 }
 
 export function MotionSections({ activeItemId, breadcrumbs, onItemChange }: MotionSectionsProps) {
-  const [activeTab, setActiveTab] = useState<MotionTab>('primitives');
+  const [activeTab, setActiveTab] = useState<MotionTab>('overview');
 
   // Update active tab when activeItemId changes
   useEffect(() => {
     if (activeItemId) {
-      // We cast here assuming the navigation tree provides valid IDs that match our MotionTab type
-      // in a real app you might want to validate this more strictly
-      setActiveTab(activeItemId as MotionTab);
+      if (activeItemId === 'motion') {
+        setActiveTab('overview');
+      } else {
+        // We cast here assuming the navigation tree provides valid IDs that match our MotionTab type
+        setActiveTab(activeItemId as MotionTab);
+      }
+    } else {
+      setActiveTab('overview');
     }
   }, [activeItemId]);
 
@@ -58,6 +64,9 @@ export function MotionSections({ activeItemId, breadcrumbs, onItemChange }: Moti
 
       {/* Tab Content with spacing for sticky nav */}
       <div className="mt-4">
+        {/* Overview */}
+        {activeTab === 'overview' && <MotionOverview onNavigate={(id) => onItemChange?.(id)} />}
+
         {/* Primitives */}
         {activeTab === 'primitives' && <PrimitivesSection />}
         {activeTab === 'duration' && <PrimitivesSection />} {/* Redirect old duration tab */}

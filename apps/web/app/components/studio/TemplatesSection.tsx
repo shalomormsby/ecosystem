@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { Breadcrumbs, TertiaryNav, CollapsibleCodeBlock, Card, PageTemplate, Footer, Brand, type BreadcrumbItemLegacy } from '@thesage/ui';
 import { ExternalLink, Layout, Ruler, Type, LayoutGrid, Scale, Sparkles, ArrowDown, Lightbulb } from 'lucide-react';
+import { BrandBuilder } from './BrandBuilder/BrandBuilder';
 
 interface TemplatesSectionProps {
   breadcrumbs?: BreadcrumbItemLegacy[];
@@ -15,7 +16,7 @@ export function TemplatesSection({ breadcrumbs, activeItemId, onItemChange }: Te
 
   // Sync selectedTemplate with activeItemId when it changes (from sidebar navigation)
   useEffect(() => {
-    if (activeItemId && ['templates-overview', 'page-template'].includes(activeItemId)) {
+    if (activeItemId && ['templates-overview', 'brand-builder', 'page-template'].includes(activeItemId)) {
       setSelectedTemplate(activeItemId);
     }
   }, [activeItemId]);
@@ -39,6 +40,7 @@ export function TemplatesSection({ breadcrumbs, activeItemId, onItemChange }: Te
       {/* Template Content */}
       <div className="mt-4">
         {selectedTemplate === 'templates-overview' && <OverviewContent />}
+        {selectedTemplate === 'brand-builder' && <BrandBuilder />}
         {selectedTemplate === 'page-template' && <PageTemplateContent />}
       </div>
     </div>
@@ -69,6 +71,13 @@ function OverviewContent() {
           Available Templates
         </h3>
         <div className="space-y-4">
+          <div className="border-l-4 border-[var(--color-primary)] pl-4">
+            <h4 className="font-semibold text-[var(--color-text-primary)]">Brand Builder</h4>
+            <p className="text-sm text-[var(--color-text-secondary)]">
+              Interactive brand identity creation tool combining typography, color palettes, and logotype composition.
+              Export as SVG, CSS variables, or JSON config.
+            </p>
+          </div>
           <div className="border-l-4 border-[var(--color-primary)] pl-4">
             <h4 className="font-semibold text-[var(--color-text-primary)]">Page Template</h4>
             <p className="text-sm text-[var(--color-text-secondary)]">

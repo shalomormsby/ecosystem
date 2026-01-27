@@ -371,8 +371,30 @@ export function OverviewSection() {
                 Component-First Architecture
               </h3>
               <p className="text-sm text-[var(--color-text-secondary)] mb-4">
-                Design tokens are encapsulated in components, never manually applied. This is the foundation of the entire system.
+                Sage UI encapsulates design tokens inside components rather than exposing them as CSS classes. This approach is the foundation of the entire system and provides several key advantages:
               </p>
+
+              {/* Benefits List */}
+              <div className="space-y-2 mb-4 text-sm text-[var(--color-text-secondary)]">
+                <div className="flex items-start gap-2">
+                  <Check className="w-4 h-4 text-[var(--color-primary)] mt-0.5 flex-shrink-0" />
+                  <span><strong className="text-[var(--color-text-primary)]">Ensures consistency</strong> - Impossible to use wrong token combinations or values</span>
+                </div>
+                <div className="flex items-start gap-2">
+                  <Check className="w-4 h-4 text-[var(--color-primary)] mt-0.5 flex-shrink-0" />
+                  <span><strong className="text-[var(--color-text-primary)]">Simplifies API</strong> - {`<Text>`} instead of remembering {`text-[var(--color-text-primary)]`}</span>
+                </div>
+                <div className="flex items-start gap-2">
+                  <Check className="w-4 h-4 text-[var(--color-primary)] mt-0.5 flex-shrink-0" />
+                  <span><strong className="text-[var(--color-text-primary)]">Enables smart defaults</strong> - Components choose appropriate tokens automatically</span>
+                </div>
+                <div className="flex items-start gap-2">
+                  <Check className="w-4 h-4 text-[var(--color-primary)] mt-0.5 flex-shrink-0" />
+                  <span><strong className="text-[var(--color-text-primary)]">Improves DX</strong> - TypeScript autocomplete for semantic props like {`variant`} and {`size`}</span>
+                </div>
+              </div>
+
+              {/* Example Comparison */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
                 <div className="p-3 bg-red-500/10 border border-red-500/20 rounded">
                   <p className="font-semibold text-red-600 dark:text-red-400 mb-1 flex items-center gap-1.5">
@@ -389,6 +411,7 @@ export function OverviewSection() {
                   <Code className="text-xs block">{`<Text>Text</Text>`}</Code>
                 </div>
               </div>
+
               <p className="text-xs text-[var(--color-text-muted)] mt-3">
                 → See{' '}
                 <a
@@ -397,7 +420,7 @@ export function OverviewSection() {
                   rel="noopener noreferrer"
                   className="text-[var(--color-primary)] hover:underline"
                 >
-                  USAGE_GUIDE.md
+                  Usage Guide
                 </a>{' '}
                 for complete component-first documentation
               </p>
@@ -1154,7 +1177,7 @@ export function MyComponent() {
 
 export default function App({ children }) {
   return (
-    <ThemeProvider defaultTheme="studio" defaultMode="light">
+    <ThemeProvider>
       {children}
     </ThemeProvider>
   );
@@ -1162,6 +1185,92 @@ export default function App({ children }) {
                   defaultCollapsed={false}
                   showCopy={true}
                 />
+
+                {/* ThemeProvider Props Documentation */}
+                <div className="mt-6 space-y-4">
+                  <h4 className="text-base font-semibold text-[var(--color-text-primary)]">
+                    ThemeProvider Props
+                  </h4>
+
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-sm border-collapse">
+                      <thead>
+                        <tr className="border-b border-[var(--color-border)]">
+                          <th className="text-left py-2 px-3 font-semibold text-[var(--color-text-primary)]">Prop</th>
+                          <th className="text-left py-2 px-3 font-semibold text-[var(--color-text-primary)]">Type</th>
+                          <th className="text-left py-2 px-3 font-semibold text-[var(--color-text-primary)]">Required</th>
+                          <th className="text-left py-2 px-3 font-semibold text-[var(--color-text-primary)]">Description</th>
+                        </tr>
+                      </thead>
+                      <tbody className="text-[var(--color-text-secondary)]">
+                        <tr className="border-b border-[var(--color-border)]">
+                          <td className="py-3 px-3">
+                            <Code className="text-xs">children</Code>
+                          </td>
+                          <td className="py-3 px-3">
+                            <Code className="text-xs">ReactNode</Code>
+                          </td>
+                          <td className="py-3 px-3">
+                            <Badge variant="destructive" className="text-xs">Required</Badge>
+                          </td>
+                          <td className="py-3 px-3">
+                            Your application content
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+
+                  <div className="p-4 bg-[var(--color-surface)] rounded-lg border border-[var(--color-border)] space-y-3">
+                    <div>
+                      <h5 className="text-sm font-semibold text-[var(--color-text-primary)] mb-2">
+                        Default Theme & Mode
+                      </h5>
+                      <p className="text-xs text-[var(--color-text-secondary)] mb-2">
+                        The ThemeProvider starts with <Code className="text-xs">theme: "volt"</Code> and <Code className="text-xs">mode: "dark"</Code> by default. User preferences are automatically persisted to localStorage.
+                      </p>
+                    </div>
+
+                    <div>
+                      <h5 className="text-sm font-semibold text-[var(--color-text-primary)] mb-2">
+                        Programmatic Control
+                      </h5>
+                      <p className="text-xs text-[var(--color-text-secondary)] mb-2">
+                        Use the <Code className="text-xs">useTheme()</Code> hook to control theme and mode:
+                      </p>
+                      <CollapsibleCodeBlock
+                        id="programmatic-theme-control"
+                        code={`import { useTheme } from '@thesage/ui/hooks';
+import { useEffect } from 'react';
+
+export function MyApp() {
+  const { setTheme, setMode } = useTheme();
+
+  // Set initial theme/mode on mount
+  useEffect(() => {
+    setTheme('studio');
+    setMode('light');
+  }, []);
+
+  return <YourContent />;
+}`}
+                        defaultCollapsed={true}
+                        showCopy={true}
+                      />
+                    </div>
+
+                    <div>
+                      <h5 className="text-sm font-semibold text-[var(--color-text-primary)] mb-2">
+                        Available Options
+                      </h5>
+                      <ul className="text-xs text-[var(--color-text-secondary)] space-y-1 list-disc list-inside">
+                        <li><strong>Themes:</strong> <Code className="text-xs">"studio"</Code>, <Code className="text-xs">"sage"</Code>, <Code className="text-xs">"volt"</Code></li>
+                        <li><strong>Modes:</strong> <Code className="text-xs">"light"</Code>, <Code className="text-xs">"dark"</Code></li>
+                        <li><strong>Storage:</strong> Automatically persists to localStorage key <Code className="text-xs">"ecosystem-theme"</Code></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </Card>
@@ -1195,9 +1304,359 @@ export function Controls() {
                   defaultCollapsed={false}
                   showCopy={true}
                 />
+
+                {/* Motion System Explanation */}
+                <div className="mt-6 space-y-4">
+                  <h4 className="text-base font-semibold text-[var(--color-text-primary)]">
+                    Understanding the Motion System
+                  </h4>
+
+                  <p className="text-sm text-[var(--color-text-secondary)]">
+                    Sage UI uses a <strong>0-10 motion scale</strong> that gives users fine-grained control over animation intensity. This respects accessibility needs while allowing users who enjoy motion to customize their experience.
+                  </p>
+
+                  <div className="p-3 bg-yellow-500/10 border border-yellow-500/20 rounded-lg">
+                    <p className="text-xs text-[var(--color-text-secondary)]">
+                      <strong className="text-[var(--color-text-primary)]">Implementation Status:</strong> The motion system API is complete and functional, but currently only a subset of animated components use it. Integration is ongoing - developers should use <Code className="text-xs">useMotionPreference()</Code> when implementing new animations.
+                    </p>
+                  </div>
+
+                  {/* Motion Scale Table */}
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-sm border-collapse">
+                      <thead>
+                        <tr className="border-b border-[var(--color-border)]">
+                          <th className="text-left py-2 px-3 font-semibold text-[var(--color-text-primary)]">Scale</th>
+                          <th className="text-left py-2 px-3 font-semibold text-[var(--color-text-primary)]">Behavior</th>
+                          <th className="text-left py-2 px-3 font-semibold text-[var(--color-text-primary)]">Use Case</th>
+                        </tr>
+                      </thead>
+                      <tbody className="text-[var(--color-text-secondary)]">
+                        <tr className="border-b border-[var(--color-border)]">
+                          <td className="py-3 px-3">
+                            <Code className="text-xs">0</Code>
+                          </td>
+                          <td className="py-3 px-3">
+                            No animations (instant state changes)
+                          </td>
+                          <td className="py-3 px-3">
+                            Vestibular disorders, motion sensitivity
+                          </td>
+                        </tr>
+                        <tr className="border-b border-[var(--color-border)]">
+                          <td className="py-3 px-3">
+                            <Code className="text-xs">1-3</Code>
+                          </td>
+                          <td className="py-3 px-3">
+                            Subtle animations (~100-200ms)
+                          </td>
+                          <td className="py-3 px-3">
+                            Minimal, professional interfaces
+                          </td>
+                        </tr>
+                        <tr className="border-b border-[var(--color-border)]">
+                          <td className="py-3 px-3">
+                            <Code className="text-xs">5</Code>
+                          </td>
+                          <td className="py-3 px-3">
+                            Balanced animations (default)
+                          </td>
+                          <td className="py-3 px-3">
+                            General purpose, most users
+                          </td>
+                        </tr>
+                        <tr className="border-b border-[var(--color-border)]">
+                          <td className="py-3 px-3">
+                            <Code className="text-xs">7-9</Code>
+                          </td>
+                          <td className="py-3 px-3">
+                            Expressive animations
+                          </td>
+                          <td className="py-3 px-3">
+                            Engaging, playful interfaces
+                          </td>
+                        </tr>
+                        <tr className="border-b border-[var(--color-border)]">
+                          <td className="py-3 px-3">
+                            <Code className="text-xs">10</Code>
+                          </td>
+                          <td className="py-3 px-3">
+                            Maximum animation intensity
+                          </td>
+                          <td className="py-3 px-3">
+                            Highly interactive, game-like experiences
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+
+                  {/* Automatic Accessibility */}
+                  <div className="p-4 bg-green-500/10 border border-green-500/20 rounded-lg">
+                    <h5 className="text-sm font-semibold text-[var(--color-text-primary)] mb-2 flex items-center gap-2">
+                      <CheckCircle className="w-4 h-4 text-green-600 dark:text-green-400" />
+                      Automatic Accessibility
+                    </h5>
+                    <ul className="text-xs text-[var(--color-text-secondary)] space-y-1 list-disc list-inside">
+                      <li>Respects <Code className="text-xs">prefers-reduced-motion: reduce</Code> automatically</li>
+                      <li><Code className="text-xs">shouldAnimate</Code> returns <Code className="text-xs">false</Code> when scale is 0 OR system preference is reduce</li>
+                      <li>Motion scale 0 must work perfectly - no broken layouts or missing UI states</li>
+                      <li>No additional code needed - the hook handles everything</li>
+                    </ul>
+                  </div>
+
+                  {/* Setting User Preferences */}
+                  <div className="p-4 bg-[var(--color-surface)] rounded-lg border border-[var(--color-border)] space-y-4">
+                    <h5 className="text-sm font-semibold text-[var(--color-text-primary)]">
+                      How Users Set Motion Preferences
+                    </h5>
+
+                    {/* Method 1: The Customizer */}
+                    <div>
+                      <p className="text-xs font-semibold text-[var(--color-text-primary)] mb-2">
+                        1. The Customizer Component (Recommended)
+                      </p>
+                      <p className="text-xs text-[var(--color-text-secondary)] mb-2">
+                        Add the built-in Customizer for a complete user control panel:
+                      </p>
+                      <CollapsibleCodeBlock
+                        id="customizer-motion-control"
+                        code={`import { CustomizerPanel } from '@thesage/ui';
+
+export function App() {
+  return (
+    <>
+      <YourContent />
+      <CustomizerPanel /> {/* Floating panel with motion slider */}
+    </>
+  );
+}`}
+                        defaultCollapsed={true}
+                        showCopy={true}
+                      />
+                    </div>
+
+                    {/* Method 2: Programmatically */}
+                    <div>
+                      <p className="text-xs font-semibold text-[var(--color-text-primary)] mb-2">
+                        2. Programmatically via Hook
+                      </p>
+                      <p className="text-xs text-[var(--color-text-secondary)] mb-2">
+                        Build your own motion controls:
+                      </p>
+                      <CollapsibleCodeBlock
+                        id="programmatic-motion-control"
+                        code={`import { useMotionPreference } from '@thesage/ui/hooks';
+
+export function MotionControls() {
+  const { scale, setMotionPreference } = useMotionPreference();
+
+  return (
+    <input
+      type="range"
+      min="0"
+      max="10"
+      value={scale}
+      onChange={(e) => setMotionPreference(Number(e.target.value))}
+    />
+  );
+}`}
+                        defaultCollapsed={true}
+                        showCopy={true}
+                      />
+                    </div>
+
+                    {/* Method 3: System Setting */}
+                    <div>
+                      <p className="text-xs font-semibold text-[var(--color-text-primary)] mb-2">
+                        3. System Preference (Automatic)
+                      </p>
+                      <p className="text-xs text-[var(--color-text-secondary)]">
+                        When a user enables <Code className="text-xs">prefers-reduced-motion: reduce</Code> in their OS settings, <Code className="text-xs">shouldAnimate</Code> automatically returns <Code className="text-xs">false</Code> regardless of the scale value.
+                      </p>
+                    </div>
+
+                    {/* Persistence Note */}
+                    <div className="pt-2 border-t border-[var(--color-border)]">
+                      <p className="text-xs text-[var(--color-text-muted)]">
+                        <strong>Persistence:</strong> Motion preferences automatically save to localStorage and sync across sessions.
+                      </p>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </Card>
+        </div>
+
+        {/* NEXT STEPS */}
+        <div className="mt-12 border-t border-[var(--color-border)] pt-8">
+          <h3 className="text-2xl font-bold mb-6 text-[var(--color-text-primary)] text-center">
+            Next Steps
+          </h3>
+          <p className="text-center text-[var(--color-text-secondary)] mb-8 max-w-2xl mx-auto">
+            You're all set up! Here's how to continue building with Sage UI:
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* 1. Explore Components */}
+            <Card className="p-5">
+              <div className="flex items-start gap-3 mb-3">
+                <div className="text-[var(--color-primary)]">
+                  <Package className="w-6 h-6" />
+                </div>
+                <div>
+                  <h4 className="font-semibold text-[var(--color-text-primary)] mb-1">
+                    1. Explore Components
+                  </h4>
+                  <p className="text-sm text-[var(--color-text-secondary)] mb-3">
+                    Browse all 89 components organized by function:
+                  </p>
+                  <div className="flex flex-wrap gap-2 text-xs">
+                    <a href="#actions" className="text-[var(--color-primary)] hover:underline">Actions</a>
+                    <span className="text-[var(--color-text-muted)]">•</span>
+                    <a href="#forms" className="text-[var(--color-primary)] hover:underline">Forms</a>
+                    <span className="text-[var(--color-text-muted)]">•</span>
+                    <a href="#navigation" className="text-[var(--color-primary)] hover:underline">Navigation</a>
+                    <span className="text-[var(--color-text-muted)]">•</span>
+                    <a href="#overlays" className="text-[var(--color-primary)] hover:underline">Overlays</a>
+                    <span className="text-[var(--color-text-muted)]">•</span>
+                    <a href="#feedback" className="text-[var(--color-primary)] hover:underline">Feedback</a>
+                    <span className="text-[var(--color-text-muted)]">•</span>
+                    <a href="#data-display" className="text-[var(--color-primary)] hover:underline">Data Display</a>
+                    <span className="text-[var(--color-text-muted)]">•</span>
+                    <a href="#layout" className="text-[var(--color-primary)] hover:underline">Layout</a>
+                  </div>
+                </div>
+              </div>
+            </Card>
+
+            {/* 2. Try the Customizer */}
+            <Card className="p-5">
+              <div className="flex items-start gap-3 mb-3">
+                <div className="text-[var(--color-primary)]">
+                  <Sliders className="w-6 h-6" />
+                </div>
+                <div>
+                  <h4 className="font-semibold text-[var(--color-text-primary)] mb-1">
+                    2. Try the Customizer
+                  </h4>
+                  <p className="text-sm text-[var(--color-text-secondary)] mb-3">
+                    See how themes and motion work with a floating control panel:
+                  </p>
+                  <CollapsibleCodeBlock
+                    id="next-steps-customizer"
+                    code={`import { CustomizerPanel } from '@thesage/ui';
+
+export function App() {
+  return (
+    <>
+      <YourApp />
+      <CustomizerPanel />
+    </>
+  );
+}`}
+                    defaultCollapsed={true}
+                    showCopy={true}
+                  />
+                </div>
+              </div>
+            </Card>
+
+            {/* 3. Read the Usage Guide */}
+            <Card className="p-5">
+              <div className="flex items-start gap-3">
+                <div className="text-[var(--color-primary)]">
+                  <BookOpen className="w-6 h-6" />
+                </div>
+                <div>
+                  <h4 className="font-semibold text-[var(--color-text-primary)] mb-1">
+                    3. Read the Usage Guide
+                  </h4>
+                  <p className="text-sm text-[var(--color-text-secondary)] mb-2">
+                    Understand architecture and best practices:
+                  </p>
+                  <ul className="text-xs text-[var(--color-text-secondary)] space-y-1">
+                    <li>• Component-First Architecture</li>
+                    <li>• Common Patterns</li>
+                    <li>• Theming Deep Dive</li>
+                  </ul>
+                  <a
+                    href="https://github.com/shalomormsby/ecosystem/blob/main/apps/web/docs/SAGE_DESIGN_SYSTEM_STRATEGY.md"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-block mt-2 text-xs text-[var(--color-primary)] hover:underline"
+                  >
+                    → Read the Guide
+                  </a>
+                </div>
+              </div>
+            </Card>
+
+            {/* 4. Build Something */}
+            <Card className="p-5">
+              <div className="flex items-start gap-3 mb-3">
+                <div className="text-[var(--color-primary)]">
+                  <Code2 className="w-6 h-6" />
+                </div>
+                <div>
+                  <h4 className="font-semibold text-[var(--color-text-primary)] mb-1">
+                    4. Build Something!
+                  </h4>
+                  <p className="text-sm text-[var(--color-text-secondary)] mb-3">
+                    Start with a simple page:
+                  </p>
+                  <CollapsibleCodeBlock
+                    id="next-steps-build-example"
+                    code={`import { Button, Card, Badge } from '@thesage/ui';
+
+export function Dashboard() {
+  return (
+    <Card>
+      <h1>My Dashboard</h1>
+      <Badge variant="success">Active</Badge>
+      <Button variant="default">Get Started</Button>
+    </Card>
+  );
+}`}
+                    defaultCollapsed={true}
+                    showCopy={true}
+                  />
+                </div>
+              </div>
+            </Card>
+          </div>
+
+          {/* Need Help? */}
+          <div className="mt-6 p-4 bg-[var(--color-surface)] rounded-lg border border-[var(--color-border)] text-center">
+            <p className="text-sm font-semibold text-[var(--color-text-primary)] mb-2">
+              Need Help?
+            </p>
+            <div className="flex items-center justify-center gap-4 text-xs">
+              <a
+                href="#overview"
+                className="text-[var(--color-primary)] hover:underline"
+              >
+                📖 Full Documentation
+              </a>
+              <a
+                href="https://github.com/shalomormsby/ecosystem/issues"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[var(--color-primary)] hover:underline"
+              >
+                🐛 Report Issues
+              </a>
+              <a
+                href="https://github.com/shalomormsby/ecosystem/discussions"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[var(--color-primary)] hover:underline"
+              >
+                💬 Discussions
+              </a>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -1271,20 +1730,116 @@ export function Controls() {
               Troubleshooting
             </h3>
             <p className="text-sm text-[var(--color-text-secondary)] mb-4">
-              Known issues and solutions
+              Common issues and solutions
             </p>
-            <div className="space-y-2 text-sm">
-              <a
-                href="https://github.com/shalomormsby/ecosystem/blob/main/apps/web/docs/SAGE_DESIGN_SYSTEM_STRATEGY.md#roadmap"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block text-[var(--color-primary)] hover:underline"
-              >
-                → Unresolved Issues
-              </a>
-              <p className="text-xs text-[var(--color-text-muted)]">
-                Current known issues with root causes and context
-              </p>
+
+            <div className="space-y-4 text-sm">
+              {/* Issue 1: Components are Unstyled */}
+              <div className="p-3 bg-[var(--color-surface)] rounded border border-[var(--color-border)]">
+                <h4 className="font-semibold text-[var(--color-text-primary)] mb-1">
+                  Components are Unstyled
+                </h4>
+                <p className="text-xs text-[var(--color-text-secondary)] mb-2">
+                  <strong>Symptoms:</strong> Components render but have no styling, wrong colors, or broken layout.
+                </p>
+                <p className="text-xs text-[var(--color-text-secondary)] mb-2">
+                  <strong>Common Causes:</strong>
+                </p>
+                <ul className="text-xs text-[var(--color-text-secondary)] list-disc list-inside space-y-1 ml-2 mb-2">
+                  <li>Tailwind CSS not configured to include Sage UI paths</li>
+                  <li>ThemeProvider not wrapping your app</li>
+                  <li>CSS not loaded in your bundler</li>
+                </ul>
+                <p className="text-xs text-[var(--color-text-secondary)]">
+                  <strong>Solutions:</strong> Add <Code className="text-xs">./node_modules/@thesage/ui/**/*.{`{js,ts,jsx,tsx}`}</Code> to Tailwind content, wrap app with <Code className="text-xs">{`<ThemeProvider>`}</Code>, and ensure Tailwind CSS is imported in your root file.
+                </p>
+              </div>
+
+              {/* Issue 2: Motion/Animations Not Working */}
+              <div className="p-3 bg-[var(--color-surface)] rounded border border-[var(--color-border)]">
+                <h4 className="font-semibold text-[var(--color-text-primary)] mb-1">
+                  Motion/Animations Not Working
+                </h4>
+                <p className="text-xs text-[var(--color-text-secondary)] mb-2">
+                  <strong>Symptoms:</strong> Components appear instantly without transitions.
+                </p>
+                <p className="text-xs text-[var(--color-text-secondary)] mb-2">
+                  <strong>Common Causes:</strong> ThemeProvider not wrapping your app, or motion preference set to 0.
+                </p>
+                <p className="text-xs text-[var(--color-text-secondary)]">
+                  <strong>Solutions:</strong> Wrap app with <Code className="text-xs">{`<ThemeProvider>`}</Code>, check motion preference using <Code className="text-xs">useMotionPreference()</Code> (should not be 0), and verify browser doesn't have <Code className="text-xs">prefers-reduced-motion: reduce</Code> enabled.
+                </p>
+              </div>
+
+              {/* Issue 3: TypeScript Errors on Import */}
+              <div className="p-3 bg-[var(--color-surface)] rounded border border-[var(--color-border)]">
+                <h4 className="font-semibold text-[var(--color-text-primary)] mb-1">
+                  TypeScript Errors on Import
+                </h4>
+                <p className="text-xs text-[var(--color-text-secondary)] mb-2">
+                  <strong>Symptoms:</strong> <Code className="text-xs">Cannot find module '@thesage/ui' or its corresponding type declarations</Code>
+                </p>
+                <p className="text-xs text-[var(--color-text-secondary)] mb-2">
+                  <strong>Common Causes:</strong>
+                </p>
+                <ul className="text-xs text-[var(--color-text-secondary)] list-disc list-inside space-y-1 ml-2 mb-2">
+                  <li>Package not installed</li>
+                  <li>Package installed but TypeScript declarations not built</li>
+                  <li>Wrong import path</li>
+                </ul>
+                <p className="text-xs text-[var(--color-text-secondary)]">
+                  <strong>Solutions:</strong> Run <Code className="text-xs">pnpm install @thesage/ui</Code>, if using monorepo run <Code className="text-xs">pnpm build --filter @thesage/ui</Code>, and verify import uses <Code className="text-xs">{`import { Button } from '@thesage/ui'`}</Code> not <Code className="text-xs">'@thesage/ui/Button'</Code>.
+                </p>
+              </div>
+
+              {/* Issue 4: Peer Dependency Warnings */}
+              <div className="p-3 bg-[var(--color-surface)] rounded border border-[var(--color-border)]">
+                <h4 className="font-semibold text-[var(--color-text-primary)] mb-1">
+                  Peer Dependency Warnings
+                </h4>
+                <p className="text-xs text-[var(--color-text-secondary)] mb-2">
+                  <strong>Symptoms:</strong> <Code className="text-xs">npm WARN @thesage/ui requires a peer of react@* but none is installed</Code>
+                </p>
+                <p className="text-xs text-[var(--color-text-secondary)] mb-2">
+                  <strong>Cause:</strong> Missing required peer dependencies.
+                </p>
+                <p className="text-xs text-[var(--color-text-secondary)]">
+                  <strong>Solution:</strong> Install peer dependencies with <Code className="text-xs">pnpm add react framer-motion</Code>
+                </p>
+              </div>
+
+              {/* Still Having Issues */}
+              <div className="pt-3 border-t border-[var(--color-border)]">
+                <p className="text-xs font-semibold text-[var(--color-text-primary)] mb-2">
+                  Still Having Issues?
+                </p>
+                <div className="space-y-1">
+                  <a
+                    href="https://github.com/shalomormsby/ecosystem/blob/main/apps/web/docs/SAGE_DESIGN_SYSTEM_STRATEGY.md"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block text-xs text-[var(--color-primary)] hover:underline"
+                  >
+                    📖 Check the Usage Guide
+                  </a>
+                  <a
+                    href="https://github.com/shalomormsby/ecosystem/issues"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block text-xs text-[var(--color-primary)] hover:underline"
+                  >
+                    🐛 Report a bug
+                  </a>
+                  <a
+                    href="https://github.com/shalomormsby/ecosystem/discussions"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block text-xs text-[var(--color-primary)] hover:underline"
+                  >
+                    💬 Ask a question
+                  </a>
+                </div>
+              </div>
             </div>
           </Card>
         </div>

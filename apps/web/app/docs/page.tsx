@@ -21,6 +21,7 @@ import { TemplatesSection } from '../components/studio/TemplatesSection';
 import { ChartsSections } from '../components/studio/ChartsSections';
 import { MotionSections } from '../components/studio/MotionSections';
 import { McpSection } from '../components/studio/McpSection';
+import { ToolsSection } from '../components/studio/ToolsSection';
 import { DragDropPage } from '../components/studio/pages/forms/DragDropPage';
 import { ComponentsDashboard } from '../components/studio/ComponentsDashboard';
 
@@ -45,7 +46,8 @@ type Section =
     | 'hooks'
     | 'templates'
     | 'charts'
-    | 'motion';
+    | 'motion'
+    | 'tools';
 
 // Route configuration for breadcrumb labels
 const routeConfig: RouteConfig = {
@@ -187,7 +189,14 @@ const routeConfig: RouteConfig = {
         }
     },
     hooks: { label: 'Hooks' },
-    templates: { label: 'Templates' },
+    templates: {
+        label: 'Templates',
+        children: {
+            'templates-overview': { label: 'Overview' },
+            'brand-builder': { label: 'Brand Builder' },
+            'page-template': { label: 'Page Template' },
+        }
+    },
     charts: {
         label: 'Charts',
         children: {
@@ -207,6 +216,13 @@ const routeConfig: RouteConfig = {
             interactive: { label: 'Interactive Effects' },
             transitions: { label: 'Transitions' },
             'cursor-effects': { label: 'Cursor Effects' },
+        }
+    },
+    tools: {
+        label: 'Tools',
+        children: {
+            'open-graph-card': { label: 'Open Graph Card' },
+            charts: { label: 'Charts' },
         }
     },
 };
@@ -234,10 +250,8 @@ export default function StudioPage() {
         let [section, itemId] = hash.split('/');
 
         // Handle aliases for cleaner URLs
-        if (section === 'components') {
-            section = 'actions';
-            itemId = itemId || 'button';
-        } else if (section === 'resources') {
+        // Redirection for 'components' removed to allow dedicated dashboard
+        if (section === 'resources') {
             section = 'templates';
             itemId = itemId || 'templates';
         } else if (section === 'getting-started' || section === 'quick-start') {
@@ -249,7 +263,7 @@ export default function StudioPage() {
             'overview', 'architecture', 'adding-components', 'common-patterns',
             'contributing', 'mcp-server', 'tokens', 'themes', 'components', 'actions', 'forms', 'navigation',
             'overlays', 'feedback', 'data-display', 'layout', 'blocks',
-            'hooks', 'templates', 'charts', 'motion'
+            'hooks', 'templates', 'charts', 'motion', 'tools'
         ];
 
         if (validSections.includes(section as Section)) {
@@ -291,10 +305,8 @@ export default function StudioPage() {
             let [section, itemId] = hash.split('/');
 
             // Handle aliases for cleaner URLs
-            if (section === 'components') {
-                section = 'actions';
-                itemId = itemId || 'button';
-            } else if (section === 'resources') {
+            // Redirection for 'components' removed to allow dedicated dashboard
+            if (section === 'resources') {
                 section = 'templates';
                 itemId = itemId || 'templates';
             } else if (section === 'getting-started' || section === 'quick-start') {
@@ -304,7 +316,7 @@ export default function StudioPage() {
 
             const validSections: Section[] = [
                 'overview', 'architecture', 'adding-components', 'common-patterns',
-                'contributing', 'mcp-server', 'tokens', 'themes', 'actions', 'forms', 'navigation',
+                'contributing', 'mcp-server', 'tokens', 'themes', 'components', 'actions', 'forms', 'navigation',
                 'overlays', 'feedback', 'data-display', 'layout', 'blocks',
                 'hooks', 'templates', 'charts', 'motion'
             ];
@@ -369,7 +381,7 @@ export default function StudioPage() {
             const [section, itemId] = hashPath.split('/');
             const validSections: Section[] = [
                 'overview', 'architecture', 'adding-components', 'common-patterns',
-                'contributing', 'mcp-server', 'tokens', 'themes', 'actions', 'forms', 'navigation',
+                'contributing', 'mcp-server', 'tokens', 'themes', 'components', 'actions', 'forms', 'navigation',
                 'overlays', 'feedback', 'data-display', 'layout', 'blocks',
                 'hooks', 'templates', 'charts', 'motion'
             ];
@@ -395,7 +407,7 @@ export default function StudioPage() {
             'overview', 'architecture', 'adding-components', 'common-patterns',
             'contributing', 'mcp-server', 'tokens', 'themes', 'components', 'actions', 'forms', 'navigation',
             'overlays', 'feedback', 'data-display', 'layout', 'blocks',
-            'hooks', 'templates', 'charts', 'motion'
+            'hooks', 'templates', 'charts', 'motion', 'tools'
         ];
 
         if (validSections.includes(potentialSection)) {
@@ -574,6 +586,13 @@ export default function StudioPage() {
                         )}
                         {activeSection === 'motion' && (
                             <MotionSections
+                                activeItemId={activeItemId}
+                                breadcrumbs={breadcrumbs}
+                                onItemChange={(itemId) => setActiveItemId(itemId)}
+                            />
+                        )}
+                        {activeSection === 'tools' && (
+                            <ToolsSection
                                 activeItemId={activeItemId}
                                 breadcrumbs={breadcrumbs}
                                 onItemChange={(itemId) => setActiveItemId(itemId)}

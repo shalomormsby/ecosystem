@@ -1,4 +1,4 @@
-import { BookOpen, Palette, Component, Webhook, LayoutTemplate, Layers, Bot, Sparkles } from 'lucide-react';
+import { BookOpen, Palette, Component, Webhook, LayoutTemplate, Layers, Bot, Sparkles, Wrench } from 'lucide-react';
 
 export interface NavigationItem {
   id: string;
@@ -201,6 +201,7 @@ export const navigationTree: NavigationItem[] = [
     id: 'blocks',
     label: 'Blocks',
     icon: <Layers className="w-4 h-4" />,
+    section: 'blocks',
     children: [
       {
         id: 'app-shell',
@@ -224,13 +225,6 @@ export const navigationTree: NavigationItem[] = [
         label: 'Code',
         children: [
           { id: 'collapsible-code-block', label: 'Code Block', section: 'blocks' },
-        ],
-      },
-      {
-        id: 'social',
-        label: 'Social',
-        children: [
-          { id: 'open-graph-card', label: 'Open Graph Card', section: 'blocks' },
         ],
       },
     ],
@@ -266,6 +260,7 @@ export const navigationTree: NavigationItem[] = [
     id: 'motion',
     label: 'Motion',
     icon: <div className="w-4 h-4 flex items-center justify-center font-bold text-xs" style={{ fontFamily: 'serif', fontStyle: 'italic' }}>ƒ</div>,
+    section: 'motion',
     children: [
       {
         id: 'primitives',
@@ -310,41 +305,10 @@ export const navigationTree: NavigationItem[] = [
     ],
   },
   {
-    id: 'charts',
-    label: 'Charts',
-    icon: <div className="w-4 h-4 flex items-center justify-center font-bold text-xs">📊</div>,
-    children: [
-      {
-        id: 'overview',
-        label: 'Overview',
-        section: 'charts',
-      },
-      {
-        id: 'area-chart',
-        label: 'Area Chart',
-        section: 'charts',
-      },
-      {
-        id: 'bar-chart',
-        label: 'Bar Chart',
-        section: 'charts',
-      },
-      {
-        id: 'line-chart',
-        label: 'Line Chart',
-        section: 'charts',
-      },
-      {
-        id: 'pie-chart',
-        label: 'Pie Chart',
-        section: 'charts',
-      },
-    ],
-  },
-  {
     id: 'hooks',
     label: 'Hooks',
     icon: <Webhook className="w-4 h-4" />,
+    section: 'hooks',
     children: [
       {
         id: 'core',
@@ -363,6 +327,52 @@ export const navigationTree: NavigationItem[] = [
           { id: 'use-clipboard', label: 'useClipboard', section: 'hooks' },
         ]
       }
+    ],
+  },
+  {
+    id: 'templates',
+    label: 'Templates',
+    icon: <LayoutTemplate className="w-4 h-4" />,
+    section: 'templates',
+    children: [
+      {
+        id: 'templates-overview',
+        label: 'Overview',
+        section: 'templates',
+      },
+      {
+        id: 'brand-builder',
+        label: 'Brand Builder',
+        section: 'templates',
+      },
+      {
+        id: 'page-template',
+        label: 'Page Template',
+        section: 'templates',
+      },
+    ],
+  },
+  {
+    id: 'tools',
+    label: 'Tools',
+    icon: <Wrench className="w-4 h-4" />,
+    children: [
+      {
+        id: 'open-graph-card',
+        label: 'Open Graph Card',
+        section: 'tools',
+      },
+      {
+        id: 'charts',
+        label: 'Charts',
+        children: [
+          { id: 'charts-overview', label: 'Overview', section: 'charts' },
+          { id: 'area-chart', label: 'Area Chart', section: 'charts' },
+          { id: 'bar-chart', label: 'Bar Chart', section: 'charts' },
+          { id: 'line-chart', label: 'Line Chart', section: 'charts' },
+          { id: 'pie-chart', label: 'Pie Chart', section: 'charts' },
+        ],
+      },
     ],
   },
   {

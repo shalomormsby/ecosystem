@@ -1,12 +1,25 @@
 # Sage UI - To Do
 
+
 This document tracks planned improvements and enhancements to the Sage UI.
+
+## 📋 Projects Overview
+
+| Project | Status | Progress | Completion Date |
+| :--- | :--- | :--- | :--- |
+| **Dynamic Color System** | 🟡 In Progress | Phase 1 Complete, Phase 2-3 Planned | - |
+| **Strategic Rebrand** | 🟡 In Progress | Phase 1-2 Complete, Phase 3 Planned | - |
+| **Motion Intensity Slider** | 🟡 In Progress | Infrastructure ready, 43 files to update | - |
+| **Motion Section Evolution**| 🟡 In Progress | Primitives done, Placeholders ongoing | - |
+| **Sage UI Home Page** | 🔴 Todo | Planned | - |
+| **GradientBuilder** | 🔴 Todo | Proposed | - |
+
 
 ---
 
 ## 🎨 Dynamic Color Customization System
 **Date Started:** 2026-01-20
-**Status:** Week 1-2 Complete, Week 3-4 Planned
+**Status:** Phase 1 Complete, Phase 2-3 Planned
 **Priority:** High
 
 ### Project Overview
@@ -14,7 +27,7 @@ Enable users to define a primary color in the Customizer that automatically ripp
 
 ### Implementation Phases
 
-#### ✅ Week 1-2: Curated Palette Library + UI (COMPLETE)
+#### ✅ Phase 1: Curated Palette Library + UI (COMPLETE)
 
 **Phase 1A: Color Engine & Token Infrastructure**
 - [x] Create `@thesage/tokens/color-utils.ts` - Standalone color transformation utilities
@@ -106,7 +119,7 @@ Enable users to define a primary color in the Customizer that automatically ripp
 
 ---
 
-#### 📋 Week 3: Primary + Secondary Color Support (PLANNED)
+#### 📋 Phase 2: Primary + Secondary Color Support (PLANNED)
 
 **Phase 2A: Advanced Mode Toggle**
 - [ ] Add `customizationMode` toggle to CustomizerPanel UI
@@ -144,7 +157,7 @@ Enable users to define a primary color in the Customizer that automatically ripp
 
 ---
 
-#### 📋 Week 4: Integration + Polish (PLANNED)
+#### 📋 Phase 3: Integration + Polish (PLANNED)
 
 **Phase 3A: Palette Enhancements**
 - [ ] Add "Save Custom Palette" functionality
@@ -204,7 +217,7 @@ Enable users to define a primary color in the Customizer that automatically ripp
 
 ### Success Metrics
 
-**Week 1-2 (Complete):**
+**Phase 1 (Complete):**
 - ✅ 21 curated palettes available
 - ✅ ColorPicker component functional
 - ✅ PalettesTab UI complete and responsive
@@ -212,14 +225,14 @@ Enable users to define a primary color in the Customizer that automatically ripp
 - ✅ 15+ tokens update automatically from primary color
 - ✅ Production deployment successful
 
-**Week 3 (Planned):**
+**Phase 2 (Planned):**
 - [ ] Advanced mode toggle functional
 - [ ] Secondary and accent color pickers working
 - [ ] All three colors can be customized independently
 - [ ] Mode switching doesn't lose data unexpectedly
 - [ ] Browser tested across all themes and modes
 
-**Week 4 (Planned):**
+**Phase 3 (Planned):**
 - [ ] Save/load custom palettes working
 - [ ] Export/import functionality complete
 - [ ] Live preview mode functional
@@ -232,21 +245,21 @@ Enable users to define a primary color in the Customizer that automatically ripp
 ### Known Issues & Risks
 
 **Current Issues:**
-- None (Week 1-2 complete with no known issues)
+- None (Phase 1 complete with no known issues)
 
-**Week 3 Risks:**
+**Phase 2 Risks:**
 - Advanced mode UI could become cluttered (mitigation: collapsible sections)
 - Color harmony between primary/secondary/accent needs careful testing
 - Mode switching confirmation UX needs careful design
 
-**Week 4 Risks:**
+**Phase 3 Risks:**
 - localStorage size limits with many saved palettes (mitigation: limit to 10 saved)
 - Live preview performance on slower devices (mitigation: debounce updates)
 - Export/import security (mitigation: validate JSON structure)
 
 ---
 
-### Future Enhancements (Beyond Week 4)
+### Future Enhancements (Beyond Phase 3)
 
 - [ ] Palette sharing community (public palette gallery)
 - [ ] AI-powered palette generation from image upload
@@ -1106,17 +1119,17 @@ interface SavedGradientPreset {
 **Timeline:** 4-5 days → Maximum differentiation
 
 ### Recommended Hybrid Approach:
-1. **Week 1**: Build GradientPicker (Option A)
+1. **Phase 1**: Build GradientPicker (Option A)
    - Get 80% of value quickly
    - Validate user interest and usage patterns
    - Gather feedback on UI/UX approach
 
-2. **Week 2-3**: Evaluate and decide
+2. **Phase 2**: Evaluate and decide
    - If users love it and want more: Build GradientBuilder (Option B)
    - If usage is low: Iterate on GradientPicker
    - If feedback suggests different direction: Pivot
 
-3. **Month 2**: Advanced features
+3. **Phase 3**: Advanced features
    - Add multi-stop support to GradientPicker
    - Add preset management
    - Gradually evolve toward full GradientBuilder
@@ -1205,3 +1218,10 @@ This approach minimizes risk, maximizes learning, and aligns with agile principl
 7. **Documentation**: Write comprehensive docs
 8. **Launch**: Announce to community
 
+
+
+---
+
+## ✅ Completed Projects
+
+*(No top-level projects fully completed yet. See components within active projects above.)*

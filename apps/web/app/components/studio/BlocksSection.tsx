@@ -5,12 +5,13 @@ import { Card, Button } from '@thesage/ui';
 import { Header, SecondaryNav, TertiaryNav, Footer, Modal, ToastProvider, useToast, CollapsibleCodeBlock, Code, CustomizerPanel, Breadcrumbs, PageLayout, type BreadcrumbItemLegacy } from '@thesage/ui';
 import { SlidersHorizontal, Sun, Moon, SunMoon, Building2, Leaf, Zap, X } from 'lucide-react';
 import type { SyntaxToken } from '@thesage/ui';
+import { BlocksOverview } from './BlocksOverview';
 import { HeroBlockPage } from './pages/blocks/HeroBlockPage';
 import { OpenGraphCardPage } from './pages/blocks/OpenGraphCardPage';
 import { EnhancedComponentPlayground } from './ComponentsSection/EnhancedComponentPlayground';
 import { componentRegistry } from '../lib/component-registry';
 
-type BlockType = 'PageLayout' | 'PrimaryNav' | 'SecondaryNav' | 'TertiaryNav' | 'FirstStack' | 'SecondStack' | 'Footer' | 'Toast' | 'Modal' | 'CollapsibleCodeBlock' | 'HeroBlock' | 'OpenGraphCard';
+type BlockType = 'overview' | 'PageLayout' | 'PrimaryNav' | 'SecondaryNav' | 'TertiaryNav' | 'FirstStack' | 'SecondStack' | 'Footer' | 'Toast' | 'Modal' | 'CollapsibleCodeBlock' | 'HeroBlock' | 'OpenGraphCard';
 
 interface BlocksSectionProps {
   activeItemId?: string;
@@ -102,7 +103,7 @@ function ModalDemo() {
 
 
 export function BlocksSection({ activeItemId, breadcrumbs, onItemChange }: BlocksSectionProps) {
-  const [selectedPattern, setSelectedPattern] = useState<BlockType>('PrimaryNav');
+  const [selectedPattern, setSelectedPattern] = useState<BlockType>('overview');
 
   // Update selected pattern when activeItemId changes
   useEffect(() => {
@@ -117,6 +118,8 @@ export function BlocksSection({ activeItemId, breadcrumbs, onItemChange }: Block
       if (['PageLayout', 'PrimaryNav', 'SecondaryNav', 'TertiaryNav', 'FirstStack', 'SecondStack', 'Footer', 'Toast', 'Modal', 'CollapsibleCodeBlock', 'HeroBlock', 'OpenGraphCard'].includes(patternName)) {
         setSelectedPattern(patternName);
       }
+    } else {
+      setSelectedPattern('overview');
     }
   }, [activeItemId]);
 
@@ -156,6 +159,10 @@ export function BlocksSection({ activeItemId, breadcrumbs, onItemChange }: Block
 
       {/* Block Display with spacing for sticky nav */}
       <div className="mt-4">
+        {selectedPattern === 'overview' && (
+          <BlocksOverview onNavigate={(id) => onItemChange?.(id)} />
+        )}
+
         {/* Page Layout Component */}
         {selectedPattern === 'PageLayout' && (
           <section className="space-y-6">
