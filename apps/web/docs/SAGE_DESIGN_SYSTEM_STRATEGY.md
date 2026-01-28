@@ -97,7 +97,7 @@ Layout (8)         → Accordion, AspectRatio, Carousel, Collapsible,
 ### Current Focus
 
 **✅ MCP Server MVP Complete (2026-01-14):**
-- Full implementation at `packages/sds-mcp-server`
+- Full implementation at `packages/mcp`
 - Four MCP tools for component discovery and installation
 - Multi-client support (Claude Desktop, Cursor, VS Code)
 - Documentation live at https://studio.shalomormsby.com/#mcp-server

@@ -198,7 +198,7 @@ cd ecosystem`}
   "mcpServers": {
     "sds-local": {
       "command": "node",
-      "args": ["/absolute/path/to/ecosystem/packages/sds-mcp-server/dist/index.js"]
+      "args": ["/absolute/path/to/ecosystem/packages/mcp/dist/index.js"]
     }
   }
 }`}
@@ -222,7 +222,7 @@ cd ecosystem`}
   "mcpServers": {
     "sds-local": {
       "command": "node",
-      "args": ["/absolute/path/to/ecosystem/packages/sds-mcp-server/dist/index.js"]
+      "args": ["/absolute/path/to/ecosystem/packages/mcp/dist/index.js"]
     }
   }
 }`}
