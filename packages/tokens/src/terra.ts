@@ -1,10 +1,10 @@
 /**
- * Sage Theme Tokens
+ * Terra Theme Tokens
  * Calm, organic, feminine/yin design
  * Muted earth tones, flowing animations
  */
 
-export const sageTokens = {
+export const terraTokens = {
   light: {
     colors: {
       // Warm, earthy backgrounds
@@ -185,23 +185,23 @@ export const sageTokens = {
 
   typography: {
     heading: {
-      fontFamily: 'var(--font-sage-serif)', // Lora serif
+      fontFamily: 'var(--font-terra-serif)', // Lora serif
       fontWeight: '600',
       letterSpacing: '-0.01em',
     },
 
     body: {
-      fontFamily: 'var(--font-sage-sans)', // Instrument Sans
+      fontFamily: 'var(--font-terra-sans)', // Instrument Sans
       fontWeight: '400',
       letterSpacing: '0',
     },
 
     mono: {
-      fontFamily: 'var(--font-sage-mono)',
+      fontFamily: 'var(--font-terra-mono)',
       fontWeight: '400',
       letterSpacing: '0',
     },
   },
 } as const;
 
-export type SageTheme = typeof sageTokens;
+export type TerraTheme = typeof terraTokens;

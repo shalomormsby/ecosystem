@@ -7,13 +7,13 @@
 
 import { useEffect, useState } from 'react';
 import { useThemeStore } from '../store/theme';
-import { studioTokens, sageTokens, voltTokens, syntaxColors, codeColors } from '@thesage/tokens';
+import { studioTokens, terraTokens, voltTokens, syntaxColors, codeColors } from '@thesage/tokens';
 import type { ThemeName, ColorMode } from '@thesage/tokens';
 
 // Theme token map
 const themeTokens = {
   studio: studioTokens,
-  sage: sageTokens,
+  terra: terraTokens,
   volt: voltTokens,
 };
 
@@ -24,10 +24,10 @@ const fontFamilies = {
     body: 'var(--font-studio-body)',
     mono: 'var(--font-studio-mono)',
   },
-  sage: {
-    sans: 'var(--font-sage-sans)',
-    serif: 'var(--font-sage-serif)',
-    mono: 'var(--font-sage-mono)',
+  terra: {
+    sans: 'var(--font-terra-sans)',
+    serif: 'var(--font-terra-serif)',
+    mono: 'var(--font-terra-mono)',
   },
   volt: {
     sans: 'var(--font-volt-sans)',
@@ -103,7 +103,7 @@ function getThemeVars(theme: ThemeName, mode: ColorMode): Record<string, string>
     '--effect-shadow-lg': effects?.shadow?.lg || effects?.shadow?.md || effects?.shadow?.sm || '0 10px 15px -3px rgba(0, 0, 0, 0.1)',
 
     // Typography - Font Families
-    '--font-heading': fonts?.heading || (theme === 'sage' && fonts?.serif ? fonts.serif : fonts?.sans) || 'var(--font-studio-heading)',
+    '--font-heading': fonts?.heading || (theme === 'terra' && fonts?.serif ? fonts.serif : fonts?.sans) || 'var(--font-studio-heading)',
     '--font-body': fonts?.body || fonts?.sans || 'var(--font-studio-body)',
     '--font-mono': fonts?.mono || 'var(--font-studio-mono)',
 

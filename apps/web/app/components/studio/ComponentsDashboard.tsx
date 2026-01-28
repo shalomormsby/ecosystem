@@ -1,12 +1,13 @@
 'use client';
 
 import { useState } from 'react';
-import { Heading, Text, Badge, Card, Accordion, AccordionItem, AccordionTrigger, AccordionContent } from '@thesage/ui';
+import { Heading, Text, Badge, Card, Breadcrumbs, type BreadcrumbItemLegacy } from '@thesage/ui';
 import { COMPONENT_REGISTRY, COMPONENT_COUNTS } from '@thesage/ui';
 import { Package, ChevronDown, ArrowRight, MousePointerClick, FormInput, Compass, Layers, MessageSquare, BarChart3, Layout } from 'lucide-react';
 
 interface ComponentsDashboardProps {
   onNavigate?: (section: string, itemId?: string) => void;
+  breadcrumbs?: BreadcrumbItemLegacy[];
 }
 
 const CATEGORY_ICONS = {
@@ -19,7 +20,7 @@ const CATEGORY_ICONS = {
   layout: <Layout className="w-5 h-5" />,
 } as const;
 
-export function ComponentsDashboard({ onNavigate }: ComponentsDashboardProps) {
+export function ComponentsDashboard({ onNavigate, breadcrumbs }: ComponentsDashboardProps) {
   const [expandedCategories, setExpandedCategories] = useState<string[]>([]);
 
   const toggleCategory = (categoryKey: string) => {
@@ -50,7 +51,16 @@ export function ComponentsDashboard({ onNavigate }: ComponentsDashboardProps) {
   };
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 w-full min-w-0">
+      <div className="mb-8">
+        {/* Breadcrumbs */}
+        {breadcrumbs && breadcrumbs.length > 1 && (
+          <div className="mb-4">
+            <Breadcrumbs variant="subtle" items={breadcrumbs} />
+          </div>
+        )}
+      </div>
+
       {/* Header */}
       <div className="space-y-4">
         <div className="flex items-center gap-3">
@@ -129,9 +139,8 @@ export function ComponentsDashboard({ onNavigate }: ComponentsDashboardProps) {
                     {isExpanded ? 'Hide' : 'Show'} all components
                   </Text>
                   <ChevronDown
-                    className={`w-4 h-4 text-[var(--color-text-muted)] transition-transform ${
-                      isExpanded ? 'rotate-180' : ''
-                    }`}
+                    className={`w-4 h-4 text-[var(--color-text-muted)] transition-transform ${isExpanded ? 'rotate-180' : ''
+                      }`}
                   />
                 </button>
               </div>

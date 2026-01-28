@@ -9,6 +9,7 @@ import {
   SidebarContent,
   SidebarFooter,
   SidebarItem,
+  BRAND,
 } from '@thesage/ui';
 
 interface NavigationSidebarProps {
@@ -59,6 +60,52 @@ export function NavigationSidebar({
       localStorage.setItem('sage-sidebar-expanded', JSON.stringify(Array.from(expandedItems)));
     }
   }, [expandedItems, isMounted]);
+
+  // Auto-expand based on active section/item
+  useEffect(() => {
+    if (!activeSection) return;
+
+    setExpandedItems((prev) => {
+      const next = new Set(prev);
+
+      // Find the item in navigation tree
+      // 1. Check top-level items
+      const topLevelItem = navigationTree.find(item => item.section === activeSection || item.id === activeSection);
+      if (topLevelItem && topLevelItem.children) {
+        next.add(topLevelItem.id);
+      }
+
+      // 2. Check second-level items (if activeItemId is provided)
+      if (activeItemId) {
+        for (const item of navigationTree) {
+          if (item.children) {
+            const childMatch = item.children.find(child => child.id === activeItemId || child.section === activeItemId);
+            if (childMatch) {
+              next.add(item.id);
+              // If child has children of its own (3rd level), expand the child too
+              if (childMatch.children) {
+                next.add(childMatch.id);
+              }
+              break;
+            }
+            // Check 3rd level
+            for (const child of item.children) {
+              if (child.children) {
+                const grandChildMatch = child.children.find(grandChild => grandChild.id === activeItemId);
+                if (grandChildMatch) {
+                  next.add(item.id);
+                  next.add(child.id);
+                  break;
+                }
+              }
+            }
+          }
+        }
+      }
+
+      return next;
+    });
+  }, [activeSection, activeItemId]);
 
   const toggleExpanded = (id: string) => {
     setExpandedItems((prev) => {
@@ -114,7 +161,7 @@ export function NavigationSidebar({
           <div className="w-full flex items-center justify-between">
             <a href="/" className="hover:opacity-80 transition-opacity">
               <h2 className="text-lg font-bold text-foreground">
-                Sage UI
+                {BRAND.productName}
               </h2>
             </a>
             <button

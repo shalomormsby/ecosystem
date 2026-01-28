@@ -80,7 +80,7 @@ export default function NotFound() {
                 </Link>
               </Button>
               <Button variant="outline" size="lg" className="w-full sm:w-auto" asChild>
-                <Link href="/docs#overview">
+                <Link href="/docs#getting-started">
                   Browse Components
                 </Link>
               </Button>

@@ -132,6 +132,7 @@ export function ComponentsSection({ activeItemId, category, breadcrumbs, onItemC
       <div className="mt-4">
         {selectedComponent && componentRegistry[selectedComponent] ? (
           <EnhancedComponentPlayground
+            key={selectedComponent}
             componentName={selectedComponent}
             config={componentRegistry[selectedComponent]}
           />

@@ -1,7 +1,8 @@
 'use client';
 
 import { useEffect } from 'react';
-import { Button, FaultyTerminal } from '@thesage/ui';
+import { Button, FaultyTerminal, Typewriter, Footer, Header } from '@thesage/ui';
+import Link from 'next/link';
 
 export default function Error({
   error,
@@ -16,76 +17,93 @@ export default function Error({
   }, [error]);
 
   return (
-    <div className="min-h-screen relative flex items-center justify-center overflow-hidden bg-black">
+    <div className="min-h-screen flex flex-col relative overflow-hidden bg-black dark">
       {/* Background */}
       <div className="absolute inset-0 z-0">
         <FaultyTerminal tint="#ef4444" />
       </div>
 
-      <div className="max-w-md w-full px-6 py-12 text-center relative z-10 dark">
-        <div className="space-y-6">
-          {/* Error Icon - 404 Text */}
-          <div className="flex justify-center select-none">
-            <h1
-              className="text-[12rem] leading-none font-black text-transparent"
-              style={{
-                WebkitTextStroke: '4px var(--color-error)'
-              }}
-            >
-              404
-            </h1>
-          </div>
+      <div className="flex-1 flex items-center justify-center relative z-10 w-full px-6 pointer-events-none">
+        <div className="max-w-xl w-full text-center pointer-events-auto">
+          <div className="space-y-8">
+            {/* Error Icon - 404 Text (Preserving standard 404 look even for errors) */}
+            <div className="flex flex-col items-center justify-center select-none pt-[75px] md:pt-[100px]">
+              <h1
+                className="text-[12rem] leading-none font-black text-transparent"
+                style={{
+                  WebkitTextStroke: '4px var(--color-error)'
+                }}
+              >
+                404
+              </h1>
+              <h2 className="text-4xl font-bold text-[var(--color-text-primary)] mt-[-20px] mb-8">
+                Sorry, my bad.
+              </h2>
+            </div>
 
-          {/* Error Message */}
-          <div className="space-y-2 -mt-8 relative z-10">
-            <h2 className="text-4xl font-bold text-[var(--color-text-primary)]">
-              Sorry, my bad.
-            </h2>
-            <p className="text-[var(--color-text-secondary)]">
-              An unexpected error occurred while loading this page. Please try again.
-            </p>
+            {/* Typewriter Message Container */}
+            <div className="bg-black border border-white/20 p-6 rounded-lg shadow-[0_0_30px_rgba(0,0,0,0.5)] backdrop-blur-sm relative z-20">
+              <div
+                className="min-h-[60px] flex items-center justify-center"
+                style={{ fontFamily: 'var(--font-jetbrains-mono)' }}
+              >
+                <Typewriter
+                  text={error.message || "An unexpected error occurred while loading this page. Please try again.   ¯\\_(ツ)_/¯"}
+                  speed={0.03}
+                  loop={false}
+                  cursor="_"
+                  className="text-sm md:text-base text-[var(--color-text-primary)] leading-relaxed font-normal"
+                  as="p"
+                />
+              </div>
+            </div>
+
+            {/* Technical Details (Hidden by default but accessible) */}
             {error.message && (
-              <details className="mt-4 text-left">
-                <summary className="text-sm text-[var(--color-text-muted)] cursor-pointer hover:text-[var(--color-text-secondary)]">
+              <details className="text-left max-w-md mx-auto">
+                <summary className="text-xs text-[var(--color-text-muted)] cursor-pointer hover:text-[var(--color-text-secondary)] text-center mb-2">
                   Technical details
                 </summary>
-                <pre className="mt-2 p-3 bg-[var(--color-surface)] rounded text-xs overflow-x-auto text-[var(--color-text-secondary)] border border-[var(--color-border)]">
-                  {error.message}
-                </pre>
+                <div className="bg-[var(--color-surface)] border border-[var(--color-border)] p-4 rounded-lg overflow-x-auto">
+                  <pre className="text-xs font-mono text-[var(--color-text-secondary)] whitespace-pre-wrap break-all">
+                    {error.message}
+                    {error.digest && `\nDigest: ${error.digest}`}
+                    {error.stack && `\n\n${error.stack}`}
+                  </pre>
+                </div>
               </details>
             )}
-          </div>
 
-          {/* Actions */}
-          <div className="flex flex-col sm:flex-row gap-3 justify-center pt-8">
-            <Button variant="default" size="lg" onClick={reset}>
-              Try Again
-            </Button>
-            <Button
-              variant="outline"
-              size="lg"
-              onClick={() => {
-                // Force a hard reload to the root to clear any stuck states
-                window.location.href = window.location.origin;
-              }}
-            >
-              Go to Homepage
-            </Button>
-          </div>
+            {/* Actions */}
+            <div className="flex flex-col sm:flex-row gap-3 justify-center pt-8 pb-12">
+              <Button variant="default" size="lg" className="w-full sm:w-auto" onClick={reset}>
+                Try Again
+              </Button>
+              <Button
+                variant="outline"
+                size="lg"
+                className="w-full sm:w-auto"
+                onClick={() => {
+                  window.location.href = window.location.origin;
+                }}
+              >
+                Go to Homepage
+              </Button>
+            </div>
 
-          {/* Help Text */}
-          <p className="text-sm text-[var(--color-text-muted)] pt-4">
-            If this problem persists, please{' '}
-            <a
-              href="https://github.com/shalomormsby/ecosystem/issues"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-[var(--color-primary)] hover:underline"
-            >
-              report an issue
-            </a>
-            .
-          </p>
+            <p className="text-sm text-[var(--color-text-muted)] pb-[75px] md:pb-[100px]">
+              If this problem persists, please{' '}
+              <a
+                href="https://github.com/shalomormsby/ecosystem/issues"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[var(--color-primary)] hover:underline"
+              >
+                report an issue
+              </a>
+              .
+            </p>
+          </div>
         </div>
       </div>
     </div>

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Card } from '@thesage/ui';
 import type { ComponentConfig } from '../../lib/component-registry';
 import { CodeSnippet } from './CodeSnippet';
@@ -21,6 +21,11 @@ export function EnhancedComponentPlayground({ componentName, config }: Component
     )
   );
   const [copied, setCopied] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const Component = config.component;
 
@@ -129,7 +134,14 @@ pnpm add @thesage/ui`;
         </div>
 
         <Card hoverEffect={false} className="p-16 flex items-center justify-center min-h-[300px] bg-white dark:bg-black">
-          {componentName === 'Card' ? (
+          {!mounted ? (
+            <div className="flex flex-col items-center gap-2 text-[var(--color-text-muted)]">
+              <span className="animate-spin duration-1000">
+                <Settings className="w-6 h-6" />
+              </span>
+              <span className="text-sm">Loading preview...</span>
+            </div>
+          ) : componentName === 'Card' ? (
             <Component {...props} className="w-[350px]">
               <div className="p-6 space-y-4">
                 <div>
@@ -183,7 +195,7 @@ console.log(result); // 55`}
               onCheckedChange={(checked: boolean) => updateProp('checked', checked)}
             />
           ) : (
-            <Component {...props} isOpen={config.props['isOpen'] ? (props.isOpen ?? true) : undefined}>
+            <Component {...props}>
               {componentName === 'Button' ? 'Click me' : props.children || config.examples[0]?.children}
             </Component>
           )}

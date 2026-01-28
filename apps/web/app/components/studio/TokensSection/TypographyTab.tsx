@@ -12,9 +12,9 @@ const themeFontVars = {
     body: 'var(--font-studio-body)',
     mono: 'var(--font-mono)',
   },
-  sage: {
-    heading: 'var(--font-sage-heading)',
-    body: 'var(--font-sage-body)',
+  terra: {
+    heading: 'var(--font-terra-heading)',
+    body: 'var(--font-terra-body)',
     mono: 'var(--font-mono)',
   },
   volt: {
@@ -25,11 +25,11 @@ const themeFontVars = {
 };
 
 export function TypographyTab() {
-  const [selectedTheme, setSelectedTheme] = useState<'studio' | 'sage' | 'volt'>('studio');
+  const [selectedTheme, setSelectedTheme] = useState<'studio' | 'terra' | 'volt'>('studio');
 
   const themes = [
     { id: 'studio' as const, label: 'Studio', icon: <Building2 className="w-5 h-5" /> },
-    { id: 'sage' as const, label: 'Sage', icon: <Leaf className="w-5 h-5" /> },
+    { id: 'terra' as const, label: 'Terra', icon: <Leaf className="w-5 h-5" /> },
     { id: 'volt' as const, label: 'Volt', icon: <Zap className="w-5 h-5" /> },
   ];
 

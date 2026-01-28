@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { Card, Button, Heading, Text, Badge } from '@thesage/ui';
 import { Code, CollapsibleCodeBlock } from '@thesage/ui';
-import { COMPONENT_COUNTS, COMPONENT_REGISTRY, MARKETING_COPY } from '@thesage/ui';
+import { COMPONENT_COUNTS, COMPONENT_REGISTRY, MARKETING_COPY, BRAND } from '@thesage/ui';
 import { useTheme } from '@thesage/ui/hooks';
 import {
   Sliders, Building2, Leaf, Zap, Sun, Moon, Laptop, Palette, Bot, BookOpen,
@@ -75,7 +75,7 @@ function OverviewCustomizerPreview() {
               <div className="grid grid-cols-3 gap-1.5">
                 {[
                   { id: 'studio', icon: <Building2 className="w-3 h-3" /> },
-                  { id: 'sage', icon: <Leaf className="w-3 h-3" /> },
+                  { id: 'terra', icon: <Leaf className="w-3 h-3" /> },
                   { id: 'volt', icon: <Zap className="w-3 h-3" /> },
                 ].map((t) => (
                   <button
@@ -135,7 +135,7 @@ export function OverviewSection() {
       <section className="border-b border-[var(--color-border)] pb-12">
         <div className="text-center max-w-5xl mx-auto">
           <h1 className="text-4xl sm:text-5xl font-bold mb-6 text-[var(--color-text-primary)]">
-            Sage UI
+            {BRAND.productName}
           </h1>
           <p className="text-base text-[var(--color-text-secondary)] leading-relaxed">
             The Solopreneur's Development Stack. AI-Native components for velocity.
@@ -265,7 +265,7 @@ export function OverviewSection() {
                 Themes
               </Heading>
               <Text variant="secondary" size="sm" className="mb-4">
-                Studio, Sage, and Volt themes with light and dark modes. Each with unique personality and complete token systems.
+                Studio, Terra, and Volt themes with light and dark modes. Each with unique personality and complete token systems.
               </Text>
               <Text variant="primary" size="sm" className="font-medium">
                 Explore Themes →
@@ -449,7 +449,7 @@ export function OverviewSection() {
                 In practice:
               </p>
               <p className="text-xs text-[var(--color-text-secondary)]">
-                Three distinct themes (Studio, Sage, Volt) with unique personalities. Motion that enhances rather than distracts. Color palettes that respect accessibility while expressing emotion.
+                Three distinct themes (Studio, Terra, Volt) with unique personalities. Motion that enhances rather than distracts. Color palettes that respect accessibility while expressing emotion.
               </p>
             </div>
           </Card>
@@ -675,8 +675,8 @@ export function MotionAwareComponent() {
                 </button>
 
                 <button
-                  onClick={() => setTheme('sage')}
-                  className={`p-4 rounded-lg border-2 transition-all ${theme === 'sage'
+                  onClick={() => setTheme('terra')}
+                  className={`p-4 rounded-lg border-2 transition-all ${theme === 'terra'
                     ? 'border-[var(--color-primary)] bg-[var(--color-primary)]/10'
                     : 'border-[var(--color-border)] hover:border-[var(--color-primary)]/50'
                     }`}
@@ -684,7 +684,7 @@ export function MotionAwareComponent() {
                   <div className="mb-2 text-[var(--color-primary)]">
                     <Leaf className="w-6 h-6" />
                   </div>
-                  <h4 className="font-semibold text-[var(--color-text-primary)]">Sage</h4>
+                  <h4 className="font-semibold text-[var(--color-text-primary)]">Terra</h4>
                   <p className="text-xs text-[var(--color-text-secondary)]">
                     Calm, organic, thoughtful
                   </p>
@@ -716,7 +716,7 @@ export function ThemeSwitcher() {
 
   return (
     <>
-      <button onClick={() => setTheme('sage')}>Sage</button>
+      <button onClick={() => setTheme('terra')}>Sage</button>
       <button onClick={() => setMode('dark')}>Dark Mode</button>
     </>
   );
@@ -1634,7 +1634,7 @@ export function Dashboard() {
             </p>
             <div className="flex items-center justify-center gap-4 text-xs">
               <a
-                href="#overview"
+                href="#getting-started"
                 className="text-[var(--color-primary)] hover:underline"
               >
                 📖 Full Documentation

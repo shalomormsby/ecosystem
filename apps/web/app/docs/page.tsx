@@ -24,8 +24,13 @@ import { McpSection } from '../components/studio/McpSection';
 import { ToolsSection } from '../components/studio/ToolsSection';
 import { DragDropPage } from '../components/studio/pages/forms/DragDropPage';
 import { ComponentsDashboard } from '../components/studio/ComponentsDashboard';
+import { GettingStartedSection } from '../components/studio/GettingStartedSection';
+import { DesignTokensOverview } from '../components/studio/DesignTokensOverview';
+import { ThemesOverview } from '../components/studio/ThemesOverview';
+import { ToolsOverview } from '../components/studio/ToolsOverview';
 
 type Section =
+    | 'getting-started'
     | 'overview'
     | 'architecture'
     | 'adding-components'
@@ -51,6 +56,16 @@ type Section =
 
 // Route configuration for breadcrumb labels
 const routeConfig: RouteConfig = {
+    'getting-started': {
+        label: 'Getting Started',
+        children: {
+
+            architecture: { label: 'Architecture' },
+            'adding-components': { label: 'Adding Components' },
+            'common-patterns': { label: 'Common Patterns' },
+            contributing: { label: 'Contributing' },
+        }
+    },
     overview: { label: 'Overview' },
     architecture: { label: 'Architecture' },
     'adding-components': {
@@ -66,7 +81,6 @@ const routeConfig: RouteConfig = {
     'mcp-server': {
         label: 'MCP Server',
         children: {
-            overview: { label: 'Overview' },
             installation: { label: 'Installation' },
             tools: { label: 'Available Tools' },
             usage: { label: 'Usage Guide' },
@@ -192,8 +206,6 @@ const routeConfig: RouteConfig = {
     templates: {
         label: 'Templates',
         children: {
-            'templates-overview': { label: 'Overview' },
-            'brand-builder': { label: 'Brand Builder' },
             'page-template': { label: 'Page Template' },
         }
     },
@@ -221,6 +233,7 @@ const routeConfig: RouteConfig = {
     tools: {
         label: 'Tools',
         children: {
+            'brand-builder': { label: 'Brand Builder' },
             'open-graph-card': { label: 'Open Graph Card' },
             charts: { label: 'Charts' },
         }
@@ -488,6 +501,15 @@ export default function StudioPage() {
                 {/* Content Area */}
                 <div className="flex-1 flex flex-row min-w-0 w-full">
                     <div className="flex-1 px-4 sm:px-6 lg:px-8 py-8 w-full max-w-7xl mx-auto min-w-0">
+                        {/* Getting Started Section */}
+                        {activeSection === 'getting-started' && (
+                            <GettingStartedSection
+                                breadcrumbs={breadcrumbs}
+                                activeItemId={activeItemId}
+                                onItemChange={(itemId: string) => setActiveItemId(itemId)}
+                            />
+                        )}
+
                         {activeSection === 'overview' && <OverviewSection />}
                         {activeSection === 'architecture' && <ArchitectureSection breadcrumbs={breadcrumbs} />}
                         {activeSection === 'adding-components' && (
@@ -525,6 +547,7 @@ export default function StudioPage() {
                         {/* Components Dashboard */}
                         {activeSection === 'components' && (
                             <ComponentsDashboard
+                                breadcrumbs={breadcrumbs}
                                 onNavigate={(section, itemId) => {
                                     setActiveSection(section as Section);
                                     setActiveItemId(itemId || section);

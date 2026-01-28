@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { Breadcrumbs, TertiaryNav, CollapsibleCodeBlock, Card, PageTemplate, Footer, Brand, type BreadcrumbItemLegacy } from '@thesage/ui';
 import { ExternalLink, Layout, Ruler, Type, LayoutGrid, Scale, Sparkles, ArrowDown, Lightbulb } from 'lucide-react';
-import { BrandBuilder } from './BrandBuilder/BrandBuilder';
+import { TemplatesOverview } from './TemplatesOverview';
 
 interface TemplatesSectionProps {
   breadcrumbs?: BreadcrumbItemLegacy[];
@@ -12,12 +12,14 @@ interface TemplatesSectionProps {
 }
 
 export function TemplatesSection({ breadcrumbs, activeItemId, onItemChange }: TemplatesSectionProps) {
-  const [selectedTemplate, setSelectedTemplate] = useState(activeItemId || 'templates-overview');
+  const [selectedTemplate, setSelectedTemplate] = useState('templates-overview');
 
   // Sync selectedTemplate with activeItemId when it changes (from sidebar navigation)
   useEffect(() => {
-    if (activeItemId && ['templates-overview', 'brand-builder', 'page-template'].includes(activeItemId)) {
+    if (activeItemId && ['templates-overview', 'page-template'].includes(activeItemId)) {
       setSelectedTemplate(activeItemId);
+    } else if (!activeItemId || activeItemId === 'templates') {
+      setSelectedTemplate('templates-overview');
     }
   }, [activeItemId]);
 
@@ -39,54 +41,9 @@ export function TemplatesSection({ breadcrumbs, activeItemId, onItemChange }: Te
 
       {/* Template Content */}
       <div className="mt-4">
-        {selectedTemplate === 'templates-overview' && <OverviewContent />}
-        {selectedTemplate === 'brand-builder' && <BrandBuilder />}
+        {selectedTemplate === 'templates-overview' && <TemplatesOverview onNavigate={handleTemplateChange} />}
         {selectedTemplate === 'page-template' && <PageTemplateContent />}
       </div>
-    </div>
-  );
-}
-
-function OverviewContent() {
-  return (
-    <div className="space-y-6">
-      <Card className="p-6">
-        <h3 className="text-xl font-semibold mb-3 text-[var(--color-text-primary)]">
-          What are Templates?
-        </h3>
-        <p className="text-[var(--color-text-secondary)] mb-4">
-          Templates compose functionally-organized components into complete page layouts. They provide opinionated structure
-          and best practices for common page patterns, combining components from across all categories.
-        </p>
-        <ul className="list-disc list-inside space-y-2 text-[var(--color-text-secondary)]">
-          <li>Compose multiple patterns and components into coherent page structures</li>
-          <li>Enforce consistent spacing and layout principles</li>
-          <li>Provide sensible defaults while allowing customization</li>
-          <li>Demonstrate Swiss Grid Design principles in practice</li>
-        </ul>
-      </Card>
-
-      <Card className="p-6">
-        <h3 className="text-xl font-semibold mb-3 text-[var(--color-text-primary)]">
-          Available Templates
-        </h3>
-        <div className="space-y-4">
-          <div className="border-l-4 border-[var(--color-primary)] pl-4">
-            <h4 className="font-semibold text-[var(--color-text-primary)]">Brand Builder</h4>
-            <p className="text-sm text-[var(--color-text-secondary)]">
-              Interactive brand identity creation tool combining typography, color palettes, and logotype composition.
-              Export as SVG, CSS variables, or JSON config.
-            </p>
-          </div>
-          <div className="border-l-4 border-[var(--color-primary)] pl-4">
-            <h4 className="font-semibold text-[var(--color-text-primary)]">Page Template</h4>
-            <p className="text-sm text-[var(--color-text-secondary)]">
-              Swiss Grid-based page layout with header, title, breadcrumbs, and content area.
-              Perfect for blog posts, documentation, and standard app pages.
-            </p>
-          </div>
-        </div>
-      </Card>
     </div>
   );
 }

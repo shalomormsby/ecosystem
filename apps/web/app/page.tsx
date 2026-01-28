@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { Header, Button } from '@thesage/ui';
+import { Header, Button, BRAND } from '@thesage/ui';
 import { Github } from 'lucide-react';
 import { SageHero } from './components/landing/SageHero';
 import { LayerVisualization } from './components/landing/LayerVisualization';
@@ -22,7 +22,7 @@ export default function LandingPage() {
   return (
     <main className="min-h-screen bg-[var(--color-background)] selection:bg-[var(--color-primary)] selection:text-white">
       <Header
-        logo={<span className="text-xl font-bold tracking-tight">Sage UI</span>}
+        logo={<span className="text-xl font-bold tracking-tight">{BRAND.productName}</span>}
         navAlignment="right"
         navLinks={[
           { label: 'Documentation', href: '/docs' },

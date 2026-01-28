@@ -2,7 +2,121 @@
 
 All notable changes to this project will be documented in this file.
 
-**Last updated:** 2026-01-27 20:00 PST
+**Last updated:** 2026-01-28 01:00 PST
+
+## 2026-01-28T01:00:00Z
+
+### ✅ Standardized Breadcrumb Placement
+
+**Fixed systemic inconsistency in breadcrumb hierarchy across documentation**
+
+Audit revealed that breadcrumbs were inconsistently placed (sometimes below title, sometimes above) and handled redundantly by parent components. This update unifies the UX by ensuring breadcrumbs always appear at the very top of the content area.
+
+**Key Changes:**
+
+**1. Hierarchy Standardization**
+- **Rule:** Breadcrumbs > Title > Description > Content.
+- **Implementation:** Moved breadcrumb rendering block to the top of the header `div` in all section components.
+- **Affected Sections:** `ArchitectureSection`, `AddingComponentsSection`, `CommonPatternsSection`, `ContributingSection`.
+
+**2. Component Delegation**
+- **Refactor:** Removed breadcrumb rendering from parent `GettingStartedSection`.
+- **Logic:** Child components now strictly handle their own breadcrumbs, preventing duplication and state mismatches.
+- **Benefit:** Cleaner prop drilling and reliable rendering regardless of routing depth.
+
+**3. Verification:**
+- ✅ Validated breadcrumb placement in all documentation sections.
+- ✅ Confirmed `DocsPage` passes props correctly.
+- ✅ Fixed specific duplication in `ToolsSection` / `ChartsSections`.
+
+---
+
+### ✅ Ecosystem-Wide Branding Update: Sage Design Engine & Terra Theme
+
+**Strategic realignment of product identity and theme nomenclature**
+
+Executed a comprehensive branding update to position the ecosystem as a "Design Engine" rather than just a UI library, and resolved naming collisions between the product and its default theme.
+
+**Key Changes:**
+
+**1. Product Rename: "Sage Design Engine"**
+- Transitioned user-facing branding from "Sage UI" to "Sage Design Engine".
+- **Tokenized Branding:** Refactored product name into a single "Source of Truth" design token (`BRAND.productName`) in `component-registry.ts`.
+  - Implements "Change once, ripple everywhere" philosophy for brand identity.
+  - Consumed by `OverviewSection`, `SageHero`, `page.tsx` (header), and `layout.tsx` (metadata).
+- Updated Landing Page hero, window metadata, OpenGraph tags, and main Overview heading.
+- **Why:** "UI Library" implies a static kit. "Design Engine" accurately reflects the architectural capabilities (Tokens → Primitives → Patterns → Archetypes) and AI-native nature of the system.
+- **Note:** npm packages purposefully remain `@thesage/*` for stability and brand consistency.
+- **Documentation:** Added new "Brand" tab to Design Tokens section, documenting the token and implementation philosophy.
+
+**2. Theme Rename: "Terra" (formerly Sage)**
+- Renamed the default organic theme from "Sage" to "Terra".
+- Updated all code references: `sageTokens` → `terraTokens`, CSS variables `--font-sage-*` → `--font-terra-*`.
+- Updated Customizer and Theme Switcher UIs.
+- **Why:** Distinguishes the *content* (Terra: earthy, organic) from the *container* (Sage: the engine itself).
+
+**3. Verification:**
+- ✅ Validated full build (`pnpm build`).
+- ✅ Verified Customizer theme switching works.
+- ✅ Verified fonts load correctly with new variable names.
+- ✅ Confirmed Landing Page and Documentation reflect new naming.
+
+---
+
+## 2026-01-27T22:00:00Z
+
+### ✅ Completed Standardized Overview Pages & Templates
+
+**Implemented "Change Once, Ripple Everywhere" architecture for documentation pages**
+
+TRANSFORMATIVE UPDATE: Replaced ad-hoc overview pages with a standardized, template-driven architecture. This ensures every section of the documentation (Getting Started, Design Tokens, Themes, Tools, MCP, Templates) follows a coherent visual language and structure, while dramatically reducing maintenance overhead.
+
+**What Was Built:**
+
+**1. Reusable Layout Templates**
+- **SectionOverview.tsx**: Smart template component that standardizes page layout:
+  - Header with icon, dynamic badges, and title
+  - Description text area
+  - Grid navigation for child pages (automatically rendered as clickable cards)
+  - Resources section support
+- **SectionOverviewSimple.tsx**: Lightweight variant for informational content without complex navigation.
+
+**2. Standardized Overview Pages**
+Refactored all major section roots to use the new templates:
+- **DesignTokensOverview.tsx**: 5 token categories (Colors, Typography, etc.)
+- **ThemesOverview.tsx**: Theme features and capabilities
+- **ToolsOverview.tsx**: Brand Builder, Open Graph Card, Charts
+- **TemplatesOverview.tsx**: Swiss Grid principles and page templates
+- **McpOverview.tsx**: Rich content with Features, Documentation, and Resources
+- **GettingStartedOverview.tsx**: 5-step documentation journey
+
+**3. Application Architecture Updates**
+- **Navigation Tree**: 
+  - Added `section` attributes to all top-level items for active state tracking
+  - Cleaned up routing (removed redundant "Overview" children)
+  - Moved "Brand Builder" from Templates → Tools
+- **Routing**:
+  - Updated `page.tsx` to handle new Getting Started routing
+  - Configured route mapping for all new overview components
+
+**4. Design System Consumption (Dog-fooding)**
+- All new pages use 100% Sage UI components (`Heading`, `Text`, `Card`, `Badge`)
+- Strict adherence to design tokens (colors, spacing, typography)
+- Removed all hardcoded styles in favor of system utilities
+
+**Why This Matters:**
+This update validates the "Sage UI" strategic value proposition. By using a single `SectionOverview` template, we have:
+1. **Unified the User Experience**: Every section feels part of the same family.
+2. **Simplified Maintenance**: Updating the `SectionOverview` design instantly updates 6+ major pages.
+3. **Improved Navigation**: Consistent grid layouts make exploring sub-sections intuitive.
+
+**Verification:**
+- ✅ Build successful
+- ✅ Static pages generated (8/8)
+- ✅ Routing verified for all sections
+- ✅ Responsive design tested
+
+---
 
 ## 2026-01-27T20:00:00Z
 

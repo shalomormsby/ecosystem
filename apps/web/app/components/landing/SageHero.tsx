@@ -1,6 +1,6 @@
 'use client';
 
-import { HeroBlock, OrbBackground, Typewriter, useTheme } from '@thesage/ui';
+import { HeroBlock, OrbBackground, Typewriter, useTheme, BRAND } from '@thesage/ui';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
@@ -25,7 +25,7 @@ export function SageHero() {
             badge="Human Touch x AI Power"
             primaryCta={{
                 label: "Get Started",
-                onClick: () => router.push('/docs#overview'),
+                onClick: () => router.push('/docs#getting-started'),
                 variant: 'secondary'
             }}
             background={
@@ -38,7 +38,7 @@ export function SageHero() {
             }
         >
             <div className="mt-8 h-8 flex items-center justify-center text-[var(--color-text-secondary)] font-medium">
-                <span className="mr-2">Build smarter with Sage UI</span>
+                <span className="mr-2">Build smarter with {BRAND.productName}</span>
                 <span className="text-[var(--color-primary)]">
                     <Typewriter
                         text={['Tokens.', 'Components.', 'Blocks.', 'Templates.']}

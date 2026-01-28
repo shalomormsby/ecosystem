@@ -4,8 +4,10 @@ import { useState, useEffect } from 'react';
 import { Breadcrumbs, type BreadcrumbItemLegacy, Tabs, TabsList, TabsTrigger, TabsContent } from '@thesage/ui';
 import { ChartsSections } from './ChartsSections';
 import { OpenGraphCardPage } from './pages/blocks/OpenGraphCardPage';
+import { BrandBuilder } from './BrandBuilder/BrandBuilder';
+import { ToolsOverview } from './ToolsOverview';
 
-type ToolsTab = 'open-graph-card' | 'charts';
+type ToolsTab = 'tools-overview' | 'brand-builder' | 'open-graph-card' | 'charts';
 
 interface ToolsSectionProps {
   activeItemId?: string;
@@ -13,14 +15,20 @@ interface ToolsSectionProps {
   onItemChange?: (itemId: string) => void;
 }
 
-export function ToolsSection({ activeItemId = 'open-graph-card', breadcrumbs = [], onItemChange }: ToolsSectionProps) {
-  const [activeTab, setActiveTab] = useState<ToolsTab>('open-graph-card');
+export function ToolsSection({ activeItemId, breadcrumbs = [], onItemChange }: ToolsSectionProps) {
+  const [activeTab, setActiveTab] = useState<ToolsTab>('tools-overview');
 
   useEffect(() => {
-    if (activeItemId.startsWith('charts') || activeItemId === 'area-chart' || activeItemId === 'bar-chart' || activeItemId === 'line-chart' || activeItemId === 'pie-chart') {
+    if (!activeItemId) {
+      setActiveTab('tools-overview');
+    } else if (activeItemId === 'brand-builder') {
+      setActiveTab('brand-builder');
+    } else if (activeItemId.startsWith('charts') || activeItemId === 'area-chart' || activeItemId === 'bar-chart' || activeItemId === 'line-chart' || activeItemId === 'pie-chart') {
       setActiveTab('charts');
     } else if (activeItemId === 'open-graph-card') {
       setActiveTab('open-graph-card');
+    } else {
+      setActiveTab('tools-overview');
     }
   }, [activeItemId]);
 
@@ -30,42 +38,30 @@ export function ToolsSection({ activeItemId = 'open-graph-card', breadcrumbs = [
     onItemChange?.(tab);
   };
 
-  // If activeTab is charts, delegate to ChartsSections
-  if (activeTab === 'charts') {
-    return (
-      <div className="max-w-5xl mx-auto">
-        <Breadcrumbs items={breadcrumbs} />
-        <Tabs value={activeTab} onValueChange={handleTabChange} className="mt-6">
-          <TabsList>
-            <TabsTrigger value="brand-builder">Brand Builder</TabsTrigger>
-            <TabsTrigger value="charts">Charts</TabsTrigger>
-          </TabsList>
-          <TabsContent value="charts" className="mt-6">
-            <ChartsSections
-              activeItemId={activeItemId}
-              breadcrumbs={breadcrumbs}
-              onItemChange={onItemChange}
-            />
-          </TabsContent>
-        </Tabs>
-      </div>
-    );
-  }
-
   return (
-    <div className="max-w-5xl mx-auto">
-      <Breadcrumbs items={breadcrumbs} />
+    <div className="space-y-8 w-full min-w-0">
+      <div className="mb-8">
+        {/* Breadcrumbs */}
+        {breadcrumbs && breadcrumbs.length > 1 && (
+          <div className="mb-4">
+            <Breadcrumbs variant="subtle" items={breadcrumbs} />
+          </div>
+        )}
+      </div>
 
-      <Tabs value={activeTab} onValueChange={handleTabChange} className="mt-6">
-        <TabsList>
-          <TabsTrigger value="open-graph-card">Open Graph Card</TabsTrigger>
-          <TabsTrigger value="charts">Charts</TabsTrigger>
-        </TabsList>
-
-        <TabsContent value="open-graph-card" className="mt-6">
-          <OpenGraphCardPage />
-        </TabsContent>
-      </Tabs>
+      {/* Content */}
+      <div className="mt-4">
+        {activeTab === 'tools-overview' && <ToolsOverview onNavigate={handleTabChange} />}
+        {activeTab === 'brand-builder' && <BrandBuilder />}
+        {activeTab === 'open-graph-card' && <OpenGraphCardPage />}
+        {activeTab === 'charts' && (
+          <ChartsSections
+            activeItemId={activeItemId}
+            breadcrumbs={[]}
+            onItemChange={onItemChange}
+          />
+        )}
+      </div>
     </div>
   );
 }

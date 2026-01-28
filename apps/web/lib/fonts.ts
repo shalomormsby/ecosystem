@@ -4,36 +4,36 @@
  */
 
 import {
-  Nunito,
-  Nunito_Sans,
-  Outfit,
-  Manrope,
-  Lora,
-  Instrument_Sans,
-  Space_Grotesk,
-  Fira_Code,
-  // Additional fonts for typography system
-  Inter,
-  Roboto,
-  Roboto_Mono,
-  Open_Sans,
-  Lato,
-  Montserrat,
-  Source_Sans_3,
-  Raleway,
-  Poppins,
-  Work_Sans,
-  Playfair_Display,
-  Merriweather,
-  Quicksand,
-  Karla,
-  Cormorant_Garamond,
-  Libre_Bodoni,
-  Abril_Fatface,
-  Fredoka,
-  JetBrains_Mono,
-  IBM_Plex_Sans,
-  IBM_Plex_Mono,
+    Nunito,
+    Nunito_Sans,
+    Outfit,
+    Manrope,
+    Lora,
+    Instrument_Sans,
+    Space_Grotesk,
+    Fira_Code,
+    // Additional fonts for typography system
+    Inter,
+    Roboto,
+    Roboto_Mono,
+    Open_Sans,
+    Lato,
+    Montserrat,
+    Source_Sans_3,
+    Raleway,
+    Poppins,
+    Work_Sans,
+    Playfair_Display,
+    Merriweather,
+    Quicksand,
+    Karla,
+    Cormorant_Garamond,
+    Libre_Bodoni,
+    Abril_Fatface,
+    Fredoka,
+    JetBrains_Mono,
+    IBM_Plex_Sans,
+    IBM_Plex_Mono,
 } from 'next/font/google';
 
 /**
@@ -71,18 +71,18 @@ export const studioBody = Manrope({
 });
 
 /**
- * Sage Theme Fonts
+ * Terra Theme Fonts
  */
-export const sageHeading = Lora({
+export const terraHeading = Lora({
     subsets: ['latin'],
-    variable: '--font-sage-heading',
+    variable: '--font-terra-heading',
     display: 'swap',
     weight: ['400', '600', '700'],
 });
 
-export const sageBody = Instrument_Sans({
+export const terraBody = Instrument_Sans({
     subsets: ['latin'],
-    variable: '--font-sage-body',
+    variable: '--font-terra-body',
     display: 'swap',
     weight: ['400', '500', '600', '700'],
 });
@@ -282,8 +282,8 @@ export const allFontVariables = [
     nunitoSans.variable,
     studioHeading.variable,
     studioBody.variable,
-    sageHeading.variable,
-    sageBody.variable,
+    terraHeading.variable,
+    terraBody.variable,
     voltHeading.variable,
     mono.variable,
     headerFont.variable,

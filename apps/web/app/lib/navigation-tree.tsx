@@ -13,12 +13,9 @@ export const navigationTree: NavigationItem[] = [
     id: 'getting-started',
     label: 'Getting Started',
     icon: <BookOpen className="w-4 h-4" />,
+    section: 'getting-started',
     children: [
-      {
-        id: 'overview',
-        label: 'Overview',
-        section: 'overview',
-      },
+
       {
         id: 'architecture',
         label: 'Architecture',
@@ -61,6 +58,7 @@ export const navigationTree: NavigationItem[] = [
     id: 'foundations',
     label: 'Design Tokens',
     icon: <Palette className="w-4 h-4" />,
+    section: 'tokens',
     children: [
       {
         id: 'colors',
@@ -232,7 +230,8 @@ export const navigationTree: NavigationItem[] = [
   {
     id: 'themes',
     label: 'Themes',
-    icon: <Sparkles className="w-4 h-4" />, // Using Sparkles temporarily or another icon
+    icon: <Sparkles className="w-4 h-4" />,
+    section: 'themes',
     children: [
       {
         id: 'palettes',
@@ -336,16 +335,6 @@ export const navigationTree: NavigationItem[] = [
     section: 'templates',
     children: [
       {
-        id: 'templates-overview',
-        label: 'Overview',
-        section: 'templates',
-      },
-      {
-        id: 'brand-builder',
-        label: 'Brand Builder',
-        section: 'templates',
-      },
-      {
         id: 'page-template',
         label: 'Page Template',
         section: 'templates',
@@ -356,7 +345,13 @@ export const navigationTree: NavigationItem[] = [
     id: 'tools',
     label: 'Tools',
     icon: <Wrench className="w-4 h-4" />,
+    section: 'tools',
     children: [
+      {
+        id: 'brand-builder',
+        label: 'Brand Builder',
+        section: 'tools',
+      },
       {
         id: 'open-graph-card',
         label: 'Open Graph Card',
@@ -379,12 +374,8 @@ export const navigationTree: NavigationItem[] = [
     id: 'mcp-server',
     label: 'MCP Server',
     icon: <Bot className="w-4 h-4" />,
+    section: 'mcp-server',
     children: [
-      {
-        id: 'overview',
-        label: 'Overview',
-        section: 'mcp-server',
-      },
       {
         id: 'installation',
         label: 'Installation',

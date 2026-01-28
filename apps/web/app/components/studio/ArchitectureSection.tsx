@@ -11,21 +11,22 @@ export function ArchitectureSection({ breadcrumbs }: ArchitectureSectionProps) {
   return (
     <div className="space-y-12 w-full min-w-0">
       {/* Title */}
+      {/* Title */}
       <div className="border-b border-[var(--color-border)] pb-6">
+        {/* Breadcrumbs - positioned above title */}
+        {breadcrumbs && breadcrumbs.length > 1 && (
+          <div className="mb-4">
+            <Breadcrumbs variant="subtle" items={breadcrumbs} />
+          </div>
+        )}
+
         <h1 className="text-4xl font-bold mb-2 text-[var(--color-text-primary)]">
           Architecture Overview
         </h1>
 
-        <p className="text-sm text-[var(--color-text-muted)] mb-4">
+        <p className="text-sm text-[var(--color-text-muted)]">
           Understanding the structure and decision-making framework
         </p>
-
-        {/* Breadcrumbs - positioned after title and description */}
-        {breadcrumbs && breadcrumbs.length > 1 && (
-          <div className="mt-6">
-            <Breadcrumbs variant="subtle" items={breadcrumbs} />
-          </div>
-        )}
       </div>
 
       {/* Component Organization */}
@@ -334,7 +335,7 @@ export function ArchitectureSection({ breadcrumbs }: ArchitectureSectionProps) {
    var(--color-primary)
 
 4. Switch themes at runtime
-   setTheme('sage')`} defaultCollapsed={false} showCopy={true} />
+   setTheme('terra')`} defaultCollapsed={false} showCopy={true} />
             </div>
           </div>
         </Card>

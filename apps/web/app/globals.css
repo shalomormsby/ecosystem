@@ -56,8 +56,8 @@
     --radius: 0.5rem;
 
     /* Fonts */
-    --font-header-logo: var(--font-sage-body);
-    --font-header-nav: var(--font-sage-body);
+    --font-header-logo: var(--font-terra-body);
+    --font-header-nav: var(--font-terra-body);
 
     /* Interaction Tokens */
     --color-interaction-overlay: #000000;
@@ -134,7 +134,7 @@ html.dark {
 
 /* ... */
 
-.sage-interactive {
+.terra-interactive {
   position: relative;
   isolation: isolate;
   /* Create new stacking context */
@@ -142,21 +142,21 @@ html.dark {
   cursor: pointer;
 }
 
-.sage-interactive:focus-visible {
+.terra-interactive:focus-visible {
   outline: var(--width-interaction-focus-ring) solid var(--color-interaction-focus-ring);
   outline-offset: var(--width-interaction-focus-offset);
   border-radius: inherit;
 }
 
-.sage-interactive[disabled],
-.sage-interactive:disabled,
-.sage-interactive[aria-disabled="true"] {
+.terra-interactive[disabled],
+.terra-interactive:disabled,
+.terra-interactive[aria-disabled="true"] {
   opacity: var(--opacity-interaction-disabled);
   pointer-events: none;
   cursor: not-allowed;
 }
 
-.sage-interactive::after {
+.terra-interactive::after {
   content: "";
   position: absolute;
   inset: 0;
@@ -174,7 +174,7 @@ html.dark {
    If text is static, z-index 10 on absolute ::after covers it.
    We need the content to be above the overlay.
 */
-.sage-interactive>* {
+.terra-interactive>* {
   position: relative;
   z-index: 20;
 }
@@ -191,7 +191,7 @@ html.dark {
    MATCHING THE USER'S APPROVED PATTERN:
    "absolute inset-0 bg-black/0 group-hover:bg-black/25 ... and wrapped the button text in a span with relative z-10"
    
-   So .sage-interactive MUST ensure children are z-indexed above the overlay.
+   So .terra-interactive MUST ensure children are z-indexed above the overlay.
    But we can't easily force children to have z-index without a universal selector which is expensive.
    
    Alternative: Use `::before` for the overlay and set `z-index: 0` or `-1`?
@@ -205,7 +205,7 @@ html.dark {
    "wrapped the button text in a span with relative z-10"
    
    So for `SecondaryNav` items, I will need to ensure the text is wrapped or z-indexed.
-   The `.sage-interactive` class can provide the overlay, but the consumer must handle content layering?
+   The `.terra-interactive` class can provide the overlay, but the consumer must handle content layering?
    
    OR, I can try to set `pointer-events: none` on the overlay (already done).
    If opacity is 0.08, tinting text slightly is usually acceptable, BUT the user explicitly complained about it.
@@ -223,11 +223,11 @@ html.dark {
    I can verify if `SecondaryNav` items have a wrapper I can z-index.
 */
 
-.sage-interactive:hover::after {
+.terra-interactive:hover::after {
   opacity: var(--opacity-interaction-hover);
 }
 
-.sage-interactive:active {
+.terra-interactive:active {
   transform: scale(var(--scale-interaction-active));
 }
 

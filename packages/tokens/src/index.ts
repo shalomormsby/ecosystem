@@ -4,7 +4,7 @@
 
 export * from './base';
 export * from './studio';
-export * from './sage';
+export * from './terra';
 export * from './volt';
 export * from './typography';
 export * from './syntax';
@@ -16,7 +16,7 @@ export * from './fontThemes';
 /**
  * Theme names
  */
-export const THEME_NAMES = ['studio', 'sage', 'volt'] as const;
+export const THEME_NAMES = ['studio', 'terra', 'volt'] as const;
 export type ThemeName = typeof THEME_NAMES[number];
 
 /**

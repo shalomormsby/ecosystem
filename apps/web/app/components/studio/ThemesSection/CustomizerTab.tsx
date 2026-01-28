@@ -1,6 +1,7 @@
 'use client';
 import React from 'react';
 import { SlidersHorizontal, Sun, Moon, Building2, Leaf, Zap, Palette } from 'lucide-react';
+import { studioTokens, terraTokens, voltTokens } from '@thesage/tokens';
 import { useCustomizer, useTheme, ColorPicker, Button, Card } from '@thesage/ui';
 
 export function CustomizerTab() {
@@ -16,20 +17,35 @@ export function CustomizerTab() {
     } = useCustomizer();
     const { theme, mode: colorMode, setTheme, setMode } = useTheme();
 
+    // Helper to get default primary color for current theme/mode
+    const getDefaultPrimary = React.useCallback((t: string, m: string) => {
+        if (t === 'volt') return m === 'dark' ? voltTokens.dark.colors.primary : voltTokens.light.colors.primary;
+        if (t === 'terra') return m === 'dark' ? terraTokens.dark.colors.primary : terraTokens.light.colors.primary;
+        // Studio default
+        return m === 'dark' ? studioTokens.dark.colors.primary : studioTokens.light.colors.primary;
+    }, []);
+
     // Get current custom colors
     const currentPalette = getActiveColorPalette(theme, colorMode);
-    const [tempPrimaryColor, setTempPrimaryColor] = React.useState(currentPalette?.primary || '#0a0a0a');
+
+    // Initialize with current custom color OR default metric for the theme
+    const [tempPrimaryColor, setTempPrimaryColor] = React.useState(
+        currentPalette?.primary || getDefaultPrimary(theme, colorMode)
+    );
     const [tempSecondaryColor, setTempSecondaryColor] = React.useState(currentPalette?.secondary || '#5a67d8');
     const [tempAccentColor, setTempAccentColor] = React.useState(currentPalette?.accent || '#ff6b35');
 
-    // Update temp color when palette changes
+    // Update temp color when palette changes OR theme/mode changes
     React.useEffect(() => {
         if (currentPalette) {
             setTempPrimaryColor(currentPalette.primary);
             setTempSecondaryColor(currentPalette.secondary || currentPalette.primary);
             setTempAccentColor(currentPalette.accent || '#ff6b35');
+        } else {
+            // Reset to default if no custom palette exists
+            setTempPrimaryColor(getDefaultPrimary(theme, colorMode));
         }
-    }, [currentPalette]);
+    }, [currentPalette, theme, colorMode, getDefaultPrimary]);
 
     const handleApplyColor = () => {
         // Apply all colors atomically, clearing secondary/accent in simple mode
@@ -42,7 +58,8 @@ export function CustomizerTab() {
 
     const handleResetColors = () => {
         resetCustomColors(theme, colorMode);
-        setTempPrimaryColor('#0a0a0a');
+        // Will be handled by useEffect above, but for immediate feedback:
+        setTempPrimaryColor(getDefaultPrimary(theme, colorMode));
         setTempSecondaryColor('#5a67d8');
         setTempAccentColor('#ff6b35');
     };
@@ -94,7 +111,7 @@ export function CustomizerTab() {
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
                         {[
                             { id: 'studio', label: 'Studio', icon: <Building2 className="w-5 h-5" /> },
-                            { id: 'sage', label: 'Sage', icon: <Leaf className="w-5 h-5" /> },
+                            { id: 'terra', label: 'Terra', icon: <Leaf className="w-5 h-5" /> },
                             { id: 'volt', label: 'Volt', icon: <Zap className="w-5 h-5" /> },
                         ].map((t) => (
                             <button
@@ -123,7 +140,7 @@ export function CustomizerTab() {
                             <span className="font-heading">Heading Font:</span>
                             <span className="font-medium">{
                                 theme === 'studio' ? 'Outfit' :
-                                    theme === 'sage' ? 'Lora' :
+                                    theme === 'terra' ? 'Lora' :
                                         'Space Grotesk'
                             }</span>
                         </div>
@@ -131,7 +148,7 @@ export function CustomizerTab() {
                             <span className="font-body">Body Font:</span>
                             <span className="font-medium">{
                                 theme === 'studio' ? 'Manrope' :
-                                    theme === 'sage' ? 'Instrument Sans' :
+                                    theme === 'terra' ? 'Instrument Sans' :
                                         'Space Grotesk'
                             }</span>
                         </div>

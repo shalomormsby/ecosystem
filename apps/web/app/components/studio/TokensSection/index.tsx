@@ -2,14 +2,16 @@
 
 import { useState, useEffect } from 'react';
 import { TertiaryNav, Breadcrumbs, type BreadcrumbItemLegacy } from '@thesage/ui';
+import { BrandTab } from './BrandTab';
 import { ColorsTab } from './ColorsTab';
 import { TypographyTab } from './TypographyTab';
 import { SpacingTab } from './SpacingTab';
 import { MotionTab } from './MotionTab';
 import { SyntaxTab } from './SyntaxTab';
 import { InteractionsTab } from './InteractionsTab';
+import { DesignTokensOverview } from '../DesignTokensOverview';
 
-type TokenTab = 'colors' | 'typography' | 'spacing' | 'syntax' | 'motion' | 'interactions';
+type TokenTab = 'tokens-overview' | 'brand' | 'colors' | 'typography' | 'spacing' | 'syntax' | 'motion' | 'interactions';
 
 interface TokensSectionProps {
   activeItemId?: string;
@@ -18,12 +20,14 @@ interface TokensSectionProps {
 }
 
 export function TokensSection({ activeItemId, breadcrumbs, onItemChange }: TokensSectionProps) {
-  const [activeTab, setActiveTab] = useState<TokenTab>('colors');
+  const [activeTab, setActiveTab] = useState<TokenTab>('tokens-overview');
 
   // Update active tab when activeItemId changes
   useEffect(() => {
-    if (activeItemId && ['colors', 'typography', 'spacing', 'syntax', 'motion', 'interactions'].includes(activeItemId)) {
+    if (activeItemId && ['brand', 'colors', 'typography', 'spacing', 'syntax', 'motion', 'interactions'].includes(activeItemId)) {
       setActiveTab(activeItemId as TokenTab);
+    } else if (!activeItemId || activeItemId === 'tokens') {
+      setActiveTab('tokens-overview');
     }
   }, [activeItemId]);
 
@@ -35,6 +39,7 @@ export function TokensSection({ activeItemId, breadcrumbs, onItemChange }: Token
 
   // Available tabs for TertiaryNav
   const availableTabs = [
+    { id: 'brand', label: 'Brand' },
     { id: 'colors', label: 'Colors' },
     { id: 'typography', label: 'Typography' },
     { id: 'spacing', label: 'Spacing' },
@@ -56,6 +61,8 @@ export function TokensSection({ activeItemId, breadcrumbs, onItemChange }: Token
 
       {/* Tab Content with spacing for sticky nav */}
       <div className="mt-4">
+        {activeTab === 'tokens-overview' && <DesignTokensOverview onNavigate={handleTabChange} />}
+        {activeTab === 'brand' && <BrandTab />}
         {activeTab === 'colors' && <ColorsTab />}
         {activeTab === 'typography' && <TypographyTab />}
         {activeTab === 'spacing' && <SpacingTab />}

@@ -219,8 +219,8 @@ function UseThemeSection() {
               <Button variant="secondary" size="sm" onClick={() => setTheme('studio')}>
                 Studio
               </Button>
-              <Button variant="secondary" size="sm" onClick={() => setTheme('sage')}>
-                Sage
+              <Button variant="secondary" size="sm" onClick={() => setTheme('terra')}>
+                Terra
               </Button>
               <Button variant="secondary" size="sm" onClick={() => setTheme('volt')}>
                 Volt
@@ -256,7 +256,7 @@ function UseThemeSection() {
    return (
      <div>
        <p>Current: {theme} ({mode})</p>
-       <button onClick={() => setTheme('sage')}>Sage Theme</button>
+       <button onClick={() => setTheme('terra')}>Terra Theme</button>
        <button onClick={() => setMode('dark')}>Dark Mode</button>
      </div>
    );

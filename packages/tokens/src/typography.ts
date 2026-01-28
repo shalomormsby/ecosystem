@@ -44,7 +44,7 @@ export const fontFamilies = {
       mono: 'Code blocks, technical content',
     },
   },
-  sage: {
+  terra: {
     heading: 'Lora',      // Serif for elegance
     body: 'Instrument Sans',
     serif: 'Lora',        // Explicit serif reference
@@ -89,7 +89,7 @@ export const fontLoadingConfig = {
     body: { family: 'Manrope', weights: ['300', '400', '500', '600', '700', '800'] },
     mono: { family: 'Fira Code', weights: ['400', '500', '600', '700'] },
   },
-  sage: {
+  terra: {
     heading: { family: 'Lora', weights: ['400', '500', '600', '700'] },
     body: { family: 'Instrument Sans', weights: ['400', '500', '600', '700'] },
     mono: { family: 'Fira Code', weights: ['400', '500', '600', '700'] },

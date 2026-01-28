@@ -21,6 +21,18 @@
  * Last Updated: 2026-01-26
  */
 
+export const BRAND = {
+  productName: 'Sage Design Engine',
+  productNameShort: 'Sage',
+  themeNames: {
+    organic: 'Terra',
+    technical: 'Volt',
+    neutral: 'Studio',
+  },
+  tagline: "The Solopreneur's Development Stack",
+  mission: 'AI-Native components for velocity',
+} as const;
+
 export const COMPONENT_REGISTRY = {
   /**
    * Total count of all exported UI components from @thesage/ui
@@ -130,9 +142,8 @@ export const MARKETING_COPY = {
  */
 export const DOC_EXAMPLES = {
   // For overview sections
-  overview: `${COMPONENT_COUNTS.total} components across ${
-    Object.keys(COMPONENT_REGISTRY.coreCategories).length
-  } core categories`,
+  overview: `${COMPONENT_COUNTS.total} components across ${Object.keys(COMPONENT_REGISTRY.coreCategories).length
+    } core categories`,
 
   // For detailed breakdowns
   breakdown: `

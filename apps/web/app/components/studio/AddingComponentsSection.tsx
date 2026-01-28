@@ -16,14 +16,20 @@ export function AddingComponentsSection({ breadcrumbs, activeItemId }: AddingCom
     <div className="w-full min-w-0">
       {/* Title */}
       <div className="border-b border-[var(--color-border)] pb-6 mb-12">
+        {/* Breadcrumbs */}
+        {breadcrumbs && breadcrumbs.length > 1 && (
+          <div className="mb-4">
+            <Breadcrumbs variant="subtle" items={breadcrumbs} />
+          </div>
+        )}
+
         <h1 className="text-4xl font-bold mb-2 text-[var(--color-text-primary)]">
           Adding Components
         </h1>
 
-        <p className="text-sm text-[var(--color-text-muted)] mb-4">
+        <p className="text-sm text-[var(--color-text-muted)]">
           Step-by-step workflows for extending the design system
         </p>
-
       </div>
 
       {/* Secondary Navigation - Sticky below header */}
