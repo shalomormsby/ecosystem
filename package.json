@@ -5,9 +5,13 @@
     "scripts": {
         "dev": "turbo run dev --concurrency 20",
         "build": "turbo run build",
-        "lint": "turbo run lint"
+        "lint": "turbo run lint",
+        "changeset": "changeset",
+        "version-packages": "changeset version",
+        "release": "turbo run build && changeset publish"
     },
     "devDependencies": {
+        "@changesets/cli": "^2.29.8",
         "turbo": "latest"
     },
     "packageManager": "pnpm@10.26.1",
