@@ -194,8 +194,22 @@ console.log(result); // 55`}
               {...props}
               onCheckedChange={(checked: boolean) => updateProp('checked', checked)}
             />
+          ) : ['Input', 'Textarea'].includes(componentName) ? (
+            <Component {...props} />
           ) : (
-            <Component {...props}>
+            <Component
+              {...props}
+              onOpenChange={(isOpen: boolean) => {
+                if ('open' in props) {
+                  updateProp('open', isOpen);
+                }
+              }}
+              onCheckedChange={(isChecked: boolean) => {
+                if ('checked' in props) {
+                  updateProp('checked', isChecked);
+                }
+              }}
+            >
               {componentName === 'Button' ? 'Click me' : props.children || config.examples[0]?.children}
             </Component>
           )}
@@ -421,7 +435,11 @@ console.log(result); // 55`}
                   </span>
                 </div>
                 <div className="p-8 flex items-center justify-center bg-gradient-to-br from-[var(--color-surface)] to-[var(--color-background)]">
-                  <Component {...example.props}>{example.children}</Component>
+                  {['Input', 'Textarea'].includes(componentName) ? (
+                    <Component {...example.props} />
+                  ) : (
+                    <Component {...example.props}>{example.children}</Component>
+                  )}
                 </div>
               </Card>
             ))}

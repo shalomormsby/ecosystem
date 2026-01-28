@@ -1,5 +1,5 @@
 import { Code, Link, Spinner, ProgressBar, Switch } from '@thesage/ui';
-import { Home, Search, Settings, User } from 'lucide-react';
+import { Home, Search, Settings, User, LogOut, ChevronDown, ChevronUp, MoreHorizontal } from 'lucide-react';
 import {
   // Phase 1 & 2 components
   Label, Input, Alert, AlertDescription, AlertTitle, Avatar, AvatarImage, AvatarFallback, Button, Card, Badge, Checkbox, Combobox, Command, CommandDialog, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, CommandSeparator, CommandShortcut, DataTable, Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger, Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage, Popover, PopoverAnchor, PopoverContent, PopoverTrigger, RadioGroup, RadioGroupItem, Select, SelectContent, SelectItem, SelectTrigger, SelectValue, Separator, ScrollArea, Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger, Skeleton, Table, TableBody, TableCell, TableHead, TableHeader, TableRow, Tabs, TabsContent, TabsList, TabsTrigger, Textarea, Toaster, ToastProvider, useToast,
@@ -33,6 +33,10 @@ import {
   OpenGraphCard,
 } from '@thesage/ui';
 
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+
 export interface PropConfig {
   type: 'select' | 'boolean' | 'text' | 'array' | 'object' | 'interface' | 'custom';
   options?: readonly string[];
@@ -62,6 +66,49 @@ export interface ComponentConfig {
   sourceUrl?: string;
   // Accessibility notes for documenting a11y features
   accessibilityNotes?: string[];
+}
+
+const profileFormSchema = z.object({
+  username: z.string().min(2, {
+    message: "Username must be at least 2 characters.",
+  }),
+})
+
+function ProfileFormExample() {
+  const form = useForm<z.infer<typeof profileFormSchema>>({
+    resolver: zodResolver(profileFormSchema),
+    defaultValues: {
+      username: "",
+    },
+  })
+
+  function onSubmit(values: z.infer<typeof profileFormSchema>) {
+    console.log(values)
+  }
+
+  return (
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+        <FormField
+          control={form.control}
+          name="username"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Username</FormLabel>
+              <FormControl>
+                <Input placeholder="thesage" {...field} />
+              </FormControl>
+              <FormDescription>
+                This is your public display name.
+              </FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <Button type="submit">Submit</Button>
+      </form>
+    </Form>
+  )
 }
 
 export const componentRegistry: Record<string, ComponentConfig> = {
@@ -1272,8 +1319,49 @@ const [darkMode, setDarkMode] = useState(false);
     sourceUrl: 'https://github.com/shalomormsby/ecosystem/blob/main/packages/ui/src/components/Skeleton.tsx',
   },
 
+
+
   DropdownMenu: {
-    component: DropdownMenu,
+    component: ({ showIcons = false, iconType = 'arrow', ...props }: any) => {
+      const getTriggerIcon = () => {
+        if (!showIcons) return null;
+        switch (iconType) {
+          case 'arrow': return <ChevronDown className="ml-2 h-4 w-4" />;
+          case 'dots': return <MoreHorizontal className="ml-2 h-4 w-4" />;
+          case 'chevrons': return <ChevronDown className="ml-2 h-4 w-4" />; // specific carat logic can be added
+          default: return <ChevronDown className="ml-2 h-4 w-4" />;
+        }
+      };
+
+      // Wrap props carefully to ensure open state is passed correctly
+      return (
+        <DropdownMenu {...props}>
+          <DropdownMenuTrigger asChild>
+            <Button variant="outline">
+              Open Menu
+              {getTriggerIcon()}
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent className="w-56">
+            <DropdownMenuLabel>My Account</DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem>
+              <User className="mr-2 h-4 w-4" />
+              <span>Profile</span>
+            </DropdownMenuItem>
+            <DropdownMenuItem>
+              <Settings className="mr-2 h-4 w-4" />
+              <span>Settings</span>
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem>
+              <LogOut className="mr-2 h-4 w-4" />
+              <span>Log out</span>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      );
+    },
     description: 'Displays a menu of actions triggered by a button. Replaces the legacy Dropdown component with Radix UI primitives for enhanced accessibility and flexibility.',
     props: {
       open: {
@@ -1281,26 +1369,27 @@ const [darkMode, setDarkMode] = useState(false);
         default: false,
         description: 'Controls the open state of the dropdown menu',
       },
+      showIcons: {
+        type: 'boolean',
+        default: true,
+        description: 'Show visual indicator icon on the trigger button',
+      },
+      iconType: {
+        type: 'select',
+        options: ['arrow', 'dots'] as const,
+        default: 'arrow',
+        description: 'Style of the trigger icon',
+      },
     },
     examples: [
       {
         label: 'Basic Menu',
-        props: {},
-        children: (
-          <>
-            <DropdownMenuTrigger asChild>
-              <Button variant="outline">Open Menu</Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent>
-              <DropdownMenuLabel>My Account</DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem>Profile</DropdownMenuItem>
-              <DropdownMenuItem>Settings</DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem>Logout</DropdownMenuItem>
-            </DropdownMenuContent>
-          </>
-        ),
+        props: {
+          showIcons: true,
+          iconType: 'arrow'
+        },
+        // Children ignored by custom component above, but good for structure legacy
+        children: null,
       },
     ],
     codeExamples: [
@@ -1544,13 +1633,9 @@ const [darkMode, setDarkMode] = useState(false);
     props: {},
     examples: [
       {
-        label: 'Note',
+        label: 'Profile Form',
         props: {},
-        children: (
-          <div className="text-sm text-muted-foreground p-4 border rounded">
-            Form component requires react-hook-form and zod. See code examples for usage.
-          </div>
-        ),
+        children: <ProfileFormExample />,
       },
     ],
     codeExamples: [

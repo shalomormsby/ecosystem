@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { generateBreadcrumbs, type BreadcrumbItemLegacy, type RouteConfig } from '@thesage/ui';
+import { generateBreadcrumbs, type BreadcrumbItemLegacy, type RouteConfig, BRAND } from '@thesage/ui';
 import NotFound from '../not-found';
 import { ModeSwitcher } from '../components/ModeSwitcher';
 import { NavigationSidebar } from '../components/NavigationSidebar';
@@ -303,6 +303,32 @@ export default function StudioPage() {
         if (window.location.hash !== hash) {
             window.history.replaceState(null, '', hash);
         }
+
+        // Update document title using Brand token
+        let title: string = BRAND.productNameShort;
+        const sectionConfig = routeConfig[activeSection];
+
+        if (sectionConfig) {
+            if (activeItemId && activeItemId !== activeSection) {
+                // Check if it's a child item
+                const child = sectionConfig.children?.[activeItemId];
+                if (child) {
+                    title = `${child.label} - ${BRAND.productNameShort}`;
+                } else {
+                    // Fallback for items not in config
+                    const readableName = activeItemId
+                        .split('-')
+                        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+                        .join(' ');
+                    title = `${readableName} - ${BRAND.productNameShort}`;
+                }
+            } else {
+                // Section overview
+                title = `${sectionConfig.label} - ${BRAND.productNameShort}`;
+            }
+        }
+
+        document.title = title;
     }, [activeSection, activeItemId, isInitialized, isNotFound]);
 
     // Listen for hash changes (back/forward button, direct links)

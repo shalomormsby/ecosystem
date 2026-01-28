@@ -3,6 +3,7 @@
 import { useEffect } from 'react';
 import { Button, FaultyTerminal, Typewriter, Footer, Header } from '@thesage/ui';
 import Link from 'next/link';
+import { Github } from 'lucide-react';
 
 export default function Error({
   error,
@@ -18,6 +19,33 @@ export default function Error({
 
   return (
     <div className="min-h-screen flex flex-col relative overflow-hidden bg-black dark">
+      <Header
+        logo={<span className="text-xl font-bold tracking-tight">Sage UI</span>}
+        navAlignment="right"
+        navLinks={[
+          { label: 'Documentation', href: '/docs' },
+          { label: 'Components', href: '/docs#components' },
+          { label: 'Themes', href: '/docs#themes' },
+        ]}
+        actions={
+          <Button
+            variant="outline"
+            size="sm"
+            asChild
+            className="gap-2"
+          >
+            <a
+              href="https://github.com/shalomormsby/ecosystem"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Github className="w-4 h-4" />
+              Star on GitHub
+            </a>
+          </Button>
+        }
+      />
+
       {/* Background */}
       <div className="absolute inset-0 z-0">
         <FaultyTerminal tint="#ef4444" />
@@ -48,7 +76,7 @@ export default function Error({
                 style={{ fontFamily: 'var(--font-jetbrains-mono)' }}
               >
                 <Typewriter
-                  text={error.message || "An unexpected error occurred while loading this page. Please try again.   ¯\\_(ツ)_/¯"}
+                  text="An unexpected error occurred while loading this page. Please try again.   ¯\\_(ツ)_/¯"
                   speed={0.03}
                   loop={false}
                   cursor="_"
@@ -105,6 +133,42 @@ export default function Error({
             </p>
           </div>
         </div>
+      </div>
+
+      {/* Footer */}
+      <div className="relative z-10 w-full pointer-events-auto">
+        <Footer
+          className="bg-black/50 backdrop-blur-sm border-white/10"
+          copyright="© 2024 Sage UI. All rights reserved."
+          sections={[
+            {
+              title: "Docs",
+              links: [
+                { label: "Getting Started", href: "/docs#getting-started" },
+                { label: "Design Philosophy", href: "https://github.com/shalomormsby/ecosystem/blob/main/DESIGN-PHILOSOPHY.md", external: true },
+                { label: "README.md", href: "https://github.com/shalomormsby/ecosystem/blob/main/README.md", external: true },
+                { label: "AGENTS.md", href: "https://github.com/shalomormsby/ecosystem/blob/main/AGENTS.md", external: true }
+              ]
+            },
+            {
+              title: "Building Blocks",
+              links: [
+                { label: "Design Tokens", href: "/docs#foundations" },
+                { label: "Components", href: "/docs#components" },
+                { label: "Blocks", href: "/docs#blocks" },
+              ]
+            },
+            {
+              title: "Toolkit",
+              links: [
+                { label: "MCP Server", href: "/docs#mcp-server" },
+                { label: "Hooks", href: "/docs#hooks" },
+                { label: "Motion", href: "/docs#motion" },
+                { label: "Charts", href: "/docs#charts" },
+              ]
+            }
+          ]}
+        />
       </div>
     </div>
   );

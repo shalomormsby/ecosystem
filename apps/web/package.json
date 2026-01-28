@@ -12,6 +12,7 @@
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",
     "@dnd-kit/sortable": "^10.0.0",
+    "@hookform/resolvers": "^5.2.2",
     "@thesage/charts": "workspace:*",
     "@thesage/core": "workspace:*",
     "@thesage/hooks": "workspace:*",
@@ -27,8 +28,10 @@
     "ogl": "^1.0.11",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-hook-form": "^7.70.0",
     "shiki": "^1.24.2",
-    "tailwind-merge": "^3.4.0"
+    "tailwind-merge": "^3.4.0",
+    "zod": "^4.3.6"
   },
   "devDependencies": {
     "@thesage/config": "workspace:*",
