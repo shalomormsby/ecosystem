@@ -1,5 +1,19 @@
 # @thesage/ui
 
+## 0.0.14 - 2026-01-31
+
+### Patch Changes
+
+- 9595ced: Fixing dark mode text color issue in nested components by ensuring `--color-text-primary` is explicitly defined in `globals.css`.
+
+## 0.0.13 - 2026-01-30
+
+### Patch Changes
+
+- c41914a: Update branding references:
+  - Rename "Sage" theme to "Terra" in component registry
+  - Update MCP documentation to use "Sage Design Engine" product name
+
 ## 0.0.12 - 2026-01-28
 
 ### Patch Changes

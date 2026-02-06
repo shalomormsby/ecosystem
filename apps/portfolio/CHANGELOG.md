@@ -1,5 +1,19 @@
 # portfolio
 
+## 0.1.5 - 2026-01-31
+
+### Patch Changes
+
+- Updated dependencies [9595ced]
+  - @thesage/ui@0.0.14
+
+## 0.1.4 - 2026-01-30
+
+### Patch Changes
+
+- Updated dependencies [c41914a]
+  - @thesage/ui@0.0.13
+
 ## 0.1.3 - 2026-01-28
 
 ### Patch Changes

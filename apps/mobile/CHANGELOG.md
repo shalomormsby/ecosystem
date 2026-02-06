@@ -1,5 +1,19 @@
 # mobile
 
+## 1.0.5 - 2026-01-31
+
+### Patch Changes
+
+- Updated dependencies [9595ced]
+  - @thesage/ui@0.0.14
+
+## 1.0.4 - 2026-01-30
+
+### Patch Changes
+
+- Updated dependencies [c41914a]
+  - @thesage/ui@0.0.13
+
 ## 1.0.3 - 2026-01-28
 
 ### Patch Changes
