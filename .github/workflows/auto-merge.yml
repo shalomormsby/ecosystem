@@ -16,19 +16,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      - name: Approve PR
-        # Requires a Personal Access Token (PAT) stored as GH_TOKEN secret.
-        # The built-in github.token cannot approve PRs it created.
-        if: ${{ secrets.GH_TOKEN != '' }}
+      - name: Approve and Auto-Merge
         env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_TOKEN_FOR_CI }}
         run: |
           gh pr review --approve "${{ github.event.pull_request.html_url }}"
-
-      - name: Enable Auto-Merge
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
           gh pr merge --squash --auto "${{ github.event.pull_request.html_url }}"

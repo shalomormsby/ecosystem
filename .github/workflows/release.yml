@@ -17,17 +17,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: 20
 
       - name: Setup pnpm
-        uses: pnpm/action-setup@v2
-        with:
-          version: 10.x.x
+        uses: pnpm/action-setup@v4
 
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
@@ -36,9 +34,7 @@ jobs:
         id: changesets
         uses: changesets/action@v1
         with:
-          # This executes the release script defined in package.json
           publish: pnpm run release
-          # This executes the version script defined in package.json
           version: pnpm run version-packages
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN_FOR_CI }}
