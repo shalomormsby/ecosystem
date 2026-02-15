@@ -11,7 +11,7 @@ Last updated: 2026-02-06
 The pipeline has three GitHub Actions workflows that work together:
 
 ```
-PR opened ──► CI (build + lint) ──► Merge to main
+PR opened ──► CI (build + lint) ──► Manually merge to main
                                         │
                                         ▼
                                     Release workflow
@@ -79,6 +79,8 @@ PR opened ──► CI (build + lint) ──► Merge to main
 
 **Trigger:** Pull requests to `main` (filtered to only `changeset-release/*` branches)
 
+**Note:** This workflow will show as "Skipped" on normal feature PRs. This is expected behavior.
+
 **What it does:**
 1. Approves the Version Packages PR using the PAT
 2. Enables auto-merge (squash) so it merges once CI passes
@@ -108,7 +110,7 @@ Private packages (like `web`, `portfolio`) don't need changeset entries — they
 
 ### What happens after merge
 
-1. **PR merged to main** — triggers CI + Release workflows
+1. **You merge the feature PR to main** — triggers CI + Release workflows
 2. **Release workflow** sees changeset files, creates "Version Packages" PR
 3. **Auto-merge workflow** triggers on the PR, approves it, enables auto-merge
 4. **CI runs** on the Version Packages PR
