@@ -1,5 +1,12 @@
 # @thesage/ui
 
+## 1.0.1 - 2026-02-15
+
+### Patch Changes
+
+- 87975ab: @thesage/mcp: Props, subComponents, and example fields added to all 92 components in the registry.
+  @thesage/ui: Added .claude/CLAUDE.md to published package files for AI tool discovery.
+
 ## 0.1.0 - 2026-02-06
 
 ### Minor Changes

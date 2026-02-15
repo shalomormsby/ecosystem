@@ -81,6 +81,7 @@ PR opened ──► CI (build + lint) ──► Manually merge to main
 
 **Note:** This workflow will show as "Skipped" on normal feature PRs. This is expected behavior.
 
+
 **What it does:**
 1. Enables auto-merge (squash) so it merges once CI passes
 
