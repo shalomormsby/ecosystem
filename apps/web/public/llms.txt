@@ -28,6 +28,7 @@ import '@thesage/ui/globals.css'
 
 ## Full Component API Reference
 - https://thesage.dev/llms-full.txt
+- JSON API: https://thesage.dev/docs/api.json
 
 ## MCP Server (for AI Assistants)
 - Package: @thesage/mcp

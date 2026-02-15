@@ -1,7 +1,7 @@
 {
     "name": "@thesage/ui",
     "version": "1.0.1",
-    "description": "Sage Design Engine — Make it Lovable. 48+ accessible components, three themes, user-controlled motion.",
+    "description": "Sage Design Engine — Make it Lovable. 92 accessible React components, three themes, user-controlled motion.",
     "main": "dist/index.js",
     "module": "dist/index.mjs",
     "types": "dist/index.d.ts",

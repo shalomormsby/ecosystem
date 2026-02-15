@@ -1,0 +1,17 @@
+{
+  "schema_version": "v1",
+  "name_for_human": "Sage Design Engine",
+  "name_for_model": "sage_design_engine",
+  "description_for_human": "92 accessible React components with three themes, design tokens, and user-controlled motion. Built on Radix UI + Tailwind CSS.",
+  "description_for_model": "Sage Design Engine provides 92 accessible React components organized into 11 categories (actions, forms, navigation, overlays, feedback, data-display, layout, backgrounds, cursor, motion, blocks). Features three themes (Studio, Terra, Volt) with light/dark modes, a user-controlled motion system (0-10 scale), and comprehensive design tokens. Built on Radix UI + Tailwind CSS with TypeScript strict mode.",
+  "auth": {
+    "type": "none"
+  },
+  "api": {
+    "type": "openapi",
+    "url": "https://thesage.dev/docs/api.json"
+  },
+  "logo_url": "https://thesage.dev/favicon.ico",
+  "contact_email": "hello@shalomormsby.com",
+  "legal_info_url": "https://github.com/shalomormsby/ecosystem/blob/main/LICENSE"
+}

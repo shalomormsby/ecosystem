@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  transpilePackages: ['@thesage/ui'],
+  transpilePackages: ['@thesage/ui', '@thesage/mcp'],
   async headers() {
     return [
       {
