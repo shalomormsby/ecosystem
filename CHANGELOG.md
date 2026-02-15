@@ -6,6 +6,11 @@ All notable changes to this project will be documented in this file.
 
 ## 2026-02-15 (continued)
 
+### Version Bumps (for CI/CD changeset)
+
+- **`@thesage/mcp`**: 0.4.0 → **0.5.0** (minor) — Full props coverage for all 92 components, formatComponentDetails enriched output
+- **`@thesage/ui`**: 1.0.0 → **1.0.1** (patch) — Ships `.claude/CLAUDE.md` AI context file in npm package, no API changes
+
 ### Phase 8: MCP Props Completeness
 
 - Enriched all 92 components in `@thesage/mcp` registry with props, subComponents, and usage examples. Previously only ~23 had props data; now 100% coverage.
