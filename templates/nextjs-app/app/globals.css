@@ -1,0 +1,6 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Import SDE globals for theme CSS variables */
+@import '@thesage/ui/globals.css';

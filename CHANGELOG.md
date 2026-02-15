@@ -2,7 +2,56 @@
 
 All notable changes to this project will be documented in this file.
 
-**Last updated:** 2026-02-06
+**Last updated:** 2026-02-15
+
+## 2026-02-15 (continued)
+
+### Phase 8: MCP Props Completeness
+
+- Enriched all 92 components in `@thesage/mcp` registry with props, subComponents, and usage examples. Previously only ~23 had props data; now 100% coverage.
+- Component enrichments include: prop types, defaults, descriptions, required flags, sub-component lists, and JSX examples for every component.
+- MCP server bundle grew from 66KB to 94KB. Build verified.
+
+### Phase 7: Quick DX & Documentation Wins
+
+- Shipped `.claude/CLAUDE.md` in `@thesage/ui` npm package — AI context file auto-discovered in `node_modules` by Claude and other AI tools. Added to `files` array in package.json.
+- Added third-party pairing docs to `llms-full.txt` and `.claude/CLAUDE.md` — recommended libraries for gaps (Tiptap, react-dropzone, Recharts, react-colorful, react-markdown, @tanstack/react-virtual, XState) with integration patterns.
+- Documented per-entrypoint bundle sizes (from `size-limit`) and tree-shaking support in both `llms-full.txt` and `.claude/CLAUDE.md`. All 10 entrypoints well under limits (core: 146KB/450KB).
+
+---
+
+## 2026-02-15
+
+### SDE Optimization for Speedboat / AI-Native Machine Readability
+
+Comprehensive optimization pass to make the Sage Design Engine machine-readable and actionable for LLMs building apps with `@thesage/ui`. Driven by an audit from Claude at Moloco identifying gaps in AI accessibility.
+
+**New files:**
+
+- `apps/web/public/llms.txt` — Concise SDE summary for LLM consumption (install, links, MCP config)
+- `apps/web/public/llms-full.txt` — Complete ~800-line component API reference with all 92 components, props, examples, composition patterns, design tokens, and hooks. One fetch = full knowledge.
+- `apps/web/public/robots.txt` — Allows all crawlers (ClaudeBot, GPTBot, Google-Extended), references sitemap and llms.txt
+- `apps/web/public/sitemap.xml` — 25 URLs covering all doc sections and LLM-optimized content
+- `apps/web/app/docs/layout.tsx` — Server-side metadata for /docs route (title, OG tags, `sage:llms-full` meta tag)
+- `templates/nextjs-app/` — General-purpose Next.js App Router starter template with correct provider hierarchy, Tailwind config, globals.css, and example page using SDE components
+
+**MCP Server (v0.3.0 → v0.4.0):**
+
+- Added `PropInfo` interface and `props`, `subComponents`, `example` fields to `ComponentMetadata`
+- Enriched ~25 high-frequency components with full props data (Button, Input, Select, Dialog, Card, Badge, Tabs, Switch, Checkbox, Combobox, Slider, RadioGroup, Textarea, Form, Accordion, Separator, Sidebar, Alert, Skeleton, DropdownMenu, Sheet, AlertDialog, Popover, Tooltip, Toggle, ToggleGroup)
+- Updated `formatComponentDetails()` to render props table, sub-components list, code examples, and llms-full.txt link
+- Version bumped to 0.4.0
+
+**AGENTS.md updates:**
+
+- Added "Component Quick Reference" section with 30 high-frequency components (category, key props, import path)
+- Added provider hierarchy diagram
+- Added common composition recipes (settings page, data table, form page, dashboard, confirmation flow)
+- Added reference to starter template
+
+**Plan document:** `docs/SDE-SPEEDBOAT-OPTIMIZATION-PLAN.md` — Full implementation tracker with checkboxes and out-of-scope items for future work.
+
+---
 
 ## 2026-02-06
 
