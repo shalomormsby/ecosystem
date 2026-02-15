@@ -138,7 +138,7 @@ export function OverviewSection() {
             {BRAND.productName}
           </h1>
           <p className="text-base text-[var(--color-text-secondary)] leading-relaxed">
-            The Solopreneur's Development Stack. AI-Native components for velocity.
+            Make it lovable. AI-Native components for velocity.
           </p>
         </div>
       </section>
