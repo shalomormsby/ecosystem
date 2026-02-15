@@ -1,6 +1,6 @@
 {
   "name": "web",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "The official documentation and studio for Sage Design Engine.",
   "private": true,
   "scripts": {
