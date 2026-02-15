@@ -815,6 +815,74 @@ Three features embody the philosophy. Here's their current status:
 
 ---
 
+## Component Quick Reference
+
+**Full API reference:** https://thesage.dev/llms-full.txt
+**MCP Server:** `npx @thesage/mcp` (4 tools: list_components, search_components, get_component, install_component)
+
+### Provider Hierarchy (Required)
+
+```tsx
+<ThemeProvider defaultTheme="studio" defaultMode="system">
+  <TooltipProvider>
+    {children}
+    <Toaster />
+  </TooltipProvider>
+</ThemeProvider>
+```
+
+### High-Frequency Components
+
+| Component | Category | Key Props | Import |
+|-----------|----------|-----------|--------|
+| Button | actions | variant: default/destructive/outline/secondary/ghost/link, size: sm/default/lg/icon | `@thesage/ui` |
+| Input | forms | type, placeholder, disabled | `@thesage/ui` |
+| Textarea | forms | placeholder, rows, disabled | `@thesage/ui` |
+| Select | forms | value, onValueChange + SelectTrigger/SelectContent/SelectItem | `@thesage/ui` |
+| Combobox | forms | options, value, onValueChange, placeholder | `@thesage/ui` |
+| Switch | forms | checked, onCheckedChange, size: sm/md/lg | `@thesage/ui` |
+| Checkbox | forms | checked, onCheckedChange, disabled | `@thesage/ui` |
+| Slider | forms | value, onValueChange, min, max, step | `@thesage/ui` |
+| RadioGroup | forms | value, onValueChange + RadioGroupItem | `@thesage/ui` |
+| Form | forms | react-hook-form + zod integration. SubComponents: FormField/FormItem/FormLabel/FormControl/FormMessage | `@thesage/ui` |
+| Tabs | navigation | defaultValue, value, onValueChange + TabsList/TabsTrigger/TabsContent | `@thesage/ui` |
+| Breadcrumb | navigation | BreadcrumbList/BreadcrumbItem/BreadcrumbLink/BreadcrumbPage | `@thesage/ui` |
+| Command | navigation | cmdk-based command palette + CommandDialog/CommandInput/CommandList/CommandItem | `@thesage/ui` |
+| Dialog | overlays | open, onOpenChange + DialogTrigger/DialogContent/DialogHeader/DialogTitle/DialogFooter | `@thesage/ui` |
+| AlertDialog | overlays | Confirmation dialog + AlertDialogTrigger/AlertDialogContent/AlertDialogAction/AlertDialogCancel | `@thesage/ui` |
+| Sheet | overlays | Slide-in panel. SheetContent side: top/right/bottom/left | `@thesage/ui` |
+| DropdownMenu | overlays | DropdownMenuTrigger/DropdownMenuContent/DropdownMenuItem | `@thesage/ui` |
+| Popover | overlays | PopoverTrigger/PopoverContent | `@thesage/ui` |
+| Tooltip | overlays | TooltipTrigger/TooltipContent (requires TooltipProvider) | `@thesage/ui` |
+| Alert | feedback | variant: default/destructive + AlertTitle/AlertDescription | `@thesage/ui` |
+| Skeleton | feedback | variant: default/circular/rectangular/text, width, height | `@thesage/ui` |
+| Spinner | feedback | size: xs/sm/md/lg/xl, variant: primary/secondary/inherit | `@thesage/ui` |
+| ProgressBar | feedback | value, variant: primary/success/warning/error/info, showLabel | `@thesage/ui` |
+| Card | data-display | variant: default/glass/outline, hoverEffect + CardHeader/CardTitle/CardContent/CardFooter | `@thesage/ui` |
+| Badge | data-display | variant: default/secondary/destructive/outline/success/warning/error/info, size: sm/md/lg, dot | `@thesage/ui` |
+| Table | data-display | TableHeader/TableBody/TableRow/TableHead/TableCell | `@thesage/ui` |
+| DataTable | data-display | @tanstack/react-table powered | `@thesage/ui/tables` |
+| Accordion | layout | type: single/multiple, collapsible + AccordionItem/AccordionTrigger/AccordionContent | `@thesage/ui` |
+| Separator | layout | orientation: horizontal/vertical | `@thesage/ui` |
+| Sidebar | layout | SidebarHeader/SidebarContent/SidebarFooter/SidebarItem (isActive, icon, depth) | `@thesage/ui` |
+
+### Common Composition Recipes
+
+**Settings Page:** `Tabs > TabsContent > Card > Switch/Select`
+**Data Table Page:** `Card > CardHeader (Input + Button) > Table/DataTable`
+**Form Page:** `Card > CardContent (Label + Input/Select/Textarea) > CardFooter (Button)`
+**Dashboard:** `Sidebar + main > Grid > Card (metric cards)`
+**Confirmation Flow:** `AlertDialog > AlertDialogContent > AlertDialogAction/Cancel`
+
+### Starter Template
+
+A complete Next.js App Router template is available at `templates/nextjs-app/` with:
+- Correct provider hierarchy
+- Tailwind config with SDE CSS variables
+- Example page using SDE components
+
+---
+
 ## State Management
 
 The ecosystem uses **Zustand** for client-side state management with localStorage persistence.

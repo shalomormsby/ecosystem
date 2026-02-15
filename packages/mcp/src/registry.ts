@@ -20,6 +20,13 @@
  * - blocks: Composed page sections
  */
 
+export interface PropInfo {
+  type: string;
+  default?: string;
+  description: string;
+  required?: boolean;
+}
+
 export interface ComponentMetadata {
   name: string;
   category: string;
@@ -28,6 +35,9 @@ export interface ComponentMetadata {
   useCases: string[];
   dependencies: string[];
   radixPrimitive?: string;
+  props?: Record<string, PropInfo>;
+  subComponents?: string[];
+  example?: string;
 }
 
 export const COMPONENT_CATEGORIES = {
@@ -105,6 +115,13 @@ export const COMPONENT_REGISTRY: Record<string, ComponentMetadata> = {
     ],
     dependencies: ['@radix-ui/react-slot'],
     radixPrimitive: '@radix-ui/react-slot',
+    props: {
+      variant: { type: "'default' | 'destructive' | 'outline' | 'secondary' | 'ghost' | 'link'", default: "'default'", description: 'Visual style variant' },
+      size: { type: "'sm' | 'default' | 'lg' | 'icon'", default: "'default'", description: 'Size variant' },
+      disabled: { type: 'boolean', default: 'false', description: 'Disable interaction' },
+      asChild: { type: 'boolean', default: 'false', description: 'Render as child element via Radix Slot' },
+    },
+    example: `<Button variant="outline" size="sm" onClick={handleClick}>Click Me</Button>`,
   },
   toggle: {
     name: 'Toggle',
@@ -119,6 +136,14 @@ export const COMPONENT_REGISTRY: Record<string, ComponentMetadata> = {
     ],
     dependencies: ['@radix-ui/react-toggle'],
     radixPrimitive: '@radix-ui/react-toggle',
+    props: {
+      pressed: { type: 'boolean', description: 'Controlled pressed state' },
+      onPressedChange: { type: '(pressed: boolean) => void', description: 'Callback on press change' },
+      variant: { type: "'default' | 'outline'", default: "'default'", description: 'Visual variant' },
+      size: { type: "'sm' | 'default' | 'lg'", default: "'default'", description: 'Size variant' },
+      disabled: { type: 'boolean', default: 'false', description: 'Disable interaction' },
+    },
+    example: `<Toggle pressed={isBold} onPressedChange={setIsBold}><Bold className="h-4 w-4" /></Toggle>`,
   },
   'toggle-group': {
     name: 'ToggleGroup',
@@ -133,6 +158,15 @@ export const COMPONENT_REGISTRY: Record<string, ComponentMetadata> = {
     ],
     dependencies: ['@radix-ui/react-toggle-group'],
     radixPrimitive: '@radix-ui/react-toggle-group',
+    props: {
+      type: { type: "'single' | 'multiple'", description: 'Selection mode', required: true },
+      value: { type: 'string | string[]', description: 'Selected value(s)' },
+      onValueChange: { type: '(value) => void', description: 'Callback on value change' },
+      variant: { type: "'default' | 'outline'", default: "'default'", description: 'Visual variant' },
+      size: { type: "'sm' | 'default' | 'lg'", default: "'default'", description: 'Size variant' },
+    },
+    subComponents: ['ToggleGroupItem'],
+    example: `<ToggleGroup type="single" value={align} onValueChange={setAlign}>\n  <ToggleGroupItem value="left">Left</ToggleGroupItem>\n  <ToggleGroupItem value="center">Center</ToggleGroupItem>\n</ToggleGroup>`,
   },
 
   // ============================================================================
@@ -151,6 +185,12 @@ export const COMPONENT_REGISTRY: Record<string, ComponentMetadata> = {
     ],
     dependencies: ['@radix-ui/react-checkbox'],
     radixPrimitive: '@radix-ui/react-checkbox',
+    props: {
+      checked: { type: "boolean | 'indeterminate'", description: 'Checked state' },
+      onCheckedChange: { type: '(checked: boolean) => void', description: 'Callback on check change' },
+      disabled: { type: 'boolean', default: 'false', description: 'Disable interaction' },
+    },
+    example: `<div className="flex items-center gap-2">\n  <Checkbox id="terms" checked={accepted} onCheckedChange={setAccepted} />\n  <Label htmlFor="terms">Accept terms</Label>\n</div>`,
   },
   combobox: {
     name: 'Combobox',
@@ -165,6 +205,15 @@ export const COMPONENT_REGISTRY: Record<string, ComponentMetadata> = {
     ],
     dependencies: ['cmdk', '@radix-ui/react-popover'],
     radixPrimitive: '@radix-ui/react-popover',
+    props: {
+      options: { type: '{ value: string; label: string }[]', description: 'List of options', required: true },
+      value: { type: 'string', description: 'Selected value' },
+      onValueChange: { type: '(value: string) => void', description: 'Callback on selection' },
+      placeholder: { type: 'string', description: 'Trigger placeholder text' },
+      searchPlaceholder: { type: 'string', description: 'Search input placeholder' },
+      emptyText: { type: 'string', description: 'Text when no results found' },
+    },
+    example: `<Combobox\n  options={[{ value: 'react', label: 'React' }, { value: 'vue', label: 'Vue' }]}\n  value={framework}\n  onValueChange={setFramework}\n  placeholder="Select framework"\n/>`,
   },
   form: {
     name: 'Form',
@@ -178,6 +227,11 @@ export const COMPONENT_REGISTRY: Record<string, ComponentMetadata> = {
       'Multi-step forms',
     ],
     dependencies: ['react-hook-form', '@hookform/resolvers', 'zod'],
+    props: {
+      '...form': { type: 'UseFormReturn', description: 'Spread react-hook-form useForm() return value', required: true },
+    },
+    subComponents: ['FormControl', 'FormDescription', 'FormField', 'FormItem', 'FormLabel', 'FormMessage'],
+    example: `<Form {...form}>\n  <form onSubmit={form.handleSubmit(onSubmit)}>\n    <FormField control={form.control} name="email" render={({ field }) => (\n      <FormItem>\n        <FormLabel>Email</FormLabel>\n        <FormControl><Input {...field} /></FormControl>\n        <FormMessage />\n      </FormItem>\n    )} />\n    <Button type="submit">Submit</Button>\n  </form>\n</Form>`,
   },
   input: {
     name: 'Input',
@@ -191,6 +245,12 @@ export const COMPONENT_REGISTRY: Record<string, ComponentMetadata> = {
       'Numeric input',
     ],
     dependencies: [],
+    props: {
+      type: { type: 'string', default: "'text'", description: 'HTML input type' },
+      placeholder: { type: 'string', description: 'Placeholder text' },
+      disabled: { type: 'boolean', default: 'false', description: 'Disable interaction' },
+    },
+    example: `<Input type="email" placeholder="Enter email" />`,
   },
   'input-otp': {
     name: 'InputOTP',
@@ -204,6 +264,13 @@ export const COMPONENT_REGISTRY: Record<string, ComponentMetadata> = {
       'Security codes',
     ],
     dependencies: ['input-otp'],
+    props: {
+      maxLength: { type: 'number', default: '6', description: 'Maximum number of characters' },
+      value: { type: 'string', description: 'Controlled input value' },
+      onChange: { type: '(value: string) => void', description: 'Callback on value change' },
+    },
+    subComponents: ['InputOTPGroup', 'InputOTPSlot', 'InputOTPSeparator'],
+    example: `<InputOTP maxLength={6}>\n  <InputOTPGroup>\n    <InputOTPSlot index={0} />\n    <InputOTPSlot index={1} />\n    <InputOTPSlot index={2} />\n  </InputOTPGroup>\n  <InputOTPSeparator />\n  <InputOTPGroup>\n    <InputOTPSlot index={3} />\n    <InputOTPSlot index={4} />\n    <InputOTPSlot index={5} />\n  </InputOTPGroup>\n</InputOTP>`,
   },
   label: {
     name: 'Label',
@@ -217,6 +284,10 @@ export const COMPONENT_REGISTRY: Record<string, ComponentMetadata> = {
     ],
     dependencies: ['@radix-ui/react-label'],
     radixPrimitive: '@radix-ui/react-label',
+    props: {
+      htmlFor: { type: 'string', description: 'ID of the associated form control' },
+    },
+    example: `<Label htmlFor="email">Email Address</Label>\n<Input id="email" type="email" />`,
   },
   'radio-group': {
     name: 'RadioGroup',
@@ -231,6 +302,13 @@ export const COMPONENT_REGISTRY: Record<string, ComponentMetadata> = {
     ],
     dependencies: ['@radix-ui/react-radio-group'],
     radixPrimitive: '@radix-ui/react-radio-group',
+    props: {
+      value: { type: 'string', description: 'Controlled selected value' },
+      onValueChange: { type: '(value: string) => void', description: 'Callback on selection' },
+      disabled: { type: 'boolean', default: 'false', description: 'Disable interaction' },
+    },
+    subComponents: ['RadioGroupItem'],
+    example: `<RadioGroup value={plan} onValueChange={setPlan}>\n  <div className="flex items-center gap-2">\n    <RadioGroupItem value="free" id="free" />\n    <Label htmlFor="free">Free</Label>\n  </div>\n</RadioGroup>`,
   },
   select: {
     name: 'Select',
@@ -245,6 +323,13 @@ export const COMPONENT_REGISTRY: Record<string, ComponentMetadata> = {
     ],
     dependencies: ['@radix-ui/react-select'],
     radixPrimitive: '@radix-ui/react-select',
+    props: {
+      value: { type: 'string', description: 'Controlled selected value' },
+      onValueChange: { type: '(value: string) => void', description: 'Callback on selection' },
+      defaultValue: { type: 'string', description: 'Default selected value' },
+    },
+    subComponents: ['SelectTrigger', 'SelectValue', 'SelectContent', 'SelectItem', 'SelectGroup', 'SelectLabel', 'SelectSeparator'],
+    example: `<Select value={theme} onValueChange={setTheme}>\n  <SelectTrigger className="w-[180px]">\n    <SelectValue placeholder="Select theme" />\n  </SelectTrigger>\n  <SelectContent>\n    <SelectItem value="light">Light</SelectItem>\n    <SelectItem value="dark">Dark</SelectItem>\n  </SelectContent>\n</Select>`,
   },
   slider: {
     name: 'Slider',
@@ -259,6 +344,15 @@ export const COMPONENT_REGISTRY: Record<string, ComponentMetadata> = {
     ],
     dependencies: ['@radix-ui/react-slider'],
     radixPrimitive: '@radix-ui/react-slider',
+    props: {
+      value: { type: 'number[]', description: 'Current value(s)' },
+      onValueChange: { type: '(value: number[]) => void', description: 'Callback on value change' },
+      min: { type: 'number', default: '0', description: 'Minimum value' },
+      max: { type: 'number', default: '100', description: 'Maximum value' },
+      step: { type: 'number', default: '1', description: 'Step increment' },
+      disabled: { type: 'boolean', default: 'false', description: 'Disable interaction' },
+    },
+    example: `<Slider value={[volume]} onValueChange={(v) => setVolume(v[0])} max={100} step={1} />`,
   },
   switch: {
     name: 'Switch',
@@ -273,6 +367,14 @@ export const COMPONENT_REGISTRY: Record<string, ComponentMetadata> = {
     ],
     dependencies: ['@radix-ui/react-switch'],
     radixPrimitive: '@radix-ui/react-switch',
+    props: {
+      checked: { type: 'boolean', description: 'Controlled checked state' },
+      onCheckedChange: { type: '(checked: boolean) => void', description: 'Callback on toggle' },
+      size: { type: "'sm' | 'md' | 'lg'", default: "'md'", description: 'Size variant' },
+      disabled: { type: 'boolean', default: 'false', description: 'Disable interaction' },
+      label: { type: 'string', description: 'Optional label text' },
+    },
+    example: `<Switch checked={enabled} onCheckedChange={setEnabled} size="md" />`,
   },
   textarea: {
     name: 'Textarea',
@@ -286,6 +388,12 @@ export const COMPONENT_REGISTRY: Record<string, ComponentMetadata> = {
       'Long-form text',
     ],
     dependencies: [],
+    props: {
+      placeholder: { type: 'string', description: 'Placeholder text' },
+      disabled: { type: 'boolean', default: 'false', description: 'Disable interaction' },
+      rows: { type: 'number', description: 'Number of visible rows' },
+    },
+    example: `<Textarea placeholder="Write your message..." rows={4} />`,
   },
 
   // ============================================================================
@@ -303,6 +411,8 @@ export const COMPONENT_REGISTRY: Record<string, ComponentMetadata> = {
       'Back navigation',
     ],
     dependencies: [],
+    subComponents: ['BreadcrumbList', 'BreadcrumbItem', 'BreadcrumbLink', 'BreadcrumbPage', 'BreadcrumbSeparator', 'BreadcrumbEllipsis'],
+    example: `<Breadcrumb>\n  <BreadcrumbList>\n    <BreadcrumbItem><BreadcrumbLink href="/">Home</BreadcrumbLink></BreadcrumbItem>\n    <BreadcrumbSeparator />\n    <BreadcrumbItem><BreadcrumbLink href="/docs">Docs</BreadcrumbLink></BreadcrumbItem>\n    <BreadcrumbSeparator />\n    <BreadcrumbItem><BreadcrumbPage>Current</BreadcrumbPage></BreadcrumbItem>\n  </BreadcrumbList>\n</Breadcrumb>`,
   },
   command: {
     name: 'Command',
@@ -316,6 +426,8 @@ export const COMPONENT_REGISTRY: Record<string, ComponentMetadata> = {
       'Power user features',
     ],
     dependencies: ['cmdk'],
+    subComponents: ['CommandInput', 'CommandList', 'CommandEmpty', 'CommandGroup', 'CommandItem', 'CommandSeparator', 'CommandShortcut', 'CommandDialog'],
+    example: `<Command>\n  <CommandInput placeholder="Type a command..." />\n  <CommandList>\n    <CommandEmpty>No results found.</CommandEmpty>\n    <CommandGroup heading="Actions">\n      <CommandItem>Search</CommandItem>\n      <CommandItem>Settings</CommandItem>\n    </CommandGroup>\n  </CommandList>\n</Command>`,
   },
   menubar: {
     name: 'Menubar',
@@ -330,6 +442,8 @@ export const COMPONENT_REGISTRY: Record<string, ComponentMetadata> = {
     ],
     dependencies: ['@radix-ui/react-menubar'],
     radixPrimitive: '@radix-ui/react-menubar',
+    subComponents: ['MenubarMenu', 'MenubarTrigger', 'MenubarContent', 'MenubarItem', 'MenubarSeparator', 'MenubarLabel', 'MenubarCheckboxItem', 'MenubarRadioGroup', 'MenubarRadioItem', 'MenubarSub', 'MenubarSubTrigger', 'MenubarSubContent', 'MenubarShortcut'],
+    example: `<Menubar>\n  <MenubarMenu>\n    <MenubarTrigger>File</MenubarTrigger>\n    <MenubarContent>\n      <MenubarItem>New <MenubarShortcut>⌘N</MenubarShortcut></MenubarItem>\n      <MenubarItem>Open <MenubarShortcut>⌘O</MenubarShortcut></MenubarItem>\n      <MenubarSeparator />\n      <MenubarItem>Exit</MenubarItem>\n    </MenubarContent>\n  </MenubarMenu>\n</Menubar>`,
   },
   'navigation-menu': {
     name: 'NavigationMenu',
@@ -344,6 +458,8 @@ export const COMPONENT_REGISTRY: Record<string, ComponentMetadata> = {
     ],
     dependencies: ['@radix-ui/react-navigation-menu'],
     radixPrimitive: '@radix-ui/react-navigation-menu',
+    subComponents: ['NavigationMenuList', 'NavigationMenuItem', 'NavigationMenuTrigger', 'NavigationMenuContent', 'NavigationMenuLink', 'NavigationMenuIndicator', 'NavigationMenuViewport'],
+    example: `<NavigationMenu>\n  <NavigationMenuList>\n    <NavigationMenuItem>\n      <NavigationMenuTrigger>Getting Started</NavigationMenuTrigger>\n      <NavigationMenuContent>\n        <NavigationMenuLink href="/docs">Documentation</NavigationMenuLink>\n      </NavigationMenuContent>\n    </NavigationMenuItem>\n  </NavigationMenuList>\n</NavigationMenu>`,
   },
   pagination: {
     name: 'Pagination',
@@ -357,6 +473,8 @@ export const COMPONENT_REGISTRY: Record<string, ComponentMetadata> = {
       'Multi-page forms',
     ],
     dependencies: [],
+    subComponents: ['PaginationContent', 'PaginationItem', 'PaginationLink', 'PaginationPrevious', 'PaginationNext', 'PaginationEllipsis'],
+    example: `<Pagination>\n  <PaginationContent>\n    <PaginationItem><PaginationPrevious href="#" /></PaginationItem>\n    <PaginationItem><PaginationLink href="#">1</PaginationLink></PaginationItem>\n    <PaginationItem><PaginationLink href="#" isActive>2</PaginationLink></PaginationItem>\n    <PaginationItem><PaginationLink href="#">3</PaginationLink></PaginationItem>\n    <PaginationItem><PaginationNext href="#" /></PaginationItem>\n  </PaginationContent>\n</Pagination>`,
   },
   tabs: {
     name: 'Tabs',
@@ -371,6 +489,13 @@ export const COMPONENT_REGISTRY: Record<string, ComponentMetadata> = {
     ],
     dependencies: ['@radix-ui/react-tabs'],
     radixPrimitive: '@radix-ui/react-tabs',
+    props: {
+      defaultValue: { type: 'string', description: 'Default active tab value' },
+      value: { type: 'string', description: 'Controlled active tab value' },
+      onValueChange: { type: '(value: string) => void', description: 'Callback on tab change' },
+    },
+    subComponents: ['TabsList', 'TabsTrigger', 'TabsContent'],
+    example: `<Tabs defaultValue="account">\n  <TabsList>\n    <TabsTrigger value="account">Account</TabsTrigger>\n    <TabsTrigger value="password">Password</TabsTrigger>\n  </TabsList>\n  <TabsContent value="account">Account settings here.</TabsContent>\n  <TabsContent value="password">Password settings here.</TabsContent>\n</Tabs>`,
   },
 
   // ============================================================================
@@ -389,6 +514,12 @@ export const COMPONENT_REGISTRY: Record<string, ComponentMetadata> = {
     ],
     dependencies: ['@radix-ui/react-alert-dialog'],
     radixPrimitive: '@radix-ui/react-alert-dialog',
+    props: {
+      open: { type: 'boolean', description: 'Controlled open state' },
+      onOpenChange: { type: '(open: boolean) => void', description: 'Callback on open/close' },
+    },
+    subComponents: ['AlertDialogTrigger', 'AlertDialogContent', 'AlertDialogHeader', 'AlertDialogTitle', 'AlertDialogDescription', 'AlertDialogFooter', 'AlertDialogAction', 'AlertDialogCancel'],
+    example: `<AlertDialog>\n  <AlertDialogTrigger asChild><Button variant="destructive">Delete</Button></AlertDialogTrigger>\n  <AlertDialogContent>\n    <AlertDialogHeader>\n      <AlertDialogTitle>Are you sure?</AlertDialogTitle>\n      <AlertDialogDescription>This cannot be undone.</AlertDialogDescription>\n    </AlertDialogHeader>\n    <AlertDialogFooter>\n      <AlertDialogCancel>Cancel</AlertDialogCancel>\n      <AlertDialogAction>Delete</AlertDialogAction>\n    </AlertDialogFooter>\n  </AlertDialogContent>\n</AlertDialog>`,
   },
   'context-menu': {
     name: 'ContextMenu',
@@ -403,6 +534,8 @@ export const COMPONENT_REGISTRY: Record<string, ComponentMetadata> = {
     ],
     dependencies: ['@radix-ui/react-context-menu'],
     radixPrimitive: '@radix-ui/react-context-menu',
+    subComponents: ['ContextMenuTrigger', 'ContextMenuContent', 'ContextMenuItem', 'ContextMenuCheckboxItem', 'ContextMenuRadioItem', 'ContextMenuLabel', 'ContextMenuSeparator', 'ContextMenuShortcut', 'ContextMenuSub', 'ContextMenuSubTrigger', 'ContextMenuSubContent', 'ContextMenuRadioGroup'],
+    example: `<ContextMenu>\n  <ContextMenuTrigger>Right click here</ContextMenuTrigger>\n  <ContextMenuContent>\n    <ContextMenuItem>Edit</ContextMenuItem>\n    <ContextMenuItem>Duplicate</ContextMenuItem>\n    <ContextMenuSeparator />\n    <ContextMenuItem>Delete</ContextMenuItem>\n  </ContextMenuContent>\n</ContextMenu>`,
   },
   dialog: {
     name: 'Dialog',
@@ -417,6 +550,12 @@ export const COMPONENT_REGISTRY: Record<string, ComponentMetadata> = {
     ],
     dependencies: ['@radix-ui/react-dialog'],
     radixPrimitive: '@radix-ui/react-dialog',
+    props: {
+      open: { type: 'boolean', description: 'Controlled open state' },
+      onOpenChange: { type: '(open: boolean) => void', description: 'Callback on open/close' },
+    },
+    subComponents: ['DialogTrigger', 'DialogContent', 'DialogHeader', 'DialogTitle', 'DialogDescription', 'DialogFooter', 'DialogClose'],
+    example: `<Dialog>\n  <DialogTrigger asChild><Button>Open</Button></DialogTrigger>\n  <DialogContent>\n    <DialogHeader>\n      <DialogTitle>Title</DialogTitle>\n      <DialogDescription>Description here.</DialogDescription>\n    </DialogHeader>\n    <DialogFooter>\n      <Button variant="outline">Cancel</Button>\n      <Button>Confirm</Button>\n    </DialogFooter>\n  </DialogContent>\n</Dialog>`,
   },
   drawer: {
     name: 'Drawer',
@@ -430,6 +569,12 @@ export const COMPONENT_REGISTRY: Record<string, ComponentMetadata> = {
       'Mobile menus',
     ],
     dependencies: ['vaul'],
+    props: {
+      open: { type: 'boolean', description: 'Controlled open state' },
+      onOpenChange: { type: '(open: boolean) => void', description: 'Callback on open/close' },
+    },
+    subComponents: ['DrawerTrigger', 'DrawerContent', 'DrawerHeader', 'DrawerTitle', 'DrawerDescription', 'DrawerFooter', 'DrawerClose'],
+    example: `<Drawer>\n  <DrawerTrigger asChild><Button>Open Drawer</Button></DrawerTrigger>\n  <DrawerContent>\n    <DrawerHeader>\n      <DrawerTitle>Settings</DrawerTitle>\n      <DrawerDescription>Adjust preferences.</DrawerDescription>\n    </DrawerHeader>\n    <div className="p-4">Content here.</div>\n    <DrawerFooter>\n      <Button>Save</Button>\n      <DrawerClose asChild><Button variant="outline">Cancel</Button></DrawerClose>\n    </DrawerFooter>\n  </DrawerContent>\n</Drawer>`,
   },
   'dropdown-menu': {
     name: 'DropdownMenu',
@@ -444,6 +589,12 @@ export const COMPONENT_REGISTRY: Record<string, ComponentMetadata> = {
     ],
     dependencies: ['@radix-ui/react-dropdown-menu'],
     radixPrimitive: '@radix-ui/react-dropdown-menu',
+    props: {
+      open: { type: 'boolean', description: 'Controlled open state' },
+      onOpenChange: { type: '(open: boolean) => void', description: 'Callback on open/close' },
+    },
+    subComponents: ['DropdownMenuTrigger', 'DropdownMenuContent', 'DropdownMenuItem', 'DropdownMenuLabel', 'DropdownMenuSeparator', 'DropdownMenuCheckboxItem', 'DropdownMenuRadioGroup', 'DropdownMenuRadioItem', 'DropdownMenuSub', 'DropdownMenuSubTrigger', 'DropdownMenuSubContent'],
+    example: `<DropdownMenu>\n  <DropdownMenuTrigger asChild><Button variant="ghost">Options</Button></DropdownMenuTrigger>\n  <DropdownMenuContent>\n    <DropdownMenuLabel>Actions</DropdownMenuLabel>\n    <DropdownMenuSeparator />\n    <DropdownMenuItem>Edit</DropdownMenuItem>\n    <DropdownMenuItem>Delete</DropdownMenuItem>\n  </DropdownMenuContent>\n</DropdownMenu>`,
   },
   'hover-card': {
     name: 'HoverCard',
@@ -458,6 +609,12 @@ export const COMPONENT_REGISTRY: Record<string, ComponentMetadata> = {
     ],
     dependencies: ['@radix-ui/react-hover-card'],
     radixPrimitive: '@radix-ui/react-hover-card',
+    props: {
+      openDelay: { type: 'number', default: '700', description: 'Delay in ms before opening' },
+      closeDelay: { type: 'number', default: '300', description: 'Delay in ms before closing' },
+    },
+    subComponents: ['HoverCardTrigger', 'HoverCardContent'],
+    example: `<HoverCard>\n  <HoverCardTrigger asChild><Link href="#">@username</Link></HoverCardTrigger>\n  <HoverCardContent className="w-80">\n    <div className="flex gap-4">\n      <Avatar />\n      <div><p className="text-sm font-semibold">Username</p><p className="text-sm text-muted-foreground">Bio here.</p></div>\n    </div>\n  </HoverCardContent>\n</HoverCard>`,
   },
   popover: {
     name: 'Popover',
@@ -472,6 +629,12 @@ export const COMPONENT_REGISTRY: Record<string, ComponentMetadata> = {
     ],
     dependencies: ['@radix-ui/react-popover'],
     radixPrimitive: '@radix-ui/react-popover',
+    props: {
+      open: { type: 'boolean', description: 'Controlled open state' },
+      onOpenChange: { type: '(open: boolean) => void', description: 'Callback on open/close' },
+    },
+    subComponents: ['PopoverTrigger', 'PopoverContent', 'PopoverAnchor'],
+    example: `<Popover>\n  <PopoverTrigger asChild><Button variant="outline">Open</Button></PopoverTrigger>\n  <PopoverContent className="w-80">Content here.</PopoverContent>\n</Popover>`,
   },
   sheet: {
     name: 'Sheet',
@@ -486,6 +649,12 @@ export const COMPONENT_REGISTRY: Record<string, ComponentMetadata> = {
     ],
     dependencies: ['@radix-ui/react-dialog'],
     radixPrimitive: '@radix-ui/react-dialog',
+    props: {
+      open: { type: 'boolean', description: 'Controlled open state' },
+      onOpenChange: { type: '(open: boolean) => void', description: 'Callback on open/close' },
+    },
+    subComponents: ['SheetTrigger', 'SheetContent', 'SheetHeader', 'SheetTitle', 'SheetDescription', 'SheetClose'],
+    example: `<Sheet>\n  <SheetTrigger asChild><Button>Open</Button></SheetTrigger>\n  <SheetContent side="right">\n    <SheetHeader><SheetTitle>Settings</SheetTitle></SheetHeader>\n    <div className="p-4">Content here.</div>\n  </SheetContent>\n</Sheet>`,
   },
   tooltip: {
     name: 'Tooltip',
@@ -500,6 +669,8 @@ export const COMPONENT_REGISTRY: Record<string, ComponentMetadata> = {
     ],
     dependencies: ['@radix-ui/react-tooltip'],
     radixPrimitive: '@radix-ui/react-tooltip',
+    subComponents: ['TooltipTrigger', 'TooltipContent', 'TooltipProvider'],
+    example: `<Tooltip>\n  <TooltipTrigger asChild><Button variant="ghost" size="icon"><Info /></Button></TooltipTrigger>\n  <TooltipContent><p>Helpful information</p></TooltipContent>\n</Tooltip>`,
   },
 
   // ============================================================================
@@ -517,6 +688,11 @@ export const COMPONENT_REGISTRY: Record<string, ComponentMetadata> = {
       'Success confirmations',
     ],
     dependencies: [],
+    props: {
+      variant: { type: "'default' | 'destructive'", default: "'default'", description: 'Visual variant' },
+    },
+    subComponents: ['AlertTitle', 'AlertDescription'],
+    example: `<Alert variant="destructive">\n  <AlertTitle>Error</AlertTitle>\n  <AlertDescription>Your session has expired.</AlertDescription>\n</Alert>`,
   },
   progress: {
     name: 'Progress',
@@ -531,6 +707,11 @@ export const COMPONENT_REGISTRY: Record<string, ComponentMetadata> = {
     ],
     dependencies: ['@radix-ui/react-progress'],
     radixPrimitive: '@radix-ui/react-progress',
+    props: {
+      value: { type: 'number', default: '0', description: 'Progress value (0-100)' },
+      max: { type: 'number', default: '100', description: 'Maximum value' },
+    },
+    example: `<Progress value={60} />`,
   },
   skeleton: {
     name: 'Skeleton',
@@ -544,11 +725,17 @@ export const COMPONENT_REGISTRY: Record<string, ComponentMetadata> = {
       'Lazy loading',
     ],
     dependencies: [],
+    props: {
+      variant: { type: "'default' | 'circular' | 'rectangular' | 'text'", default: "'default'", description: 'Shape variant' },
+      width: { type: 'string', default: "'100%'", description: 'Width (CSS value)' },
+      height: { type: 'string', default: "'20px'", description: 'Height (CSS value)' },
+    },
+    example: `<div className="space-y-2">\n  <Skeleton className="h-12 w-12 rounded-full" />\n  <Skeleton className="h-4 w-[250px]" />\n  <Skeleton className="h-4 w-[200px]" />\n</div>`,
   },
   sonner: {
     name: 'Sonner',
     category: 'feedback',
-    description: 'Toast notification system with queuing and positioning',
+    description: 'Toast notification system with queuing and positioning. Use Toaster component in layout, call toast() to trigger.',
     keywords: ['toast', 'notification', 'sonner', 'message', 'alert'],
     useCases: [
       'Success messages',
@@ -557,6 +744,8 @@ export const COMPONENT_REGISTRY: Record<string, ComponentMetadata> = {
       'System messages',
     ],
     dependencies: ['sonner'],
+    subComponents: ['Toaster'],
+    example: `// In layout: <Toaster />\n// To trigger:\nimport { toast } from 'sonner'\ntoast.success('Saved successfully')\ntoast.error('Something went wrong')\ntoast('Default notification')`,
   },
   toast: {
     name: 'Toast',
@@ -571,6 +760,8 @@ export const COMPONENT_REGISTRY: Record<string, ComponentMetadata> = {
     ],
     dependencies: ['@radix-ui/react-toast'],
     radixPrimitive: '@radix-ui/react-toast',
+    subComponents: ['ToastAction', 'ToastClose', 'ToastDescription', 'ToastProvider', 'ToastTitle', 'ToastViewport'],
+    example: `// Prefer using Sonner (Toaster + toast()) for new projects.\n// This is the Radix-based alternative.\nimport { useToast } from '@thesage/ui'\nconst { toast } = useToast()\ntoast({ title: 'Success', description: 'Item saved.' })`,
   },
 
   // ============================================================================
@@ -589,6 +780,8 @@ export const COMPONENT_REGISTRY: Record<string, ComponentMetadata> = {
     ],
     dependencies: ['@radix-ui/react-avatar'],
     radixPrimitive: '@radix-ui/react-avatar',
+    subComponents: ['AvatarImage', 'AvatarFallback'],
+    example: `<Avatar>\n  <AvatarImage src="/avatar.jpg" alt="User" />\n  <AvatarFallback>JD</AvatarFallback>\n</Avatar>`,
   },
   badge: {
     name: 'Badge',
@@ -602,6 +795,12 @@ export const COMPONENT_REGISTRY: Record<string, ComponentMetadata> = {
       'Notification counts',
     ],
     dependencies: [],
+    props: {
+      variant: { type: "'default' | 'secondary' | 'destructive' | 'outline' | 'success' | 'warning' | 'error' | 'info'", default: "'default'", description: 'Visual variant' },
+      size: { type: "'sm' | 'md' | 'lg'", default: "'md'", description: 'Size variant' },
+      dot: { type: 'boolean', default: 'false', description: 'Show animated indicator dot' },
+    },
+    example: `<Badge variant="success" dot>Active</Badge>`,
   },
   calendar: {
     name: 'Calendar',
@@ -615,6 +814,14 @@ export const COMPONENT_REGISTRY: Record<string, ComponentMetadata> = {
       'Date ranges',
     ],
     dependencies: ['react-day-picker', 'date-fns'],
+    props: {
+      mode: { type: "'single' | 'multiple' | 'range'", default: "'single'", description: 'Selection mode' },
+      selected: { type: 'Date | Date[] | DateRange', description: 'Selected date(s)' },
+      onSelect: { type: '(date) => void', description: 'Callback on date selection' },
+      showOutsideDays: { type: 'boolean', default: 'true', description: 'Show days from adjacent months' },
+      disabled: { type: 'Matcher | Matcher[]', description: 'Dates to disable' },
+    },
+    example: `<Calendar mode="single" selected={date} onSelect={setDate} />`,
   },
   card: {
     name: 'Card',
@@ -628,6 +835,12 @@ export const COMPONENT_REGISTRY: Record<string, ComponentMetadata> = {
       'Dashboard widgets',
     ],
     dependencies: [],
+    props: {
+      variant: { type: "'default' | 'glass' | 'outline'", default: "'default'", description: 'Visual variant' },
+      hoverEffect: { type: 'boolean', default: 'false', description: 'Enable hover lift and shadow' },
+    },
+    subComponents: ['CardHeader', 'CardTitle', 'CardDescription', 'CardContent', 'CardFooter'],
+    example: `<Card>\n  <CardHeader>\n    <CardTitle>Notifications</CardTitle>\n    <CardDescription>You have 3 unread messages.</CardDescription>\n  </CardHeader>\n  <CardContent><p>Content here.</p></CardContent>\n  <CardFooter><Button>View All</Button></CardFooter>\n</Card>`,
   },
   'data-table': {
     name: 'DataTable',
@@ -641,6 +854,11 @@ export const COMPONENT_REGISTRY: Record<string, ComponentMetadata> = {
       'List management',
     ],
     dependencies: ['@tanstack/react-table'],
+    props: {
+      columns: { type: 'ColumnDef<TData, TValue>[]', description: 'Column definitions from @tanstack/react-table', required: true },
+      data: { type: 'TData[]', description: 'Array of row data', required: true },
+    },
+    example: `import { DataTable } from '@thesage/ui/tables'\nconst columns = [\n  { accessorKey: 'name', header: 'Name' },\n  { accessorKey: 'email', header: 'Email' },\n]\n<DataTable columns={columns} data={users} />`,
   },
   table: {
     name: 'Table',
@@ -654,6 +872,8 @@ export const COMPONENT_REGISTRY: Record<string, ComponentMetadata> = {
       'Pricing tables',
     ],
     dependencies: [],
+    subComponents: ['TableHeader', 'TableBody', 'TableFooter', 'TableRow', 'TableHead', 'TableCell', 'TableCaption'],
+    example: `<Table>\n  <TableHeader>\n    <TableRow>\n      <TableHead>Name</TableHead>\n      <TableHead>Status</TableHead>\n    </TableRow>\n  </TableHeader>\n  <TableBody>\n    <TableRow>\n      <TableCell>John</TableCell>\n      <TableCell>Active</TableCell>\n    </TableRow>\n  </TableBody>\n</Table>`,
   },
   heading: {
     name: 'Heading',
@@ -667,6 +887,11 @@ export const COMPONENT_REGISTRY: Record<string, ComponentMetadata> = {
       'Semantic HTML structure',
     ],
     dependencies: [],
+    props: {
+      level: { type: '1 | 2 | 3 | 4 | 5 | 6', default: '2', description: 'Heading level (renders h1-h6)' },
+      as: { type: "'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'", description: 'Override rendered HTML element' },
+    },
+    example: `<Heading level={1}>Page Title</Heading>\n<Heading level={2}>Section Title</Heading>`,
   },
   text: {
     name: 'Text',
@@ -680,6 +905,12 @@ export const COMPONENT_REGISTRY: Record<string, ComponentMetadata> = {
       'Labels and captions',
     ],
     dependencies: [],
+    props: {
+      variant: { type: "'default' | 'secondary' | 'muted' | 'lead'", default: "'default'", description: 'Text style variant' },
+      as: { type: "'p' | 'span' | 'div'", default: "'p'", description: 'HTML element to render' },
+      size: { type: "'sm' | 'base' | 'lg'", default: "'base'", description: 'Font size' },
+    },
+    example: `<Text variant="lead">Important introductory text.</Text>\n<Text variant="muted" size="sm">Helper text below an input.</Text>`,
   },
   code: {
     name: 'Code',
@@ -693,6 +924,11 @@ export const COMPONENT_REGISTRY: Record<string, ComponentMetadata> = {
       'Inline code references',
     ],
     dependencies: [],
+    props: {
+      inline: { type: 'boolean', default: 'false', description: 'Render as inline code (true) or block (false)' },
+      showCopy: { type: 'boolean', default: 'true', description: 'Show copy button for block code' },
+    },
+    example: `// Inline\n<Code inline>npm install @thesage/ui</Code>\n\n// Block\n<Code>{\`const x = 1;\nconst y = 2;\`}</Code>`,
   },
   'collapsible-code-block': {
     name: 'CollapsibleCodeBlock',
@@ -706,6 +942,14 @@ export const COMPONENT_REGISTRY: Record<string, ComponentMetadata> = {
       'API examples',
     ],
     dependencies: ['@thesage/tokens'],
+    props: {
+      code: { type: 'string', description: 'Source code string', required: true },
+      language: { type: "'tsx' | 'typescript' | 'javascript' | 'jsx' | 'css' | 'html' | 'json' | 'bash'", default: "'tsx'", description: 'Language for syntax highlighting' },
+      title: { type: 'string', description: 'Optional title above the code block' },
+      maxLines: { type: 'number', default: '10', description: 'Lines to show before collapsing' },
+      defaultExpanded: { type: 'boolean', default: 'false', description: 'Start in expanded state' },
+    },
+    example: `<CollapsibleCodeBlock\n  code="const Button = () => <button>Click</button>"\n  language="tsx"\n  title="Button.tsx"\n  maxLines={5}\n/>`,
   },
   'description-list': {
     name: 'DescriptionList',
@@ -719,6 +963,11 @@ export const COMPONENT_REGISTRY: Record<string, ComponentMetadata> = {
       'Settings summaries',
     ],
     dependencies: [],
+    props: {
+      items: { type: '{ label: string; value: ReactNode }[]', description: 'Array of label-value pairs', required: true },
+      layout: { type: "'row' | 'column'", default: "'row'", description: 'Layout direction for label/value pairs' },
+    },
+    example: `<DescriptionList items={[\n  { label: 'Name', value: 'John Doe' },\n  { label: 'Email', value: 'john@example.com' },\n  { label: 'Role', value: <Badge>Admin</Badge> },\n]} />`,
   },
 
   // ============================================================================
@@ -737,6 +986,12 @@ export const COMPONENT_REGISTRY: Record<string, ComponentMetadata> = {
     ],
     dependencies: ['@radix-ui/react-accordion'],
     radixPrimitive: '@radix-ui/react-accordion',
+    props: {
+      type: { type: "'single' | 'multiple'", description: 'Allow single or multiple open items', required: true },
+      collapsible: { type: 'boolean', default: 'false', description: 'Allow closing all items (type="single" only)' },
+    },
+    subComponents: ['AccordionItem', 'AccordionTrigger', 'AccordionContent'],
+    example: `<Accordion type="single" collapsible>\n  <AccordionItem value="item-1">\n    <AccordionTrigger>Is it accessible?</AccordionTrigger>\n    <AccordionContent>Yes. It follows WAI-ARIA patterns.</AccordionContent>\n  </AccordionItem>\n</Accordion>`,
   },
   'aspect-ratio': {
     name: 'AspectRatio',
@@ -751,6 +1006,10 @@ export const COMPONENT_REGISTRY: Record<string, ComponentMetadata> = {
     ],
     dependencies: ['@radix-ui/react-aspect-ratio'],
     radixPrimitive: '@radix-ui/react-aspect-ratio',
+    props: {
+      ratio: { type: 'number', default: '1', description: 'Aspect ratio as a number (e.g. 16/9)' },
+    },
+    example: `<AspectRatio ratio={16 / 9}>\n  <img src="/image.jpg" alt="Photo" className="rounded-md object-cover w-full h-full" />\n</AspectRatio>`,
   },
   carousel: {
     name: 'Carousel',
@@ -764,6 +1023,14 @@ export const COMPONENT_REGISTRY: Record<string, ComponentMetadata> = {
       'Testimonials',
     ],
     dependencies: ['embla-carousel-react'],
+    props: {
+      orientation: { type: "'horizontal' | 'vertical'", default: "'horizontal'", description: 'Scroll direction' },
+      opts: { type: 'CarouselOptions', description: 'Embla Carousel options (loop, align, etc.)' },
+      plugins: { type: 'CarouselPlugin', description: 'Embla Carousel plugins (autoplay, etc.)' },
+      setApi: { type: '(api: CarouselApi) => void', description: 'Callback to get carousel API ref' },
+    },
+    subComponents: ['CarouselContent', 'CarouselItem', 'CarouselPrevious', 'CarouselNext'],
+    example: `<Carousel>\n  <CarouselContent>\n    <CarouselItem>Slide 1</CarouselItem>\n    <CarouselItem>Slide 2</CarouselItem>\n    <CarouselItem>Slide 3</CarouselItem>\n  </CarouselContent>\n  <CarouselPrevious />\n  <CarouselNext />\n</Carousel>`,
   },
   collapsible: {
     name: 'Collapsible',
@@ -778,6 +1045,13 @@ export const COMPONENT_REGISTRY: Record<string, ComponentMetadata> = {
     ],
     dependencies: ['@radix-ui/react-collapsible'],
     radixPrimitive: '@radix-ui/react-collapsible',
+    props: {
+      open: { type: 'boolean', description: 'Controlled open state' },
+      onOpenChange: { type: '(open: boolean) => void', description: 'Callback on open/close' },
+      defaultOpen: { type: 'boolean', default: 'false', description: 'Default open state' },
+    },
+    subComponents: ['CollapsibleTrigger', 'CollapsibleContent'],
+    example: `<Collapsible>\n  <CollapsibleTrigger asChild><Button variant="ghost">Toggle</Button></CollapsibleTrigger>\n  <CollapsibleContent>\n    <p>Hidden content revealed on click.</p>\n  </CollapsibleContent>\n</Collapsible>`,
   },
   'date-picker': {
     name: 'DatePicker',
@@ -791,6 +1065,13 @@ export const COMPONENT_REGISTRY: Record<string, ComponentMetadata> = {
       'Filters',
     ],
     dependencies: ['react-day-picker', 'date-fns', '@radix-ui/react-popover'],
+    props: {
+      date: { type: 'Date', description: 'Selected date' },
+      onDateChange: { type: '(date: Date | undefined) => void', description: 'Callback on date change' },
+      placeholder: { type: 'string', default: "'Pick a date'", description: 'Placeholder text' },
+      disabled: { type: 'boolean', default: 'false', description: 'Disable the date picker' },
+    },
+    example: `<DatePicker date={date} onDateChange={setDate} placeholder="Select date" />`,
   },
   resizable: {
     name: 'Resizable',
@@ -804,6 +1085,11 @@ export const COMPONENT_REGISTRY: Record<string, ComponentMetadata> = {
       'Adjustable sidebars',
     ],
     dependencies: ['react-resizable-panels'],
+    props: {
+      direction: { type: "'horizontal' | 'vertical'", default: "'horizontal'", description: 'Panel layout direction' },
+    },
+    subComponents: ['ResizablePanelGroup', 'ResizablePanel', 'ResizableHandle'],
+    example: `<ResizablePanelGroup direction="horizontal">\n  <ResizablePanel defaultSize={50}>Left panel</ResizablePanel>\n  <ResizableHandle />\n  <ResizablePanel defaultSize={50}>Right panel</ResizablePanel>\n</ResizablePanelGroup>`,
   },
   'scroll-area': {
     name: 'ScrollArea',
@@ -818,6 +1104,8 @@ export const COMPONENT_REGISTRY: Record<string, ComponentMetadata> = {
     ],
     dependencies: ['@radix-ui/react-scroll-area'],
     radixPrimitive: '@radix-ui/react-scroll-area',
+    subComponents: ['ScrollBar'],
+    example: `<ScrollArea className="h-[200px] w-full rounded-md border p-4">\n  <div>Long scrollable content here...</div>\n</ScrollArea>`,
   },
   separator: {
     name: 'Separator',
@@ -832,6 +1120,10 @@ export const COMPONENT_REGISTRY: Record<string, ComponentMetadata> = {
     ],
     dependencies: ['@radix-ui/react-separator'],
     radixPrimitive: '@radix-ui/react-separator',
+    props: {
+      orientation: { type: "'horizontal' | 'vertical'", default: "'horizontal'", description: 'Orientation' },
+    },
+    example: `<Separator orientation="horizontal" />`,
   },
   grid: {
     name: 'Grid',
@@ -845,6 +1137,11 @@ export const COMPONENT_REGISTRY: Record<string, ComponentMetadata> = {
       'Responsive content grids',
     ],
     dependencies: [],
+    props: {
+      columns: { type: 'number | { sm?: number; md?: number; lg?: number }', default: '3', description: 'Number of grid columns (responsive object supported)' },
+      gap: { type: 'number | string', default: '4', description: 'Gap between grid items (Tailwind spacing scale)' },
+    },
+    example: `<Grid columns={{ sm: 1, md: 2, lg: 3 }} gap={4}>\n  <Card>Item 1</Card>\n  <Card>Item 2</Card>\n  <Card>Item 3</Card>\n</Grid>`,
   },
   container: {
     name: 'Container',
@@ -858,6 +1155,11 @@ export const COMPONENT_REGISTRY: Record<string, ComponentMetadata> = {
       'Content alignment',
     ],
     dependencies: [],
+    props: {
+      size: { type: "'sm' | 'md' | 'lg' | 'xl' | 'full'", default: "'lg'", description: 'Max-width variant' },
+      padding: { type: 'boolean', default: 'true', description: 'Apply horizontal padding' },
+    },
+    example: `<Container size="lg">\n  <Heading level={1}>Page Title</Heading>\n  <Text>Content within max-width container.</Text>\n</Container>`,
   },
   stack: {
     name: 'Stack',
@@ -871,6 +1173,13 @@ export const COMPONENT_REGISTRY: Record<string, ComponentMetadata> = {
       'Button groups',
     ],
     dependencies: [],
+    props: {
+      direction: { type: "'vertical' | 'horizontal'", default: "'vertical'", description: 'Stack direction' },
+      gap: { type: 'number | string', default: '4', description: 'Gap between items (Tailwind spacing scale)' },
+      align: { type: "'start' | 'center' | 'end' | 'stretch'", default: "'stretch'", description: 'Cross-axis alignment' },
+      justify: { type: "'start' | 'center' | 'end' | 'between'", description: 'Main-axis alignment' },
+    },
+    example: `<Stack direction="horizontal" gap={2} align="center">\n  <Button>Save</Button>\n  <Button variant="outline">Cancel</Button>\n</Stack>`,
   },
   sidebar: {
     name: 'Sidebar',
@@ -885,6 +1194,11 @@ export const COMPONENT_REGISTRY: Record<string, ComponentMetadata> = {
     ],
     dependencies: ['@radix-ui/react-slot'],
     radixPrimitive: '@radix-ui/react-slot',
+    props: {
+      isOpen: { type: 'boolean', default: 'true', description: 'Whether sidebar is visible/expanded' },
+    },
+    subComponents: ['SidebarHeader', 'SidebarContent', 'SidebarFooter', 'SidebarItem'],
+    example: `<Sidebar>\n  <SidebarHeader><h2>My App</h2></SidebarHeader>\n  <SidebarContent>\n    <SidebarItem icon={<Home />} isActive>Dashboard</SidebarItem>\n    <SidebarItem icon={<Settings />}>Settings</SidebarItem>\n  </SidebarContent>\n  <SidebarFooter>\n    <SidebarItem icon={<LogOut />}>Logout</SidebarItem>\n  </SidebarFooter>\n</Sidebar>`,
   },
   header: {
     name: 'Header',
@@ -898,6 +1212,13 @@ export const COMPONENT_REGISTRY: Record<string, ComponentMetadata> = {
       'Mobile-friendly navigation',
     ],
     dependencies: ['lucide-react'],
+    props: {
+      logo: { type: 'ReactNode', description: 'Logo element for header' },
+      links: { type: '{ label: string; href: string }[]', description: 'Navigation links' },
+      sticky: { type: 'boolean', default: 'true', description: 'Stick to top on scroll' },
+      transparent: { type: 'boolean', default: 'false', description: 'Transparent background (for hero sections)' },
+    },
+    example: `<Header\n  logo={<Brand />}\n  links={[\n    { label: 'Home', href: '/' },\n    { label: 'About', href: '/about' },\n  ]}\n/>`,
   },
   footer: {
     name: 'Footer',
@@ -911,11 +1232,17 @@ export const COMPONENT_REGISTRY: Record<string, ComponentMetadata> = {
       'Copyright notices',
     ],
     dependencies: [],
+    props: {
+      columns: { type: '{ title: string; links: { label: string; href: string }[] }[]', description: 'Footer navigation columns' },
+      copyright: { type: 'string', description: 'Copyright text' },
+      socialLinks: { type: '{ icon: ReactNode; href: string }[]', description: 'Social media links' },
+    },
+    example: `<Footer\n  columns={[{ title: 'Product', links: [{ label: 'Docs', href: '/docs' }] }]}\n  copyright="© 2026 My Company"\n/>`,
   },
   'customizer-panel': {
     name: 'CustomizerPanel',
     category: 'layout',
-    description: 'Floating panel for theme, mode, and motion customization',
+    description: 'Floating panel for theme, mode, and motion customization. Reads from ThemeProvider context.',
     keywords: ['customizer', 'theme', 'settings', 'preferences', 'dark-mode'],
     useCases: [
       'Theme selection',
@@ -924,6 +1251,7 @@ export const COMPONENT_REGISTRY: Record<string, ComponentMetadata> = {
       'User experience customization',
     ],
     dependencies: ['lucide-react', '@thesage/tokens'],
+    example: `// Place in your layout. It reads theme state from ThemeProvider.\n<CustomizerPanel />`,
   },
   'page-layout': {
     name: 'PageLayout',
@@ -937,6 +1265,13 @@ export const COMPONENT_REGISTRY: Record<string, ComponentMetadata> = {
       'Dashboard layouts',
     ],
     dependencies: [],
+    props: {
+      header: { type: 'ReactNode', description: 'Header element' },
+      footer: { type: 'ReactNode', description: 'Footer element' },
+      sidebar: { type: 'ReactNode', description: 'Optional sidebar' },
+      breadcrumbs: { type: 'ReactNode', description: 'Breadcrumb navigation' },
+    },
+    example: `<PageLayout\n  header={<Header />}\n  footer={<Footer />}\n>\n  <main>Page content</main>\n</PageLayout>`,
   },
   'page-template': {
     name: 'PageTemplate',
@@ -950,6 +1285,12 @@ export const COMPONENT_REGISTRY: Record<string, ComponentMetadata> = {
       'Content-focused layouts',
     ],
     dependencies: [],
+    props: {
+      title: { type: 'string', description: 'Page title' },
+      description: { type: 'string', description: 'Page description' },
+      showCustomizer: { type: 'boolean', default: 'true', description: 'Show customizer panel' },
+    },
+    example: `<PageTemplate title="Documentation" description="Learn the design system.">\n  <div>Content here.</div>\n</PageTemplate>`,
   },
 
   // ============================================================================
@@ -967,6 +1308,12 @@ export const COMPONENT_REGISTRY: Record<string, ComponentMetadata> = {
       'Inline actions',
     ],
     dependencies: [],
+    props: {
+      href: { type: 'string', description: 'Link URL', required: true },
+      variant: { type: "'default' | 'inline'", default: "'default'", description: 'Default for standalone links, inline for text links' },
+      hoverEffect: { type: 'boolean', default: 'true', description: 'Enable hover effect' },
+    },
+    example: `<Link href="/about" variant="inline">Learn More</Link>`,
   },
   magnetic: {
     name: 'Magnetic',
@@ -980,6 +1327,11 @@ export const COMPONENT_REGISTRY: Record<string, ComponentMetadata> = {
       'Cursor attraction',
     ],
     dependencies: ['framer-motion'],
+    props: {
+      children: { type: 'ReactNode', description: 'Element to apply magnetic effect to', required: true },
+      strength: { type: 'number', default: '0.5', description: 'Magnetic pull strength (0-1)' },
+    },
+    example: `<Magnetic strength={0.5}>\n  <Button>Hover me</Button>\n</Magnetic>`,
   },
 
   // ============================================================================
@@ -997,6 +1349,13 @@ export const COMPONENT_REGISTRY: Record<string, ComponentMetadata> = {
       'Data filtering',
     ],
     dependencies: ['lucide-react'],
+    props: {
+      value: { type: 'string', description: 'Controlled search value' },
+      onChange: { type: '(value: string) => void', description: 'Callback on value change' },
+      placeholder: { type: 'string', default: "'Search...'", description: 'Placeholder text' },
+      onClear: { type: '() => void', description: 'Callback on clear button click' },
+    },
+    example: `<SearchBar value={query} onChange={setQuery} placeholder="Search components..." />`,
   },
   'filter-button': {
     name: 'FilterButton',
@@ -1010,11 +1369,17 @@ export const COMPONENT_REGISTRY: Record<string, ComponentMetadata> = {
       'Quick filters',
     ],
     dependencies: [],
+    props: {
+      active: { type: 'boolean', default: 'false', description: 'Whether filter is active' },
+      onClick: { type: '() => void', description: 'Click handler' },
+      children: { type: 'ReactNode', description: 'Filter label', required: true },
+    },
+    example: `<FilterButton active={category === 'all'} onClick={() => setCategory('all')}>All</FilterButton>`,
   },
   'theme-switcher': {
     name: 'ThemeSwitcher',
     category: 'forms',
-    description: 'Multi-theme selector for switching between Studio, Terra, and Volt',
+    description: 'Multi-theme selector for switching between Studio, Terra, and Volt. Reads/writes to ThemeProvider context.',
     keywords: ['theme', 'switcher', 'selector', 'studio', 'terra', 'volt'],
     useCases: [
       'Theme selection',
@@ -1023,11 +1388,12 @@ export const COMPONENT_REGISTRY: Record<string, ComponentMetadata> = {
       'Design switching',
     ],
     dependencies: [],
+    example: `// Reads from ThemeProvider context, no props needed.\n<ThemeSwitcher />`,
   },
   'theme-toggle': {
     name: 'ThemeToggle',
     category: 'forms',
-    description: 'Light/dark mode toggle with smooth transitions',
+    description: 'Light/dark mode toggle with smooth transitions. Reads/writes to ThemeProvider context.',
     keywords: ['theme', 'toggle', 'dark-mode', 'light-mode', 'mode'],
     useCases: [
       'Dark mode switch',
@@ -1036,6 +1402,7 @@ export const COMPONENT_REGISTRY: Record<string, ComponentMetadata> = {
       'Accessibility preference',
     ],
     dependencies: ['lucide-react'],
+    example: `// Reads from ThemeProvider context, no props needed.\n<ThemeToggle />`,
   },
   'color-picker': {
     name: 'ColorPicker',
@@ -1049,6 +1416,12 @@ export const COMPONENT_REGISTRY: Record<string, ComponentMetadata> = {
       'User preferences',
     ],
     dependencies: [],
+    props: {
+      value: { type: 'string', description: 'Selected color (hex string)' },
+      onChange: { type: '(color: string) => void', description: 'Callback on color change' },
+      presets: { type: 'string[]', description: 'Preset color swatches (hex values)' },
+    },
+    example: `<ColorPicker value={color} onChange={setColor} presets={['#ef4444', '#3b82f6', '#22c55e']} />`,
   },
   'drag-drop': {
     name: 'DragDrop',
@@ -1062,6 +1435,13 @@ export const COMPONENT_REGISTRY: Record<string, ComponentMetadata> = {
       'Bulk imports',
     ],
     dependencies: [],
+    props: {
+      onDrop: { type: '(files: File[]) => void', description: 'Callback when files are dropped', required: true },
+      accept: { type: 'string', description: 'Accepted file types (e.g. "image/*")' },
+      maxSize: { type: 'number', description: 'Max file size in bytes' },
+      multiple: { type: 'boolean', default: 'true', description: 'Allow multiple files' },
+    },
+    example: `<DragDrop onDrop={(files) => handleUpload(files)} accept="image/*" maxSize={5242880} />`,
   },
   'text-field': {
     name: 'TextField',
@@ -1075,6 +1455,13 @@ export const COMPONENT_REGISTRY: Record<string, ComponentMetadata> = {
       'Complete form controls',
     ],
     dependencies: [],
+    props: {
+      label: { type: 'string', description: 'Field label text' },
+      helperText: { type: 'string', description: 'Helper text below input' },
+      error: { type: 'string', description: 'Error message (shows error state when set)' },
+      required: { type: 'boolean', default: 'false', description: 'Mark as required' },
+    },
+    example: `<TextField label="Email" helperText="We'll never share your email." error={errors.email} required />`,
   },
 
   // ============================================================================
@@ -1092,6 +1479,12 @@ export const COMPONENT_REGISTRY: Record<string, ComponentMetadata> = {
       'Active page indicators',
     ],
     dependencies: [],
+    props: {
+      href: { type: 'string', description: 'Link URL', required: true },
+      isActive: { type: 'boolean', default: 'false', description: 'Active state indicator' },
+      variant: { type: "'default' | 'subtle'", default: "'default'", description: 'Visual variant' },
+    },
+    example: `<NavLink href="/dashboard" isActive>Dashboard</NavLink>`,
   },
   'secondary-nav': {
     name: 'SecondaryNav',
@@ -1105,6 +1498,10 @@ export const COMPONENT_REGISTRY: Record<string, ComponentMetadata> = {
       'Category switching',
     ],
     dependencies: [],
+    props: {
+      items: { type: '{ label: string; href: string; isActive?: boolean }[]', description: 'Navigation items', required: true },
+    },
+    example: `<SecondaryNav items={[\n  { label: 'Overview', href: '/overview', isActive: true },\n  { label: 'Settings', href: '/settings' },\n]} />`,
   },
   'tertiary-nav': {
     name: 'TertiaryNav',
@@ -1118,6 +1515,10 @@ export const COMPONENT_REGISTRY: Record<string, ComponentMetadata> = {
       'Nested categories',
     ],
     dependencies: [],
+    props: {
+      items: { type: '{ label: string; href: string; isActive?: boolean }[]', description: 'Navigation items', required: true },
+    },
+    example: `<TertiaryNav items={[\n  { label: 'Props', href: '#props', isActive: true },\n  { label: 'Examples', href: '#examples' },\n]} />`,
   },
   breadcrumbs: {
     name: 'Breadcrumbs',
@@ -1131,6 +1532,11 @@ export const COMPONENT_REGISTRY: Record<string, ComponentMetadata> = {
       'Back navigation',
     ],
     dependencies: ['lucide-react'],
+    props: {
+      items: { type: '{ label: string; href?: string }[]', description: 'Breadcrumb trail items (last item is current page)', required: true },
+      showHome: { type: 'boolean', default: 'true', description: 'Show home icon as first item' },
+    },
+    example: `<Breadcrumbs items={[\n  { label: 'Home', href: '/' },\n  { label: 'Components', href: '/components' },\n  { label: 'Button' },\n]} />`,
   },
 
   // ============================================================================
@@ -1149,6 +1555,13 @@ export const COMPONENT_REGISTRY: Record<string, ComponentMetadata> = {
     ],
     dependencies: ['@radix-ui/react-dialog'],
     radixPrimitive: '@radix-ui/react-dialog',
+    props: {
+      open: { type: 'boolean', description: 'Controlled open state' },
+      onOpenChange: { type: '(open: boolean) => void', description: 'Callback on open/close' },
+      title: { type: 'string', description: 'Modal title' },
+      description: { type: 'string', description: 'Modal description' },
+    },
+    example: `<Modal open={isOpen} onOpenChange={setIsOpen} title="Confirm" description="Are you sure?">\n  <div className="flex gap-2 justify-end">\n    <Button variant="outline" onClick={() => setIsOpen(false)}>Cancel</Button>\n    <Button onClick={handleConfirm}>Confirm</Button>\n  </div>\n</Modal>`,
   },
   dropdown: {
     name: 'Dropdown',
@@ -1163,6 +1576,11 @@ export const COMPONENT_REGISTRY: Record<string, ComponentMetadata> = {
     ],
     dependencies: ['@radix-ui/react-dropdown-menu'],
     radixPrimitive: '@radix-ui/react-dropdown-menu',
+    props: {
+      open: { type: 'boolean', description: 'Controlled open state' },
+      onOpenChange: { type: '(open: boolean) => void', description: 'Callback on open/close' },
+    },
+    example: `// For most cases, use DropdownMenu directly. This is a simplified wrapper.`,
   },
 
   // ============================================================================
@@ -1180,6 +1598,11 @@ export const COMPONENT_REGISTRY: Record<string, ComponentMetadata> = {
       'Async operations',
     ],
     dependencies: [],
+    props: {
+      size: { type: "'xs' | 'sm' | 'md' | 'lg' | 'xl'", default: "'md'", description: 'Spinner size' },
+      variant: { type: "'primary' | 'secondary' | 'inherit'", default: "'primary'", description: 'Color variant' },
+    },
+    example: `<Spinner size="md" />\n<Button disabled><Spinner size="xs" variant="inherit" /> Loading...</Button>`,
   },
   'progress-bar': {
     name: 'ProgressBar',
@@ -1193,6 +1616,13 @@ export const COMPONENT_REGISTRY: Record<string, ComponentMetadata> = {
       'Step completion',
     ],
     dependencies: [],
+    props: {
+      value: { type: 'number', default: '0', description: 'Progress value (0-100)' },
+      variant: { type: "'primary' | 'success' | 'warning' | 'error' | 'info'", default: "'primary'", description: 'Color variant' },
+      size: { type: "'sm' | 'md' | 'lg'", default: "'md'", description: 'Bar height' },
+      showLabel: { type: 'boolean', default: 'false', description: 'Show percentage label' },
+    },
+    example: `<ProgressBar value={75} variant="success" showLabel />`,
   },
 
   // ============================================================================
@@ -1210,6 +1640,12 @@ export const COMPONENT_REGISTRY: Record<string, ComponentMetadata> = {
       'App identity',
     ],
     dependencies: [],
+    props: {
+      variant: { type: "'default' | 'mark'", default: "'default'", description: 'Full logo or mark only' },
+      size: { type: "'sm' | 'md' | 'lg'", default: "'md'", description: 'Logo size' },
+      href: { type: 'string', description: 'Optional link URL (wraps in anchor)' },
+    },
+    example: `<Brand size="md" href="/" />`,
   },
   'aspect-image': {
     name: 'AspectImage',
@@ -1223,6 +1659,14 @@ export const COMPONENT_REGISTRY: Record<string, ComponentMetadata> = {
       'Thumbnails with captions',
     ],
     dependencies: [],
+    props: {
+      src: { type: 'string', description: 'Image source URL', required: true },
+      alt: { type: 'string', description: 'Alt text for accessibility', required: true },
+      ratio: { type: 'number', default: '16/9', description: 'Aspect ratio' },
+      rounded: { type: "'none' | 'sm' | 'md' | 'lg' | 'full'", default: "'md'", description: 'Border radius' },
+      caption: { type: 'string', description: 'Optional caption text below image' },
+    },
+    example: `<AspectImage src="/photo.jpg" alt="Team photo" ratio={4/3} caption="Our team" />`,
   },
   'variable-weight-text': {
     name: 'VariableWeightText',
@@ -1236,6 +1680,13 @@ export const COMPONENT_REGISTRY: Record<string, ComponentMetadata> = {
       'Variable font showcase',
     ],
     dependencies: ['framer-motion'],
+    props: {
+      children: { type: 'string', description: 'Text content', required: true },
+      speed: { type: 'number', default: '2', description: 'Animation speed in seconds' },
+      minWeight: { type: 'number', default: '100', description: 'Minimum font weight' },
+      maxWeight: { type: 'number', default: '900', description: 'Maximum font weight' },
+    },
+    example: `<VariableWeightText speed={2} minWeight={200} maxWeight={800}>Design</VariableWeightText>`,
   },
   typewriter: {
     name: 'Typewriter',
@@ -1249,6 +1700,13 @@ export const COMPONENT_REGISTRY: Record<string, ComponentMetadata> = {
       'Attention text',
     ],
     dependencies: ['framer-motion'],
+    props: {
+      words: { type: 'string[]', description: 'Words to cycle through', required: true },
+      speed: { type: 'number', default: '100', description: 'Typing speed in ms per character' },
+      loop: { type: 'boolean', default: 'true', description: 'Loop through words continuously' },
+      cursor: { type: 'boolean', default: 'true', description: 'Show blinking cursor' },
+    },
+    example: `<Typewriter words={['Developer', 'Designer', 'Creator']} speed={80} />`,
   },
   'github-icon': {
     name: 'GitHubIcon',
@@ -1262,6 +1720,10 @@ export const COMPONENT_REGISTRY: Record<string, ComponentMetadata> = {
       'Open source badges',
     ],
     dependencies: [],
+    props: {
+      size: { type: 'number', default: '24', description: 'Icon size in pixels' },
+    },
+    example: `<a href="https://github.com/you"><GitHubIcon size={20} /></a>`,
   },
 
   // ============================================================================
@@ -1279,6 +1741,12 @@ export const COMPONENT_REGISTRY: Record<string, ComponentMetadata> = {
       'Sci-fi themes',
     ],
     dependencies: ['framer-motion'],
+    props: {
+      speed: { type: 'number', default: '1', description: 'Warp speed multiplier' },
+      density: { type: 'number', default: '200', description: 'Number of stars' },
+      color: { type: 'string', default: "'white'", description: 'Star color' },
+    },
+    example: `<WarpBackground speed={1.5} density={300}>\n  <div className="relative z-10">Content over stars</div>\n</WarpBackground>`,
   },
   'faulty-terminal': {
     name: 'FaultyTerminal',
@@ -1292,6 +1760,10 @@ export const COMPONENT_REGISTRY: Record<string, ComponentMetadata> = {
       'Terminal UIs',
     ],
     dependencies: [],
+    props: {
+      children: { type: 'ReactNode', description: 'Content to render inside terminal' },
+    },
+    example: `<FaultyTerminal>\n  <p>$ system initializing...</p>\n</FaultyTerminal>`,
   },
   'orb-background': {
     name: 'OrbBackground',
@@ -1305,6 +1777,11 @@ export const COMPONENT_REGISTRY: Record<string, ComponentMetadata> = {
       'Modern aesthetics',
     ],
     dependencies: ['framer-motion'],
+    props: {
+      color: { type: 'string', description: 'Primary orb color' },
+      size: { type: 'number', default: '400', description: 'Orb diameter in pixels' },
+    },
+    example: `<OrbBackground color="var(--color-primary)" size={500}>\n  <div className="relative z-10">Content</div>\n</OrbBackground>`,
   },
 
   // ============================================================================
@@ -1313,7 +1790,7 @@ export const COMPONENT_REGISTRY: Record<string, ComponentMetadata> = {
   'splash-cursor': {
     name: 'SplashCursor',
     category: 'cursor',
-    description: 'Custom cursor with splash/ripple effect on click',
+    description: 'Custom cursor with splash/ripple effect on click. WebGL-based fluid simulation.',
     keywords: ['cursor', 'splash', 'ripple', 'click', 'effect', 'interactive'],
     useCases: [
       'Interactive experiences',
@@ -1322,6 +1799,7 @@ export const COMPONENT_REGISTRY: Record<string, ComponentMetadata> = {
       'Click feedback',
     ],
     dependencies: [],
+    example: `// Place once in layout. Replaces default cursor globally.\n<SplashCursor />`,
   },
   'target-cursor': {
     name: 'TargetCursor',
@@ -1335,6 +1813,7 @@ export const COMPONENT_REGISTRY: Record<string, ComponentMetadata> = {
       'Custom pointers',
     ],
     dependencies: [],
+    example: `// Place once in layout. Replaces default cursor globally.\n<TargetCursor />`,
   },
 
   // ============================================================================
@@ -1352,6 +1831,12 @@ export const COMPONENT_REGISTRY: Record<string, ComponentMetadata> = {
       'Interactive connections',
     ],
     dependencies: ['framer-motion'],
+    props: {
+      fromRef: { type: 'RefObject<HTMLElement>', description: 'Ref to source element', required: true },
+      toRef: { type: 'RefObject<HTMLElement>', description: 'Ref to target element', required: true },
+      duration: { type: 'number', default: '3', description: 'Animation duration in seconds' },
+    },
+    example: `const fromRef = useRef(null)\nconst toRef = useRef(null)\n<div ref={fromRef}>Source</div>\n<div ref={toRef}>Target</div>\n<AnimatedBeam fromRef={fromRef} toRef={toRef} />`,
   },
 
   // ============================================================================
@@ -1369,11 +1854,18 @@ export const COMPONENT_REGISTRY: Record<string, ComponentMetadata> = {
       'Feature highlights',
     ],
     dependencies: [],
+    props: {
+      title: { type: 'string', description: 'Main heading text', required: true },
+      subtitle: { type: 'string', description: 'Subtitle or tagline' },
+      cta: { type: 'ReactNode', description: 'Call-to-action element (Button, etc.)' },
+      background: { type: 'ReactNode', description: 'Optional background element (WarpBackground, OrbBackground, etc.)' },
+    },
+    example: `<Hero\n  title="Build Something Beautiful"\n  subtitle="A design system that brings joy."\n  cta={<Button size="lg">Get Started</Button>}\n/>`,
   },
   'open-graph-card': {
     name: 'OpenGraphCard',
     category: 'blocks',
-    description: 'Social media preview card for Open Graph metadata',
+    description: 'Social media preview card for Open Graph metadata. Use in opengraph-image.tsx.',
     keywords: ['open-graph', 'social', 'preview', 'card', 'meta', 'share'],
     useCases: [
       'Social sharing previews',
@@ -1382,6 +1874,17 @@ export const COMPONENT_REGISTRY: Record<string, ComponentMetadata> = {
       'Marketing previews',
     ],
     dependencies: [],
+    props: {
+      title: { type: 'string', default: "'Sage Design Engine'", description: 'Main title text' },
+      description: { type: 'string', description: 'Subtitle text' },
+      variant: { type: "'primary' | 'secondary' | 'accent' | 'sage' | 'emerald' | 'gradient'", default: "'sage'", description: 'Visual style variant' },
+      icon: { type: 'ReactNode', description: 'Custom logo or icon element' },
+      gradient: { type: '{ type: string; angle: number; colors: string[] }', description: 'Custom gradient config (variant="gradient")' },
+      primaryColor: { type: 'string', description: 'Override primary color (hex)' },
+      secondaryColor: { type: 'string', description: 'Override secondary color (hex)' },
+      accentColor: { type: 'string', description: 'Override accent color (hex)' },
+    },
+    example: `// In opengraph-image.tsx:\nexport default function OGImage() {\n  return <OpenGraphCard title="My Page" description="A great description" variant="primary" />\n}`,
   },
 };
 

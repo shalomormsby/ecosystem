@@ -1,0 +1,18 @@
+User-agent: *
+Allow: /
+
+# AI Crawlers
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+# LLM-optimized content
+# Full component API reference: https://thesage.dev/llms-full.txt
+# Summary: https://thesage.dev/llms.txt
+
+Sitemap: https://thesage.dev/sitemap.xml

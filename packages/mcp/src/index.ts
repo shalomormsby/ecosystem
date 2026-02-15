@@ -180,14 +180,45 @@ function formatComponentDetails(component: ComponentMetadata): string {
   output += `**Category:** ${component.category}\n\n`;
   output += `## Description\n${component.description}\n\n`;
 
+  // Import
+  const importParts = [component.name];
+  if (component.subComponents) {
+    importParts.push(...component.subComponents);
+  }
+  output += `## Import\n`;
+  output += `\`\`\`typescript\nimport { ${importParts.join(', ')} } from '@thesage/ui';\n\`\`\`\n\n`;
+
+  // Props table
+  if (component.props && Object.keys(component.props).length > 0) {
+    output += `## Props\n\n`;
+    output += `| Prop | Type | Default | Description |\n`;
+    output += `|------|------|---------|-------------|\n`;
+    Object.entries(component.props).forEach(([name, prop]) => {
+      const required = prop.required ? ' **(required)**' : '';
+      const defaultVal = prop.default || '-';
+      output += `| ${name} | \`${prop.type}\` | ${defaultVal} | ${prop.description}${required} |\n`;
+    });
+    output += '\n';
+  }
+
+  // Sub-components
+  if (component.subComponents && component.subComponents.length > 0) {
+    output += `## Sub-Components\n`;
+    output += component.subComponents.join(', ') + '\n\n';
+  }
+
+  // Example
+  if (component.example) {
+    output += `## Example\n`;
+    output += `\`\`\`tsx\n${component.example}\n\`\`\`\n\n`;
+  }
+
+  // Use cases
   output += `## Use Cases\n`;
   component.useCases.forEach((useCase) => {
     output += `- ${useCase}\n`;
   });
   output += '\n';
-
-  output += `## Keywords\n`;
-  output += component.keywords.join(', ') + '\n\n';
 
   if (component.dependencies.length > 0) {
     output += `## Dependencies\n`;
@@ -202,11 +233,9 @@ function formatComponentDetails(component: ComponentMetadata): string {
     output += `Built on: ${component.radixPrimitive}\n\n`;
   }
 
-  output += `## Import\n`;
-  output += `\`\`\`typescript\nimport { ${component.name} } from '@thesage/ui';\n\`\`\`\n\n`;
-
   output += `## Documentation\n`;
-  output += `View full documentation at: https://thesage.dev/#${component.category}/${component.name.toLowerCase().replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase()}\n`;
+  output += `View full documentation at: https://thesage.dev/docs#${component.category}/${component.name.toLowerCase().replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase()}\n`;
+  output += `\nFull API reference: https://thesage.dev/llms-full.txt\n`;
 
   return output;
 }
