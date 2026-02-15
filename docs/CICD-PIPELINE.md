@@ -81,11 +81,15 @@ PR opened ──► CI (build + lint) ──► Manually merge to main
 
 **Note:** This workflow will show as "Skipped" on normal feature PRs. This is expected behavior.
 
-**What it does:**
-1. Approves the Version Packages PR using the PAT
-2. Enables auto-merge (squash) so it merges once CI passes
 
-**Why a PAT is required:** The built-in `GITHUB_TOKEN` cannot approve PRs that were created by workflows using the same token. The PAT (`GH_TOKEN_FOR_CI`) acts as a different identity.
+**What it does:**
+1. Enables auto-merge (squash) so it merges once CI passes
+
+**Configuration Requirements:**
+- You must add the user associated with `GH_TOKEN_FOR_CI` (e.g. yourself) to the **"Allow specific actors to bypass required pull request reviews"** list in your repository Settings > Branches > main.
+- This allows the automation to merge without a second review.
+
+**Why a PAT is required:** Merging with a PAT (`GH_TOKEN_FOR_CI`) ensures that the subsequent **Release workflow** is triggered. Merges performed by the default `GITHUB_TOKEN` do not trigger other workflows.
 
 **Secret required:** `GH_TOKEN_FOR_CI`
 
@@ -112,7 +116,7 @@ Private packages (like `web`, `portfolio`) don't need changeset entries — they
 
 1. **You merge the feature PR to main** — triggers CI + Release workflows
 2. **Release workflow** sees changeset files, creates "Version Packages" PR
-3. **Auto-merge workflow** triggers on the PR, approves it, enables auto-merge
+3. **Auto-merge workflow** triggers on the PR and enables auto-merge (requires bypass permission)
 4. **CI runs** on the Version Packages PR
 5. **CI passes** — GitHub auto-merges the PR
 6. **Merge triggers Release workflow again** — this time no changesets exist, so it publishes:

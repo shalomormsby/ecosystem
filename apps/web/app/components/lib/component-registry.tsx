@@ -3365,7 +3365,7 @@ const [date, setDate] = useState<Date | undefined>(new Date())
       },
       description: {
         type: 'text',
-        default: "The Solopreneur's Development Stack",
+        default: "Make it lovable.",
         description: 'Subtitle or description text',
       },
       variant: {
