@@ -1,5 +1,15 @@
 # @thesage/mcp
 
+## 0.8.1 - 2026-02-16
+
+### Patch Changes
+
+- fa247e6: Phase 16 New Components & Major Refactor:
+  - @thesage/ui: Added 7 new components: `StatCard`, `EmptyState`, `Timeline`, `Stepper`, `FileUpload`, `TreeView`, `NotificationCenter`.
+  - @thesage/ui: Exported CVA variants for `card`, `sheet`, `label`, and `alert` to enable standalone usage.
+  - @thesage/ui: Added `react-dropzone` dependency.
+  - @thesage/mcp: Updated component registry to include all 96 components.
+
 ## 0.7.0 - 2026-02-16
 
 ### Minor Changes
