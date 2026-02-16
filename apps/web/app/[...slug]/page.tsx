@@ -10,10 +10,10 @@ export default async function CatchAllPage({ params }: Props) {
     const { slug } = await params;
 
     const validSections = [
-        'overview', 'architecture', 'adding-components', 'common-patterns',
+        'getting-started', 'overview', 'architecture', 'adding-components', 'common-patterns',
         'contributing', 'mcp-server', 'tokens', 'themes', 'actions', 'forms', 'navigation',
         'overlays', 'feedback', 'data-display', 'layout', 'blocks',
-        'hooks', 'templates', 'charts', 'motion'
+        'hooks', 'templates', 'charts', 'motion', 'tools', 'backgrounds', 'cursor'
     ];
 
     const aliases: Record<string, string> = {

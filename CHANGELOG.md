@@ -2,7 +2,83 @@
 
 All notable changes to this project will be documented in this file.
 
-**Last updated:** 2026-02-15
+**Last updated:** 2026-02-15 3:45 PM PST
+
+## 2026-02-15 3:45 PM PST — Phase 15: Test Coverage Expansion
+
+### Test Suite Growth: 63 → 156 Tests (10 → 30 Files)
+
+- Added 20 new test files covering components across all functional categories:
+  - **actions:** Toggle (pressed state, onChange, disabled, custom className, aria-pressed, group rendering)
+  - **data-display:** Badge, Avatar, Heading, Text (variants, fallback behavior, semantic HTML, className forwarding)
+  - **feedback:** Alert, Skeleton, Spinner (roles, variants, descriptions, accessibility attributes)
+  - **forms:** Checkbox, Textarea, Label (checked state, onChange, disabled, ref forwarding, htmlFor association)
+  - **overlays:** AlertDialog, Tooltip, Popover (trigger rendering, open/close, controlled state)
+  - **navigation:** Breadcrumb (nav role, links with href, aria-current for current page)
+  - **layout:** Separator, Collapsible, Stack, Grid, Container (orientation, open/close, responsive props, semantic elements)
+- Fixed Radix-specific testing patterns:
+  - Avatar: jsdom doesn't fire image load events — test fallback behavior instead
+  - Collapsible: Radix removes content from DOM when closed (use `not.toBeInTheDocument()` not `not.toBeVisible()`)
+  - Tooltip: content renders with `role="tooltip"` — use `findByRole` instead of `findByText`
+- All 156 tests passing, 0 failures
+
+## 2026-02-15 3:38 PM PST — Post-Audit Fix Phases (9A–14)
+
+### Phase 9A: Fix "Documentation - undefined" Title (P0)
+
+- Fixed `og:title` and `twitter:title` rendering "Documentation - undefined" on `/docs`
+- Root cause: tsup's blanket `"use client"` banner makes `BRAND` from `@thesage/ui` resolve to `undefined` in server metadata contexts
+- Fix: Replaced `BRAND.productName` import with local `PRODUCT_NAME` constant in `apps/web/app/docs/layout.tsx`
+- Also fixed the same issue in root `apps/web/app/layout.tsx` (was silently broken there too)
+
+### Phase 9C: Update npm Description (P0)
+
+- Updated `packages/ui/package.json` description from "48+ accessible components" to "92 accessible React components"
+
+### Phase 9D: Fix Catch-All Route Missing Sections (P1)
+
+- Added `getting-started`, `tools`, `backgrounds`, `cursor` to `validSections` in `apps/web/app/[...slug]/page.tsx`
+- These sections now correctly redirect to `/docs#section` instead of returning 404
+
+### Phase 10: Create /docs/api.json Endpoint (P1)
+
+- Created `apps/web/app/docs/api.json/route.ts` — Next.js API route returning full component catalog as JSON
+- Returns: name, version, totalComponents, package, install, docs, llmsFullTxt, mcp, themes, categories (11), components (92 with full props)
+- CORS enabled (`Access-Control-Allow-Origin: *`) with cache headers and OPTIONS preflight handler
+- Added `./registry` subpath export to `@thesage/mcp` package (separate tsup entry, 358B) so web app can import registry data without triggering MCP server startup
+- Added `@thesage/mcp` as workspace dependency to web app, added to `transpilePackages`
+- Documented endpoint in `llms.txt` and `robots.txt`
+
+### Phase 11: Add sitemap.xml lastmod Dates (P1)
+
+- Added `<lastmod>` ISO 8601 dates to all entries in `apps/web/public/sitemap.xml`
+- Added missing section URLs: `#backgrounds`, `#cursor`, `/docs/api.json`
+- Used specific dates: `2026-02-15` for recently updated sections, `2026-01-26` for stable sections
+
+### Phase 12: .well-known/ AI Discovery Files (P1)
+
+- Created `apps/web/public/.well-known/ai-plugin.json` — OpenAI plugin manifest standard (schema_version, name_for_model, description_for_model, api, auth, logo, contact)
+- Created `apps/web/public/.well-known/mcp-server.json` — MCP server discovery (name, version, description, source, repository, install config, 4 tool descriptions)
+- Referenced both files in `robots.txt`
+
+### Phase 13: Enhance Starter Template (P2)
+
+- Added `CustomizerPanel` to main page — floating theme/mode/motion controls
+- Added `useTheme()` + `useMotionPreference()` hook demos with live state badges
+- Added motion-aware title animation using `shouldAnimate` and `scale`
+- Created `templates/nextjs-app/app/form/page.tsx` — react-hook-form + zod validated contact form (Input, Textarea, Select, toast feedback)
+- Updated template `package.json`: added framer-motion, react-hook-form, @hookform/resolvers, zod
+
+### Phase 14: Root Page SEO & Structured Data (P2)
+
+- Added `Organization` JSON-LD schema to root layout (name, url, logo, description, sameAs: GitHub + npm)
+- Added `CollectionPage` JSON-LD to docs layout (numberOfItems: 92, 7 category descriptions, SoftwareSourceCode mainEntity)
+- Added `canonical` link and `keywords` meta tag (12 terms) to root metadata
+- Upgraded root description from tagline to full product description
+
+**Plan document:** `docs/SDE-3RD-PARTY-OPTIMIZATION-PLAN.md` — Phases 9A–14 complete, P3 phases (15–18) remaining.
+
+---
 
 ## 2026-02-15 (continued)
 

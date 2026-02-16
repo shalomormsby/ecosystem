@@ -17,6 +17,7 @@
     "@tanstack/react-table": "^8.21.3",
     "@thesage/charts": "workspace:*",
     "@thesage/core": "workspace:*",
+    "@thesage/mcp": "workspace:*",
     "@thesage/hooks": "workspace:*",
     "@thesage/tokens": "workspace:*",
     "@thesage/ui": "workspace:*",

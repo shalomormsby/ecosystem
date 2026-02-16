@@ -1,3 +1,5 @@
+'use client';
+
 import {
   Button,
   Card,
@@ -10,19 +12,42 @@ import {
   Label,
   Badge,
   Separator,
+  CustomizerPanel,
 } from '@thesage/ui';
+import { useTheme, useMotionPreference } from '@thesage/ui/hooks';
+import { motion } from 'framer-motion';
 
 export default function Home() {
+  const { theme, mode } = useTheme();
+  const { shouldAnimate, scale } = useMotionPreference();
+
   return (
     <main className="min-h-screen p-8 max-w-4xl mx-auto space-y-8">
+      {/* Customizer Panel — floating theme/mode/motion controls */}
+      <CustomizerPanel />
+
       {/* Header */}
       <div className="space-y-2">
-        <h1 className="text-4xl font-bold">My Sage App</h1>
+        <motion.h1
+          className="text-4xl font-bold"
+          initial={shouldAnimate ? { opacity: 0, y: -10 } : undefined}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: shouldAnimate ? 0.4 * scale : 0 }}
+        >
+          My Sage App
+        </motion.h1>
         <p className="text-muted-foreground">
           Built with the Sage Design Engine. Edit{' '}
           <code className="bg-muted px-1.5 py-0.5 rounded text-sm">app/page.tsx</code>{' '}
           to get started.
         </p>
+        <div className="flex gap-2 items-center text-sm text-muted-foreground">
+          <Badge variant="outline">{theme}</Badge>
+          <Badge variant="outline">{mode}</Badge>
+          <Badge variant="outline">
+            motion: {shouldAnimate ? 'on' : 'off'}
+          </Badge>
+        </div>
       </div>
 
       <Separator />
@@ -82,7 +107,10 @@ export default function Home() {
         <CardHeader>
           <CardTitle>Quick Form Example</CardTitle>
           <CardDescription>
-            SDE form components with accessible labels and inputs.
+            SDE form components with accessible labels and inputs.{' '}
+            <a href="/form" className="text-primary underline underline-offset-4">
+              See the react-hook-form example →
+            </a>
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">

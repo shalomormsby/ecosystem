@@ -21,8 +21,8 @@
   },
   "license": "MIT",
   "scripts": {
-    "build": "tsup src/index.ts --format esm,cjs --dts",
-    "dev": "tsup src/index.ts --format esm,cjs --dts --watch",
+    "build": "tsup src/index.ts src/registry.ts --format esm,cjs --dts",
+    "dev": "tsup src/index.ts src/registry.ts --format esm,cjs --dts --watch",
     "lint": "eslint src/",
     "start": "node dist/index.js"
   },
@@ -47,6 +47,11 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.mjs",
       "require": "./dist/index.js"
+    },
+    "./registry": {
+      "types": "./dist/registry.d.ts",
+      "import": "./dist/registry.mjs",
+      "require": "./dist/registry.js"
     }
   },
   "files": [
