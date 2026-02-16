@@ -46,8 +46,7 @@
 | **SDE Fix 4:** 7 missing components in llms-full.txt | **Done** | EmptyState, FileUpload, NotificationCenter, StatCard, Stepper, Timeline, TreeView added |
 | **SDE Fix 5:** MCP tools listing (4→8 in llms-full.txt) | **Done** | All 8 tools now listed in llms-full.txt |
 | **SDE Fix 6:** Keywords + LICENSE | **Done** | 10 keywords added to package.json. MIT LICENSE at repo root. |
-| **Speedboat PR #27:** SB-7 fix (307→308 redirect) | **Open** | Branch `fix/sb-7-permanent-redirect`. Changes `redirect()` → `permanentRedirect()` in `page.tsx`. |
-| **Speedboat PR #28:** SB-9 fix (version micro-drift) | **Open** | Branch `fix/sb-9-version-alignment`. Updates llms-full.txt, api.json, llms.txt, mcp-server.json to match package versions. |
+| **Speedboat PR #29:** SB-7 + SB-9 fixes (combined) | **Open** | Branch `speedboat/audit-and-fixes`. Combines 308 redirect fix, version alignment, eval doc audit, and CHANGELOG. Replaces closed PRs #27 and #28. |
 
 **Net score impact:** All improvements above are reflected in the current scores. SDE's weighted total is **103/130** (verified calculation — see gap analysis table below).
 
@@ -266,7 +265,7 @@ Next.js `redirect()` defaults to **307 temporary**. To get 308, use `permanentRe
 
 **Fix:** Replace `redirect` with `permanentRedirect` in both the import and call site. ~2-line change.
 
-**Status:** PR #27 submitted (branch `fix/sb-7-permanent-redirect`). Changes `redirect` → `permanentRedirect` in import and call site. Not yet merged.
+**Status:** Combined into PR #29 (branch `speedboat/audit-and-fixes`). Changes `redirect` → `permanentRedirect` in import and call site. Not yet merged.
 
 #### SB-8: 21 Components Without Documentation Pages
 
@@ -291,7 +290,7 @@ Missing from docs site navigation include: NavLink, SecondaryNav, TertiaryNav, M
 
 Packages were bumped via changesets without updating hardcoded version strings in served content. Not functionally broken, but undermines the data consistency narrative that Fixes 3-5 worked to establish.
 
-**Status:** PR #28 submitted (branch `fix/sb-9-version-alignment`). Updates llms-full.txt (1.1.0→1.1.1), api.json/route.ts (1.1.0→1.1.1), llms.txt (v0.8.0→v0.8.2), mcp-server.json (0.8.0→0.8.2). Not yet merged.
+**Status:** Combined into PR #29 (branch `speedboat/audit-and-fixes`). Updates llms-full.txt (1.1.0→1.1.1), api.json/route.ts (1.1.0→1.1.1), llms.txt (v0.8.0→v0.8.2), mcp-server.json (0.8.0→0.8.2). Not yet merged.
 
 ### Deep Verification: Quality Signals
 
