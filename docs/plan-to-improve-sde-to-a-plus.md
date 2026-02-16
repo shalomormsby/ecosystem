@@ -1,7 +1,7 @@
 # The A+ Plan: Making Sage Design Engine (SDE) the Gold Standard for AI-Native Component Libraries
 
-> **Last updated:** 2026-02-16T14:08:00 PST (Speedboat fresh codebase audit + live endpoint verification)
-> **Previous update:** 2026-02-16T12:30:00 PST (Fixes 1-6 implemented, built, verified)
+> **Last updated:** 2026-02-16T15:45:00 PST (Speedboat audit of doc accuracy — fixed stale entries, added PR records)
+> **Previous update:** 2026-02-16T14:08:00 PST (Speedboat fresh codebase audit + live endpoint verification)
 > Scores verified via codebase source analysis, live endpoint tests, and competitive benchmarking. MCP tool implementations fully verified via source code audit.
 
 **Context:** In a head-to-head comparison against shadcn/ui, Chakra UI, Mantine, MUI, and Radix Themes, SDE currently scores **103/130** vs shadcn/ui's **114/130** — an 11-point gap. Excluding the unclosable Community criterion (-12 weighted points), SDE actually leads by +1. This plan targets the closable -4 deficit (Customizability, Bundle) and identifies where SDE should extend its existing leads (Theming, Animation).
@@ -14,22 +14,22 @@
 
 ## Progress Since Initial Plan
 
-*Verified by Speedboat 2026-02-16T11:00:00 PST*
+*Originally verified by Speedboat 2026-02-16T11:00:00 PST | Re-audited 2026-02-16T15:45:00 PST (fixed stale entries, added SDE fix results + Speedboat PR records)*
 
 | Item | Status | Impact |
 |---|---|---|
 | Test coverage (63→156 tests, 10→30 files) | **Done** | Eliminated a major credibility gap |
 | CI/CD pipeline (lint + typecheck + test + size:check) | **Done** | Quality enforcement on every PR |
 | Bundle size CI checks (size-limit) | **Done** | Budget enforcement prevents regression |
-| framer-motion peer dep pinned (^12.0.0) | **Done** | Enables version-accurate AI codegen |
+| framer-motion version pinned (^12.26.2 in deps, `*` peer) | **Done** | Enables version-accurate AI codegen |
 | Single-component deps resolved (cmdk, embla, vaul, input-otp, react-resizable-panels) | **Done** | Regular deps now, not wildcard peers |
 | Subpath exports (11 paths) | **Done** | `.`, `/tokens`, `/hooks`, `/utils`, `/providers`, `/webgl`, `/forms`, `/dates`, `/tables`, `/dnd`, `/globals.css` |
 | `/docs/api.json` endpoint | **Done** | Structured JSON API (shows 99 components — see inconsistency note below) |
 | AI discovery endpoints | **Done** | `/.well-known/ai-plugin.json` and `/.well-known/mcp-server.json` |
 | `.claude/CLAUDE.md` in npm package | **Done** | Auto-primes AI context on install |
 | robots.txt AI permissions | **Done** | Explicitly allows ClaudeBot, GPTBot, Google-Extended |
-| MCP server expanded to v0.8.1 with 8 tools | **Done** | `list_components`, `search_components`, `get_component`, `install_component`, `get_app_shell`, `get_examples`, `get_audit_checklist`, `eject_component` |
-| npm description updated to "92 components" | **Done** | Consistent with llms-full.txt |
+| MCP server expanded to v0.8.2 with 8 tools | **Done** | `list_components`, `search_components`, `get_component`, `install_component`, `get_app_shell`, `get_examples`, `get_audit_checklist`, `eject_component` |
+| npm description updated to "99 components" | **Done** | Consistent with llms-full.txt (updated from 92→99 via Fix 3) |
 | Zustand theme store with localStorage | **Done** | Theme/mode/motion preferences persist |
 | Version bump to 1.1.1 | **Done** | Active release cadence (latest changeset bump: 1.1.0→1.1.1) |
 | Homepage routing fixed (/ returns 200) | **Done** | Title: "Sage Design Engine" — proper content renders |
@@ -40,6 +40,14 @@
 | get_app_shell MCP tool | **Verified** | Source-code verified (index.ts:774-786). Generates complete Next.js + Vite boilerplate with correct provider hierarchy and theme selection. |
 | get_examples MCP tool | **Verified** | Source-code verified (index.ts:788-861). Returns real examples with imports, use cases, and props from registry metadata. |
 | get_audit_checklist MCP tool | **Verified** | Source-code verified (index.ts:863-872). Returns 25-item checklist across 5 categories (providers, styling, a11y, imports, component usage). |
+| **SDE Fix 1:** Component 404 → redirect | **Done** | `/docs/components/button` now redirects to `/docs/actions/button` (was 404). Uses `redirect()` — see SB-7 for 307 vs 308 issue. |
+| **SDE Fix 2:** Dynamic sitemap | **Done** | `app/sitemap.ts` generates 165 URLs from `SECTION_ITEMS` (replaced static 25-URL sitemap.xml) |
+| **SDE Fix 3:** Count/version alignment (92→99, versions→1.1.0) | **Done** | All served surfaces unified to 99 components. Versions aligned (minor drift noted in SB-9). |
+| **SDE Fix 4:** 7 missing components in llms-full.txt | **Done** | EmptyState, FileUpload, NotificationCenter, StatCard, Stepper, Timeline, TreeView added |
+| **SDE Fix 5:** MCP tools listing (4→8 in llms-full.txt) | **Done** | All 8 tools now listed in llms-full.txt |
+| **SDE Fix 6:** Keywords + LICENSE | **Done** | 10 keywords added to package.json. MIT LICENSE at repo root. |
+| **Speedboat PR #27:** SB-7 fix (307→308 redirect) | **Open** | Branch `fix/sb-7-permanent-redirect`. Changes `redirect()` → `permanentRedirect()` in `page.tsx`. |
+| **Speedboat PR #28:** SB-9 fix (version micro-drift) | **Open** | Branch `fix/sb-9-version-alignment`. Updates llms-full.txt, api.json, llms.txt, mcp-server.json to match package versions. |
 
 **Net score impact:** All improvements above are reflected in the current scores. SDE's weighted total is **103/130** (verified calculation — see gap analysis table below).
 
@@ -47,12 +55,12 @@
 
 ## Competitive Gap Analysis
 
-*Verified by Speedboat 2026-02-16T11:00:00 PST*
+*Verified by Speedboat 2026-02-16T11:00:00 PST (pre-Fix snapshot — see Updated Competitive Gap Analysis below for post-fix assessment)*
 
 | Criterion | Wt | shadcn | SDE | Wtd Δ | Status |
 |---|---|---|---|---|---|
 | AI Integration | 5x | 5 | 5 | 0 | **SDE now qualitatively leads.** SDE has 8 MCP tools vs shadcn's 7. Richer llms-full.txt with error recovery patterns, composition compatibility, decision tables. Plus: ai-plugin.json, mcp-server.json, .claude/ in npm, robots.txt AI permissions. shadcn has v0 integration and JSON registry schema per component. |
-| Component Coverage | 4x | 4 | 4 | 0 | Tied. SDE has 92 components vs 56, but shadcn has **27 page-level blocks** (dashboards, login flows, sidebars). SDE still has only 2 blocks (Hero, OpenGraphCard). **Blocks are the biggest remaining opportunity.** |
+| Component Coverage | 4x | 4 | 4 | 0 | Tied. SDE has 99 components (marketed as 92 at time of check) vs 56, but shadcn has **27 page-level blocks** (dashboards, login flows, sidebars). SDE still has only 2 blocks (Hero, OpenGraphCard). **Blocks are the biggest remaining opportunity.** |
 | Dev Velocity | 4x | 4 | 4 | 0 | Tied. shadcn has `npx shadcn init` + 10 framework guides. SDE has batteries-included install + 11 subpath exports + get_app_shell MCP tool. **Add scaffold CLI to pull ahead.** |
 | Customizability | 3x | 5 | 4 | **-3** | (5−4) × 3 = -3. Structural gap narrowed but not closed. eject_component MCP tool exists but no standalone CLI (`npx @thesage/ui eject Button` doesn't work — no `bin` in package.json). shadcn's copy-paste model is still fundamentally more customizable. |
 | Accessibility | 3x | 4 | 4 | 0 | Tied. Both built on Radix. SDE has unique motion accessibility (0-10 scale). |
@@ -258,6 +266,8 @@ Next.js `redirect()` defaults to **307 temporary**. To get 308, use `permanentRe
 
 **Fix:** Replace `redirect` with `permanentRedirect` in both the import and call site. ~2-line change.
 
+**Status:** PR #27 submitted (branch `fix/sb-7-permanent-redirect`). Changes `redirect` → `permanentRedirect` in import and call site. Not yet merged.
+
 #### SB-8: 21 Components Without Documentation Pages
 
 **Severity: Medium**
@@ -280,6 +290,8 @@ Missing from docs site navigation include: NavLink, SecondaryNav, TertiaryNav, M
 | packages/mcp/package.json | **0.8.2** |
 
 Packages were bumped via changesets without updating hardcoded version strings in served content. Not functionally broken, but undermines the data consistency narrative that Fixes 3-5 worked to establish.
+
+**Status:** PR #28 submitted (branch `fix/sb-9-version-alignment`). Updates llms-full.txt (1.1.0→1.1.1), api.json/route.ts (1.1.0→1.1.1), llms.txt (v0.8.0→v0.8.2), mcp-server.json (0.8.0→0.8.2). Not yet merged.
 
 ### Deep Verification: Quality Signals
 
