@@ -31,7 +31,7 @@
 | MCP server expanded to v0.8.1 with 8 tools | **Done** | `list_components`, `search_components`, `get_component`, `install_component`, `get_app_shell`, `get_examples`, `get_audit_checklist`, `eject_component` |
 | npm description updated to "92 components" | **Done** | Consistent with llms-full.txt |
 | Zustand theme store with localStorage | **Done** | Theme/mode/motion preferences persist |
-| Version bump to 1.1.0 | **Done** | Active release cadence (pushed today: 2026-02-16) |
+| Version bump to 1.1.1 | **Done** | Active release cadence (latest changeset bump: 1.1.0→1.1.1) |
 | Homepage routing fixed (/ returns 200) | **Done** | Title: "Sage Design Engine" — proper content renders |
 | Docs routing fixed (/docs returns 200) | **Done** | Title: "Documentation — Sage Design Engine" |
 | Title tag "undefined" fixed | **Done** | Component pages now show "Button — Components — Sage Design Engine" (no more undefined) |
