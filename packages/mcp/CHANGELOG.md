@@ -1,5 +1,11 @@
 # @thesage/mcp
 
+## 0.8.2 - 2026-02-16
+
+### Patch Changes
+
+- 6b73813: Updated package descriptions and metadata to reflect the library now contains 99 components.
+
 ## 0.8.1 - 2026-02-16
 
 ### Patch Changes

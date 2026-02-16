@@ -1,5 +1,11 @@
 # @thesage/ui
 
+## 1.1.1 - 2026-02-16
+
+### Patch Changes
+
+- 6b73813: Updated package descriptions and metadata to reflect the library now contains 99 components.
+
 ## 1.1.0 - 2026-02-16
 
 ### Minor Changes
