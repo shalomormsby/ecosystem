@@ -9,20 +9,20 @@ export const metadata: Metadata = {
     default: `Documentation — ${PRODUCT_NAME}`,
   },
   description:
-    '92 accessible React components built on Radix UI + Tailwind CSS. Three themes, design tokens, motion control, TypeScript strict mode.',
+    '99 accessible React components built on Radix UI + Tailwind CSS. Three themes, design tokens, motion control, TypeScript strict mode.',
   alternates: {
     canonical: 'https://thesage.dev/docs',
   },
   openGraph: {
     title: `Documentation — ${PRODUCT_NAME}`,
     description:
-      '92 accessible React components built on Radix UI + Tailwind CSS. Three themes, design tokens, motion control.',
+      '99 accessible React components built on Radix UI + Tailwind CSS. Three themes, design tokens, motion control.',
     url: 'https://thesage.dev/docs',
     type: 'website',
   },
   other: {
     'sage:type': 'documentation',
-    'sage:components': '92',
+    'sage:components': '99',
     'sage:categories':
       'actions,forms,navigation,overlays,feedback,data-display,layout,backgrounds,cursor,motion,blocks',
     'sage:themes': 'studio,terra,volt',
@@ -35,7 +35,7 @@ const collectionJsonLd = {
   '@type': 'CollectionPage',
   name: `Documentation — ${PRODUCT_NAME}`,
   description:
-    '92 accessible React components built on Radix UI + Tailwind CSS. Three themes, design tokens, motion control.',
+    '99 accessible React components built on Radix UI + Tailwind CSS. Three themes, design tokens, motion control.',
   url: 'https://thesage.dev/docs',
   mainEntity: {
     '@type': 'SoftwareSourceCode',
@@ -44,7 +44,7 @@ const collectionJsonLd = {
     programmingLanguage: ['TypeScript', 'React'],
     runtimePlatform: 'Node.js',
   },
-  numberOfItems: 92,
+  numberOfItems: 99,
   about: [
     { '@type': 'Thing', name: 'Actions', description: 'Interactive elements that trigger behaviors' },
     { '@type': 'Thing', name: 'Forms', description: 'Input controls for data collection' },

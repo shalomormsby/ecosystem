@@ -65,7 +65,7 @@ The heart of this ecosystem. Every app imports from it. **Version 1.0 — Produc
 
 The design system organizes components by **functional purpose**, not abstract hierarchy. This eliminates classification ambiguity and aligns with modern design systems like shadcn/ui, Material UI, and Radix.
 
-**92 components across 11 functional categories:**
+**99 components across 11 functional categories:**
 
 - **Actions** (5) — Interactive elements that trigger behaviors
   Button, Toggle, ToggleGroup, Link, Magnetic
@@ -216,7 +216,7 @@ ecosystem/
 ├── packages/                  # Shared packages
 │   ├── ui/                    # @thesage/ui - Component library
 │   │   └── src/
-│   │       ├── components/    # 92 functionally-organized components
+│   │       ├── components/    # 99 functionally-organized components
 │   │       │   ├── actions/   # Button, Toggle, ToggleGroup, Link, Magnetic
 │   │       │   ├── forms/     # Input, Select, Checkbox, Switch, etc.
 │   │       │   ├── navigation/# Breadcrumb, Tabs, Pagination, etc.
@@ -354,7 +354,7 @@ The work is the proof. Every component, every interaction, every line of code de
 ## Status & Roadmap
 
 **Enterprise-Ready (v1.0.0-rc.1):**
-- **Design system** — 92 components across 11 functional categories, 3 themes, comprehensive token system
+- **Design system** — 99 components across 11 functional categories, 3 themes, comprehensive token system
 - **Sage Studio** — Interactive documentation with LLM optimization, JSON-LD metadata
 - **Portfolio app** — Living showcase with Customizer integration
 - **Test suite** — Vitest + Testing Library with 156 tests across 30 files, CI-enforced

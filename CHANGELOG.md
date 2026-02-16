@@ -2,10 +2,50 @@
 
 All notable changes to this project will be documented in this file.
 
-**Last updated:** 2026-02-16, 9:15 AM PST
+**Last updated:** 2026-02-16, 10:30 PM PST
 
 ---
 
+## 2026-02-16T22:30:00Z — SB Fixes: 404 Redirects, Dynamic Sitemap, Data Consistency, llms-full.txt Completeness
+
+Implements fixes SB-1 through SB-6 from Speedboat's A+ evaluation. These address the remaining gaps between SDE and shadcn/ui in the competitive analysis.
+
+### Fix 1: Component Page 404 Redirects (SB-1 — Critical)
+- Added `findCategoryForItem()` reverse-lookup helper in `apps/web/app/docs/[section]/[item]/page.tsx`
+- `/docs/components/button` now 308-redirects to `/docs/actions/button` (and any item to its real category)
+- Handles both `ItemPage` render and `generateMetadata` for correct SEO during redirect
+- Root cause: "components" is a dashboard section (no children), not a category — humans and AI tools naturally try `/docs/components/X`
+
+### Fix 2: Dynamic Sitemap (SB-5)
+- Deleted static `apps/web/public/sitemap.xml` (~25 URLs)
+- Created `apps/web/app/sitemap.ts` — dynamically generates ~140 URLs from `SECTION_ITEMS`
+- Includes all static pages, section pages, and individual component/item sub-pages
+- `robots.txt` already pointed to `/sitemap.xml` — no change needed
+
+### Fix 3: Component Count & Version Alignment (SB-3)
+- Updated "92" → "99" across 13 files (all actively-served surfaces)
+- Updated stale version references: `api.json` 1.0.1→1.1.0, `llms-full.txt` 1.0.3→1.1.0
+- Files: `llms.txt`, `llms-full.txt`, `ai-plugin.json`, `mcp-server.json`, `api.json/route.ts`, root `layout.tsx`, `docs/layout.tsx` (metadata + JSON-LD), `packages/ui/package.json`, `packages/ui/README.md`, `packages/ui/.claude/CLAUDE.md`, `packages/mcp/src/registry.ts`, root `README.md`, `templates/nextjs-app/app/page.tsx`
+- Historical docs (CHANGELOG, DOCUMENTATION-AUDIT) retain "92" as correct-at-time audit trail
+
+### Fix 4: 7 Missing Components in llms-full.txt (SB-4)
+- Added full documentation entries (import, props, examples) for: FileUpload, NotificationCenter, EmptyState, Stepper, StatCard, Timeline, TreeView
+- Updated category counts: FORMS 18→19, OVERLAYS 11→12, FEEDBACK 7→9, DATA DISPLAY 16→19
+- All 99 components now documented in llms-full.txt
+
+### Fix 5: MCP Tools in llms-full.txt (SB-4)
+- Updated tools listing from 4 to all 8: added `get_app_shell`, `get_examples`, `get_audit_checklist`, `eject_component`
+
+### Fix 6: npm Keywords + MIT LICENSE (SB-6)
+- Added 10 keywords to `packages/ui/package.json`: react, components, ui, design-system, tailwind, radix, accessible, themes, mcp, ai
+- Created `LICENSE` (MIT) at repo root
+
+### Build Verification
+- `pnpm build` — 126 static pages, 7 tasks successful, 0 errors
+- `/sitemap.xml` generated as static route
+- Zero "92" references in any publicly-served content
+
+---
 
 ## 2026-02-16 — MAJOR REFACTOR: Path-Based Routing Migration + False-404 Fix (Workstream 1)
 

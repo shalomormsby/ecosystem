@@ -1,7 +1,7 @@
 {
     "name": "@thesage/ui",
     "version": "1.1.0",
-    "description": "Sage Design Engine — Make it Lovable. 92 accessible React components, three themes, user-controlled motion.",
+    "description": "Sage Design Engine — Make it Lovable. 99 accessible React components, three themes, user-controlled motion.",
     "main": "dist/index.js",
     "module": "dist/index.mjs",
     "types": "dist/index.d.ts",
@@ -15,6 +15,18 @@
     },
     "homepage": "https://thesage.dev",
     "bugs": "https://github.com/shalomormsby/ecosystem/issues",
+    "keywords": [
+        "react",
+        "components",
+        "ui",
+        "design-system",
+        "tailwind",
+        "radix",
+        "accessible",
+        "themes",
+        "mcp",
+        "ai"
+    ],
     "publishConfig": {
         "access": "public"
     },

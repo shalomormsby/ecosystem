@@ -1,6 +1,6 @@
 # @thesage/ui — AI Context
 
-> 92 accessible React components | Radix UI + Tailwind CSS | 3 themes | TypeScript strict mode | MIT
+> 99 accessible React components | Radix UI + Tailwind CSS | 3 themes | TypeScript strict mode | MIT
 
 ## Install
 
@@ -213,7 +213,7 @@ For gaps SDE doesn't cover, these libraries integrate well:
 
 ## Full API Reference
 
-For complete props, variants, and examples for all 92 components:
+For complete props, variants, and examples for all 99 components:
 - Web: https://thesage.dev/llms-full.txt
 - MCP Server: `npx @thesage/mcp` (tools: list_components, search_components, get_component)
 

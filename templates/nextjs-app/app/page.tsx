@@ -58,7 +58,7 @@ export default function Home() {
           <CardHeader>
             <CardTitle>Components</CardTitle>
             <CardDescription>
-              92 accessible components built on Radix UI.
+              99 accessible components built on Radix UI.
             </CardDescription>
           </CardHeader>
           <CardContent>

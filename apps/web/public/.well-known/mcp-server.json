@@ -3,7 +3,7 @@
     {
       "name": "@thesage/mcp",
       "version": "0.8.0",
-      "description": "Model Context Protocol server for Sage Design Engine — discover, integrate, and eject 92 accessible React components with AI assistants",
+      "description": "Model Context Protocol server for Sage Design Engine — discover, integrate, and eject 99 accessible React components with AI assistants",
       "source": "https://www.npmjs.com/package/@thesage/mcp",
       "repository": "https://github.com/shalomormsby/ecosystem/tree/main/packages/mcp",
       "install": {
