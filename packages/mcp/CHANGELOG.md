@@ -1,5 +1,16 @@
 # @thesage/mcp
 
+## 0.7.0 - 2026-02-16
+
+### Minor Changes
+
+- 13fdfec: @thesage/mcp: Props, subComponents, and example fields added to all 92 components in the registry.
+  @thesage/ui: Added .claude/CLAUDE.md to published package files for AI tool discovery.
+
+### Patch Changes
+
+- 13fdfec: Update configuring and ensure CI/CD pipeline consistency.
+
 ## 0.6.0 - 2026-02-15
 
 ### Minor Changes
