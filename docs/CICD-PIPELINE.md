@@ -2,44 +2,61 @@
 
 > Complete reference for the ecosystem's continuous integration and deployment pipeline.
 
-Last updated: 2026-02-06
+Last updated: 2026-02-16
 
 ---
 
-## Overview
+## The "Zero-Touch" Release Workflow
 
-The pipeline has three GitHub Actions workflows that work together:
+**tl;dr:** You merge your feature PR. The system handles the rest.
+
+### 1. Developer Action (Your Part)
+1.  **Create Changeset:** `pnpm changeset` (select packages, bump type, add summary).
+2.  **Open PR:** Push branch and open a Pull Request.
+3.  **Merge:** Squash and merge to `main`. **You are done.**
+
+### 2. System Automation (The "Consume & Publish" Loop)
+The confusion often lies here: **Publishing only happens when the system sees NO changeset files.**
+1.  **Consume (Pass 1):** System detects raw changeset files. It opens a "Version Packages" PR to "consume" them (Apply bumps -> Update logs -> **Delete** changeset files).
+2.  **Publish (Pass 2):** System runs again, detects **no** changeset files (because they were consumed), so it **Publishes to npm**.
+
+---
+
+## Visual Overview
 
 ```
-PR opened ──► CI (build + lint) ──► Manually merge to main
-                                        │
-                                        ▼
-                                    Release workflow
-                                        │
-                        ┌───────────────┼───────────────┐
-                        ▼               ▼               ▼
-                  Has changesets?   No changesets    Vercel deploys
-                        │               │           (automatic)
-                        ▼               ▼
-                  Creates "Version   Does nothing
-                  Packages" PR
-                        │
-                        ▼
-                  Auto-Merge workflow
-                  approves + merges
-                        │
-                        ▼
-                  Release workflow
-                  (triggered again)
-                        │
-                        ▼
-                  Publishes to npm
-                  + GitHub Releases
+[USER ACTION]
+  Run `pnpm changeset`
+        │
+        ▼
+  Open Feature PR ──► CI Passes ──► Squash & Merge to `main`
+                                            │
+                                            ▼
+[SYSTEM ACTION]
+                                    Release Workflow
+                                            │
+                            ┌───────────────┴───────────────┐
+                            ▼                               ▼
+                  [Has .changeset files]           [No .changeset files]
+                  "I need to apply these"          "I am ready to publish"
+                            │                               │
+                            ▼                               ▼
+                  1. Consumes changesets          **PUBLISHES TO NPM**
+                  2. Bumps package.json           (Versions allow it)
+                  3. Opens "Version PR"
+                            │
+                            ▼
+                    Auto-Merge Workflow
+                    approves & merges
+                            │
+                            ▼
+                    Triggers Release Workflow
+                    (Loop back to top)
 ```
 
 ---
 
-## Workflows
+## Detailed Workflows
 
 ### 1. CI (`ci.yml`)
 
@@ -79,8 +96,7 @@ PR opened ──► CI (build + lint) ──► Manually merge to main
 
 **Trigger:** Pull requests to `main` (filtered to only `changeset-release/*` branches)
 
-**Note:** This workflow will show as "Skipped" on normal feature PRs. This is expected behavior.
-
+**Note:** This is the magic sauce. You will rarely see the "Version Packages" PR because this workflow merges it almost immediately.
 
 **What it does:**
 1. Enables auto-merge (squash) so it merges once CI passes
@@ -97,7 +113,7 @@ PR opened ──► CI (build + lint) ──► Manually merge to main
 
 ## Release Flow (Step by Step)
 
-### Adding a new changeset
+### 1. Adding a new changeset (You)
 
 ```bash
 pnpm changeset
@@ -112,25 +128,27 @@ pnpm ls -r --depth -1
 
 Private packages (like `web`, `portfolio`) don't need changeset entries — they get bumped automatically as dependents.
 
-### What happens after merge
+### 2. The Feedback Loop (The System)
 
-1. **You merge the feature PR to main** — triggers CI + Release workflows
-2. **Release workflow** sees changeset files, creates "Version Packages" PR
-3. **Auto-merge workflow** triggers on the PR and enables auto-merge (requires bypass permission)
-4. **CI runs** on the Version Packages PR
-5. **CI passes** — GitHub auto-merges the PR
-6. **Merge triggers Release workflow again** — this time no changesets exist, so it publishes:
-   - `turbo run build` — builds all packages
-   - `changeset publish` — publishes bumped packages to npm
-7. **Vercel** deploys all apps from the new main commit
+1.  **You merge the feature PR to main** — triggers CI + Release workflows.
+2.  **Release workflow** sees changeset files, creates "Version Packages" PR.
+    *   *Note:* GitHub Actions bot is the author.
+3.  **Auto-merge workflow** triggers on the PR and enables auto-merge.
+4.  **CI runs** on the Version Packages PR.
+5.  **CI passes** — GitHub auto-merges the PR.
+    *   *Note:* If you look away for 2 minutes, you might miss this entirely. That's good!
+6.  **Merge triggers Release workflow again** — this time no changesets exist, so it publishes:
+    *   `turbo run build` — builds all packages.
+    *   `changeset publish` — publishes bumped packages to npm.
+7.  **Vercel** deploys all apps from the new main commit.
 
 ### Timeline
 
-A typical release cycle takes ~5 minutes:
-- CI build: ~2 minutes
-- Release workflow: ~30 seconds
-- Auto-merge + second CI: ~2 minutes
-- npm publish: ~30 seconds
+A typical release cycle takes ~5 minutes total:
+- CI build (Feature PR): ~2 minutes
+- Release workflow (Create PR): ~30 seconds
+- Auto-merge + CI (Version PR): ~2 minutes
+- Release workflow (Publish): ~30 seconds
 - Vercel deployment: ~1-2 minutes (parallel)
 
 ---

@@ -7,7 +7,7 @@ import './globals.css';
 // Note: BRAND from @thesage/ui cannot be used in server metadata because tsup adds
 // "use client" banner to all output files, making it resolve to undefined at SSR time.
 const PRODUCT_NAME = 'Sage Design Engine';
-const PRODUCT_DESCRIPTION = '92 accessible React components, three themes, user-controlled motion. Built on Radix UI + Tailwind CSS with TypeScript strict mode.';
+const PRODUCT_DESCRIPTION = '99 accessible React components, three themes, user-controlled motion. Built on Radix UI + Tailwind CSS with TypeScript strict mode.';
 
 export const metadata: Metadata = {
   title: PRODUCT_NAME,

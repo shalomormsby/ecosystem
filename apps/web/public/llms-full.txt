@@ -1,11 +1,11 @@
 # Sage Design Engine — Complete Component Reference
-# Version: 1.0.3 | React 18/19 | Next.js 15+ | Tailwind 3.4+ | framer-motion ^12
-# Components: 92 | Themes: 3 (Studio, Terra, Volt) | Blocks: 2
-# Last verified: 2026-02-15
+# Version: 1.1.0 | React 18/19 | Next.js 15+ | Tailwind 3.4+ | framer-motion ^12
+# Components: 99 | Themes: 3 (Studio, Terra, Volt) | Blocks: 2
+# Last verified: 2026-02-16
 # Package: pnpm add @thesage/ui
 # MCP: npx @thesage/mcp
 
-> 92 components | 11 categories | 3 themes | TypeScript strict mode | MIT license
+> 99 components | 11 categories | 3 themes | TypeScript strict mode | MIT license
 
 ---
 
@@ -246,7 +246,7 @@ Example:
 
 ---
 
-## FORMS (18 components)
+## FORMS (19 components)
 Input controls for data collection.
 
 ### Input
@@ -495,6 +495,32 @@ Props:
   - accept: string (MIME types)
   - maxSize: number (bytes)
 
+### FileUpload
+Import: `import { FileUpload } from '@thesage/ui'`
+Drag-and-drop file upload zone with validation, file list, and remove functionality.
+Props:
+  - accept: Record<string, string[]> — Accepted file types (MIME types)
+  - maxSize: number — Max file size in bytes
+  - maxFiles: number — Max number of files
+  - multiple: boolean (default: false) — Allow multiple file selection
+  - disabled: boolean (default: false)
+  - onFilesSelected: (files: File[]) => void — Callback when valid files are selected
+  - onFilesRejected: (rejections: FileRejection[]) => void — Callback when files are rejected
+  - label: string
+  - description: string — Description text shown in the drop zone
+  - size: 'sm' | 'default' | 'lg' (default: 'default')
+Dependency: react-dropzone
+
+Example:
+```tsx
+<FileUpload
+  label="Upload documents"
+  accept={{ 'image/*': ['.png', '.jpg'] }}
+  maxSize={5 * 1024 * 1024}
+  onFilesSelected={(files) => handleUpload(files)}
+/>
+```
+
 ### TextField
 Import: `import { TextField } from '@thesage/ui'`
 Props:
@@ -608,7 +634,7 @@ Props:
 
 ---
 
-## OVERLAYS (11 components)
+## OVERLAYS (12 components)
 Contextual content above main UI.
 
 ### Dialog
@@ -773,9 +799,31 @@ Simple wrapper around Dialog for common patterns.
 Import: `import { Dropdown } from '@thesage/ui'`
 Simple wrapper around DropdownMenu for common patterns.
 
+### NotificationCenter
+Import: `import { NotificationCenter } from '@thesage/ui'`
+Dropdown notification panel with grouped notifications, read/unread state, and actions.
+Props:
+  - notifications: NotificationItem[] (required) — Array of notification items
+  - onMarkRead: (id: string) => void — Callback when a notification is marked as read
+  - onMarkAllRead: () => void — Callback to mark all notifications as read
+  - onDismiss: (id: string) => void — Callback when a notification is dismissed
+  - trigger: ReactNode — Custom trigger element
+  - maxHeight: number (default: 400) — Maximum height of the notification list
+  - emptyMessage: string (default: 'No notifications')
+
+Example:
+```tsx
+<NotificationCenter
+  notifications={[
+    { id: '1', title: 'New message', timestamp: new Date(), read: false },
+  ]}
+  onMarkRead={(id) => markAsRead(id)}
+/>
+```
+
 ---
 
-## FEEDBACK (7 components)
+## FEEDBACK (9 components)
 Communicating system state and user action results.
 
 ### Alert
@@ -851,9 +899,47 @@ Example:
 <Spinner size="lg" />
 ```
 
+### EmptyState
+Import: `import { EmptyState } from '@thesage/ui'`
+Placeholder for empty content areas with icon, title, description, and call-to-action.
+Props:
+  - icon: ReactNode — Icon displayed above the title
+  - title: string (required) — Primary message
+  - description: string — Secondary explanation text
+  - action: ReactNode — Call-to-action element (e.g. Button)
+  - size: 'sm' | 'default' | 'lg' (default: 'default')
+
+Example:
+```tsx
+<EmptyState
+  icon={<Inbox />}
+  title="No messages yet"
+  description="When you receive messages, they will appear here."
+  action={<Button>Send a message</Button>}
+/>
+```
+
+### Stepper
+Import: `import { Stepper, StepperStep } from '@thesage/ui'`
+Multi-step progress indicator for wizards and multi-step forms.
+Props:
+  - currentStep: number (required) — Zero-based index of the current step
+  - orientation: 'horizontal' | 'vertical' (default: 'horizontal')
+  - size: 'sm' | 'default' | 'lg' (default: 'default')
+  - clickable: boolean (default: false) — Allow clicking steps to navigate
+
+Example:
+```tsx
+<Stepper currentStep={1}>
+  <StepperStep label="Account" />
+  <StepperStep label="Profile" />
+  <StepperStep label="Complete" />
+</Stepper>
+```
+
 ---
 
-## DATA DISPLAY (16 components)
+## DATA DISPLAY (19 components)
 Presenting information in structured formats.
 
 ### Card
@@ -986,6 +1072,64 @@ Dependency: framer-motion.
 ### GitHubIcon
 Import: `import { GitHubIcon } from '@thesage/ui'`
 Theme-aware GitHub logo SVG.
+
+### StatCard
+Import: `import { StatCard } from '@thesage/ui'`
+Displays key metrics and statistics with label, value, trend indicator, and optional icon.
+Props:
+  - label: string (required) — The metric label (e.g. "Revenue")
+  - value: string | number (required) — The metric value (e.g. "$45,231")
+  - change: number — Percentage change (e.g. 5.2 or -3.1)
+  - trend: 'up' | 'down' | 'flat' — Direction of the trend
+  - icon: ReactNode — Optional icon displayed in the top-right
+  - description: string — Additional description text below the value
+  - variant: 'default' | 'outline' | 'glass' (default: 'default')
+  - size: 'sm' | 'default' | 'lg' (default: 'default')
+Sub-components: StatCardGroup
+
+Example:
+```tsx
+<StatCard label="Total Revenue" value="$45,231" change={12.5} trend="up" description="from last month" />
+```
+
+### Timeline
+Import: `import { Timeline, TimelineItem } from '@thesage/ui'`
+Chronological event display with connecting lines, icons, and status indicators.
+Props:
+  - orientation: 'vertical' | 'horizontal' (default: 'vertical')
+Sub-components: TimelineItem
+
+Example:
+```tsx
+<Timeline>
+  <TimelineItem title="Order placed" timestamp="Jan 1" status="completed" />
+  <TimelineItem title="Shipped" status="active" />
+  <TimelineItem title="Delivered" status="pending" isLast />
+</Timeline>
+```
+
+### TreeView
+Import: `import { TreeView } from '@thesage/ui'`
+Hierarchical data display with expand/collapse, keyboard navigation, and selection.
+Props:
+  - nodes: TreeNode[] (required) — Array of tree nodes
+  - expanded: string[] — Controlled expanded node IDs
+  - defaultExpanded: string[] — Initially expanded node IDs
+  - onExpandChange: (expanded: string[]) => void
+  - selected: string — Currently selected node ID
+  - onSelectChange: (nodeId: string) => void
+
+Example:
+```tsx
+<TreeView
+  nodes={[
+    { id: 'src', label: 'src', children: [
+      { id: 'index', label: 'index.ts' },
+    ]},
+  ]}
+  onSelectChange={(id) => console.log(id)}
+/>
+```
 
 ---
 
@@ -1342,7 +1486,7 @@ For AI assistants (Claude Code, Cursor, VS Code):
 }
 ```
 
-Tools: list_components, search_components, get_component, install_component
+Tools (8): list_components, search_components, get_component, install_component, get_app_shell, get_examples, get_audit_checklist, eject_component
 
 ---
 
@@ -1352,7 +1496,7 @@ All sizes are minified + brotli compressed, with all dependencies included.
 
 | Entrypoint | Import Path | Size | Limit |
 |------------|-------------|------|-------|
-| Core (all 92 components) | `@thesage/ui` | 146.4 KB | 450 KB |
+| Core (all 99 components) | `@thesage/ui` | 146.4 KB | 450 KB |
 | Tokens | `@thesage/ui/tokens` | 10.9 KB | 70 KB |
 | Forms (react-hook-form) | `@thesage/ui/forms` | 9.4 KB | 10 KB |
 | Utils | `@thesage/ui/utils` | 9.5 KB | 25 KB |
@@ -1369,7 +1513,7 @@ All sizes are minified + brotli compressed, with all dependencies included.
 
 # RECOMMENDED THIRD-PARTY PAIRINGS
 
-SDE covers 92 components. For gaps, these libraries integrate well with @thesage/ui styling and patterns:
+SDE covers 99 components. For gaps, these libraries integrate well with @thesage/ui styling and patterns:
 
 | Need | Library | Install | Notes |
 |------|---------|---------|-------|
@@ -1479,7 +1623,7 @@ SDE uses subpath exports to keep your bundle lean. Only import what you use:
 
 | Import | Size (min+brotli) | What's Included |
 |--------|-------------------|-----------------|
-| `@thesage/ui` | ~146 KB | All 92 base components |
+| `@thesage/ui` | ~146 KB | All 99 base components |
 | `@thesage/ui/hooks` | ~40 KB | useTheme, useMotionPreference, useForm |
 | `@thesage/ui/providers` | ~60 KB | ThemeProvider, TooltipProvider |
 | `@thesage/ui/tokens` | ~70 KB | Design tokens (re-exported from @thesage/tokens) |

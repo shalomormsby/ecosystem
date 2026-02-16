@@ -31,7 +31,7 @@ export async function GET() {
 
   const payload = {
     name: PRODUCT_NAME,
-    version: '1.0.1',
+    version: '1.1.0',
     totalComponents: components.length,
     package: '@thesage/ui',
     install: 'pnpm add @thesage/ui',

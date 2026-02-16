@@ -1,6 +1,6 @@
 # Sage Design Engine (SDE)
 
-> 92 accessible React components built on Radix UI + Tailwind CSS.
+> 99 accessible React components built on Radix UI + Tailwind CSS.
 > Three themes (Studio, Terra, Volt) with light/dark modes.
 > User-controlled motion system (0-10 scale).
 > TypeScript strict mode. MIT license.

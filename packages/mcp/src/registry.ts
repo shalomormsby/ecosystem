@@ -1,7 +1,7 @@
 /**
  * Component Registry for Sage UI
  *
- * This registry contains metadata for all 92 components in @thesage/ui,
+ * This registry contains metadata for all 99 components in @thesage/ui,
  * organized into 7 core functional categories plus 4 specialty categories.
  *
  * Core Categories (7):
