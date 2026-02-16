@@ -818,7 +818,7 @@ Three features embody the philosophy. Here's their current status:
 ## Component Quick Reference
 
 **Full API reference:** https://thesage.dev/llms-full.txt
-**MCP Server:** `npx @thesage/mcp` (4 tools: list_components, search_components, get_component, install_component)
+**MCP Server:** `npx @thesage/mcp` (8 tools: list_components, search_components, get_component, install_component, get_app_shell, get_examples, get_audit_checklist, eject_component)
 
 ### Provider Hierarchy (Required)
 
@@ -1560,17 +1560,18 @@ Examples:
 
 ---
 
-## Testing Standards (Future)
+## Testing Standards
 
-*Note: Testing is not yet fully configured. When adding tests in the future, follow these standards:*
+**Current state:** 156 tests across 30 test files. Vitest + Testing Library. Tests run in CI on every PR via `.github/workflows/ci.yml`.
 
-- **Stack:** Vitest, @testing-library/react, user-event, jest-axe.
+- **Stack:** Vitest, @testing-library/react, @testing-library/user-event.
 - **Location:** Co-locate tests with components (e.g., `Button.test.tsx`).
 - **Priority:**
-  1. **Accessibility** (no violations via `jest-axe`)
+  1. **Accessibility** (roles, labels, ARIA attributes)
   2. **User Behavior** (clicks, flows)
   3. **Edge Cases**
 - **Philosophy:** Test behavior, not implementation details.
+- **Run tests:** `cd packages/ui && pnpm test`
 
 ---
 

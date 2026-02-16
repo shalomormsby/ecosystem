@@ -2,8 +2,8 @@
   "servers": [
     {
       "name": "@thesage/mcp",
-      "version": "0.6.0",
-      "description": "Model Context Protocol server for Sage Design Engine — discover and integrate 92 accessible React components with AI assistants",
+      "version": "0.8.0",
+      "description": "Model Context Protocol server for Sage Design Engine — discover, integrate, and eject 92 accessible React components with AI assistants",
       "source": "https://www.npmjs.com/package/@thesage/mcp",
       "repository": "https://github.com/shalomormsby/ecosystem/tree/main/packages/mcp",
       "install": {
@@ -26,6 +26,22 @@
         {
           "name": "install_component",
           "description": "Get installation instructions and provider setup for @thesage/ui"
+        },
+        {
+          "name": "get_app_shell",
+          "description": "Get complete app shell boilerplate for Vite or Next.js with provider hierarchy"
+        },
+        {
+          "name": "get_examples",
+          "description": "Get usage examples for a specific component"
+        },
+        {
+          "name": "get_audit_checklist",
+          "description": "Get post-generation checklist for correct SDE usage"
+        },
+        {
+          "name": "eject_component",
+          "description": "Get instructions to eject a component for full local customization"
         }
       ]
     }

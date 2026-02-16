@@ -16,3 +16,4 @@ export * from './TextField';
 export * from './Textarea';
 export * from './ThemeSwitcher';
 export * from './ThemeToggle';
+export * from './FileUpload';

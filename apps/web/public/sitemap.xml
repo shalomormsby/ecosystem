@@ -18,19 +18,19 @@
 
   <!-- Overview -->
   <url>
-    <loc>https://thesage.dev/docs#overview</loc>
+    <loc>https://thesage.dev/docs/overview</loc>
     <lastmod>2026-02-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://thesage.dev/docs#overview/quick-start</loc>
+    <loc>https://thesage.dev/docs/overview/quick-start</loc>
     <lastmod>2026-02-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://thesage.dev/docs#getting-started</loc>
+    <loc>https://thesage.dev/docs/getting-started</loc>
     <lastmod>2026-02-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -38,7 +38,7 @@
 
   <!-- Architecture -->
   <url>
-    <loc>https://thesage.dev/docs#architecture</loc>
+    <loc>https://thesage.dev/docs/architecture</loc>
     <lastmod>2026-01-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -46,19 +46,19 @@
 
   <!-- Foundations -->
   <url>
-    <loc>https://thesage.dev/docs#tokens</loc>
+    <loc>https://thesage.dev/docs/tokens</loc>
     <lastmod>2026-01-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://thesage.dev/docs#themes</loc>
+    <loc>https://thesage.dev/docs/themes</loc>
     <lastmod>2026-01-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://thesage.dev/docs#motion</loc>
+    <loc>https://thesage.dev/docs/motion</loc>
     <lastmod>2026-01-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -66,67 +66,67 @@
 
   <!-- Component Categories -->
   <url>
-    <loc>https://thesage.dev/docs#components</loc>
+    <loc>https://thesage.dev/docs/components</loc>
     <lastmod>2026-02-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://thesage.dev/docs#actions</loc>
+    <loc>https://thesage.dev/docs/actions</loc>
     <lastmod>2026-02-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://thesage.dev/docs#forms</loc>
+    <loc>https://thesage.dev/docs/forms</loc>
     <lastmod>2026-02-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://thesage.dev/docs#navigation</loc>
+    <loc>https://thesage.dev/docs/navigation</loc>
     <lastmod>2026-02-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://thesage.dev/docs#overlays</loc>
+    <loc>https://thesage.dev/docs/overlays</loc>
     <lastmod>2026-02-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://thesage.dev/docs#feedback</loc>
+    <loc>https://thesage.dev/docs/feedback</loc>
     <lastmod>2026-02-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://thesage.dev/docs#data-display</loc>
+    <loc>https://thesage.dev/docs/data-display</loc>
     <lastmod>2026-02-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://thesage.dev/docs#layout</loc>
+    <loc>https://thesage.dev/docs/layout</loc>
     <lastmod>2026-02-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://thesage.dev/docs#blocks</loc>
+    <loc>https://thesage.dev/docs/blocks</loc>
     <lastmod>2026-02-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://thesage.dev/docs#backgrounds</loc>
+    <loc>https://thesage.dev/docs/backgrounds</loc>
     <lastmod>2026-02-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://thesage.dev/docs#cursor</loc>
+    <loc>https://thesage.dev/docs/cursor</loc>
     <lastmod>2026-02-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -134,31 +134,31 @@
 
   <!-- Tools & Integrations -->
   <url>
-    <loc>https://thesage.dev/docs#hooks</loc>
+    <loc>https://thesage.dev/docs/hooks</loc>
     <lastmod>2026-01-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://thesage.dev/docs#mcp-server</loc>
+    <loc>https://thesage.dev/docs/mcp-server</loc>
     <lastmod>2026-02-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://thesage.dev/docs#tools</loc>
+    <loc>https://thesage.dev/docs/tools</loc>
     <lastmod>2026-02-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://thesage.dev/docs#templates</loc>
+    <loc>https://thesage.dev/docs/templates</loc>
     <lastmod>2026-02-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://thesage.dev/docs#charts</loc>
+    <loc>https://thesage.dev/docs/charts</loc>
     <lastmod>2026-02-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>

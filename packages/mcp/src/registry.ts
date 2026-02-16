@@ -49,7 +49,7 @@ export const COMPONENT_CATEGORIES = {
   forms: {
     label: 'Forms',
     description: 'Input controls for data collection',
-    count: 18,
+    count: 19,
   },
   navigation: {
     label: 'Navigation',
@@ -59,17 +59,17 @@ export const COMPONENT_CATEGORIES = {
   overlays: {
     label: 'Overlays',
     description: 'Contextual content that appears above the main UI',
-    count: 11,
+    count: 12,
   },
   feedback: {
     label: 'Feedback',
     description: 'Communicating system state and user action results',
-    count: 7,
+    count: 9,
   },
   'data-display': {
     label: 'Data Display',
     description: 'Presenting information in structured formats',
-    count: 16,
+    count: 19,
   },
   layout: {
     label: 'Layout',
@@ -1885,6 +1885,145 @@ export const COMPONENT_REGISTRY: Record<string, ComponentMetadata> = {
       accentColor: { type: 'string', description: 'Override accent color (hex)' },
     },
     example: `// In opengraph-image.tsx:\nexport default function OGImage() {\n  return <OpenGraphCard title="My Page" description="A great description" variant="primary" />\n}`,
+  },
+
+  // ============================================================================
+  // PHASE 16 - MISSING COMPONENTS
+  // ============================================================================
+
+  'stat-card': {
+    name: 'StatCard',
+    category: 'data-display',
+    description: 'Displays key metrics and statistics with label, value, trend indicator, and optional icon. Ideal for dashboards, analytics views, and KPI displays.',
+    keywords: ['stat', 'metric', 'kpi', 'dashboard', 'analytics', 'number', 'trend', 'card'],
+    useCases: [
+      'Dashboard metric displays',
+      'KPI tracking panels',
+      'Analytics summary cards',
+      'Revenue/user count displays',
+    ],
+    dependencies: ['class-variance-authority'],
+    props: {
+      label: { type: 'string', description: 'The metric label (e.g. "Revenue")', required: true },
+      value: { type: 'string | number', description: 'The metric value (e.g. "$45,231")', required: true },
+      change: { type: 'number', description: 'Percentage change (e.g. 5.2 or -3.1)' },
+      trend: { type: "'up' | 'down' | 'flat'", description: 'Direction of the trend' },
+      icon: { type: 'ReactNode', description: 'Optional icon displayed in the top-right' },
+      description: { type: 'string', description: 'Additional description text below the value' },
+      variant: { type: "'default' | 'outline' | 'glass'", default: "'default'", description: 'Visual style variant' },
+      size: { type: "'sm' | 'default' | 'lg'", default: "'default'", description: 'Size variant' },
+    },
+    subComponents: ['StatCardGroup'],
+    example: `<StatCard label="Total Revenue" value="$45,231" change={12.5} trend="up" description="from last month" />`,
+  },
+
+  'empty-state': {
+    name: 'EmptyState',
+    category: 'feedback',
+    description: 'Placeholder for empty content areas with icon, title, description, and call-to-action. Use when no data is available or a search returns no results.',
+    keywords: ['empty', 'placeholder', 'no-data', 'no-results', 'blank', 'zero-state'],
+    useCases: [
+      'Empty search results',
+      'Empty inbox/messages',
+      'No data available state',
+      'First-time user onboarding prompt',
+    ],
+    dependencies: ['class-variance-authority'],
+    props: {
+      icon: { type: 'ReactNode', description: 'Icon displayed above the title' },
+      title: { type: 'string', description: 'Primary message', required: true },
+      description: { type: 'string', description: 'Secondary explanation text' },
+      action: { type: 'ReactNode', description: 'Call-to-action element (e.g. Button)' },
+      size: { type: "'sm' | 'default' | 'lg'", default: "'default'", description: 'Size variant' },
+    },
+    example: `<EmptyState\n  icon={<Inbox />}\n  title="No messages yet"\n  description="When you receive messages, they will appear here."\n  action={<Button>Send a message</Button>}\n/>`,
+  },
+
+  'timeline': {
+    name: 'Timeline',
+    category: 'data-display',
+    description: 'Chronological event display with connecting lines, icons, and status indicators.',
+    keywords: ['timeline', 'events', 'history', 'chronological', 'activity', 'log'],
+    useCases: ['Activity feeds', 'Order tracking', 'Project milestones', 'Event history'],
+    dependencies: ['class-variance-authority'],
+    props: {
+      orientation: { type: "'vertical' | 'horizontal'", default: "'vertical'", description: 'Layout orientation' },
+    },
+    subComponents: ['TimelineItem'],
+    example: `<Timeline>\n  <TimelineItem title="Order placed" timestamp="Jan 1" status="completed" />\n  <TimelineItem title="Shipped" status="active" />\n  <TimelineItem title="Delivered" status="pending" isLast />\n</Timeline>`,
+  },
+
+  'stepper': {
+    name: 'Stepper',
+    category: 'feedback',
+    description: 'Multi-step progress indicator for wizards and multi-step forms.',
+    keywords: ['stepper', 'wizard', 'steps', 'progress', 'multi-step', 'workflow'],
+    useCases: ['Multi-step forms', 'Checkout flows', 'Onboarding wizards', 'Setup processes'],
+    dependencies: ['class-variance-authority'],
+    props: {
+      currentStep: { type: 'number', description: 'Zero-based index of the current step', required: true },
+      orientation: { type: "'horizontal' | 'vertical'", default: "'horizontal'", description: 'Layout orientation' },
+      size: { type: "'sm' | 'default' | 'lg'", default: "'default'", description: 'Size variant' },
+      clickable: { type: 'boolean', default: 'false', description: 'Allow clicking steps to navigate' },
+    },
+    subComponents: ['StepperStep'],
+    example: `<Stepper currentStep={1}>\n  <StepperStep label="Account" />\n  <StepperStep label="Profile" />\n  <StepperStep label="Complete" />\n</Stepper>`,
+  },
+  'file-upload': {
+    name: 'FileUpload',
+    category: 'forms',
+    description: 'Drag-and-drop file upload zone with validation, file list, and remove functionality',
+    keywords: ['file', 'upload', 'drag', 'drop', 'dropzone', 'attachment', 'browse'],
+    useCases: ['Document uploads', 'Image uploads', 'Form attachments', 'Bulk file import'],
+    dependencies: ['react-dropzone', 'class-variance-authority'],
+    props: {
+      accept: { type: 'Record<string, string[]>', description: 'Accepted file types (MIME types)' },
+      maxSize: { type: 'number', description: 'Max file size in bytes' },
+      maxFiles: { type: 'number', description: 'Max number of files' },
+      multiple: { type: 'boolean', default: 'false', description: 'Allow multiple file selection' },
+      disabled: { type: 'boolean', default: 'false', description: 'Disabled state' },
+      onFilesSelected: { type: '(files: File[]) => void', description: 'Callback when valid files are selected' },
+      onFilesRejected: { type: '(rejections: FileRejection[]) => void', description: 'Callback when files are rejected' },
+      label: { type: 'string', description: 'Label text' },
+      description: { type: 'string', description: 'Description text shown in the drop zone' },
+      size: { type: "'sm' | 'default' | 'lg'", default: "'default'", description: 'Size variant' },
+    },
+    example: `<FileUpload\n  label="Upload documents"\n  accept={{ 'image/*': ['.png', '.jpg'] }}\n  maxSize={5 * 1024 * 1024}\n  onFilesSelected={(files) => handleUpload(files)}\n/>`,
+  },
+  'tree-view': {
+    name: 'TreeView',
+    category: 'data-display',
+    description: 'Hierarchical data display with expand/collapse, keyboard navigation, and selection',
+    keywords: ['tree', 'hierarchy', 'file browser', 'nested', 'expand', 'collapse', 'folder'],
+    useCases: ['File browsers', 'Category hierarchies', 'Organizational charts', 'Navigation trees'],
+    dependencies: ['class-variance-authority'],
+    props: {
+      nodes: { type: 'TreeNode[]', description: 'Array of tree nodes', required: true },
+      expanded: { type: 'string[]', description: 'Controlled expanded node IDs' },
+      defaultExpanded: { type: 'string[]', description: 'Initially expanded node IDs' },
+      onExpandChange: { type: '(expanded: string[]) => void', description: 'Callback on expand state change' },
+      selected: { type: 'string', description: 'Currently selected node ID' },
+      onSelectChange: { type: '(nodeId: string) => void', description: 'Callback on selection change' },
+    },
+    example: `<TreeView\n  nodes={[\n    { id: 'src', label: 'src', children: [\n      { id: 'index', label: 'index.ts' },\n    ]},\n  ]}\n  onSelectChange={(id) => console.log(id)}\n/>`,
+  },
+  'notification-center': {
+    name: 'NotificationCenter',
+    category: 'overlays',
+    description: 'Dropdown notification panel with grouped notifications, read/unread state, and actions',
+    keywords: ['notification', 'bell', 'alert', 'inbox', 'unread', 'badge', 'messages'],
+    useCases: ['App notifications', 'Activity feeds', 'System alerts', 'Message center'],
+    dependencies: [],
+    props: {
+      notifications: { type: 'NotificationItem[]', description: 'Array of notification items', required: true },
+      onMarkRead: { type: '(id: string) => void', description: 'Callback when a notification is marked as read' },
+      onMarkAllRead: { type: '() => void', description: 'Callback to mark all notifications as read' },
+      onDismiss: { type: '(id: string) => void', description: 'Callback when a notification is dismissed' },
+      trigger: { type: 'ReactNode', description: 'Custom trigger element' },
+      maxHeight: { type: 'number', default: '400', description: 'Maximum height of the notification list' },
+      emptyMessage: { type: 'string', default: "'No notifications'", description: 'Message shown when empty' },
+    },
+    example: `<NotificationCenter\n  notifications={[\n    { id: '1', title: 'New message', timestamp: new Date(), read: false },\n  ]}\n  onMarkRead={(id) => markAsRead(id)}\n/>`,
   },
 };
 

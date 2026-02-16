@@ -18,7 +18,7 @@ export const searchIndex: SearchResult[] = [
     description: 'Introduction to the Sage Design Engine',
     type: 'page',
     category: 'Getting Started',
-    path: 'overview',
+    path: '/docs/overview',
   },
 
   // Tokens - Colors
@@ -28,7 +28,7 @@ export const searchIndex: SearchResult[] = [
     description: 'Color tokens and semantic color utilities',
     type: 'token',
     category: 'Design Tokens',
-    path: 'tokens-colors',
+    path: '/docs/tokens/colors',
     keywords: ['color', 'palette', 'theme', 'background', 'text', 'brand', 'status'],
   },
   {
@@ -37,7 +37,7 @@ export const searchIndex: SearchResult[] = [
     description: '21 curated color palettes across Professional, Creative, Natural, Vibrant, Minimal, Tech, and Warm categories with WCAG compliance',
     type: 'token',
     category: 'Themes',
-    path: '#themes/palettes',
+    path: '/docs/themes/palettes',
     keywords: ['color', 'palette', 'curated', 'professional', 'creative', 'natural', 'vibrant', 'minimal', 'tech', 'warm', 'wcag', 'accessibility', 'theme', 'preset', 'customization'],
   },
   {
@@ -46,7 +46,7 @@ export const searchIndex: SearchResult[] = [
     description: 'Font families, sizes, and text styles',
     type: 'token',
     category: 'Design Tokens',
-    path: 'tokens-typography',
+    path: '/docs/tokens/typography',
     keywords: ['font', 'text', 'heading', 'body', 'size'],
   },
   {
@@ -55,7 +55,7 @@ export const searchIndex: SearchResult[] = [
     description: 'Spacing scale and layout tokens',
     type: 'token',
     category: 'Design Tokens',
-    path: 'tokens-spacing',
+    path: '/docs/tokens/spacing',
     keywords: ['margin', 'padding', 'gap', 'space', 'layout'],
   },
   {
@@ -64,7 +64,7 @@ export const searchIndex: SearchResult[] = [
     description: 'Systematic hover, active, and focus state layers (Interaction Tokens) for consistent UI feedback',
     type: 'token',
     category: 'Design Tokens',
-    path: 'tokens-interactions',
+    path: '/docs/tokens/interactions',
     keywords: ['hover', 'active', 'focus', 'state', 'layer', 'overlay', 'interactive', 'feedback', 'opacity'],
   },
   {
@@ -73,7 +73,7 @@ export const searchIndex: SearchResult[] = [
     description: 'Animation timing and easing functions',
     type: 'token',
     category: 'Design Tokens',
-    path: 'tokens-motion',
+    path: '/docs/tokens/motion',
     keywords: ['animation', 'transition', 'duration', 'easing', 'motion'],
   },
   {
@@ -82,7 +82,7 @@ export const searchIndex: SearchResult[] = [
     description: 'Immersive 3D starfield warp effect using WebGL',
     type: 'component',
     category: 'Motion',
-    path: '#motion/warp-speed',
+    path: '/docs/motion/warp-speed',
     keywords: ['motion', 'background', 'starfield', 'galaxy', 'webgl', 'immersive', 'space'],
   },
   {
@@ -91,7 +91,7 @@ export const searchIndex: SearchResult[] = [
     description: 'Retro CRT monitor effect with glitch, scanlines and mouse interaction',
     type: 'component',
     category: 'Motion',
-    path: '#motion/faulty-terminal',
+    path: '/docs/motion/faulty-terminal',
     keywords: ['motion', 'background', 'crt', 'retro', 'glitch', 'terminal', 'scanline', 'cyberpunk'],
   },
   {
@@ -100,7 +100,7 @@ export const searchIndex: SearchResult[] = [
     description: 'A specialized component for generating social preview images',
     type: 'component',
     category: 'Blocks',
-    path: '#blocks/social/open-graph-card',
+    path: '/docs/tools/open-graph-card',
     keywords: ['og', 'opengraph', 'social', 'preview', 'card', 'meta'],
   },
 
@@ -111,7 +111,7 @@ export const searchIndex: SearchResult[] = [
     description: 'A clickable element for user actions',
     type: 'component',
     category: 'Actions',
-    path: '#actions/button',
+    path: '/docs/actions/button',
     keywords: ['click', 'action', 'primary', 'secondary', 'cta'],
   },
   {
@@ -120,7 +120,7 @@ export const searchIndex: SearchResult[] = [
     description: 'A two-state button that can be either on or off',
     type: 'component',
     category: 'Actions',
-    path: '#actions/toggle',
+    path: '/docs/actions/toggle',
     keywords: ['button', 'switch', 'state'],
   },
   {
@@ -129,7 +129,7 @@ export const searchIndex: SearchResult[] = [
     description: 'A set of two-state buttons that can be toggled on or off',
     type: 'component',
     category: 'Actions',
-    path: '#actions/toggle-group',
+    path: '/docs/actions/toggle-group',
     keywords: ['buttons', 'select', 'options'],
   },
   {
@@ -138,7 +138,7 @@ export const searchIndex: SearchResult[] = [
     description: 'A navigational element for internal and external links',
     type: 'component',
     category: 'Actions',
-    path: '#actions/link',
+    path: '/docs/actions/link',
     keywords: ['anchor', 'navigation', 'href', 'url'],
   },
 
@@ -149,7 +149,7 @@ export const searchIndex: SearchResult[] = [
     description: 'A control that allows the user to toggle between checked and not checked',
     type: 'component',
     category: 'Forms',
-    path: '#forms/checkbox',
+    path: '/docs/forms/checkbox',
     keywords: ['check', 'select', 'toggle', 'option', 'input'],
   },
   {
@@ -158,7 +158,7 @@ export const searchIndex: SearchResult[] = [
     description: 'Autocomplete input and command palette',
     type: 'component',
     category: 'Forms',
-    path: '#forms/combobox',
+    path: '/docs/forms/combobox',
     keywords: ['autocomplete', 'select', 'search', 'input'],
   },
   {
@@ -167,7 +167,7 @@ export const searchIndex: SearchResult[] = [
     description: 'Sortable lists and tables with drag-and-drop reordering functionality',
     type: 'component',
     category: 'Forms',
-    path: '#forms/drag-drop',
+    path: '/docs/forms/drag-drop',
     keywords: ['drag', 'drop', 'sortable', 'reorder', 'dnd', 'draggable', 'sort', 'list', 'table'],
   },
   {
@@ -176,7 +176,7 @@ export const searchIndex: SearchResult[] = [
     description: 'Form wrapper validation and error handling',
     type: 'component',
     category: 'Forms',
-    path: '#forms/form',
+    path: '/docs/forms/form',
     keywords: ['input', 'form', 'label', 'error', 'validation', 'field'],
   },
   {
@@ -185,7 +185,7 @@ export const searchIndex: SearchResult[] = [
     description: 'Displays a form input field or a component that looks like an input field.',
     type: 'component',
     category: 'Forms',
-    path: '#forms/input',
+    path: '/docs/forms/input',
     keywords: ['form', 'text', 'field', 'entry'],
   },
   {
@@ -194,7 +194,7 @@ export const searchIndex: SearchResult[] = [
     description: 'Accessible one-time password input',
     type: 'component',
     category: 'Forms',
-    path: '#forms/input-otp',
+    path: '/docs/forms/input-otp',
     keywords: ['otp', 'password', 'code', 'authentication', 'verification'],
   },
   {
@@ -203,7 +203,7 @@ export const searchIndex: SearchResult[] = [
     description: 'Renders an accessible label associated with controls',
     type: 'component',
     category: 'Forms',
-    path: '#forms/label',
+    path: '/docs/forms/label',
     keywords: ['form', 'text', 'tag', 'name'],
   },
   {
@@ -212,7 +212,7 @@ export const searchIndex: SearchResult[] = [
     description: 'Group of mutually exclusive radio buttons',
     type: 'component',
     category: 'Forms',
-    path: '#forms/radio-group',
+    path: '/docs/forms/radio-group',
     keywords: ['radio', 'select', 'choice', 'option', 'form'],
   },
   {
@@ -221,7 +221,7 @@ export const searchIndex: SearchResult[] = [
     description: 'Displays a list of options for the user to pick from',
     type: 'component',
     category: 'Forms',
-    path: '#forms/select',
+    path: '/docs/forms/select',
     keywords: ['dropdown', 'menu', 'option', 'picker'],
   },
   {
@@ -230,7 +230,7 @@ export const searchIndex: SearchResult[] = [
     description: 'An input where the user selects a value from within a given range',
     type: 'component',
     category: 'Forms',
-    path: '#forms/slider',
+    path: '/docs/forms/slider',
     keywords: ['input', 'range', 'volume', 'control'],
   },
   {
@@ -239,7 +239,7 @@ export const searchIndex: SearchResult[] = [
     description: 'A control that allows the user to toggle between checked and not checked',
     type: 'component',
     category: 'Forms',
-    path: '#forms/switch',
+    path: '/docs/forms/switch',
     keywords: ['toggle', 'checkbox', 'input', 'binary'],
   },
   {
@@ -248,8 +248,17 @@ export const searchIndex: SearchResult[] = [
     description: 'Displays a form textarea or a component that looks like a textarea',
     type: 'component',
     category: 'Forms',
-    path: '#forms/textarea',
+    path: '/docs/forms/textarea',
     keywords: ['input', 'form', 'text', 'field', 'area'],
+  },
+  {
+    id: 'file-upload',
+    title: 'File Upload',
+    description: 'Drag-and-drop file upload zone with validation and file list',
+    type: 'component',
+    category: 'Forms',
+    path: '/docs/forms/file-upload',
+    keywords: ['file', 'upload', 'drag', 'drop', 'dropzone', 'attachment', 'browse'],
   },
   {
     id: 'theme-toggle',
@@ -257,7 +266,7 @@ export const searchIndex: SearchResult[] = [
     description: 'Switch between light and dark modes',
     type: 'component',
     category: 'Forms',
-    path: '#forms/theme-toggle',
+    path: '/docs/forms/theme-toggle',
     keywords: ['theme', 'dark mode', 'light mode', 'switch'],
   },
 
@@ -268,7 +277,7 @@ export const searchIndex: SearchResult[] = [
     description: 'Displays the path to the current resource',
     type: 'component',
     category: 'Navigation',
-    path: '#navigation/breadcrumb',
+    path: '/docs/navigation/breadcrumb',
     keywords: ['navigation', 'path', 'location', 'crumbs', 'hierarchy'],
   },
   {
@@ -277,7 +286,7 @@ export const searchIndex: SearchResult[] = [
     description: 'Fast, composable, unstyled command menu',
     type: 'component',
     category: 'Navigation',
-    path: '#navigation/command',
+    path: '/docs/navigation/command',
     keywords: ['menu', 'shortcut', 'palette', 'search'],
   },
   {
@@ -286,7 +295,7 @@ export const searchIndex: SearchResult[] = [
     description: 'A visually persistent menu common in desktop applications',
     type: 'component',
     category: 'Navigation',
-    path: '#navigation/menubar',
+    path: '/docs/navigation/menubar',
     keywords: ['menu', 'navigation', 'desktop', 'commands'],
   },
   {
@@ -295,7 +304,7 @@ export const searchIndex: SearchResult[] = [
     description: 'A collection of links for navigating websites',
     type: 'component',
     category: 'Navigation',
-    path: '#navigation/navigation-menu',
+    path: '/docs/navigation/navigation-menu',
     keywords: ['nav', 'header', 'links', 'menu'],
   },
   {
@@ -304,7 +313,7 @@ export const searchIndex: SearchResult[] = [
     description: 'Pagination with page navigation, next and previous links',
     type: 'component',
     category: 'Navigation',
-    path: '#navigation/pagination',
+    path: '/docs/navigation/pagination',
     keywords: ['nav', 'pages', 'next', 'previous'],
   },
   {
@@ -313,7 +322,7 @@ export const searchIndex: SearchResult[] = [
     description: 'A set of layered sections of content-known as tab panels-that are displayed one at a time',
     type: 'component',
     category: 'Navigation',
-    path: '#navigation/tabs',
+    path: '/docs/navigation/tabs',
     keywords: ['navigation', 'panels', 'sections', 'switch'],
   },
 
@@ -324,7 +333,7 @@ export const searchIndex: SearchResult[] = [
     description: 'A modal dialog that interrupts the user with important content and expects a response',
     type: 'component',
     category: 'Overlays',
-    path: '#overlays/alert-dialog',
+    path: '/docs/overlays/alert-dialog',
     keywords: ['modal', 'confirm', 'alert', 'dialog'],
   },
   {
@@ -333,7 +342,7 @@ export const searchIndex: SearchResult[] = [
     description: 'Displays a menu to the user — such as a set of actions or functions — triggered by a button',
     type: 'component',
     category: 'Overlays',
-    path: '#overlays/context-menu',
+    path: '/docs/overlays/context-menu',
     keywords: ['menu', 'right-click', 'popup'],
   },
   {
@@ -342,7 +351,7 @@ export const searchIndex: SearchResult[] = [
     description: 'A window overlaid on either the primary window or another dialog window',
     type: 'component',
     category: 'Overlays',
-    path: '#overlays/dialog',
+    path: '/docs/overlays/dialog',
     keywords: ['modal', 'popup', 'alert', 'window'],
   },
   {
@@ -351,7 +360,7 @@ export const searchIndex: SearchResult[] = [
     description: 'A drawer component for mobile devices',
     type: 'component',
     category: 'Overlays',
-    path: '#overlays/drawer',
+    path: '/docs/overlays/drawer',
     keywords: ['sidebar', 'mobile', 'sheet', 'panel'],
   },
   {
@@ -360,7 +369,7 @@ export const searchIndex: SearchResult[] = [
     description: 'A menu that appears when clicking a trigger element',
     type: 'component',
     category: 'Overlays',
-    path: '#overlays/dropdown-menu',
+    path: '/docs/overlays/dropdown-menu',
     keywords: ['menu', 'select', 'options', 'popover', 'dropdown'],
   },
   {
@@ -369,8 +378,17 @@ export const searchIndex: SearchResult[] = [
     description: 'For sighted users to preview content available behind a link',
     type: 'component',
     category: 'Overlays',
-    path: '#overlays/hover-card',
+    path: '/docs/overlays/hover-card',
     keywords: ['preview', 'tooltip', 'popover', 'hover'],
+  },
+  {
+    id: 'notification-center',
+    title: 'Notification Center',
+    description: 'Dropdown notification panel with grouped notifications, read/unread state, and actions',
+    type: 'component',
+    category: 'Overlays',
+    path: '/docs/overlays/notification-center',
+    keywords: ['notification', 'bell', 'alert', 'inbox', 'unread', 'badge', 'messages'],
   },
   {
     id: 'popover',
@@ -378,7 +396,7 @@ export const searchIndex: SearchResult[] = [
     description: 'Displays rich content in a portal, triggered by a button',
     type: 'component',
     category: 'Overlays',
-    path: '#overlays/popover',
+    path: '/docs/overlays/popover',
     keywords: ['tooltip', 'menu', 'dialog', 'overlay'],
   },
   {
@@ -387,7 +405,7 @@ export const searchIndex: SearchResult[] = [
     description: 'Extends the Dialog component to display content that complements the main screen',
     type: 'component',
     category: 'Overlays',
-    path: '#overlays/sheet',
+    path: '/docs/overlays/sheet',
     keywords: ['drawer', 'sidebar', 'modal', 'panel'],
   },
   {
@@ -396,7 +414,7 @@ export const searchIndex: SearchResult[] = [
     description: 'A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it',
     type: 'component',
     category: 'Overlays',
-    path: '#overlays/tooltip',
+    path: '/docs/overlays/tooltip',
     keywords: ['popup', 'info', 'help', 'hover'],
   },
 
@@ -407,7 +425,7 @@ export const searchIndex: SearchResult[] = [
     description: 'Displays a callout for user attention',
     type: 'component',
     category: 'Feedback',
-    path: '#feedback/alert',
+    path: '/docs/feedback/alert',
     keywords: ['warning', 'error', 'info', 'success', 'notification', 'callout'],
   },
   {
@@ -416,7 +434,7 @@ export const searchIndex: SearchResult[] = [
     description: 'Displays an indicator showing the completion progress of a task',
     type: 'component',
     category: 'Feedback',
-    path: '#feedback/progress',
+    path: '/docs/feedback/progress',
     keywords: ['loading', 'status', 'bar', 'loader'],
   },
   {
@@ -425,7 +443,7 @@ export const searchIndex: SearchResult[] = [
     description: 'Use to show a placeholder while content is loading',
     type: 'component',
     category: 'Feedback',
-    path: '#feedback/skeleton',
+    path: '/docs/feedback/skeleton',
     keywords: ['loading', 'placeholder', 'shim'],
   },
   {
@@ -434,7 +452,7 @@ export const searchIndex: SearchResult[] = [
     description: 'An opinionated toast component for React',
     type: 'component',
     category: 'Feedback',
-    path: '#feedback/sonner',
+    path: '/docs/feedback/sonner',
     keywords: ['toast', 'notification', 'alert'],
   },
   {
@@ -443,8 +461,26 @@ export const searchIndex: SearchResult[] = [
     description: 'The provider and viewport for toast notifications',
     type: 'component',
     category: 'Feedback',
-    path: '#feedback/toaster',
+    path: '/docs/feedback/toaster',
     keywords: ['notification', 'provider', 'container'],
+  },
+  {
+    id: 'empty-state',
+    title: 'Empty State',
+    description: 'Placeholder for empty content areas with icon, title, description, and call-to-action',
+    type: 'component',
+    category: 'Feedback',
+    path: '/docs/feedback/empty-state',
+    keywords: ['empty', 'placeholder', 'no data', 'no results', 'blank', 'zero state'],
+  },
+  {
+    id: 'stepper',
+    title: 'Stepper',
+    description: 'Multi-step progress indicator for wizards and multi-step forms',
+    type: 'component',
+    category: 'Feedback',
+    path: '/docs/feedback/stepper',
+    keywords: ['stepper', 'wizard', 'steps', 'progress', 'multi-step', 'form', 'workflow'],
   },
 
   // Functional Categories - Data Display
@@ -454,7 +490,7 @@ export const searchIndex: SearchResult[] = [
     description: 'User profile picture or fallback with status indicator',
     type: 'component',
     category: 'Data Display',
-    path: '#data-display/avatar',
+    path: '/docs/data-display/avatar',
     keywords: ['profile', 'user', 'image', 'photo', 'status'],
   },
   {
@@ -463,7 +499,7 @@ export const searchIndex: SearchResult[] = [
     description: 'A small label for status, counts, or categorization',
     type: 'component',
     category: 'Data Display',
-    path: '#data-display/badge',
+    path: '/docs/data-display/badge',
     keywords: ['label', 'tag', 'status', 'count', 'pill'],
   },
   {
@@ -472,7 +508,7 @@ export const searchIndex: SearchResult[] = [
     description: 'A date field component that allows users to enter and edit date',
     type: 'component',
     category: 'Data Display',
-    path: '#data-display/calendar',
+    path: '/docs/data-display/calendar',
     keywords: ['date', 'picker', 'time', 'schedule'],
   },
   {
@@ -481,7 +517,7 @@ export const searchIndex: SearchResult[] = [
     description: 'A container for grouping related content',
     type: 'component',
     category: 'Data Display',
-    path: '#data-display/card',
+    path: '/docs/data-display/card',
     keywords: ['container', 'box', 'content', 'surface'],
   },
   {
@@ -490,8 +526,35 @@ export const searchIndex: SearchResult[] = [
     description: 'Powerful table with sorting, filtering, and pagination',
     type: 'component',
     category: 'Data Display',
-    path: '#data-display/data-table',
+    path: '/docs/data-display/data-table',
     keywords: ['table', 'grid', 'data', 'sort', 'filter'],
+  },
+  {
+    id: 'stat-card',
+    title: 'Stat Card',
+    description: 'Displays key metrics and statistics with trend indicators',
+    type: 'component',
+    category: 'Data Display',
+    path: '/docs/data-display/stat-card',
+    keywords: ['metric', 'statistic', 'kpi', 'dashboard', 'number', 'trend', 'analytics'],
+  },
+  {
+    id: 'timeline',
+    title: 'Timeline',
+    description: 'Chronological event display with connecting lines, icons, and status indicators',
+    type: 'component',
+    category: 'Data Display',
+    path: '/docs/data-display/timeline',
+    keywords: ['timeline', 'events', 'history', 'chronological', 'activity', 'log', 'feed'],
+  },
+  {
+    id: 'tree-view',
+    title: 'Tree View',
+    description: 'Hierarchical data display with expand/collapse and keyboard navigation',
+    type: 'component',
+    category: 'Data Display',
+    path: '/docs/data-display/tree-view',
+    keywords: ['tree', 'hierarchy', 'file browser', 'nested', 'expand', 'collapse', 'folder'],
   },
   {
     id: 'table',
@@ -499,7 +562,7 @@ export const searchIndex: SearchResult[] = [
     description: 'A responsive table component',
     type: 'component',
     category: 'Data Display',
-    path: '#data-display/table',
+    path: '/docs/data-display/table',
     keywords: ['data', 'grid', 'rows', 'columns', 'list'],
   },
 
@@ -510,7 +573,7 @@ export const searchIndex: SearchResult[] = [
     description: 'A vertically stacked set of interactive headings that each reveal a section of content',
     type: 'component',
     category: 'Layout',
-    path: '#layout/accordion',
+    path: '/docs/layout/accordion',
     keywords: ['collapse', 'expand', 'panel', 'content', 'faq'],
   },
   {
@@ -519,7 +582,7 @@ export const searchIndex: SearchResult[] = [
     description: 'Displays content within a desired ratio',
     type: 'component',
     category: 'Layout',
-    path: '#layout/aspect-ratio',
+    path: '/docs/layout/aspect-ratio',
     keywords: ['image', 'video', 'ratio', 'scale'],
   },
   {
@@ -528,7 +591,7 @@ export const searchIndex: SearchResult[] = [
     description: 'A carousel with motion and swipe support',
     type: 'component',
     category: 'Layout',
-    path: '#layout/carousel',
+    path: '/docs/layout/carousel',
     keywords: ['slider', 'gallery', 'swipe', 'images'],
   },
   {
@@ -537,7 +600,7 @@ export const searchIndex: SearchResult[] = [
     description: 'An interactive component which expands/collapses a panel',
     type: 'component',
     category: 'Layout',
-    path: '#layout/collapsible',
+    path: '/docs/layout/collapsible',
     keywords: ['expand', 'collapse', 'panel', 'accordion', 'reveal'],
   },
   {
@@ -546,7 +609,7 @@ export const searchIndex: SearchResult[] = [
     description: 'A date picker component with range and presets',
     type: 'component',
     category: 'Layout',
-    path: '#layout/date-picker',
+    path: '/docs/layout/date-picker',
     keywords: ['calendar', 'date', 'select', 'time'],
   },
   {
@@ -555,7 +618,7 @@ export const searchIndex: SearchResult[] = [
     description: 'Accessible resizable panel groups and layouts',
     type: 'component',
     category: 'Layout',
-    path: '#layout/resizable',
+    path: '/docs/layout/resizable',
     keywords: ['layout', 'panel', 'split', 'resize'],
   },
   {
@@ -564,7 +627,7 @@ export const searchIndex: SearchResult[] = [
     description: 'Augments native scroll functionality for custom, cross-browser styling',
     type: 'component',
     category: 'Layout',
-    path: '#layout/scroll-area',
+    path: '/docs/layout/scroll-area',
     keywords: ['container', 'scroll', 'box'],
   },
   {
@@ -573,7 +636,7 @@ export const searchIndex: SearchResult[] = [
     description: 'Visually or semantically separates content',
     type: 'component',
     category: 'Layout',
-    path: '#layout/separator',
+    path: '/docs/layout/separator',
     keywords: ['divider', 'hr', 'line'],
   },
 
@@ -584,7 +647,7 @@ export const searchIndex: SearchResult[] = [
     description: 'Form state management with validation',
     type: 'hook',
     category: 'Hooks',
-    path: '#hooks/use-form',
+    path: '/docs/hooks/use-form',
     keywords: ['form', 'validation', 'state', 'input', 'submit'],
   },
   {
@@ -593,7 +656,7 @@ export const searchIndex: SearchResult[] = [
     description: 'Access and control theme settings',
     type: 'hook',
     category: 'Hooks',
-    path: '#hooks/use-theme',
+    path: '/docs/hooks/use-theme',
     keywords: ['theme', 'dark mode', 'light mode', 'color scheme'],
   },
   {
@@ -602,7 +665,7 @@ export const searchIndex: SearchResult[] = [
     description: 'Display toast notifications',
     type: 'hook',
     category: 'Hooks',
-    path: '#hooks/use-toast',
+    path: '/docs/hooks/use-toast',
     keywords: ['toast', 'notification', 'alert', 'message'],
   },
   {
@@ -611,7 +674,7 @@ export const searchIndex: SearchResult[] = [
     description: 'Detect user motion preferences for accessibility',
     type: 'hook',
     category: 'Hooks',
-    path: '#hooks/use-motion-preference',
+    path: '/docs/hooks/use-motion-preference',
     keywords: ['motion', 'animation', 'accessibility', 'prefers-reduced-motion'],
   },
 
@@ -622,7 +685,7 @@ export const searchIndex: SearchResult[] = [
     description: 'Form field and data validation helpers',
     type: 'utility',
     category: 'Utilities',
-    path: '#utilities/validation',
+    path: '/docs/hooks/validation',
     keywords: ['validation', 'form', 'validate', 'pattern', 'email', 'required'],
   },
   {
@@ -631,7 +694,7 @@ export const searchIndex: SearchResult[] = [
     description: 'Color manipulation and accessibility checking',
     type: 'utility',
     category: 'Utilities',
-    path: '#utilities/colors',
+    path: '/docs/hooks/colors',
     keywords: ['color', 'contrast', 'accessibility', 'wcag', 'hex', 'rgb'],
   },
   {
@@ -640,7 +703,7 @@ export const searchIndex: SearchResult[] = [
     description: 'Framer Motion animation presets and variants',
     type: 'utility',
     category: 'Utilities',
-    path: '#utilities/animations',
+    path: '/docs/hooks/animations',
     keywords: ['animation', 'motion', 'variants', 'transition', 'framer'],
   },
 
@@ -651,7 +714,7 @@ export const searchIndex: SearchResult[] = [
     description: 'Page templates and composition patterns',
     type: 'page',
     category: 'Templates',
-    path: '#templates',
+    path: '/docs/templates',
     keywords: ['template', 'pattern', 'layout', 'page', 'composition'],
   },
   {
@@ -660,7 +723,7 @@ export const searchIndex: SearchResult[] = [
     description: 'Swiss Grid-based page layout template with header, title, breadcrumbs, and content',
     type: 'component',
     category: 'Templates',
-    path: '#templates/page-template',
+    path: '/docs/templates/page-template',
     keywords: ['template', 'page', 'layout', 'swiss grid', 'header', 'breadcrumbs', 'title', 'subtitle', 'structure', 'composition'],
   },
 
@@ -671,7 +734,7 @@ export const searchIndex: SearchResult[] = [
     description: 'Main horizontal navigation component',
     type: 'component',
     category: 'Blocks',
-    path: '#blocks/primary-nav',
+    path: '/docs/blocks/primary-nav',
     keywords: ['navigation', 'header', 'menu', 'nav'],
   },
   {
@@ -680,7 +743,7 @@ export const searchIndex: SearchResult[] = [
     description: 'Secondary navigation with tabs',
     type: 'component',
     category: 'Blocks',
-    path: '#blocks/secondary-nav',
+    path: '/docs/blocks/secondary-nav',
     keywords: ['navigation', 'tabs', 'menu', 'secondary'],
   },
   {
@@ -689,7 +752,7 @@ export const searchIndex: SearchResult[] = [
     description: 'Site footer with links and information',
     type: 'component',
     category: 'Blocks',
-    path: '#blocks/footer',
+    path: '/docs/blocks/footer',
     keywords: ['footer', 'links', 'navigation', 'copyright'],
   },
   {
@@ -698,7 +761,7 @@ export const searchIndex: SearchResult[] = [
     description: 'A floating panel for real-time theme and preference customization with motion controls',
     type: 'component',
     category: 'Blocks',
-    path: '#blocks/customizer',
+    path: '/docs/blocks/customizer',
     keywords: ['customizer', 'theme', 'preferences', 'floating panel', 'real-time', 'motion', 'settings', 'blocks', 'patterns'],
   },
 ];

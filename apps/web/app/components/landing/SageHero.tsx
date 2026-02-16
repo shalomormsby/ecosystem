@@ -31,7 +31,7 @@ export function SageHero() {
             badge="Lovable by Design"
             primaryCta={{
                 label: "Get Started",
-                onClick: () => router.push('/docs#getting-started'),
+                onClick: () => router.push('/docs/getting-started'),
                 variant: 'secondary'
             }}
             background={

@@ -137,6 +137,7 @@ const SheetDescription = (
 
 export {
   Sheet,
+  sheetVariants,
   SheetPortal,
   SheetOverlay,
   SheetTrigger,

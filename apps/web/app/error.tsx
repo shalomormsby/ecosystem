@@ -24,8 +24,8 @@ export default function Error({
         navAlignment="right"
         navLinks={[
           { label: 'Documentation', href: '/docs' },
-          { label: 'Components', href: '/docs#components' },
-          { label: 'Themes', href: '/docs#themes' },
+          { label: 'Components', href: '/docs/components' },
+          { label: 'Themes', href: '/docs/themes' },
         ]}
         actions={
           <Button
@@ -144,7 +144,7 @@ export default function Error({
             {
               title: "Docs",
               links: [
-                { label: "Getting Started", href: "/docs#getting-started" },
+                { label: "Getting Started", href: "/docs/getting-started" },
                 { label: "Design Philosophy", href: "https://github.com/shalomormsby/ecosystem/blob/main/DESIGN-PHILOSOPHY.md", external: true },
                 { label: "README.md", href: "https://github.com/shalomormsby/ecosystem/blob/main/README.md", external: true },
                 { label: "AGENTS.md", href: "https://github.com/shalomormsby/ecosystem/blob/main/AGENTS.md", external: true }
@@ -153,18 +153,18 @@ export default function Error({
             {
               title: "Building Blocks",
               links: [
-                { label: "Design Tokens", href: "/docs#foundations" },
-                { label: "Components", href: "/docs#components" },
-                { label: "Blocks", href: "/docs#blocks" },
+                { label: "Design Tokens", href: "/docs/tokens" },
+                { label: "Components", href: "/docs/components" },
+                { label: "Blocks", href: "/docs/blocks" },
               ]
             },
             {
               title: "Toolkit",
               links: [
-                { label: "MCP Server", href: "/docs#mcp-server" },
-                { label: "Hooks", href: "/docs#hooks" },
-                { label: "Motion", href: "/docs#motion" },
-                { label: "Charts", href: "/docs#charts" },
+                { label: "MCP Server", href: "/docs/mcp-server" },
+                { label: "Hooks", href: "/docs/hooks" },
+                { label: "Motion", href: "/docs/motion" },
+                { label: "Charts", href: "/docs/charts" },
               ]
             }
           ]}

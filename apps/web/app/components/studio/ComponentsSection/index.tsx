@@ -23,7 +23,7 @@ const COMPONENT_CATEGORIES = {
   forms: {
     label: 'Forms',
     description: 'Input controls for data collection',
-    components: ['Checkbox', 'Combobox', 'DragDrop', 'Form', 'Input', 'InputOTP', 'Label', 'RadioGroup', 'Select', 'Slider', 'Switch', 'Textarea'],
+    components: ['Checkbox', 'Combobox', 'DragDrop', 'FileUpload', 'Form', 'Input', 'InputOTP', 'Label', 'RadioGroup', 'Select', 'Slider', 'Switch', 'Textarea'],
   },
   navigation: {
     label: 'Navigation',
@@ -33,17 +33,17 @@ const COMPONENT_CATEGORIES = {
   overlays: {
     label: 'Overlays',
     description: 'Contextual content layers',
-    components: ['AlertDialog', 'ContextMenu', 'Dialog', 'Drawer', 'DropdownMenu', 'HoverCard', 'Popover', 'Sheet', 'Tooltip'],
+    components: ['AlertDialog', 'ContextMenu', 'Dialog', 'Drawer', 'DropdownMenu', 'HoverCard', 'NotificationCenter', 'Popover', 'Sheet', 'Tooltip'],
   },
   feedback: {
     label: 'Feedback',
     description: 'Status and system communication',
-    components: ['Alert', 'Progress', 'Skeleton', 'Toaster'],
+    components: ['Alert', 'EmptyState', 'Stepper', 'Progress', 'Skeleton', 'Toaster'],
   },
   'data-display': {
     label: 'Data Display',
     description: 'Presenting information visually',
-    components: ['Avatar', 'Badge', 'Calendar', 'Card', 'DataTable', 'Table'],
+    components: ['Avatar', 'Badge', 'Calendar', 'Card', 'DataTable', 'StatCard', 'Timeline', 'TreeView', 'Table'],
   },
   layout: {
     label: 'Layout',

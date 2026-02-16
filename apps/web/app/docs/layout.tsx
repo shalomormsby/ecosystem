@@ -1,18 +1,20 @@
 import type { Metadata } from 'next';
+import { DocsShell } from './DocsShell';
 
-// Note: BRAND from @thesage/ui cannot be used here because tsup adds "use client"
-// banner to all output files, making the module resolve to undefined in server contexts.
 const PRODUCT_NAME = 'Sage Design Engine';
 
 export const metadata: Metadata = {
-  title: `Documentation - ${PRODUCT_NAME}`,
+  title: {
+    template: `%s — ${PRODUCT_NAME}`,
+    default: `Documentation — ${PRODUCT_NAME}`,
+  },
   description:
     '92 accessible React components built on Radix UI + Tailwind CSS. Three themes, design tokens, motion control, TypeScript strict mode.',
   alternates: {
     canonical: 'https://thesage.dev/docs',
   },
   openGraph: {
-    title: `Documentation - ${PRODUCT_NAME}`,
+    title: `Documentation — ${PRODUCT_NAME}`,
     description:
       '92 accessible React components built on Radix UI + Tailwind CSS. Three themes, design tokens, motion control.',
     url: 'https://thesage.dev/docs',
@@ -31,7 +33,7 @@ export const metadata: Metadata = {
 const collectionJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'CollectionPage',
-  name: `Documentation - ${PRODUCT_NAME}`,
+  name: `Documentation — ${PRODUCT_NAME}`,
   description:
     '92 accessible React components built on Radix UI + Tailwind CSS. Three themes, design tokens, motion control.',
   url: 'https://thesage.dev/docs',
@@ -65,7 +67,7 @@ export default function DocsLayout({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionJsonLd) }}
       />
-      {children}
+      <DocsShell>{children}</DocsShell>
     </>
   );
 }

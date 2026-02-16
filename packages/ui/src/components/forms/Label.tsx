@@ -22,4 +22,4 @@ const Label = (
     {...props}
 />)
 
-export { Label }
+export { Label, labelVariants }

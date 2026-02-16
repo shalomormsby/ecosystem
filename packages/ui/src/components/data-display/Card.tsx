@@ -112,4 +112,4 @@ const CardFooter = (
     {...props}
 />)
 
-export { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent }
+export { Card, cardVariants, CardHeader, CardFooter, CardTitle, CardDescription, CardContent }

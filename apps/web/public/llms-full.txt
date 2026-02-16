@@ -1,7 +1,10 @@
-# Sage Design Engine — Full Component API Reference
+# Sage Design Engine — Complete Component Reference
+# Version: 1.0.3 | React 18/19 | Next.js 15+ | Tailwind 3.4+ | framer-motion ^12
+# Components: 92 | Themes: 3 (Studio, Terra, Volt) | Blocks: 2
+# Last verified: 2026-02-15
+# Package: pnpm add @thesage/ui
+# MCP: npx @thesage/mcp
 
-> Version: 1.0.0
-> Last updated: 2026-02-15
 > 92 components | 11 categories | 3 themes | TypeScript strict mode | MIT license
 
 ---
@@ -53,6 +56,75 @@ import { Calendar, DatePicker } from '@thesage/ui/dates'
 import { DataTable } from '@thesage/ui/tables'
 import { DragDrop } from '@thesage/ui/dnd'
 ```
+
+## COMPLETE APP SHELL (copy-paste ready)
+
+### Vite + React
+
+```tsx
+// src/main.tsx
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import { ThemeProvider, TooltipProvider, Toaster } from '@thesage/ui'
+import '@thesage/ui/globals.css'
+import App from './App'
+
+ReactDOM.createRoot(document.getElementById('root')!).render(
+  <React.StrictMode>
+    <ThemeProvider defaultTheme="studio" defaultMode="system">
+      <TooltipProvider delayDuration={300}>
+        <App />
+        <Toaster position="bottom-right" />
+      </TooltipProvider>
+    </ThemeProvider>
+  </React.StrictMode>
+)
+
+// tailwind.config.js
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: ['./index.html', './src/**/*.{ts,tsx}', './node_modules/@thesage/ui/dist/**/*.{js,mjs}'],
+  darkMode: 'class',
+  theme: { extend: {} },
+  plugins: [require('tailwindcss-animate')],
+}
+
+// postcss.config.js
+export default {
+  plugins: { tailwindcss: {}, autoprefixer: {} },
+}
+```
+
+### Next.js App Router
+
+```tsx
+// app/layout.tsx
+import { ThemeProvider, TooltipProvider, Toaster } from '@thesage/ui'
+import '@thesage/ui/globals.css'
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en" suppressHydrationWarning>
+      <body>
+        <ThemeProvider defaultTheme="studio" defaultMode="system">
+          <TooltipProvider delayDuration={300}>
+            {children}
+            <Toaster position="bottom-right" />
+          </TooltipProvider>
+        </ThemeProvider>
+      </body>
+    </html>
+  )
+}
+```
+
+### Manual Setup (any React project)
+1. `pnpm add @thesage/ui`
+2. Add to tailwind.config.js content array: `'./node_modules/@thesage/ui/dist/**/*.{js,mjs}'`
+3. Import globals: `import '@thesage/ui/globals.css'`
+4. Wrap app in providers: `<ThemeProvider><TooltipProvider>{children}<Toaster /></TooltipProvider></ThemeProvider>`
+
+---
 
 ## THEMES
 
@@ -1323,9 +1395,125 @@ SDE covers 92 components. For gaps, these libraries integrate well with @thesage
 
 ---
 
+## COMMON MISTAKES & FIXES
+
+WRONG: `<Button className="bg-blue-500">`       → hardcoded color
+RIGHT: `<Button variant="default">`              → use variant prop
+
+WRONG: `<Dialog>content</Dialog>`                → missing compound structure
+RIGHT: `<Dialog><DialogTrigger>...</DialogTrigger><DialogContent>...</DialogContent></Dialog>`
+
+WRONG: `import { Button } from '@thesage/ui/components/actions/Button'`
+RIGHT: `import { Button } from '@thesage/ui'`
+
+WRONG: `<div className="bg-white dark:bg-gray-900">`
+RIGHT: `<div className="bg-background">`          → CSS variable handles mode
+
+WRONG: Using Dialog for destructive confirmations
+RIGHT: Use AlertDialog — it prevents accidental dismissal
+
+WRONG: String concatenation for classNames: `className={"p-4 " + props.className}`
+RIGHT: Use cn() utility: `className={cn("p-4", props.className)}`
+
+WRONG: `<Input placeholder="Email" />`           → no associated label
+RIGHT: `<Label htmlFor="email">Email</Label><Input id="email" />`
+
+WRONG: Animating without checking preference
+RIGHT: `const { shouldAnimate } = useMotionPreference()` → conditionally animate
+
+---
+
+## WHICH COMPONENT SHOULD I USE?
+
+| Need | Use | Why |
+|------|-----|-----|
+| Confirm destructive action | AlertDialog (not Dialog) | Prevents accidental dismiss via overlay click |
+| Side panel content | Sheet (not Drawer) | Sheet is for desktop, Drawer for mobile bottom sheets |
+| Searchable dropdown | Combobox (not Select) | Combobox has built-in search/filter |
+| Boolean toggle | Switch (not Checkbox) | Switch for instant effect, Checkbox for form submission |
+| Multi-select | Checkbox group (not Select) | Select is single-value only |
+| File upload | DragDrop from `@thesage/ui/dnd` | Handles drag events, accessible |
+| Date selection | DatePicker from `@thesage/ui/dates` | Wraps Calendar + Popover |
+| Data grid with sort/filter | DataTable from `@thesage/ui/tables` | Built on @tanstack/react-table |
+| Form validation | Form from `@thesage/ui/forms` | Wraps react-hook-form + zod |
+| Short notification | Sonner / Toast | Auto-dismisses, non-blocking |
+| Important message | Alert | Persistent, stays visible in flow |
+| Full-page modal | Dialog | Focus-trapped, centered overlay |
+| Quick info on hover | Tooltip (desktop) / Popover (mobile) | Tooltip doesn't work on touch devices |
+| Command palette / search | Command | Keyboard-driven, filterable list |
+| Collapsible sections | Accordion (multiple) / Collapsible (single) | Accordion manages multiple panels |
+
+---
+
+## COMPOSITION COMPATIBILITY
+
+### Safe combinations:
+- Dialog + Form — common: form inside dialog
+- Sheet + Tabs — common: tabbed side panel
+- Card + Accordion — common: expandable card sections
+- Sidebar + NavigationMenu — common: app navigation
+- Popover + Command — common: searchable dropdown (this is how Combobox works internally)
+- Card + Badge — common: status indicators on cards
+- Table + Pagination — common: paginated data display
+- Form + Select + Input — common: multi-field forms
+- AlertDialog + Button variant="destructive" — common: delete confirmation
+
+### Avoid these combinations:
+- Drawer + Sheet — don't nest sliding overlays
+- Dialog + Dialog — don't nest modal dialogs
+- Tooltip inside Dialog — tooltip may disappear when dialog opens
+- DropdownMenu inside Sheet — z-index conflicts possible
+- Multiple Toaster instances — only render one Toaster at app root
+
+### Use with care:
+- Toast + Dialog — toast may appear behind dialog; ensure Toaster is at root level
+- HoverCard + mobile — HoverCard doesn't work on touch devices; use Popover instead
+- Combobox inside Dialog — keyboard events may conflict; test thoroughly
+- Drawer on desktop — Drawer is designed for mobile; use Sheet on desktop
+
+---
+
+## BUNDLE ARCHITECTURE
+
+SDE uses subpath exports to keep your bundle lean. Only import what you use:
+
+| Import | Size (min+brotli) | What's Included |
+|--------|-------------------|-----------------|
+| `@thesage/ui` | ~146 KB | All 92 base components |
+| `@thesage/ui/hooks` | ~40 KB | useTheme, useMotionPreference, useForm |
+| `@thesage/ui/providers` | ~60 KB | ThemeProvider, TooltipProvider |
+| `@thesage/ui/tokens` | ~70 KB | Design tokens (re-exported from @thesage/tokens) |
+| `@thesage/ui/utils` | ~25 KB | cn(), parseCode, and utilities |
+| `@thesage/ui/forms` | ~9 KB | Form integration (requires react-hook-form + zod) |
+| `@thesage/ui/dates` | ~29 KB | Calendar, DatePicker (requires date-fns) |
+| `@thesage/ui/tables` | ~8 KB | DataTable (requires @tanstack/react-table) |
+| `@thesage/ui/dnd` | ~8 KB | DragDrop (requires @dnd-kit) |
+| `@thesage/ui/webgl` | ~1 KB | WebGL components |
+
+Heavy optional dependencies are peer deps — install only what your app needs.
+
+### CVA Variant Exports
+
+All CVA-based components export their variant definitions for custom composition:
+
+```tsx
+import { buttonVariants, badgeVariants, cardVariants, alertVariants } from '@thesage/ui'
+import { toggleVariants } from '@thesage/ui'
+import { sheetVariants } from '@thesage/ui'
+import { labelVariants } from '@thesage/ui'
+
+// Use variants without rendering the component
+<a className={buttonVariants({ variant: "ghost", size: "sm" })}>Link styled as button</a>
+```
+
+---
+
 # RESOURCES
 
-- Docs: https://thesage.dev/docs#overview
+- Docs: https://thesage.dev/docs/overview
 - GitHub: https://github.com/shalomormsby/ecosystem
 - NPM: https://www.npmjs.com/package/@thesage/ui
 - MCP: https://www.npmjs.com/package/@thesage/mcp
+- API JSON: https://thesage.dev/docs/api.json
+- AI Plugin: https://thesage.dev/.well-known/ai-plugin.json
+- MCP Discovery: https://thesage.dev/.well-known/mcp-server.json

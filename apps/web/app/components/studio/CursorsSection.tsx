@@ -8,8 +8,7 @@ export function CursorsSection() {
     const router = useRouter();
 
     const navigateTo = (path: string) => {
-        // Using hash navigation as per other sections
-        window.location.hash = path;
+        router.push(path);
     };
 
     return (
@@ -28,7 +27,7 @@ export function CursorsSection() {
                 {/* Splash Cursor Card */}
                 <Card
                     className="group relative overflow-hidden bg-[#1a1a1a] min-h-[300px] cursor-pointer transition-all duration-300 hover:shadow-2xl border-[var(--color-border)]"
-                    onClick={() => navigateTo('#motion/splash-cursor')}
+                    onClick={() => navigateTo('/docs/motion/splash-cursor')}
                 >
                     <div className="absolute inset-0">
                         <SplashCursor
@@ -54,7 +53,7 @@ export function CursorsSection() {
                 {/* Target Cursor Card */}
                 <Card
                     className="group relative overflow-hidden bg-[#1a1a1a] min-h-[300px] cursor-pointer transition-all duration-300 hover:shadow-2xl border-[var(--color-border)]"
-                    onClick={() => navigateTo('#motion/target-cursor')}
+                    onClick={() => navigateTo('/docs/motion/target-cursor')}
                 >
                     {/* Visual Preview */}
                     <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-60 group-hover:opacity-100 transition-opacity duration-500">

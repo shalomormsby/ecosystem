@@ -129,7 +129,7 @@ export function ColorsTab() {
 
           <div className="flex items-center gap-3">
             <Button variant="outline" asChild>
-              <a href="#themes/palettes" className="flex items-center gap-2">
+              <a href="/docs/themes/palettes" className="flex items-center gap-2">
                 <Palette className="w-4 h-4" />
                 Change Palette
                 <ArrowRight className="w-4 h-4 ml-1" />

@@ -30,6 +30,7 @@ export * from './components/forms/TextField';
 export * from './components/forms/Textarea';
 export * from './components/forms/ThemeSwitcher';
 export * from './components/forms/ThemeToggle';
+export * from './components/forms/FileUpload';
 
 // Navigation
 export * from './components/navigation/Breadcrumb';
@@ -55,6 +56,7 @@ export * from './components/overlays/Modal';
 export * from './components/overlays/Popover';
 export * from './components/overlays/Sheet';
 export * from './components/overlays/Tooltip';
+export * from './components/overlays/NotificationCenter';
 
 // Feedback
 export * from './components/feedback/Alert';
@@ -64,7 +66,8 @@ export * from './components/feedback/Skeleton';
 export * from './components/feedback/Sonner';
 export * from './components/feedback/Spinner';
 export * from './components/feedback/Toast';
-
+export * from './components/feedback/EmptyState';
+export * from './components/feedback/Stepper';
 
 // Data Display
 export * from './components/data-display/AspectImage';
@@ -83,6 +86,9 @@ export * from './components/data-display/Table';
 export * from './components/data-display/Text';
 export * from './components/data-display/VariableWeightText';
 export * from './components/data-display/Typewriter';
+export * from './components/data-display/StatCard';
+export * from './components/data-display/Timeline';
+export * from './components/data-display/TreeView';
 export * from './components/blocks/social/OpenGraphCard';
 
 // Layout

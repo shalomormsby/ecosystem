@@ -9,3 +9,4 @@ export * from './Modal';
 export * from './Popover';
 export * from './Sheet';
 export * from './Tooltip';
+export * from './NotificationCenter';
