@@ -15,7 +15,9 @@ export default function LandingPage() {
 
   useEffect(() => {
     if (window.location.hash) {
-      router.replace(`/docs${window.location.hash}`);
+      // Redirect hash-based URLs to path-based: /#actions/button → /docs/actions/button
+      const hash = window.location.hash.slice(1);
+      router.replace(`/docs/${hash}`);
     }
   }, [router]);
 
@@ -26,8 +28,8 @@ export default function LandingPage() {
         navAlignment="right"
         navLinks={[
           { label: 'Documentation', href: '/docs' },
-          { label: 'Components', href: '/docs#components' },
-          { label: 'Themes', href: '/docs#themes' },
+          { label: 'Components', href: '/docs/components' },
+          { label: 'Themes', href: '/docs/themes' },
         ]}
         actions={
           <Button

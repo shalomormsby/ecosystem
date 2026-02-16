@@ -2,7 +2,7 @@
 
 > **Context file for AI assistants (primarily Claude) working on this design ecosystem. Read this first, then [DESIGN-PHILOSOPHY.md](../DESIGN-PHILOSOPHY.md) and [AGENTS.md](../AGENTS.md).**
 
-Last updated: 2026-01-23
+Last updated: 2026-02-15
 
 ---
 
@@ -21,14 +21,14 @@ You're working on **Shalom's Creative Ecosystem** - a monorepo demonstrating tha
 ### Recent Achievements (What We've Built)
 
 1. **Phase 4 Complete (Jan 2026):** Successfully migrated from `@ecosystem/design-system` to `@thesage/ui` with functional organization
-   - 44+ components migrated to functional categories (actions, forms, navigation, overlays, feedback, data-display, layout)
+   - 92 components across 11 functional categories (actions, forms, navigation, overlays, feedback, data-display, layout, backgrounds, cursor, motion, blocks)
    - Zero breaking changes across 3 applications
-   - Subpath exports configured (`@thesage/ui/hooks`, `@thesage/ui/utils`, `@thesage/ui/providers`)
+   - 10 subpath exports configured (`@thesage/ui/hooks`, `@thesage/ui/utils`, `@thesage/ui/providers`, `@thesage/ui/tokens`, `@thesage/ui/forms`, `@thesage/ui/dates`, `@thesage/ui/tables`, `@thesage/ui/dnd`, `@thesage/ui/webgl`, `@thesage/ui/globals.css`)
    - Complete TypeScript declaration support
 
-2. **Design System (v1.0 - Production Ready):**
-   - 48+ components functionally organized
-   - 3 complete themes (Studio, Sage, Volt) with light/dark modes
+2. **Design System (v1.0.3 - Production Ready):**
+   - 92 components across 11 functional categories
+   - 3 complete themes (Studio, Terra, Volt) with light/dark modes
    - User-controlled motion system (0-10 scale respecting prefers-reduced-motion)
    - Comprehensive token system (colors, typography, spacing, motion, syntax)
    - The Customizer - philosophy-embodying feature for user control
@@ -355,7 +355,7 @@ Format:
 | Build | tsup 8.5.1 | For @thesage/ui package (ESM + CJS) |
 | Deployment | Vercel | Next.js optimized |
 
-**Testing:** Vitest + Testing Library configured in `packages/ui`. 63 tests across 10 test files. Tests run in CI on every PR via `.github/workflows/ci.yml`.
+**Testing:** Vitest + Testing Library configured in `packages/ui`. 156 tests across 30 test files. Tests run in CI on every PR via `.github/workflows/ci.yml`.
 
 ---
 
@@ -518,6 +518,6 @@ Every component should make users feel:
 
 ---
 
-**Last major update:** Phase 4 Complete (Jan 2026) - Legacy migration finished, 44+ components in functional organization, zero breaking changes.
+**Last major update:** Phase 5 In Progress (Feb 2026) - 92 components across 11 categories, 156 tests, CI/CD with size checks, MCP server with full prop data, AI discovery endpoints.
 
-**Current focus:** Phase 5 planning - Assemblies & Templates (composed components and full-page layouts).
+**Current focus:** A+ optimization - Eject mechanism, page-level blocks, MCP expansion, llms-full.txt enhancements.

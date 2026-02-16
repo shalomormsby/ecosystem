@@ -53,17 +53,17 @@ Follow this systematic checklist when adding a new component to the Sage UI. Thi
 
 ## Phase 2: Register in Studio (`apps/web`)
 
-6.  **Create Documentation Page**
-    -   Location: `apps/web/app/components/studio/pages/[category]/[ComponentName]Page.tsx`
-    -   Action: Import the component from `@thesage/ui`.
-    -   Action: Create a `CONST_CODE` string showing users how to import/use it.
-    -   Action: Build the interactive preview (sliders, switches) to control the component props.
+6.  **Register in Studio Component Registry**
+    -   Location: `apps/web/app/components/lib/component-registry.tsx`
+    -   Action: Import the component and its sub-components from `@thesage/ui`.
+    -   Action: Add a `ComponentConfig` entry with: component reference, description, props config, examples, codeExamples, sourceUrl, and accessibilityNotes.
+    -   *Why: The unified `ComponentsSection` dynamically renders components from this registry via `EnhancedComponentPlayground`.*
 
-7.  **Register in Section Router**
-    -   Location: `apps/web/app/components/studio/[Category]Sections.tsx` (e.g., `MotionSections.tsx`)
-    -   Action: Import your new Page.
-    -   Action: Add it to the conditional rendering logic (e.g., `{activeTab === 'component-id' && <ComponentPage />}`).
-    -   Action: Update the `Tab` type definition to include your new ID string.
+7.  **Add to Category Component List**
+    -   Location: `apps/web/app/components/studio/ComponentsSection/index.tsx`
+    -   Action: Add the component name to the appropriate category in the `COMPONENT_CATEGORIES` object.
+    -   Example: For a data-display component, add `'StatCard'` to `COMPONENT_CATEGORIES['data-display'].components`.
+    -   *Note: Individual `[Category]Sections.tsx` routers are only used for specialty sections (Motion, Blocks). Core component categories use the unified ComponentsSection.*
 
 8.  **Add to Sidebar Navigation**
     -   Location: `apps/web/app/lib/navigation-tree.tsx`
@@ -92,7 +92,7 @@ Follow this systematic checklist when adding a new component to the Sage UI. Thi
     -   Action: If there is a gallery/grid view for the category, add a visual Card for the new component that links to `#hash-id`.
 
 11. **Update Changelog**
-    -   Location: `apps/web/CHANGELOG.md`
+    -   Location: Root `CHANGELOG.md` (there is no app-specific changelog)
     -   Action: Add a record of the new component under "Added".
 
 ## Phase 3: Update Metadata & Registry
@@ -106,7 +106,7 @@ Follow this systematic checklist when adding a new component to the Sage UI. Thi
     -   *Why: This registry is the source of truth for component counts used across docs and MCP server.*
 
 13. **Update MCP Server Registry (Optional but Recommended)**
-    -   Location: `packages/sds-mcp-server/src/registry.ts`
+    -   Location: `packages/mcp/src/registry.ts`
     -   Action: Add complete metadata for AI discoverability:
         ```typescript
         {
@@ -191,15 +191,15 @@ Follow this systematic checklist when adding a new component to the Sage UI. Thi
 - [ ] Build: `pnpm build --filter @thesage/ui`
 
 **Phase 2: Register in Studio**
-- [ ] Create documentation page in `apps/web/app/components/studio/pages/[category]/`
-- [ ] Register in section router
+- [ ] Add `ComponentConfig` to `apps/web/app/components/lib/component-registry.tsx`
+- [ ] Add to `COMPONENT_CATEGORIES` in `apps/web/app/components/studio/ComponentsSection/index.tsx`
 - [ ] Add to sidebar navigation (`navigation-tree.tsx`)
 - [ ] Add to search registry (`search-index.ts`)
 - [ ] Update category overview (optional)
 
 **Phase 3: Update Metadata**
 - [ ] Update `packages/ui/src/component-registry.ts` (increment counts, add to examples)
-- [ ] Update `packages/sds-mcp-server/src/registry.ts` (for AI discoverability)
+- [ ] Update `packages/mcp/src/registry.ts` (for AI discoverability)
 
 **Phase 4: Verification**
 - [ ] Build library: `pnpm build --filter @thesage/ui`
@@ -236,7 +236,7 @@ Follow this systematic checklist when adding a new component to the Sage UI. Thi
 
 ---
 
-**Last Updated:** 2026-01-26
+**Last Updated:** 2026-02-15
 **Related Documentation:**
 - Component Registry: `packages/ui/src/component-registry.ts`
 - AGENTS.md: File organization rules and coding standards

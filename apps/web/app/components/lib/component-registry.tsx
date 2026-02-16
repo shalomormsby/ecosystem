@@ -31,6 +31,14 @@ import {
   ResizablePanelGroup, ResizablePanel, ResizableHandle,
   Sidebar, SidebarHeader, SidebarContent, SidebarFooter, SidebarItem,
   OpenGraphCard,
+  // Phase 16 - Missing Components
+  StatCard, StatCardGroup,
+  EmptyState,
+  Timeline, TimelineItem,
+  Stepper, StepperStep,
+  FileUpload,
+  TreeView,
+  NotificationCenter,
 } from '@thesage/ui';
 
 import { useForm } from "react-hook-form";
@@ -3520,5 +3528,522 @@ export default function MyOGImage() {
       },
     ],
     sourceUrl: 'https://github.com/shalomormsby/ecosystem/blob/main/packages/ui/src/components/blocks/social/OpenGraphCard.tsx',
+  },
+
+  // Phase 16 - Missing Components
+
+  StatCard: {
+    component: StatCard,
+    description: 'Displays key metrics and statistics with label, value, trend indicator, and optional icon. Ideal for dashboards and analytics views.',
+    props: {
+      label: {
+        type: 'text',
+        default: 'Total Revenue',
+        description: 'The metric label',
+        required: true,
+      },
+      value: {
+        type: 'text',
+        default: '$45,231',
+        description: 'The metric value',
+        required: true,
+      },
+      change: {
+        type: 'text',
+        default: '12.5',
+        description: 'Percentage change (positive or negative number)',
+      },
+      trend: {
+        type: 'select',
+        options: ['up', 'down', 'flat'] as const,
+        default: 'up',
+        description: 'Direction of the trend',
+      },
+      variant: {
+        type: 'select',
+        options: ['default', 'outline', 'glass'] as const,
+        default: 'default',
+        description: 'Visual style variant',
+      },
+      size: {
+        type: 'select',
+        options: ['sm', 'default', 'lg'] as const,
+        default: 'default',
+        description: 'Size of the stat card',
+      },
+      description: {
+        type: 'text',
+        default: 'from last month',
+        description: 'Additional description text',
+      },
+    },
+    examples: [
+      {
+        label: 'Revenue (Up)',
+        props: { label: 'Total Revenue', value: '$45,231', change: 12.5, trend: 'up', description: 'from last month' },
+      },
+      {
+        label: 'Users (Down)',
+        props: { label: 'Active Users', value: '2,350', change: -3.1, trend: 'down', description: 'from last week' },
+      },
+      {
+        label: 'Flat Trend',
+        props: { label: 'Bounce Rate', value: '42.3%', change: 0, trend: 'flat' },
+      },
+      {
+        label: 'Glass Variant',
+        props: { label: 'Subscribers', value: '8,120', change: 8.2, trend: 'up', variant: 'glass' },
+      },
+    ],
+    codeExamples: [
+      {
+        title: 'Basic Usage',
+        code: `import { StatCard } from '@thesage/ui'
+
+<StatCard
+  label="Total Revenue"
+  value="$45,231"
+  change={12.5}
+  trend="up"
+  description="from last month"
+/>`,
+        description: 'A simple stat card with trend indicator',
+      },
+      {
+        title: 'Dashboard Grid',
+        code: `import { StatCard, StatCardGroup } from '@thesage/ui'
+
+<StatCardGroup>
+  <StatCard label="Revenue" value="$45,231" change={12.5} />
+  <StatCard label="Users" value="2,350" change={-3.1} />
+  <StatCard label="Orders" value="1,203" change={8.2} />
+  <StatCard label="Conversion" value="3.2%" change={0.4} />
+</StatCardGroup>`,
+        description: 'A responsive grid of stat cards',
+      },
+    ],
+    sourceUrl: 'https://github.com/shalomormsby/ecosystem/blob/main/packages/ui/src/components/data-display/StatCard.tsx',
+    accessibilityNotes: [
+      'Uses semantic <dl>/<dt>/<dd> for label/value pairs',
+      'Trend conveyed via icon + color (not color alone)',
+      'role="article" for logical grouping',
+      'WCAG AA compliant color contrast',
+    ],
+  },
+
+  EmptyState: {
+    component: EmptyState,
+    description: 'Placeholder for empty content areas with icon, title, description, and call-to-action. Use when no data is available or a search returns no results.',
+    props: {
+      title: {
+        type: 'text',
+        default: 'No results found',
+        description: 'Primary message',
+        required: true,
+      },
+      description: {
+        type: 'text',
+        default: 'Try adjusting your search or filter to find what you\'re looking for.',
+        description: 'Secondary explanation text',
+      },
+      size: {
+        type: 'select',
+        options: ['sm', 'default', 'lg'] as const,
+        default: 'default',
+        description: 'Size variant',
+      },
+    },
+    examples: [
+      {
+        label: 'No Results',
+        props: { title: 'No results found', description: 'Try adjusting your search or filter.' },
+      },
+      {
+        label: 'Empty Inbox',
+        props: { title: 'No messages yet', description: 'When you receive messages, they will appear here.' },
+      },
+      {
+        label: 'Small',
+        props: { title: 'Nothing here', size: 'sm' },
+      },
+    ],
+    codeExamples: [
+      {
+        title: 'Basic Usage',
+        code: `import { EmptyState } from '@thesage/ui'
+import { Inbox } from 'lucide-react'
+
+<EmptyState
+  icon={<Inbox />}
+  title="No messages yet"
+  description="When you receive messages, they will appear here."
+/>`,
+        description: 'Simple empty state with icon and description',
+      },
+      {
+        title: 'With Action',
+        code: `import { EmptyState, Button } from '@thesage/ui'
+import { Plus } from 'lucide-react'
+
+<EmptyState
+  icon={<Plus />}
+  title="No projects"
+  description="Get started by creating your first project."
+  action={<Button>Create Project</Button>}
+/>`,
+        description: 'Empty state with a call-to-action button',
+      },
+    ],
+    sourceUrl: 'https://github.com/shalomormsby/ecosystem/blob/main/packages/ui/src/components/feedback/EmptyState.tsx',
+    accessibilityNotes: [
+      'Uses role="status" for screen reader announcements',
+      'Semantic <h3> heading for title',
+      'Icon is aria-hidden (decorative)',
+      'Focus management on CTA button when present',
+    ],
+  },
+
+  Timeline: {
+    component: Timeline,
+    description: 'Chronological event display with connecting lines, icons, and status indicators. Supports vertical orientation with customizable status per event.',
+    props: {
+      orientation: {
+        type: 'select',
+        options: ['vertical', 'horizontal'] as const,
+        default: 'vertical',
+        description: 'Layout orientation',
+      },
+    },
+    examples: [
+      {
+        label: 'Default',
+        props: {},
+      },
+    ],
+    codeExamples: [
+      {
+        title: 'Basic Usage',
+        code: `import { Timeline, TimelineItem } from '@thesage/ui'
+
+<Timeline>
+  <TimelineItem title="Order placed" timestamp="Jan 1" status="completed" />
+  <TimelineItem title="Processing" timestamp="Jan 2" status="active" />
+  <TimelineItem title="Shipped" status="pending" />
+  <TimelineItem title="Delivered" status="pending" isLast />
+</Timeline>`,
+        description: 'A simple vertical timeline with status indicators',
+      },
+    ],
+    sourceUrl: 'https://github.com/shalomormsby/ecosystem/blob/main/packages/ui/src/components/data-display/Timeline.tsx',
+    accessibilityNotes: [
+      'Uses semantic <ol> for chronological order',
+      'aria-current="step" on active item',
+      'Status conveyed via icon + color',
+      'Icons are aria-hidden (decorative)',
+    ],
+  },
+
+  Stepper: {
+    component: Stepper,
+    description: 'Multi-step progress indicator for wizards and multi-step forms. Shows numbered steps with connecting lines and status indicators.',
+    props: {
+      currentStep: {
+        type: 'text',
+        default: '1',
+        description: 'Zero-based index of the current step',
+        required: true,
+      },
+      orientation: {
+        type: 'select',
+        options: ['horizontal', 'vertical'] as const,
+        default: 'horizontal',
+        description: 'Layout orientation',
+      },
+      size: {
+        type: 'select',
+        options: ['sm', 'default', 'lg'] as const,
+        default: 'default',
+        description: 'Size variant',
+      },
+      clickable: {
+        type: 'boolean',
+        default: false,
+        description: 'Allow clicking steps to navigate',
+      },
+    },
+    examples: [
+      {
+        label: 'Step 1',
+        props: { currentStep: 0 },
+      },
+      {
+        label: 'Step 2',
+        props: { currentStep: 1 },
+      },
+      {
+        label: 'Complete',
+        props: { currentStep: 3 },
+      },
+    ],
+    codeExamples: [
+      {
+        title: 'Basic Usage',
+        code: `import { Stepper, StepperStep } from '@thesage/ui'
+
+<Stepper currentStep={1}>
+  <StepperStep label="Account" description="Create your account" />
+  <StepperStep label="Profile" description="Set up your profile" />
+  <StepperStep label="Complete" description="Review and finish" />
+</Stepper>`,
+        description: 'A horizontal stepper with 3 steps',
+      },
+    ],
+    sourceUrl: 'https://github.com/shalomormsby/ecosystem/blob/main/packages/ui/src/components/feedback/Stepper.tsx',
+    accessibilityNotes: [
+      'Uses aria-label="Progress" on the root',
+      'aria-current="step" on active step',
+      'Keyboard navigable when clickable',
+      'Step numbers announced by screen readers',
+    ],
+  },
+
+  FileUpload: {
+    component: FileUpload,
+    description: 'Drag-and-drop file upload zone with validation, file list, and remove functionality. Built with react-dropzone.',
+    props: {
+      label: {
+        type: 'text',
+        default: 'Upload files',
+        description: 'Label text above the drop zone',
+      },
+      description: {
+        type: 'text',
+        default: 'PNG, JPG, PDF up to 10MB',
+        description: 'Helper text shown in the drop zone',
+      },
+      multiple: {
+        type: 'boolean',
+        default: false,
+        description: 'Allow multiple file selection',
+      },
+      disabled: {
+        type: 'boolean',
+        default: false,
+        description: 'Disable the upload zone',
+      },
+      size: {
+        type: 'select',
+        options: ['sm', 'default', 'lg'] as const,
+        default: 'default',
+        description: 'Size of the drop zone',
+      },
+    },
+    examples: [
+      {
+        label: 'Default',
+        props: { label: 'Upload files', description: 'PNG, JPG, PDF up to 10MB' },
+      },
+      {
+        label: 'Multiple',
+        props: { label: 'Upload images', description: 'Select multiple images', multiple: true },
+      },
+      {
+        label: 'Disabled',
+        props: { label: 'Upload files', disabled: true },
+      },
+    ],
+    codeExamples: [
+      {
+        title: 'Basic Usage',
+        code: `import { FileUpload } from '@thesage/ui'
+
+<FileUpload
+  label="Upload documents"
+  description="PDF, DOC up to 5MB"
+  onFilesSelected={(files) => console.log(files)}
+/>`,
+        description: 'Simple file upload with label and description',
+      },
+      {
+        title: 'With Validation',
+        code: `import { FileUpload } from '@thesage/ui'
+
+<FileUpload
+  label="Upload images"
+  accept={{ 'image/*': ['.png', '.jpg', '.jpeg'] }}
+  maxSize={5 * 1024 * 1024}
+  maxFiles={3}
+  multiple
+  onFilesSelected={(files) => handleUpload(files)}
+  onFilesRejected={(rejections) => showErrors(rejections)}
+/>`,
+        description: 'File upload with type, size, and count validation',
+      },
+    ],
+    sourceUrl: 'https://github.com/shalomormsby/ecosystem/blob/main/packages/ui/src/components/forms/FileUpload.tsx',
+    accessibilityNotes: [
+      'Drop zone has role="button" for keyboard activation',
+      'Keyboard activatable (Enter/Space to open file dialog)',
+      'Error messages use role="alert" for screen readers',
+      'Remove buttons have descriptive aria-labels',
+      'Visual states for drag-over, error, and disabled',
+    ],
+  },
+
+  TreeView: {
+    component: TreeView,
+    description: 'Hierarchical data display with expand/collapse, keyboard navigation, and selection. Follows WAI-ARIA TreeView pattern.',
+    props: {
+      selected: {
+        type: 'text',
+        default: '',
+        description: 'Currently selected node ID',
+      },
+    },
+    examples: [
+      {
+        label: 'File Browser',
+        props: {
+          nodes: [
+            { id: 'src', label: 'src', children: [
+              { id: 'components', label: 'components', children: [
+                { id: 'button', label: 'Button.tsx' },
+                { id: 'card', label: 'Card.tsx' },
+              ]},
+              { id: 'lib', label: 'lib', children: [
+                { id: 'utils', label: 'utils.ts' },
+              ]},
+              { id: 'index', label: 'index.ts' },
+            ]},
+            { id: 'package', label: 'package.json' },
+            { id: 'readme', label: 'README.md' },
+          ],
+        },
+      },
+    ],
+    codeExamples: [
+      {
+        title: 'Basic Usage',
+        code: `import { TreeView } from '@thesage/ui'
+
+const nodes = [
+  { id: 'src', label: 'src', children: [
+    { id: 'index', label: 'index.ts' },
+    { id: 'app', label: 'App.tsx' },
+  ]},
+  { id: 'package', label: 'package.json' },
+]
+
+<TreeView
+  nodes={nodes}
+  onSelectChange={(id) => console.log('Selected:', id)}
+/>`,
+        description: 'File tree with expand/collapse',
+      },
+      {
+        title: 'Controlled State',
+        code: `import { TreeView } from '@thesage/ui'
+import { useState } from 'react'
+
+const [expanded, setExpanded] = useState(['src'])
+const [selected, setSelected] = useState('')
+
+<TreeView
+  nodes={nodes}
+  expanded={expanded}
+  onExpandChange={setExpanded}
+  selected={selected}
+  onSelectChange={setSelected}
+/>`,
+        description: 'Controlled expand and selection state',
+      },
+    ],
+    sourceUrl: 'https://github.com/shalomormsby/ecosystem/blob/main/packages/ui/src/components/data-display/TreeView.tsx',
+    accessibilityNotes: [
+      'Uses role="tree" and role="treeitem" per WAI-ARIA',
+      'Full keyboard navigation (Arrow keys, Enter, Space)',
+      'aria-expanded on collapsible nodes',
+      'aria-level indicates depth',
+      'aria-selected on selected node',
+    ],
+  },
+
+  NotificationCenter: {
+    component: NotificationCenter,
+    description: 'Dropdown notification panel with grouped notifications, read/unread state, and dismiss actions. Self-contained with trigger button and badge.',
+    props: {
+      emptyMessage: {
+        type: 'text',
+        default: 'No notifications',
+        description: 'Message shown when there are no notifications',
+      },
+      maxHeight: {
+        type: 'text',
+        default: '400',
+        description: 'Maximum height of the notification list in pixels',
+      },
+    },
+    examples: [
+      {
+        label: 'With Notifications',
+        props: {
+          notifications: [
+            { id: '1', title: 'New comment on your post', description: 'Alice commented on "Getting Started"', timestamp: new Date(Date.now() - 300000).toISOString(), read: false },
+            { id: '2', title: 'Deployment succeeded', description: 'Production build completed', timestamp: new Date(Date.now() - 3600000).toISOString(), read: false },
+            { id: '3', title: 'Welcome to Sage', description: 'Thanks for signing up!', timestamp: new Date(Date.now() - 86400000).toISOString(), read: true },
+          ],
+        },
+      },
+      {
+        label: 'Empty',
+        props: { notifications: [] },
+      },
+    ],
+    codeExamples: [
+      {
+        title: 'Basic Usage',
+        code: `import { NotificationCenter } from '@thesage/ui'
+
+const notifications = [
+  { id: '1', title: 'New message', timestamp: new Date(), read: false },
+  { id: '2', title: 'Build completed', timestamp: new Date(), read: true },
+]
+
+<NotificationCenter
+  notifications={notifications}
+  onMarkRead={(id) => markAsRead(id)}
+  onMarkAllRead={() => markAllRead()}
+  onDismiss={(id) => dismiss(id)}
+/>`,
+        description: 'Notification center with bell trigger and unread badge',
+      },
+      {
+        title: 'With Actions',
+        code: `import { NotificationCenter } from '@thesage/ui'
+
+<NotificationCenter
+  notifications={[
+    {
+      id: '1',
+      title: 'PR #42 approved',
+      description: 'Your pull request was approved by @reviewer',
+      timestamp: new Date(),
+      action: { label: 'View PR', onClick: () => navigate('/pr/42') },
+    },
+  ]}
+  onMarkRead={handleMarkRead}
+  onDismiss={handleDismiss}
+/>`,
+        description: 'Notifications with inline action buttons',
+      },
+    ],
+    sourceUrl: 'https://github.com/shalomormsby/ecosystem/blob/main/packages/ui/src/components/overlays/NotificationCenter.tsx',
+    accessibilityNotes: [
+      'Trigger announces unread count to screen readers',
+      'Panel uses role="dialog" with aria-label',
+      'Notification list uses role="list" and role="listitem"',
+      'Dismiss/read buttons have descriptive aria-labels',
+      'Closes on Escape key',
+    ],
   },
 };

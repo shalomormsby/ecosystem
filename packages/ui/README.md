@@ -16,7 +16,7 @@ Components that feel alive. Themes with real personality. Motion your users cont
 
 ---
 
-**Sage Design Engine** is a component library and design system built on **Radix UI** primitives and **Tailwind CSS**. 48+ accessible components, three distinct themes with runtime switching, and a user-controlled motion system — all wired through a 4-layer design token architecture.
+**Sage Design Engine** is a component library and design system built on **Radix UI** primitives and **Tailwind CSS**. 92 accessible components across 11 functional categories, three distinct themes with runtime switching, and a user-controlled motion system — all wired through a 4-layer design token architecture.
 
 ## Features
 

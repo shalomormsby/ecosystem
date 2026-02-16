@@ -65,28 +65,40 @@ The heart of this ecosystem. Every app imports from it. **Version 1.0 — Produc
 
 The design system organizes components by **functional purpose**, not abstract hierarchy. This eliminates classification ambiguity and aligns with modern design systems like shadcn/ui, Material UI, and Radix.
 
-**48+ components across 7 functional categories:**
+**92 components across 11 functional categories:**
 
-- **Actions** (3) — Interactive elements that trigger behaviors
-  Button, Toggle, ToggleGroup
+- **Actions** (5) — Interactive elements that trigger behaviors
+  Button, Toggle, ToggleGroup, Link, Magnetic
 
-- **Forms** (11) — Input controls with validation
-  Input, Select, Checkbox, Switch, Slider, Label, Textarea, RadioGroup, Form
+- **Forms** (18) — Input controls with validation
+  Input, Textarea, Select, Combobox, Checkbox, Switch, Slider, RadioGroup, Label, Form, InputOTP, SearchBar, FilterButton, ThemeSwitcher, ThemeToggle, ColorPicker, DragDrop, TextField
 
-- **Navigation** (6) — Moving through content hierarchy
-  Breadcrumb, Tabs, Pagination, Command, MenuBar, NavigationMenu
+- **Navigation** (10) — Moving through content hierarchy
+  Breadcrumb, Breadcrumbs, Tabs, Pagination, Command, Menubar, NavigationMenu, NavLink, SecondaryNav, TertiaryNav
 
-- **Overlays** (9) — Contextual content above main UI
-  Dialog, Sheet, Popover, Tooltip, Drawer, DropdownMenu, ContextMenu, HoverCard, AlertDialog
+- **Overlays** (11) — Contextual content above main UI
+  Dialog, AlertDialog, Sheet, Drawer, DropdownMenu, ContextMenu, Popover, HoverCard, Tooltip, Modal, Dropdown
 
-- **Feedback** (5) — System state communication
-  Alert, Toast, Progress, Skeleton, Sonner
+- **Feedback** (7) — System state communication
+  Alert, Progress, ProgressBar, Skeleton, Spinner, Sonner, Toast
 
-- **Data Display** (6) — Structured information presentation
-  Table, DataTable, Card, Avatar, Badge, Calendar
+- **Data Display** (16) — Structured information presentation
+  Card, Badge, Table, DataTable, Avatar, Heading, Text, Code, CollapsibleCodeBlock, DescriptionList, Brand, AspectImage, VariableWeightText, Typewriter, GitHubIcon, Calendar
 
-- **Layout** (8) — Spatial organization
-  Accordion, Carousel, ScrollArea, Separator, Sidebar, Collapsible, AspectRatio, Resizable
+- **Layout** (17) — Spatial organization
+  Accordion, Carousel, ScrollArea, Separator, AspectRatio, Collapsible, Resizable, Container, Grid, Stack, Sidebar, Header, Footer, CustomizerPanel, PageLayout, PageTemplate, DatePicker
+
+- **Backgrounds** (3) — Animated visual backgrounds
+  WarpBackground, FaultyTerminal, OrbBackground
+
+- **Cursor** (2) — Custom cursor effects
+  SplashCursor, TargetCursor
+
+- **Motion** (1) — Animation primitives
+  AnimatedBeam
+
+- **Blocks** (2) — Pre-composed page sections
+  HeroBlock, OpenGraphCard
 
 ### Three Distinct Themes
 
@@ -204,14 +216,18 @@ ecosystem/
 ├── packages/                  # Shared packages
 │   ├── ui/                    # @thesage/ui - Component library
 │   │   └── src/
-│   │       ├── components/    # 48+ functionally-organized components
-│   │       │   ├── actions/   # Button, Toggle, ToggleGroup
-│   │       │   ├── forms/     # Input, Select, Checkbox, etc.
+│   │       ├── components/    # 92 functionally-organized components
+│   │       │   ├── actions/   # Button, Toggle, ToggleGroup, Link, Magnetic
+│   │       │   ├── forms/     # Input, Select, Checkbox, Switch, etc.
 │   │       │   ├── navigation/# Breadcrumb, Tabs, Pagination, etc.
 │   │       │   ├── overlays/  # Dialog, Sheet, Popover, etc.
 │   │       │   ├── feedback/  # Alert, Toast, Progress, etc.
-│   │       │   ├── data-display/  # Table, Card, Avatar, etc.
-│   │       │   └── layout/    # Accordion, Carousel, Separator, etc.
+│   │       │   ├── data-display/  # Table, Card, Avatar, Badge, etc.
+│   │       │   ├── layout/    # Accordion, Carousel, Separator, etc.
+│   │       │   ├── backgrounds/   # WarpBackground, FaultyTerminal, etc.
+│   │       │   ├── cursor/    # SplashCursor, TargetCursor
+│   │       │   ├── motion/    # AnimatedBeam
+│   │       │   └── blocks/    # HeroBlock, OpenGraphCard
 │   │       ├── hooks/         # useTheme, useMotionPreference, useForm
 │   │       ├── providers/     # ThemeProvider, ToastProvider
 │   │       ├── features/      # Customizer (philosophy-embodying)
@@ -338,10 +354,10 @@ The work is the proof. Every component, every interaction, every line of code de
 ## Status & Roadmap
 
 **Enterprise-Ready (v1.0.0-rc.1):**
-- **Design system** — 48+ components across 7 functional categories, 3 themes, comprehensive token system
+- **Design system** — 92 components across 11 functional categories, 3 themes, comprehensive token system
 - **Sage Studio** — Interactive documentation with LLM optimization, JSON-LD metadata
 - **Portfolio app** — Living showcase with Customizer integration
-- **Test suite** — Vitest + Testing Library with 63 tests across 10 files, CI-enforced
+- **Test suite** — Vitest + Testing Library with 156 tests across 30 files, CI-enforced
 - **Bundle optimization** — Optional subpath exports (`/forms`, `/dates`, `/tables`, `/dnd`, `/webgl`), vendored WebGL (93% size reduction)
 - **React 19** — Full migration to React 19 ref-as-prop pattern across 56 files
 

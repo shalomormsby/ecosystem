@@ -18,7 +18,7 @@
  * - Updating MCP server registry
  * - Version bumping and npm publishing
  *
- * Last Updated: 2026-01-26
+ * Last Updated: 2026-02-15
  */
 
 export const BRAND = {
@@ -37,7 +37,7 @@ export const COMPONENT_REGISTRY = {
   /**
    * Total count of all exported UI components from @thesage/ui
    */
-  totalCount: 89,
+  totalCount: 96,
 
   /**
    * Core categories following functional organization pattern
@@ -50,9 +50,9 @@ export const COMPONENT_REGISTRY = {
       examples: ['Button', 'Link', 'Toggle', 'ToggleGroup', 'Magnetic'],
     },
     forms: {
-      count: 18,
+      count: 19,
       description: 'Components that collect user input',
-      examples: ['Input', 'Select', 'Checkbox', 'Switch', 'Textarea', 'ColorPicker', 'SearchBar'],
+      examples: ['Input', 'Select', 'Checkbox', 'Switch', 'Textarea', 'ColorPicker', 'SearchBar', 'FileUpload'],
     },
     navigation: {
       count: 10,
@@ -60,19 +60,19 @@ export const COMPONENT_REGISTRY = {
       examples: ['Tabs', 'Breadcrumb', 'Pagination', 'NavigationMenu', 'Command'],
     },
     overlays: {
-      count: 11,
+      count: 12,
       description: 'Components that display contextual content',
-      examples: ['Dialog', 'Tooltip', 'Popover', 'Drawer', 'Modal', 'Sheet'],
+      examples: ['Dialog', 'Tooltip', 'Popover', 'Drawer', 'Modal', 'Sheet', 'NotificationCenter'],
     },
     feedback: {
-      count: 7,
+      count: 9,
       description: 'Components that communicate system state',
-      examples: ['Alert', 'Toast', 'Progress', 'Spinner', 'Skeleton'],
+      examples: ['Alert', 'Toast', 'Progress', 'Spinner', 'Skeleton', 'EmptyState', 'Stepper'],
     },
     'data-display': {
-      count: 16,
+      count: 19,
       description: 'Components that present information',
-      examples: ['Card', 'Table', 'Badge', 'Avatar', 'Heading', 'Text', 'Code', 'Calendar'],
+      examples: ['Card', 'Table', 'Badge', 'Avatar', 'Heading', 'Text', 'Code', 'Calendar', 'StatCard', 'Timeline', 'TreeView'],
     },
     layout: {
       count: 17,
@@ -132,9 +132,9 @@ export const COMPONENT_COUNTS = {
  * Marketing-friendly descriptions
  */
 export const MARKETING_COPY = {
-  short: '89 production-ready components',
-  medium: '89 components across 7 core categories, plus specialty backgrounds and motion effects',
-  long: '89 thoughtfully designed components organized by function: actions, forms, navigation, overlays, feedback, data display, and layout—plus specialty components for backgrounds, cursor interactions, and animated effects.',
+  short: '96 production-ready components',
+  medium: '96 components across 7 core categories, plus specialty backgrounds and motion effects',
+  long: '96 thoughtfully designed components organized by function: actions, forms, navigation, overlays, feedback, data display, and layout—plus specialty components for backgrounds, cursor interactions, and animated effects.',
 } as const;
 
 /**

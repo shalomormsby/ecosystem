@@ -14,4 +14,6 @@ export * from './Table';
 export * from './Text';
 export * from './VariableWeightText';
 export * from './Typewriter';
-
+export * from './StatCard';
+export * from './Timeline';
+export * from './TreeView';

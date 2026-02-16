@@ -1,8 +1,14 @@
+'use client';
+
+import { useState, useEffect } from 'react';
 import { Button, FaultyTerminal, Typewriter, Footer, Header } from '@thesage/ui';
 import Link from 'next/link';
 import { Github } from 'lucide-react';
 
 export default function NotFound() {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+
   return (
     <div className="min-h-screen flex flex-col relative overflow-hidden bg-black dark">
       <Header
@@ -10,8 +16,8 @@ export default function NotFound() {
         navAlignment="right"
         navLinks={[
           { label: 'Documentation', href: '/docs' },
-          { label: 'Components', href: '/docs#components' },
-          { label: 'Themes', href: '/docs#themes' },
+          { label: 'Components', href: '/docs/components' },
+          { label: 'Themes', href: '/docs/themes' },
         ]}
         actions={
           <Button
@@ -32,45 +38,53 @@ export default function NotFound() {
         }
       />
 
-      {/* Background */}
+      {/* Background — only render after hydration to keep RSC payload clean */}
       <div className="absolute inset-0 z-0">
-        <FaultyTerminal tint="#ef4444" />
+        {mounted && <FaultyTerminal tint="#ef4444" />}
       </div>
 
       <div className="flex-1 flex items-center justify-center relative z-10 w-full px-6 pointer-events-none">
         <div className="max-w-xl w-full text-center pointer-events-auto">
           <div className="space-y-8">
-            {/* Error Icon - 404 Text */}
             <div className="flex flex-col items-center justify-center select-none pt-[75px] md:pt-[100px]">
-              <h1
-                className="text-[12rem] leading-none font-black text-transparent"
-                style={{
-                  WebkitTextStroke: '4px var(--color-error)'
-                }}
-              >
-                404
-              </h1>
-              <h2 className="text-4xl font-bold text-[var(--color-text-primary)] mt-[-20px] mb-8">
-                Sorry, my bad.
-              </h2>
+              {/* Render error text only after hydration — keeps it out of RSC payload */}
+              {mounted ? (
+                <>
+                  <h1
+                    className="text-[12rem] leading-none font-black text-transparent"
+                    style={{
+                      WebkitTextStroke: '4px var(--color-error)'
+                    }}
+                  >
+                    404
+                  </h1>
+                  <h2 className="text-4xl font-bold text-[var(--color-text-primary)] mt-[-20px] mb-8">
+                    Sorry, my bad.
+                  </h2>
+                </>
+              ) : (
+                /* Minimal placeholder for SSR — no 404 text */
+                <div className="h-[200px]" aria-hidden="true" />
+              )}
             </div>
 
-            {/* Typewriter Message Container */}
-            <div className="bg-black border border-white/20 p-6 rounded-lg shadow-[0_0_30px_rgba(0,0,0,0.5)] backdrop-blur-sm relative z-20">
-              <div
-                className="min-h-[60px] flex items-center justify-center"
-                style={{ fontFamily: 'var(--font-jetbrains-mono)' }}
-              >
-                <Typewriter
-                  text="I can't find the page you're looking for. Was it moved? Deleted? Did it ever exist in the first place?   ¯\_(ツ)_/¯"
-                  speed={0.03}
-                  loop={false}
-                  cursor="_"
-                  className="text-sm md:text-base text-[var(--color-text-primary)] leading-relaxed font-normal"
-                  as="p"
-                />
+            {mounted && (
+              <div className="bg-black border border-white/20 p-6 rounded-lg shadow-[0_0_30px_rgba(0,0,0,0.5)] backdrop-blur-sm relative z-20">
+                <div
+                  className="min-h-[60px] flex items-center justify-center"
+                  style={{ fontFamily: 'var(--font-jetbrains-mono)' }}
+                >
+                  <Typewriter
+                    text="I can't find the page you're looking for. Was it moved? Deleted? Did it ever exist in the first place?   ¯\_(ツ)_/¯"
+                    speed={0.03}
+                    loop={false}
+                    cursor="_"
+                    className="text-sm md:text-base text-[var(--color-text-primary)] leading-relaxed font-normal"
+                    as="p"
+                  />
+                </div>
               </div>
-            </div>
+            )}
 
             {/* Actions */}
             <div className="flex flex-col sm:flex-row gap-3 justify-center pt-8 pb-12">
@@ -80,7 +94,7 @@ export default function NotFound() {
                 </Link>
               </Button>
               <Button variant="outline" size="lg" className="w-full sm:w-auto" asChild>
-                <Link href="/docs#getting-started">
+                <Link href="/docs/getting-started">
                   Browse Components
                 </Link>
               </Button>
@@ -111,7 +125,7 @@ export default function NotFound() {
             {
               title: "Docs",
               links: [
-                { label: "Getting Started", href: "/docs#getting-started" },
+                { label: "Getting Started", href: "/docs/getting-started" },
                 { label: "Design Philosophy", href: "https://github.com/shalomormsby/ecosystem/blob/main/DESIGN-PHILOSOPHY.md", external: true },
                 { label: "README.md", href: "https://github.com/shalomormsby/ecosystem/blob/main/README.md", external: true },
                 { label: "AGENTS.md", href: "https://github.com/shalomormsby/ecosystem/blob/main/AGENTS.md", external: true }
@@ -120,18 +134,18 @@ export default function NotFound() {
             {
               title: "Building Blocks",
               links: [
-                { label: "Design Tokens", href: "/docs#foundations" },
-                { label: "Components", href: "/docs#components" },
-                { label: "Blocks", href: "/docs#blocks" },
+                { label: "Design Tokens", href: "/docs/tokens" },
+                { label: "Components", href: "/docs/components" },
+                { label: "Blocks", href: "/docs/blocks" },
               ]
             },
             {
               title: "Toolkit",
               links: [
-                { label: "MCP Server", href: "/docs#mcp-server" },
-                { label: "Hooks", href: "/docs#hooks" },
-                { label: "Motion", href: "/docs#motion" },
-                { label: "Charts", href: "/docs#charts" },
+                { label: "MCP Server", href: "/docs/mcp-server" },
+                { label: "Hooks", href: "/docs/hooks" },
+                { label: "Motion", href: "/docs/motion" },
+                { label: "Charts", href: "/docs/charts" },
               ]
             }
           ]}

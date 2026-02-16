@@ -24,7 +24,7 @@ export function CallToAction() {
 
                 <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
                     <Magnetic>
-                        <Link href="/docs#getting-started">
+                        <Link href="/docs/getting-started">
                             <Button size="lg" variant="default" className="min-w-[200px]">
                                 Get Started
                                 <ArrowRight className="w-4 h-4 ml-2" />

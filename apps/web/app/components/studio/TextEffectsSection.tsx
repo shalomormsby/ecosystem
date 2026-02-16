@@ -23,7 +23,7 @@ export function TextEffectsSection() {
           className="p-6 cursor-pointer group"
           hoverEffect={true}
           onClick={() => {
-            window.location.hash = '#motion/variable-weight';
+            window.location.href = '/docs/motion/variable-weight';
           }}
         >
           <div className="flex items-center justify-between mb-2">
@@ -49,7 +49,7 @@ export function TextEffectsSection() {
           className="p-6 cursor-pointer group"
           hoverEffect={true}
           onClick={() => {
-            window.location.hash = '#motion/typewriter';
+            window.location.href = '/docs/motion/typewriter';
           }}
         >
           <div className="flex items-center justify-between mb-2">

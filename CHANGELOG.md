@@ -2,7 +2,170 @@
 
 All notable changes to this project will be documented in this file.
 
-**Last updated:** 2026-02-15 3:45 PM PST
+**Last updated:** 2026-02-16, 9:15 AM PST
+
+---
+
+
+## 2026-02-16 — MAJOR REFACTOR: Path-Based Routing Migration + False-404 Fix (Workstream 1)
+
+### Why this matters
+
+LLM tools (WebFetch, AI crawlers, content analyzers) were reporting every page on thesage.dev as a 404 error — even though HTTP status codes were 200. Two root causes:
+
+1. **RSC payload leakage:** Next.js serialized `not-found.tsx` content ("404", "Sorry, my bad", "I can't find the page") into every page's HTML flight data. LLMs parsed these strings and concluded every page was a 404.
+2. **Hash-based routing:** The entire docs site was a single-page app at `/docs` with `window.location.hash` navigation. Machines can't navigate hash URLs — they'd get the SPA shell with no content.
+
+This was the single biggest blocker to AI discoverability and SEO. It's the reason SDE documentation was effectively invisible to AI tools despite having 92+ components with full prop documentation.
+
+### What changed
+
+**Fix A — RSC Payload Cleanup (false-404 fix)**
+- Converted `not-found.tsx` to `'use client'` with deferred rendering via `useState`/`useEffect`
+- 404-identifying text now renders only after hydration, keeping it out of server HTML
+- Verified: 0 matches for "Sorry, my bad" in built HTML for `/` and `/docs`
+
+**Fix B — Hash-Based → Path-Based Routing Migration**
+- **New files:**
+  - `apps/web/app/docs/route-config.ts` — shared section/item constants, route config, label helpers
+  - `apps/web/app/docs/DocsShell.tsx` — client layout wrapper (sidebar, search, ToC, mobile menu, hash redirect)
+  - `apps/web/app/docs/SectionRenderer.tsx` — maps section/item params to correct component with `router.push` callbacks
+  - `apps/web/app/docs/[section]/page.tsx` — section routes with `generateStaticParams` + `generateMetadata`
+  - `apps/web/app/docs/[section]/[item]/page.tsx` — item routes with `generateStaticParams` + `generateMetadata`
+- **Refactored files:**
+  - `apps/web/app/docs/layout.tsx` — now wraps children with DocsShell, uses `title.template` for per-page titles
+  - `apps/web/app/docs/page.tsx` — simplified from 667-line SPA to overview page (hash redirect handled by DocsShell)
+  - `apps/web/app/[...slug]/page.tsx` — redirects to path URLs instead of hash URLs
+- **Link updates across 12+ files:** not-found.tsx, error.tsx, page.tsx, SageHero.tsx, CallToAction.tsx, BackgroundsSection.tsx, TextEffectsSection.tsx, CursorsSection.tsx, ColorsTab.tsx, search-index.ts, sitemap.xml, llms.txt, llms-full.txt
+- **Build result:** 125 static pages (was ~5). 23 section pages + 93 item pages, all with proper `<title>`, metadata, and server-rendered HTML.
+
+**Fix 1.3 — Title Tags**
+- Layout uses `title.template: "%s — Sage Design Engine"` with per-page `generateMetadata`
+- `/docs` → "Documentation — Sage Design Engine"
+- `/docs/actions/button` → "Button — Actions — Sage Design Engine"
+- No "undefined" in any title
+
+**Fix 1.4 — Server-Rendered Content**
+- Automatically achieved by path-based routing. All pages are statically generated with full HTML.
+
+### Backwards compatibility
+
+- Hash URLs (`/docs#actions/button`) redirect to path URLs (`/docs/actions/button`) via client-side redirect in DocsShell and landing page
+- Catch-all route (`/[...slug]`) redirects bare section paths (e.g., `/actions/button` → `/docs/actions/button`)
+- No breaking changes to external links — they redirect transparently
+
+### Impact
+
+- AI discoverability: pages now return real HTML content instead of empty SPA shell + 404 text
+- SEO: 125 indexable pages with proper titles, metadata, and JSON-LD
+- Performance: static generation means instant page loads
+- Closes the structural gap identified in the A+ Plan competitive analysis
+
+---
+
+## 2026-02-15 11:00 PM PST — Phase 16: Missing Components (89 → 96 components)
+
+### New Components (7)
+
+- **StatCard** (`data-display/StatCard.tsx`) — Dashboard metric card with label, value, trend indicator (up/down/flat), and optional icon. Semantic `<dl>/<dt>/<dd>`, CVA variants (default/outline/glass), StatCardGroup for responsive grids.
+- **EmptyState** (`feedback/EmptyState.tsx`) — Placeholder for empty content areas with icon, title, description, and CTA action slot. Uses `role="status"`, CVA size variants.
+- **Timeline** (`data-display/Timeline.tsx`) — Chronological event display with connecting lines and status indicators (pending/active/completed/error). Semantic `<ol>`, vertical orientation.
+- **Stepper** (`feedback/Stepper.tsx`) — Multi-step progress indicator for wizards/forms. Uses React Context for parent-child communication, auto-computes step status from `currentStep`, horizontal/vertical orientation, keyboard navigable when clickable.
+- **FileUpload** (`forms/FileUpload.tsx`) — Drag-and-drop file upload zone built with react-dropzone. File type/size/count validation, visual states (idle/active/reject/disabled), file list with remove buttons.
+- **TreeView** (`data-display/TreeView.tsx`) — Hierarchical data display with expand/collapse. Recursive rendering, controlled/uncontrolled expand state, full WAI-ARIA TreeView pattern (`role="tree"`, `role="treeitem"`, arrow key navigation).
+- **NotificationCenter** (`overlays/NotificationCenter.tsx`) — Dropdown notification panel with bell trigger, unread badge, grouped notifications (Today/Yesterday/This Week/Older), mark read/dismiss actions.
+
+### Pre-existing (identified during audit)
+
+- **Color Picker** — Already existed in `forms/ColorPicker.tsx`
+- **Command** — Already existed in `navigation/Command.tsx`
+
+### Deferred
+
+- **Data Grid (editable)** — Extremely complex, requires dedicated phase
+- **Rich Text Editor** — Extremely complex, requires dedicated phase
+
+### Registration (all 7 new components)
+
+Each component registered in all 9 required files:
+1. Component source file (created)
+2. Category barrel export (`index.ts`)
+3. Main entry (`packages/ui/src/index.ts`)
+4. Source of truth registry (`packages/ui/src/component-registry.ts`) — updated to 96 total
+5. Studio component config (`apps/web/app/components/lib/component-registry.tsx`)
+6. Studio category lists (`apps/web/app/components/studio/ComponentsSection/index.tsx`)
+7. Sidebar navigation (`apps/web/app/lib/navigation-tree.tsx`)
+8. Search index (`apps/web/app/lib/search-index.ts`)
+9. MCP registry (`packages/mcp/src/registry.ts`)
+
+### Fixes
+
+- Fixed stale references in `.agent/workflows/register-new-component.md` (MCP path, section router pattern, changelog path)
+- Fixed TypeScript error in Stepper.tsx (`orientation` nullable from CVA VariantProps)
+- Added `react-dropzone` dependency to `@thesage/ui`
+
+### Build Verification
+
+- `@thesage/ui` builds successfully (ESM + CJS + DTS, index.mjs 450KB)
+- `web` (Sage Studio) builds successfully (Next.js 15, all pages compiled)
+- All packages build without errors
+
+---
+
+## 2026-02-15 7:30 PM PST — A+ Plan: Content Consistency, CVA Exports, llms-full.txt Enhancement, MCP Expansion
+
+### Content Consistency Sweep (A+ Plan WS6)
+
+- Fixed stale "48+" component count across all active documentation:
+  - `README.md`: Updated component count to "92 across 11 categories", expanded all category listings with accurate member counts, updated test count from 63 to 156, added 4 missing category directories to project structure tree
+  - `packages/ui/README.md`: Updated from "48+" to "92 across 11 functional categories"
+  - `.claude/CLAUDE.md`: Updated from "44+/48+" to "92", added all 11 categories, all 10 subpath exports, version to 1.0.3, test count to 156, updated focus areas
+  - `AGENTS.md`: Updated MCP tool count from 4 to 8, updated Testing Standards section from "Future" to current state (156 tests, CI-enforced)
+
+### CVA Variant Exports (A+ Plan WS3.3)
+
+- Exported 4 previously internal CVA variant definitions:
+  - `cardVariants` from `packages/ui/src/components/data-display/Card.tsx`
+  - `sheetVariants` from `packages/ui/src/components/overlays/Sheet.tsx`
+  - `labelVariants` from `packages/ui/src/components/forms/Label.tsx`
+  - `alertVariants` from `packages/ui/src/components/feedback/Alert.tsx`
+- All 7 CVA variants now publicly available: `buttonVariants`, `toggleVariants`, `badgeVariants`, `cardVariants`, `sheetVariants`, `labelVariants`, `alertVariants`
+- Enables styling non-component elements with design system tokens (e.g., `<a className={buttonVariants({ variant: "ghost" })}>`)
+
+### Enhanced llms-full.txt (A+ Plan WS5.6 + WS2.4)
+
+- Updated version header with machine-readable metadata (version 1.0.3, React/Next/Tailwind/framer-motion compatibility)
+- Added "COMPLETE APP SHELL" section with copy-paste-ready boilerplate for Vite + React, Next.js App Router, and manual setup
+- Added "COMMON MISTAKES & FIXES" — 8 error patterns with corrections (hardcoded colors, missing compound structure, wrong imports, missing labels, etc.)
+- Added "WHICH COMPONENT SHOULD I USE?" — 15-row decision table mapping needs to components with rationale
+- Added "COMPOSITION COMPATIBILITY" — 9 safe combos, 5 avoid combos, 4 use-with-care combos
+- Added "BUNDLE ARCHITECTURE" — size table for all 10 subpath exports with bundle sizes
+- Added CVA variant export documentation with usage examples
+- Added API JSON, AI Plugin, and MCP Discovery URLs to RESOURCES section
+
+### JSON Registry Schema (A+ Plan WS5.7)
+
+- Created `apps/web/public/schema/registry.json` — JSON Schema 2020-12 for the SDE component registry
+- Covers: version, package, themes, categories, components (with props, subComponents, examples)
+- Accessible at `https://thesage.dev/schema/registry.json`
+
+### MCP Server Expansion: 4 → 8 Tools (A+ Plan WS5.4)
+
+- Added `get_app_shell` — complete project boilerplate for Vite or Next.js with provider hierarchy, tailwind config, postcss config, and starter page
+- Added `get_examples` — usage examples with import statements, props summary, and use cases for any component
+- Added `get_audit_checklist` — post-generation quality checklist covering providers, styling, accessibility, imports, and component usage patterns
+- Added `eject_component` — step-by-step instructions to copy component source locally with rewritten imports for full customization
+- Bumped `@thesage/mcp` version from 0.6.0 to 0.8.0
+- Updated `.well-known/mcp-server.json` with 8 tool descriptions
+- Updated `llms.txt` to reflect 8 tools and MCP discovery URL
+
+### Build Verification
+
+- `@thesage/ui` builds successfully (ESM + CJS + DTS)
+- `@thesage/mcp` builds successfully (ESM + CJS + DTS, index.mjs 23.8KB)
+- All 156 tests passing across 30 test files
+
+**Plan documents:** `docs/SDE-A-Plus-Plan.md` (competitive gap analysis), `docs/SDE-3RD-PARTY-OPTIMIZATION-PLAN.md` (Phases 19–24 complete).
 
 ## 2026-02-15 3:45 PM PST — Phase 15: Test Coverage Expansion
 

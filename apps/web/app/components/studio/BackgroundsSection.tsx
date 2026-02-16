@@ -33,7 +33,7 @@ export function BackgroundsSection() {
                         // the safest bet for a "drill down" in this specific studio architecture 
                         // (which seems to check hash via a parent or similar mechanism) 
                         // is to update the URL hash which usually drives the active item.
-                        window.location.hash = '#motion/warp-speed';
+                        router.push('/docs/motion/warp-speed');
                     }}
                 >
                     <div className="flex items-center justify-between mb-2">
@@ -55,7 +55,7 @@ export function BackgroundsSection() {
                     className="p-6 cursor-pointer group"
                     hoverEffect={true}
                     onClick={() => {
-                        window.location.hash = '#motion/faulty-terminal';
+                        router.push('/docs/motion/faulty-terminal');
                     }}
                 >
                     <div className="flex items-center justify-between mb-2">
@@ -77,7 +77,7 @@ export function BackgroundsSection() {
                     className="p-6 cursor-pointer group"
                     hoverEffect={true}
                     onClick={() => {
-                        window.location.hash = '#motion/orb-background';
+                        router.push('/docs/motion/orb-background');
                     }}
                 >
                     <div className="flex items-center justify-between mb-2">
