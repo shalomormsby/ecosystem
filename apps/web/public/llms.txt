@@ -31,7 +31,7 @@ import '@thesage/ui/globals.css'
 - JSON API: https://thesage.dev/docs/api.json
 
 ## MCP Server (for AI Assistants)
-- Package: @thesage/mcp (v0.8.0, 8 tools)
+- Package: @thesage/mcp (v0.8.2, 8 tools)
 - Tools: list_components, search_components, get_component, install_component, get_app_shell, get_examples, get_audit_checklist, eject_component
 - Config: `{ "mcpServers": { "sds": { "command": "npx", "args": ["@thesage/mcp"] } } }`
 - Discovery: https://thesage.dev/.well-known/mcp-server.json

@@ -1,4 +1,4 @@
-import { notFound, redirect } from 'next/navigation';
+import { notFound, permanentRedirect } from 'next/navigation';
 import { SectionRenderer } from '../../SectionRenderer';
 import {
   VALID_SECTIONS,
@@ -69,7 +69,7 @@ export default async function ItemPage({
   if (section === 'components') {
     const realSection = findCategoryForItem(item);
     if (realSection) {
-      redirect(`/docs/${realSection}/${item}`);
+      permanentRedirect(`/docs/${realSection}/${item}`);
     }
     notFound();
   }

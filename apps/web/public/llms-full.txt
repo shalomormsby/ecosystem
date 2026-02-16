@@ -1,5 +1,5 @@
 # Sage Design Engine — Complete Component Reference
-# Version: 1.1.0 | React 18/19 | Next.js 15+ | Tailwind 3.4+ | framer-motion ^12
+# Version: 1.1.1 | React 18/19 | Next.js 15+ | Tailwind 3.4+ | framer-motion ^12
 # Components: 99 | Themes: 3 (Studio, Terra, Volt) | Blocks: 2
 # Last verified: 2026-02-16
 # Package: pnpm add @thesage/ui
