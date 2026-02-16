@@ -1,8 +1,8 @@
 # The A+ Plan: Making Sage Design Engine (SDE) the Gold Standard for AI-Native Component Libraries
 
-> **Last updated:** 2026-02-16T12:30:00 PST (Fixes 1-6 implemented, built, verified)
-> **Previous update:** 2026-02-16T20:45:00 PST (SDE root cause analysis + fix plan added)
-> Scores verified via live endpoints, npm registry, and GitHub API. MCP tool functionality is manifest-listed, not invocation-tested.
+> **Last updated:** 2026-02-16T14:08:00 PST (Speedboat fresh codebase audit + live endpoint verification)
+> **Previous update:** 2026-02-16T12:30:00 PST (Fixes 1-6 implemented, built, verified)
+> Scores verified via codebase source analysis, live endpoint tests, and competitive benchmarking. MCP tool implementations fully verified via source code audit.
 
 **Context:** In a head-to-head comparison against shadcn/ui, Chakra UI, Mantine, MUI, and Radix Themes, SDE currently scores **103/130** vs shadcn/ui's **114/130** — an 11-point gap. Excluding the unclosable Community criterion (-12 weighted points), SDE actually leads by +1. This plan targets the closable -4 deficit (Customizability, Bundle) and identifies where SDE should extend its existing leads (Theming, Animation).
 
@@ -36,10 +36,10 @@
 | Docs routing fixed (/docs returns 200) | **Done** | Title: "Documentation — Sage Design Engine" |
 | Title tag "undefined" fixed | **Done** | Component pages now show "Button — Components — Sage Design Engine" (no more undefined) |
 | llms-full.txt enhanced | **Done** | Error recovery patterns, composition compatibility, decision tables, bundle architecture sections added |
-| eject_component MCP tool | **Listed** | Tool is declared in mcp-server.json manifest. Not verified that it returns valid eject output when invoked. No standalone CLI (`npx @thesage/ui eject` doesn't work — no `bin` field). |
-| get_app_shell MCP tool | **Listed** | Declared in mcp-server.json. Not invocation-tested. |
-| get_examples MCP tool | **Listed** | Declared in mcp-server.json. Not invocation-tested. |
-| get_audit_checklist MCP tool | **Listed** | Declared in mcp-server.json. Not invocation-tested. |
+| eject_component MCP tool | **Verified** | Source-code verified (index.ts:874-913). Generates real step-by-step copy + import rewrite instructions. No standalone CLI (`npx @thesage/ui eject` still doesn't work — no `bin` field). |
+| get_app_shell MCP tool | **Verified** | Source-code verified (index.ts:774-786). Generates complete Next.js + Vite boilerplate with correct provider hierarchy and theme selection. |
+| get_examples MCP tool | **Verified** | Source-code verified (index.ts:788-861). Returns real examples with imports, use cases, and props from registry metadata. |
+| get_audit_checklist MCP tool | **Verified** | Source-code verified (index.ts:863-872). Returns 25-item checklist across 5 categories (providers, styling, a11y, imports, component usage). |
 
 **Net score impact:** All improvements above are reflected in the current scores. SDE's weighted total is **103/130** (verified calculation — see gap analysis table below).
 
@@ -193,6 +193,203 @@ Templates, visual regression tests, prompt library, MCP reference docs. All not 
 | npm `@thesage/ui` | **1.1.0** | 11 subpath exports. 38 deps. 11 peer deps. No `bin` field. No keywords. |
 | npm `@thesage/mcp` | **0.8.1** | Single dep (@modelcontextprotocol/sdk). Has `bin: sds-mcp`. |
 | GitHub `shalomormsby/ecosystem` | **1 star** | 0 forks. Last push: today (2026-02-16). No license. TypeScript. |
+
+---
+
+## Speedboat's Fresh Evaluation (Post-Fix Codebase Audit)
+
+*2026-02-16T14:08:00 PST — Independent codebase verification against cloned repo at speedboat-sandbox/external/ecosystem*
+
+### Methodology
+
+This evaluation was conducted against the **local clone** of the SDE codebase — not relying on SDE's self-reported results. Verification included:
+
+- Reading and analyzing every modified file for Fixes 1-6
+- Counting actual component exports from source code (`packages/ui/src/index.ts`)
+- Testing live endpoints (thesage.dev) for deployed behavior
+- Deep-diving into theming tokens, animation hooks, MCP server source, test files, and bundle configuration
+- Comparing feature-by-feature against shadcn/ui, Chakra UI, Mantine, MUI, and Radix Themes
+
+### Fix Verification Results
+
+| Fix | Claimed | Verified | Discrepancies |
+|---|---|---|---|
+| 1. Component 404 redirect | 308 permanent redirect | **307 temporary redirect** | Code uses `redirect()` which defaults to 307 in Next.js App Router. Should use `permanentRedirect()` for 308. SEO impact: crawlers won't transfer link equity. See SB-7. |
+| 2. Dynamic sitemap | ~140 URLs | **165 URLs** | Better than claimed. Comprehensive coverage of all sections and sub-pages. |
+| 3. Count/version alignment | All "92"→"99", versions to 1.1.0 | **Confirmed** | All served surfaces show 99 and v1.1.0. Minor version micro-drift noted (SB-9). |
+| 4. 7 missing components in llms-full.txt | All 7 documented | **Confirmed** | All 7 in correct category sections with accurate counts. |
+| 5. MCP tools listing | 8 tools listed | **Confirmed** | All 8 tools at llms-full.txt line ~1489. |
+| 6. Keywords + LICENSE | Added | **Confirmed** | 10 keywords in package.json. MIT LICENSE at repo root (22 lines). |
+
+### MCP Tool Source Code Audit
+
+Previous status was "Listed" (manifest-declared only). After reading the **full source** of `packages/mcp/src/index.ts` (913 lines) and `packages/mcp/src/registry.ts` (2,074 lines):
+
+| Tool | Previous | Verified | Evidence |
+|---|---|---|---|
+| list_components | Listed | **Real** | Registry query with category filtering. Returns grouped, formatted output. (index.ts:619-644) |
+| search_components | Listed | **Real** | Multi-field search across name, description, keywords, use cases. Graceful zero-match handling. (index.ts:646-693) |
+| get_component | Listed | **Real** | Full markdown output: props table with types/defaults, examples, dependencies, Radix reference, sub-components. (index.ts:695-733) |
+| install_component | Listed | **Real** | Dynamic peer dep detection, pnpm/npm/yarn commands, import statements. (index.ts:735-772) |
+| get_app_shell | Listed | **Real** | Complete Next.js + Vite boilerplate with ThemeProvider, TooltipProvider, Toaster, correct nesting, theme selection. (index.ts:774-786, generator at 355-511) |
+| get_examples | Listed | **Real** | Basic usage code, import with sub-components, use cases list, key props reference. (index.ts:788-861) |
+| get_audit_checklist | Listed | **Real** | 25-item checklist: providers (4), styling (5), accessibility (6), imports (5), component usage (5). (index.ts:863-872, generator at 516-556) |
+| eject_component | Listed | **Real** | 5-step workflow: mkdir + cp from node_modules, import rewriting, app import update, cn() utility setup, dependency install. (index.ts:874-913, generator at 561-602) |
+
+**Verdict: Zero stubs or hardcoded returns.** All 8 tools read from a registry with complete metadata (props, types, defaults, examples, keywords, dependencies, use cases) for all 99 components.
+
+### New Issues Found
+
+#### SB-7: Redirect Uses 307 (Temporary) Not 308 (Permanent)
+
+**Severity: Medium (SEO Impact)**
+
+The doc (Fix 1, line 276) explicitly says "Use 308 (not 307) because: SEO-correct for permanent moves, avoids duplicate content, and tells crawlers to transfer link equity."
+
+However, the implementation at `apps/web/app/docs/[section]/[item]/page.tsx:72` uses:
+
+```typescript
+redirect(`/docs/${realSection}/${item}`);
+```
+
+Next.js `redirect()` defaults to **307 temporary**. To get 308, use `permanentRedirect()` from `next/navigation`.
+
+**Live proof:** `thesage.dev/docs/components/button` returns `NEXT_REDIRECT;replace;/docs/actions/button;307;`
+
+**Fix:** Replace `redirect` with `permanentRedirect` in both the import and call site. ~2-line change.
+
+#### SB-8: 21 Components Without Documentation Pages
+
+**Severity: Medium**
+
+While 99 components exist as `.tsx` files and are exported from `packages/ui/src/index.ts`, only **78** have entries in `SECTION_ITEMS` in `route-config.ts` (meaning they have browsable docs pages). The remaining **~21** are exported but undiscoverable via the docs site navigation.
+
+Missing from docs site navigation include: NavLink, SecondaryNav, TertiaryNav, Modal, Dropdown, FilterButton, ProgressBar, ThemeSwitcher, Grid, Header, Container, Code, Brand, DescriptionList, GitHubIcon, Typewriter, VariableWeightText, Magnetic, Link.
+
+**Mitigating factor:** All 99 ARE documented in `llms-full.txt`, so AI tools can see them. But human developers browsing thesage.dev can't find docs for ~21% of the library.
+
+#### SB-9: Version Micro-Drift (Post-Changeset)
+
+**Severity: Low**
+
+| Surface | Version |
+|---|---|
+| packages/ui/package.json | **1.1.1** |
+| Served content (llms-full.txt, api.json, layout.tsx) | 1.1.0 |
+| .well-known/mcp-server.json | **0.8.0** |
+| packages/mcp/package.json | **0.8.2** |
+
+Packages were bumped via changesets without updating hardcoded version strings in served content. Not functionally broken, but undermines the data consistency narrative that Fixes 3-5 worked to establish.
+
+### Deep Verification: Quality Signals
+
+#### Test Coverage
+- **30 test files**, ~1,550 lines of real tests across 8 component categories + hooks
+- Tests validate: user events (`userEvent.setup()`), hook state transitions, ARIA attributes, variant switching, ref forwarding, compound component patterns
+- Framework: Vitest + React Testing Library + @testing-library/user-event
+- Setup file mocks ResizeObserver, pointer capture, matchMedia, scrollIntoView (essential for Radix)
+- **Assessment: Real, production-grade tests. But ~30% component coverage (30/99) leaves 69 components untested.**
+
+#### CI Pipeline
+- 3 GitHub Actions workflows: CI (build + lint + typecheck + test + size:check), Auto-Merge, Release
+- All quality gates enforced on every PR
+- size-limit enforced on all 10 subpath entrypoints with strict budgets
+
+#### Theme System (Verified Genuine)
+Themes are **substantively different** — not color swaps:
+
+| Dimension | Studio | Terra | Volt |
+|---|---|---|---|
+| Heading font | Outfit | **Lora (serif)** | Space Grotesk |
+| Body font | Manrope | Instrument Sans | Space Grotesk |
+| Base motion | 150ms | **300ms** | **100ms** |
+| Easing | ease-in-out | **organic flowing** | **spring bounce** |
+| Shadows | subtle (0.05-0.25) | soft (0.06-0.20) | **neon glow** |
+| Color personality | Neutral professional | Warm earth tones | High-chroma neon |
+
+Source: `packages/tokens/src/studio.ts`, `terra.ts`, `volt.ts` — each 200+ lines of distinct token definitions.
+
+#### Animation System (Verified Real)
+- **0-10 parametric motion scale:** Real. Each theme has a `getDuration(x)` function with linear scaling. At intensity 1: Studio 150ms, Terra 300ms, Volt 100ms. At intensity 10: Studio 510ms, Terra 840ms, Volt 325ms.
+- **OS sync:** `useMotionPreference` hook listens to `matchMedia('(prefers-reduced-motion: reduce)')` with real-time event listener.
+- **Persistence:** Zustand store (`ecosystem-customizer`) with `persist()` middleware writes motion/theme/mode preferences to localStorage.
+- **Kill switch:** `shouldAnimate` returns `false` when scale=0 OR when OS prefers reduced motion.
+
+#### MCP Server Quality
+- All 8 tools produce real, contextual output (not Lorem Ipsum or stubs)
+- Registry: 99 components with full metadata (props with types + defaults + descriptions, examples, keywords, dependencies, use cases, Radix primitive references)
+- `get_app_shell` generates copy-paste-ready Next.js and Vite setups with correct provider nesting
+- `eject_component` generates actionable 5-step workflow including import rewriting
+- **Note:** Still no CLI eject path. MCP protocol only.
+
+#### Bundle Architecture
+- **10 JS subpath exports** + 1 CSS file = 11 total export paths
+- `sideEffects: false` enables tree-shaking
+- Size limits: Core 450 KB, Tokens 70 KB, Providers 60 KB, Hooks 40 KB, Dates 30 KB, Utils 25 KB, Forms/Tables/DnD/WebGL each 10 KB
+- **26 regular deps** (mostly Radix UI) + **9 optional peer deps** (all marked optional via peerDependenciesMeta)
+- **Critical note:** Core entrypoint limit of 450 KB is the full component library. Even with tree-shaking, this is architecturally larger than shadcn's copy-only-what-you-use model where the "base" is 0 KB.
+
+### Updated Live Endpoint Verification
+
+*2026-02-16T14:08:00 PST*
+
+| Endpoint | Status | Finding |
+|---|---|---|
+| `thesage.dev` | **200** | Title: "Sage Design Engine". Meta: "99 accessible React components, three themes, user-controlled motion." |
+| `thesage.dev/docs/components/button` | **307** | Redirects to `/docs/actions/button`. Title resolves to "Button — Actions — Sage Design Engine". **307, not 308 as documented.** |
+| `thesage.dev/docs/actions/button` | **200** | Title: "Button — Actions — Sage Design Engine". SectionRenderer renders component docs. |
+| `thesage.dev/sitemap.xml` | **200** | **165 URLs** (up from ~25 static). All sections + all sub-pages. Dynamic generation from route-config confirmed. |
+| `thesage.dev/llms-full.txt` | **200** | v1.1.0, 99 components, 11 categories, 8 MCP tools. All 7 previously-missing components present. Error recovery, composition compatibility, decision tables included. |
+| `thesage.dev/docs/api.json` | **200** | v1.1.0, 99 components. Consistent with other surfaces. |
+| `thesage.dev/.well-known/mcp-server.json` | **200** | v0.8.0 (stale — package is 0.8.2), 99 components, 8 tools listed. |
+| `thesage.dev/.well-known/ai-plugin.json` | **200** | 99 components. Valid AI plugin manifest. |
+
+### Updated Competitive Gap Analysis
+
+*2026-02-16T14:08:00 PST — Scores after codebase-verified Fixes 1-6*
+
+| Criterion | Wt | shadcn | SDE | Wtd Δ | Rationale |
+|---|---|---|---|---|---|
+| AI Integration | 5x | 5 | 5 | 0 | **Tied on score; SDE leads on breadth.** SDE: 8 verified-real MCP tools with full registry, llms-full.txt (99 components + error recovery + decision tables), ai-plugin.json, mcp-server.json, .claude/CLAUDE.md in npm package. shadcn: v0 integration (production-tested at massive scale), per-component JSON registry, growing MCP support. Both earned 5. |
+| Component Coverage | 4x | 4 | 4 | 0 | **Tied.** SDE: 99 exported components + 2 blocks. shadcn: 56 components + 27 page-level blocks. SDE wins on primitive count but shadcn's blocks (dashboards, login, sidebars) solve higher-level problems. 21 SDE components lack doc pages (SB-8). Both at 4. |
+| Dev Velocity | 4x | 4 | 4 | 0 | **Tied.** shadcn: `npx shadcn init` + per-component CLI install + 10 framework guides. SDE: batteries-included install, 11 subpath exports, get_app_shell MCP tool, .claude/CLAUDE.md auto-context. Different philosophies, comparable DX. |
+| Customizability | 3x | 5 | 4 | **-3** | **(5-4) x 3 = -3. Gap persists.** shadcn copies source into your project by design — every component is "ejected" from day one. SDE's MCP eject is verified-real but requires MCP client. No CLI eject. No web UI eject button. Architectural gap: opt-in eject vs inherent ownership. |
+| Accessibility | 3x | 4 | 4 | 0 | **Tied.** Both Radix-based. SDE's motion accessibility (verified 0-10 scale + OS sync + Zustand persistence) is a genuine qualitative differentiator but doesn't move the overall score. |
+| Community | 3x | 5 | 1 | **-12** | **(1-5) x 3 = -12. Not closable.** 106,699 stars + massive ecosystem vs 1 star. |
+| Theming | 2x | 4 | 5 | **+2** | **(5-4) x 2 = +2. SDE leads. Verified.** 3 genuinely distinct identities with different typography families, motion curves, shadow treatments, and color philosophies (see table above). Not color swaps. Zustand persistence. shadcn: 21 color-only themes on one layout/typography. |
+| Animation | 1x | 2 | 5 | **+3** | **(5-2) x 1 = +3. SDE leads. Verified.** Parametric 0-10 scale with theme-aware duration calculations, real-time OS prefers-reduced-motion sync, persistent user preferences, theme-specific easing curves (spring vs organic vs smooth). shadcn: CSS transitions only. |
+| Bundle | 1x | 5 | 4 | **-1** | **(4-5) x 1 = -1. Gap persists.** SDE: 10 subpath exports, sideEffects:false, size-limit CI. But core limit is 450 KB. shadcn: copy-paste model is architecturally leaner (0 KB base; you only ship what you copy). |
+| | | | | | |
+| **Weighted Total** | | **114** | **103** | **-11** | **No score change from fixes.** |
+
+### Why the Fixes Didn't Move Scores
+
+**Fixes 1-6 were necessary hygiene, not capability expansion.** They addressed:
+- Broken routing (Fix 1) — was already functional via correct URLs; redirect improves discoverability
+- Missing sitemap entries (Fix 2) — SEO/crawling improvement, not a capability change
+- Stale data (Fixes 3-5) — consistency corrections, not new features
+- Missing metadata (Fix 6) — discoverability, not capability
+
+A library doesn't score higher because its documentation is consistent — it scores higher because its capabilities are stronger. The original scores already reflected SDE's actual capabilities.
+
+### What Would Actually Move Scores
+
+| Target | Score Change | Effort | What's Needed |
+|---|---|---|---|
+| Customizability 4→5 | +3 (closes -3) | High | Standalone eject CLI (`npx @thesage/ui eject Button`) or paradigm shift toward source-first distribution. |
+| Component Coverage 4→5 | +4 (gains +4) | Very High | 10+ page-level blocks: LoginBlock, DashboardBlock, SettingsBlock, DataTableBlock, FormBlock, SidebarBlock, PricingBlock, etc. |
+| Bundle 4→5 | +1 (closes -1) | Medium | Per-component tree-shaking that rivals copy-paste efficiency, or further subpath splitting. |
+| **Total possible** | **+8** | | Would bring SDE to **111** (still -3 from shadcn due to community). |
+
+### Assessment Summary
+
+**SDE 103/130, shadcn 114/130. Gap: -11. Unchanged from pre-fix scores.**
+
+Excluding community (unclosable -12), SDE leads by +1 weighted point. The library has genuine technical strengths in theming (+2) and animation (+3) that are verified, not marketing. The AI integration surface (8 real MCP tools, comprehensive llms-full.txt, .claude/CLAUDE.md) is genuinely the broadest in this competitive set.
+
+The remaining closable gap is -4 (Customizability -3, Bundle -1). The biggest single opportunity is adding page-level blocks (+4 potential). The eject CLI is the most impactful single fix for closing the customizability gap.
+
+**New issues SB-7 through SB-9 are minor compared to the strategic gaps (blocks, eject CLI, community) but should be addressed to maintain credibility.**
 
 ---
 
@@ -396,7 +593,7 @@ Fixed: `Tools (8): list_components, search_components, get_component, install_co
 
 ### Key Design Decisions
 
-- **308 permanent redirect** (not 307) for `/docs/components/[item]` → `/docs/[category]/[item]` — SEO-correct, transfers link equity, tells crawlers the canonical URL
+- **~~308 permanent redirect~~** → Actually **307 temporary redirect** (see SB-7). Code uses `redirect()` not `permanentRedirect()`. Needs fix to get SEO-correct 308 behavior.
 - **Dynamic sitemap** uses `MetadataRoute.Sitemap` return type — Next.js generates `/sitemap.xml` at build time from `SECTION_ITEMS`, auto-updating when routes change
 - **Historical docs** (CHANGELOG, DOCUMENTATION-AUDIT) retain "92" — they were correct at time of writing and serve as audit trail
 - **Eject CLI deferred** (Fix 7) — MCP eject tool works; standalone CLI requires cross-package work
