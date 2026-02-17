@@ -2,7 +2,7 @@
 
 > **How might we make products lovable by design?**
 
-The purpose of this open source monorepo isn't just to answer this question; it's to provide a functional human-centered design philosophy that helps you build the answer for yourself. 
+The purpose of this open source monorepo isn't just to answer this question; it's to provide a functional human-centered design philosophy that helps you build the answer for yourself.
 
 **Status:** Active Development
 **License:** MIT
@@ -14,13 +14,46 @@ The purpose of this open source monorepo isn't just to answer this question; it'
 
 This ecosystem expresses one unified vision through multiple products:
 
-- **[Portfolio](https://www.shalomormsby.com/)** — My design philosophy in action. Currently being built from the ground-up entirely with Sage Design Engine components.
-- **[Sage Studio](https://thesage.dev/)** — Interactive documentation platform for the Sage Design Engine. A comprehensive suite of functional components, patterns, and templates that optimize human and AI-assisted creativity. Purpose-built for solopreneurs who want to build digital products not only with speed but also with precise creative control. 
+- **[Portfolio](https://www.shalomormsby.com/)** — My design philosophy in action. Built entirely with Sage Design Engine components.
 - **[Creative Powerup](https://ecosystem-creative-powerup.vercel.app/)** — Community platform and experiment gallery for purpose-driven innovators *(in development)*
-- **[Sage Stocks](https://stocks.shalomormsby.com/)** — AI-powered investment intelligence that respects user agency *(migration pending)*
-- **SageOS** — Personal operating system for creative work *(Currently a WiP. To apply as a beta tester, email Shalom.)*
+- **[Sage Stocks](https://stocks.shalomormsby.com/)** — AI-powered investment intelligence that respects user agency
+- **SageOS** — Personal operating system for creative work *(concept)*
 
-**The unifying element:** A shared design system that embodies human-centered principles into every component, token, and interaction.
+**The unifying element:** All apps consume the [Sage Design Engine](https://thesage.dev/) (`@thesage/*` packages) from NPM, which embodies human-centered principles into every component, token, and interaction.
+
+---
+
+## Architecture
+
+This repo is a **consumer** of the Sage Design Engine. The design system packages (`@thesage/ui`, `@thesage/tokens`, etc.) are installed from NPM, not developed here.
+
+```
+ecosystem/
+├── apps/
+│   ├── portfolio/             # Production portfolio site
+│   ├── creative-powerup/      # Experiment gallery (in development)
+│   ├── sage-stocks/           # AI investment intelligence
+│   ├── sageos/                # Future
+│   └── mobile/                # React Native / Expo app
+```
+
+### Design System
+
+The Sage Design Engine is maintained in a [separate repository](https://github.com/shalomormsby/sage-design-engine) and consumed via NPM:
+
+```bash
+pnpm add @thesage/ui
+```
+
+Available packages:
+
+| Package | Version |
+|---------|---------|
+| `@thesage/ui` | ^1.1.1 |
+| `@thesage/tokens` | ^0.0.3 |
+| `@thesage/config` | ^0.0.3 |
+
+Interactive documentation: [thesage.dev](https://thesage.dev/)
 
 ---
 
@@ -32,15 +65,10 @@ git clone https://github.com/shalomormsby/ecosystem.git
 cd ecosystem
 pnpm install
 
-# Build design system and start portfolio
-pnpm build
+# Start portfolio
 pnpm dev --filter portfolio
-
 # Open http://localhost:3000
-# Look for the Customizer button in the bottom-right corner
 ```
-
-**First time here?** Read [AGENTS.md](AGENTS.md) for orientation (written for AI agents but useful for humans too).
 
 ---
 
@@ -57,259 +85,12 @@ This ecosystem is built on four principles:
 
 ---
 
-## The Sage Design Engine
-
-The heart of this ecosystem. Every app imports from it. **Version 1.0 — Production Ready**
-
-### Architecture
-
-The design system organizes components by **functional purpose**, not abstract hierarchy. This eliminates classification ambiguity and aligns with modern design systems like shadcn/ui, Material UI, and Radix.
-
-**99 components across 11 functional categories:**
-
-- **Actions** (5) — Interactive elements that trigger behaviors
-  Button, Toggle, ToggleGroup, Link, Magnetic
-
-- **Forms** (18) — Input controls with validation
-  Input, Textarea, Select, Combobox, Checkbox, Switch, Slider, RadioGroup, Label, Form, InputOTP, SearchBar, FilterButton, ThemeSwitcher, ThemeToggle, ColorPicker, DragDrop, TextField
-
-- **Navigation** (10) — Moving through content hierarchy
-  Breadcrumb, Breadcrumbs, Tabs, Pagination, Command, Menubar, NavigationMenu, NavLink, SecondaryNav, TertiaryNav
-
-- **Overlays** (11) — Contextual content above main UI
-  Dialog, AlertDialog, Sheet, Drawer, DropdownMenu, ContextMenu, Popover, HoverCard, Tooltip, Modal, Dropdown
-
-- **Feedback** (7) — System state communication
-  Alert, Progress, ProgressBar, Skeleton, Spinner, Sonner, Toast
-
-- **Data Display** (16) — Structured information presentation
-  Card, Badge, Table, DataTable, Avatar, Heading, Text, Code, CollapsibleCodeBlock, DescriptionList, Brand, AspectImage, VariableWeightText, Typewriter, GitHubIcon, Calendar
-
-- **Layout** (17) — Spatial organization
-  Accordion, Carousel, ScrollArea, Separator, AspectRatio, Collapsible, Resizable, Container, Grid, Stack, Sidebar, Header, Footer, CustomizerPanel, PageLayout, PageTemplate, DatePicker
-
-- **Backgrounds** (3) — Animated visual backgrounds
-  WarpBackground, FaultyTerminal, OrbBackground
-
-- **Cursor** (2) — Custom cursor effects
-  SplashCursor, TargetCursor
-
-- **Motion** (1) — Animation primitives
-  AnimatedBeam
-
-- **Blocks** (2) — Pre-composed page sections
-  HeroBlock, OpenGraphCard
-
-### Three Distinct Themes
-
-Each theme has a unique personality and embodies different design values:
-
-- **Studio** — Professional, balanced, modern (inspired by Framer/Vercel/Linear)
-  - Cool blues and grays, clean sans-serif typography (Outfit, Manrope, Fira Code)
-  - Smooth, professional motion curves
-
-- **Terra** — Calm, organic, thoughtful
-  - Warm earth tones, muted sage greens, terracotta accents
-  - Serif headings (Lora), clean body text (Instrument Sans)
-  - Slower, flowing motion curves
-
-- **Volt** — Bold, electric, energetic
-  - Electric blues, vibrant cyans, high contrast
-  - Geometric sans-serif (Space Grotesk), technical mono (Fira Code)
-  - Fast, snappy motion curves
-
-All themes support both light and dark modes with WCAG AA contrast ratios.
-
-### Token System
-
-Design decisions as code, not locked in design tools:
-
-- **Colors** — Semantic color system with foreground variants for proper light/dark mode support
-- **Typography** — 10 size scales (xs-8xl), complete type presets (display, headings, body, caption)
-- **Spacing** — 4px base grid with semantic aliases (xs-3xl)
-- **Motion** — Duration presets and easing curves that scale with user preference
-- **Syntax Highlighting** — 14 token types for automatic code highlighting (comment, keyword, function, string, number, boolean, operator, property, className, tag, attribute, variable, punctuation, plain)
-
-### User-Controlled Motion System
-
-Every animation respects user preference:
-- **Motion intensity slider** (0-10 scale)
-- **Automatic sync** with system `prefers-reduced-motion`
-- **Zero animation** when disabled (instant state changes only)
-- **Scaled durations** based on user preference and theme personality
-
-### The Customizer
-
-User control made tangible. A floating panel that gives users ownership of their experience:
-- **Motion intensity** — 0-10 scale with system preference sync
-- **Theme switching** — Studio, Terra, or Volt with distinct personalities
-- **Color mode** — Light or dark mode
-
-All preferences persist to localStorage and survive page reloads.
-
-### Syntax Highlighting System
-
-Built-in automatic syntax parser (~2KB) for beautiful code examples:
-- **Zero configuration** — Just pass plain code strings
-- **14 token types** — Comprehensive TypeScript/JavaScript/JSX tokenization
-- **Theme-aware colors** — Adapts to light/dark mode with WCAG AA contrast
-- **No dependencies** — Completely self-contained
-- **CollapsibleCodeBlock component** — Full-featured code display with copy, collapse, and syntax highlighting
-
-### Accessibility-First Design
-
-- **WCAG AA compliance** — All color combinations meet 4.5:1 contrast minimum
-- **Keyboard navigation** — Full support with visible focus indicators
-- **Screen reader compatible** — Semantic HTML and proper ARIA attributes
-- **Motion preferences** — Complete respect for reduced motion settings
-- **Focus management** — Proper focus ring styling with CSS variables
-
-### State Management
-
-- **Zustand stores** with localStorage persistence
-- **Theme state** — Current theme name and color mode
-- **Customizer state** — Motion intensity, system preferences
-- **Toast context** — Notification system with provider
-
-### Hooks
-
-Three custom React hooks for common patterns:
-- **useTheme()** — Theme and mode control with toggle functions
-- **useMotionPreference()** — Motion settings and system preference sync
-- **useForm()** — Generic form state with validation and dirty tracking
-
-### Technologies
-
-- React 19.2.1 (peerDependency supports 18+)
-- TypeScript 5 (strict mode)
-- Tailwind CSS 3 (via CSS variables)
-- Framer Motion 12 (all animations respect preferences)
-- Zustand 5 (with localStorage persistence)
-- tsup (ESM + CJS outputs for npm publishing)
-
-### Interactive Documentation
-
-The **Sage Studio** app ([apps/web](apps/web)) provides:
-- **Component playground** with live prop controls
-- **Token visualization** for all design tokens across themes
-- **Code examples** with automatic syntax highlighting
-- **LLM-optimized documentation** with JSON-LD structured data
-- **Accessibility notes** for every component
-- **GitHub source links** for transparency
-
-Visit the live documentation at [https://thesage.dev/](https://thesage.dev/)
-
-[Full Design System Documentation →](apps/web/docs/SAGE_DESIGN_SYSTEM_STRATEGY.md)
-
----
-
-## Project Structure
-
-```
-ecosystem/
-├── apps/                      # Next.js applications
-│   ├── portfolio/             # Proof of philosophy (production-ready)
-│   ├── web/    # Interactive design system docs (production)
-│   ├── creative-powerup/      # Experiment gallery (in development)
-│   ├── sage-stocks/           # Migration pending
-│   └── sageos/                # Future
-├── packages/                  # Shared packages
-│   ├── ui/                    # @thesage/ui - Component library
-│   │   └── src/
-│   │       ├── components/    # 99 functionally-organized components
-│   │       │   ├── actions/   # Button, Toggle, ToggleGroup, Link, Magnetic
-│   │       │   ├── forms/     # Input, Select, Checkbox, Switch, etc.
-│   │       │   ├── navigation/# Breadcrumb, Tabs, Pagination, etc.
-│   │       │   ├── overlays/  # Dialog, Sheet, Popover, etc.
-│   │       │   ├── feedback/  # Alert, Toast, Progress, etc.
-│   │       │   ├── data-display/  # Table, Card, Avatar, Badge, etc.
-│   │       │   ├── layout/    # Accordion, Carousel, Separator, etc.
-│   │       │   ├── backgrounds/   # WarpBackground, FaultyTerminal, etc.
-│   │       │   ├── cursor/    # SplashCursor, TargetCursor
-│   │       │   ├── motion/    # AnimatedBeam
-│   │       │   └── blocks/    # HeroBlock, OpenGraphCard
-│   │       ├── hooks/         # useTheme, useMotionPreference, useForm
-│   │       ├── providers/     # ThemeProvider, ToastProvider
-│   │       ├── features/      # Customizer (philosophy-embodying)
-│   │       ├── lib/           # Store, utils, validation, animations
-│   │       └── index.ts       # Main export barrel
-│   ├── tokens/                # @thesage/tokens - Design decisions as code
-│   │   ├── studio/            # Studio theme tokens
-│   │   ├── terra/             # Terra theme tokens
-│   │   ├── volt/              # Volt theme tokens
-│   │   ├── base.ts            # Shared scales
-│   │   └── index.ts           # Unified export
-│   └── config/                # Shared Tailwind and TypeScript config
-└── docs/                      # Guides and documentation
-```
-
-**Why functional organization?** Modern design systems organize by purpose (what components *do*), not abstract hierarchy. This approach eliminates classification debates and maps directly to developer workflows.
-
----
-
-## Tech Stack
-
-| Layer | Technology |
-|-------|------------|
-| Framework | Next.js 16 (App Router) |
-| Language | TypeScript 5 (strict) |
-| Styling | Tailwind CSS 3 |
-| Animation | Framer Motion 12 |
-| State | Zustand 5 + localStorage |
-| Monorepo | Turborepo + pnpm workspaces |
-| Deployment | Vercel |
-
----
-
-## Documentation
-
-### Essential Reading
-
-- **[DESIGN-PHILOSOPHY.md](DESIGN-PHILOSOPHY.md)** — The North Star. Read this first to understand *why* this exists.
-- **[AGENTS.md](AGENTS.md)** — Comprehensive guide for AI agents (and humans) working on this codebase.
-- **[CHANGELOG.md](CHANGELOG.md)** — What's been built, what's changed, and when.
-
-### Reference Documentation
-
-- **[SAGE_DESIGN_SYSTEM_STRATEGY.md](apps/web/docs/SAGE_DESIGN_SYSTEM_STRATEGY.md)** — Design system architecture, components, tokens, and usage.
-- **[apps/portfolio/README.md](apps/portfolio/README.md)** — Portfolio app setup and context.
-- **[docs/mcp-setup.md](docs/mcp-setup.md)** — Configure MCP servers for AI coding assistants.
-
-### For Contributors
-
-If you're building here (human or AI):
-1. Read [DESIGN-PHILOSOPHY.md](DESIGN-PHILOSOPHY.md) to understand the vision
-2. Read [AGENTS.md](AGENTS.md) for technical setup, patterns, and conventions
-3. Check [CHANGELOG.md](CHANGELOG.md) to see what's been done recently
-
----
-
-## Key Features
-
-### The Customizer
-
-User control made tangible. A floating panel that lets users customize:
-- **Motion intensity** (0-10, syncs with system preferences)
-- **Theme** (Studio, Terra, or Volt)
-- **Color mode** (Light or dark)
-
-All preferences persist to localStorage. This isn't a settings panel hidden in a menu—it's a hero feature.
-
-### Design Tokens
-
-Visual properties defined in code, not locked in Figma. Colors, spacing, typography, motion—all exposed as importable JavaScript.
-
-```typescript
-import { spacing, typography } from '@thesage/tokens'
-```
-
-### Motion That Respects Users
-
-Every animation checks `useMotionPreference()`. When motion = 0 or user has `prefers-reduced-motion`, animations are instant. No exceptions.
-
----
-
 ## Development
+
+### Prerequisites
+
+- Node.js 20+
+- pnpm 8.15.0+
 
 ### Commands
 
@@ -323,69 +104,55 @@ pnpm build                  # Build everything
 pnpm build --filter <app>   # Build specific app
 
 # Quality
-pnpm lint                   # Lint all packages
-pnpm typecheck              # Check TypeScript
+pnpm lint                   # Lint all
 ```
 
-### Prerequisites
+### Updating Design System
 
-- Node.js 20+
-- pnpm 8.15.0+
-- Git
+When a new version of `@thesage/ui` is published:
 
-[Full development setup →](AGENTS.md#dev-environment)
+```bash
+pnpm update @thesage/ui
+pnpm build
+```
+
+### Local Development with Design System
+
+When testing SDE changes against consumer apps before publishing:
+
+```bash
+# In the sage-design-engine repo
+cd packages/ui && pnpm link --global
+
+# In this repo
+cd apps/portfolio && pnpm link --global @thesage/ui
+
+# Don't forget to unlink when done
+pnpm unlink @thesage/ui && pnpm install
+```
+
+Alternatively, use [yalc](https://github.com/wclr/yalc) for a more robust local linking workflow.
 
 ---
 
-## Philosophy in Practice
+## Tech Stack
 
-This isn't aspirational—it's implemented:
-
-- **Customizer** = User Control & Freedom in action
-- **Design tokens** = Transparency (view source on any component)
-- **Motion system** = Generous by Design (accessibility first)
-- **Open source** = Generous by Design (anyone can learn from this)
-- **AI Notes feature** *(planned)* = Transparency (document AI collaboration)
-
-The work is the proof. Every component, every interaction, every line of code demonstrates that human-centered design can be baked into architecture, not just claimed in marketing.
-
----
-
-## Status & Roadmap
-
-**Enterprise-Ready (v1.0.0-rc.1):**
-- **Design system** — 99 components across 11 functional categories, 3 themes, comprehensive token system
-- **Sage Studio** — Interactive documentation with LLM optimization, JSON-LD metadata
-- **Portfolio app** — Living showcase with Customizer integration
-- **Test suite** — Vitest + Testing Library with 156 tests across 30 files, CI-enforced
-- **Bundle optimization** — Optional subpath exports (`/forms`, `/dates`, `/tables`, `/dnd`, `/webgl`), vendored WebGL (93% size reduction)
-- **React 19** — Full migration to React 19 ref-as-prop pattern across 56 files
-
-**In Active Development:**
-- **Creative Powerup** — Experiment gallery (9 live experiments: games, visualizations, animations, tools)
-- **AI Notes component** — Transparency feature for documenting AI collaboration
-- **Phase 5** — Assemblies & Templates (composed components and full-page layouts)
-
-**Planned:**
-- **Sage Stocks migration** — Existing 15k LOC app to be integrated into monorepo
-- **SageOS** — Personal operating system for creative work
-- **Additional components** — Advanced layout patterns and compositions
-
-[Full implementation status →](AGENTS.md#current-implementation-state)
+| Layer | Technology |
+|-------|------------|
+| Framework | Next.js 16 (App Router) |
+| Language | TypeScript 5 (strict) |
+| Styling | Tailwind CSS 3 |
+| Animation | Framer Motion 12 |
+| State | Zustand 5 + localStorage |
+| Design System | Sage Design Engine (`@thesage/*`) |
+| Monorepo | Turborepo + pnpm workspaces |
+| Deployment | Vercel |
 
 ---
 
 ## License
 
 MIT © Shalom Ormsby
-
----
-
-## Connect
-
-Building something human-centered? Learning from this codebase? Have questions?
-
-Open an issue or start a discussion. This is **Generous by Design**—the code teaches as it works.
 
 ---
 

@@ -11,9 +11,9 @@
   "dependencies": {
     "@react-native/virtualized-lists": "^0.83.1",
     "@rn-primitives/slot": "^1.2.0",
-    "@thesage/config": "workspace:*",
-    "@thesage/tokens": "workspace:*",
-    "@thesage/ui": "workspace:*",
+    "@thesage/config": "^0.0.3",
+    "@thesage/tokens": "^0.0.3",
+    "@thesage/ui": "^1.1.1",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "expo": "~54.0.31",
