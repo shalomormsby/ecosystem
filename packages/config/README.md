@@ -3,11 +3,11 @@
 <div align="center">
 
 [![npm version](https://img.shields.io/npm/v/@thesage/config?color=indigo&style=flat-square)](https://www.npmjs.com/package/@thesage/config)
-[![License](https://img.shields.io/npm/l/@thesage/config?color=blue&style=flat-square)](https://github.com/shalomormsby/ecosystem/blob/main/LICENSE)
+[![License](https://img.shields.io/npm/l/@thesage/config?color=blue&style=flat-square)](https://github.com/shalomormsby/sage-design-engine/blob/main/LICENSE)
 
 **Shared Configuration Presets for the Sage Ecosystem.**
 
-[Documentation](https://thesage.dev) • [GitHub](https://github.com/shalomormsby/ecosystem)
+[Documentation](https://thesage.dev) • [GitHub](https://github.com/shalomormsby/sage-design-engine)
 
 </div>
 

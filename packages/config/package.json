@@ -1,6 +1,16 @@
 {
   "name": "@thesage/config",
   "version": "0.0.3",
+  "description": "Shared configuration presets for the Sage Design Engine — Tailwind CSS preset with theme-aware colors, typography, and animations.",
+  "license": "MIT",
+  "author": "Shalom Ormsby",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/shalomormsby/sage-design-engine.git",
+    "directory": "packages/config"
+  },
+  "homepage": "https://thesage.dev",
+  "bugs": "https://github.com/shalomormsby/sage-design-engine/issues",
   "publishConfig": {
     "access": "public"
   },

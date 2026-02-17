@@ -6,7 +6,7 @@ All notable changes to this project will be documented in this file.
 
 ---
 
-## 2026-02-16T22:30:00Z — SB Fixes: 404 Redirects, Dynamic Sitemap, Data Consistency, llms-full.txt Completeness
+## 2026-02-16T12:30:00Z — SB Fixes: 404 Redirects, Dynamic Sitemap, Data Consistency, llms-full.txt Completeness
 
 Implements fixes SB-1 through SB-6 from Speedboat's A+ evaluation. These address the remaining gaps between SDE and shadcn/ui in the competitive analysis.
 
@@ -2796,7 +2796,7 @@ Migrated 15+ critical components from `@ecosystem/design-system` to `@thesage/ui
 **Claude Desktop Configuration:**
 - Added @thesage/mcp to Claude Desktop config
 - Configuration file: `~/Library/Application Support/Claude/claude_desktop_config.json`
-- Uses local path: `node /Users/shalomormsby/Developer/work/ecosystem/packages/sds-mcp-server/dist/index.js`
+- Uses local path: `node <repo-root>/packages/sds-mcp-server/dist/index.js`
 - Enables Claude Desktop to browse, search, and install all 48 Sage UI components via natural language
 
 #### Documentation Updates ✅

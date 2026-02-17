@@ -3,14 +3,14 @@
 <div align="center">
 
 [![npm version](https://img.shields.io/npm/v/@thesage/ui?color=indigo&style=flat-square)](https://www.npmjs.com/package/@thesage/ui)
-[![License](https://img.shields.io/npm/l/@thesage/ui?color=blue&style=flat-square)](https://github.com/shalomormsby/ecosystem/blob/main/LICENSE)
+[![License](https://img.shields.io/npm/l/@thesage/ui?color=blue&style=flat-square)](https://github.com/shalomormsby/sage-design-engine/blob/main/LICENSE)
 [![Downloads](https://img.shields.io/npm/dt/@thesage/ui?color=teal&style=flat-square)](https://www.npmjs.com/package/@thesage/ui)
 
 **Sage — Make it Lovable.**
 
 Components that feel alive. Themes with real personality. Motion your users control. Designed for humans. Fluent with AI.
 
-[Documentation](https://thesage.dev) | [Components](https://thesage.dev/components) | [GitHub](https://github.com/shalomormsby/ecosystem)
+[Documentation](https://thesage.dev) | [Components](https://thesage.dev/components) | [GitHub](https://github.com/shalomormsby/sage-design-engine)
 
 </div>
 

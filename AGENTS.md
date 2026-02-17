@@ -1634,7 +1634,7 @@ Breaking changes to the design system affect all apps. Follow this protocol stri
 **3. Search for usage across the ecosystem**
 ```bash
 # Find all usages of the thing you're about to break
-cd /Users/shalomormsby/Developer/work/ecosystem
+cd <repo-root>
 grep -r "oldComponentName" apps/
 grep -r "oldPropName" apps/
 ```

@@ -3,11 +3,11 @@
 <div align="center">
 
 [![npm version](https://img.shields.io/npm/v/@thesage/tokens?color=indigo&style=flat-square)](https://www.npmjs.com/package/@thesage/tokens)
-[![License](https://img.shields.io/npm/l/@thesage/tokens?color=blue&style=flat-square)](https://github.com/shalomormsby/ecosystem/blob/main/LICENSE)
+[![License](https://img.shields.io/npm/l/@thesage/tokens?color=blue&style=flat-square)](https://github.com/shalomormsby/sage-design-engine/blob/main/LICENSE)
 
 **The Design Foundation for the Sage Ecosystem.**
 
-[Documentation](https://thesage.dev) • [GitHub](https://github.com/shalomormsby/ecosystem)
+[Documentation](https://thesage.dev) • [GitHub](https://github.com/shalomormsby/sage-design-engine)
 
 </div>
 

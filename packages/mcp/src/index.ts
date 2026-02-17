@@ -344,7 +344,7 @@ function formatInstallationInstructions(component: ComponentMetadata): string {
 
   output += `## Additional Resources\n\n`;
   output += `- **Documentation:** https://thesage.dev/#${component.category}/${component.name.toLowerCase().replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase()}\n`;
-  output += `- **GitHub:** https://github.com/shalomormsby/ecosystem/tree/main/packages/ui/src/components/${component.category}\n`;
+  output += `- **GitHub:** https://github.com/shalomormsby/sage-design-engine/tree/main/packages/ui/src/components/${component.category}\n`;
 
   return output;
 }

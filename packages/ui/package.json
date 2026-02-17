@@ -10,11 +10,11 @@
     "author": "Shalom Ormsby",
     "repository": {
         "type": "git",
-        "url": "https://github.com/shalomormsby/ecosystem.git",
+        "url": "https://github.com/shalomormsby/sage-design-engine.git",
         "directory": "packages/ui"
     },
     "homepage": "https://thesage.dev",
-    "bugs": "https://github.com/shalomormsby/ecosystem/issues",
+    "bugs": "https://github.com/shalomormsby/sage-design-engine/issues",
     "keywords": [
         "react",
         "components",

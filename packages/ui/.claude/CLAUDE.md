@@ -220,5 +220,5 @@ For complete props, variants, and examples for all 99 components:
 ## Resources
 
 - Docs: https://thesage.dev/docs
-- GitHub: https://github.com/shalomormsby/ecosystem
+- GitHub: https://github.com/shalomormsby/sage-design-engine
 - NPM: https://www.npmjs.com/package/@thesage/ui
