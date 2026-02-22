@@ -49,6 +49,52 @@ Strategic pruning of npm package inventory. Evaluated all 8 published `@thesage/
 
 ---
 
+## 2026-02-16T16:00:00 PST — Speedboat Independent Codebase Audit + SB-7/SB-9 Fixes
+
+Speedboat performed a fresh, independent evaluation of SDE against the cloned repo at `speedboat-sandbox/external/ecosystem/`. This was a zero-trust audit — every claim in the eval doc was verified against actual source code and live endpoints, not SDE's self-reported results.
+
+### Fresh Codebase Audit
+
+- Verified all 6 SDE fixes (redirect, sitemap, count alignment, llms-full.txt completions, MCP tools listing, keywords/license) against source code
+- Audited all 8 MCP tools by reading full source (`packages/mcp/src/index.ts`, 913 lines) — upgraded status from "Listed" to "Verified" (zero stubs)
+- Verified theme system is genuinely distinct (different typography, motion curves, shadow treatments, color philosophy per theme — not color swaps)
+- Verified animation system is real (0-10 parametric scale, OS prefers-reduced-motion sync, Zustand persistence)
+- Confirmed 156 tests across 30 files, 165 sitemap URLs, 99 component exports, 11 subpath exports
+
+### New Issues Found
+
+- **SB-7:** Redirect uses 307 (temporary) not 308 (permanent) — `redirect()` vs `permanentRedirect()` in Next.js
+- **SB-8:** 21 components exported but missing from docs site navigation (`route-config.ts` has ~78 of 99)
+- **SB-9:** Version micro-drift — `packages/ui` at 1.1.1 but served content still says 1.1.0; `packages/mcp` at 0.8.2 but mcp-server.json said 0.8.0
+
+### PR #27: Fix SB-7 — Permanent Redirect (`fix/sb-7-permanent-redirect`)
+
+- Changed `redirect()` → `permanentRedirect()` in `apps/web/app/docs/[section]/[item]/page.tsx`
+- Updated import from `next/navigation`
+- SEO impact: crawlers now receive 308 (transfer link equity) instead of 307 (temporary)
+
+### PR #28: Fix SB-9 — Version Alignment (`fix/sb-9-version-alignment`)
+
+- `apps/web/public/llms-full.txt`: 1.1.0 → 1.1.1
+- `apps/web/app/docs/api.json/route.ts`: '1.1.0' → '1.1.1'
+- `apps/web/public/llms.txt`: @thesage/mcp v0.8.0 → v0.8.2
+- `apps/web/public/.well-known/mcp-server.json`: 0.8.0 → 0.8.2
+
+### Eval Doc Accuracy Audit
+
+Audited every claim in `docs/plan-to-improve-sde-to-a-plus.md` against actual codebase:
+
+- Fixed stale entries: framer-motion version (`^12.0.0` → `^12.26.2`), MCP server (`v0.8.1` → `v0.8.2`), npm description (`"92"` → `"99"`), package version (`1.1.0` → `1.1.1`)
+- Added SDE Fixes 1-6 results to Progress table (were only in Implementation Log, never reflected back)
+- Added Speedboat PR #27 and #28 records with Open status
+- Added status lines to SB-7 and SB-9 issue sections
+
+### Competitive Score Assessment
+
+**SDE 103/130, shadcn 114/130. Gap: -11. Unchanged.** Fixes 1-6 were necessary hygiene (routing, data consistency, metadata), not capability expansion. Excluding community (-12, unclosable), SDE leads by +1. Closable deficit: -4 (Customizability -3, Bundle -1). Biggest opportunity: page-level blocks (+4 potential).
+
+---
+
 ## 2026-02-16T12:30:00Z — SB Fixes: 404 Redirects, Dynamic Sitemap, Data Consistency, llms-full.txt Completeness
 
 Implements fixes SB-1 through SB-6 from Speedboat's A+ evaluation. These address the remaining gaps between SDE and shadcn/ui in the competitive analysis.
