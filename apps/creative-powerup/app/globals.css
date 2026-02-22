@@ -1,6 +1,7 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@config "../../../packages/ui/tailwind/index.js";
+@custom-variant dark (&:where(.dark, .dark *));
+@source "../../../packages/ui/src";
 
 @layer base {
   :root {
@@ -53,7 +54,7 @@
     --color-glass-border: rgba(0, 0, 0, 0.1);
 
     --radius: 0.5rem;
-    
+
     /* Effects */
     --effect-blur-sm: blur(4px);
     --effect-blur-md: blur(8px);
@@ -156,21 +157,18 @@ code {
   @apply font-mono text-sm;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
-  
-  /* Font family utilities */
-  .font-heading {
-    font-family: var(--font-heading);
-  }
+@utility text-balance {
+  text-wrap: balance;
+}
 
-  .font-body {
-    font-family: var(--font-body);
-  }
+@utility font-heading {
+  font-family: var(--font-heading);
+}
 
-  .font-mono {
-    font-family: var(--font-mono);
-  }
+@utility font-body {
+  font-family: var(--font-body);
+}
+
+@utility font-mono {
+  font-family: var(--font-mono);
 }

@@ -1,6 +1,7 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@config "../../../packages/ui/tailwind/index.js";
+@custom-variant dark (&:where(.dark, .dark *));
+@source "../../../packages/ui/src";
 
 @layer base {
   :root {
@@ -150,7 +151,7 @@
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-heading);
   }
-  
+
   /* Apply border color globally */
   * {
     border-color: var(--color-border);
@@ -198,21 +199,18 @@
   letter-spacing: 0;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+@utility text-balance {
+  text-wrap: balance;
+}
 
-  /* Font family utilities */
-  .font-heading {
-    font-family: var(--font-heading);
-  }
+@utility font-heading {
+  font-family: var(--font-heading);
+}
 
-  .font-body {
-    font-family: var(--font-body);
-  }
+@utility font-body {
+  font-family: var(--font-body);
+}
 
-  .font-mono {
-    font-family: var(--font-mono);
-  }
+@utility font-mono {
+  font-family: var(--font-mono);
 }

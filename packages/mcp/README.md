@@ -205,13 +205,13 @@ The server runs in stdio mode, communicating via stdin/stdout per the MCP specif
 ## Documentation
 
 - **Full Documentation**: https://thesage.dev/
-- **GitHub**: https://github.com/shalomormsby/ecosystem
+- **GitHub**: https://github.com/shalomormsby/sage-design-engine
 - **MCP Specification**: https://modelcontextprotocol.io/
 
 ## Support
 
 For issues or questions:
-- GitHub Issues: https://github.com/shalomormsby/ecosystem/issues
+- GitHub Issues: https://github.com/shalomormsby/sage-design-engine/issues
 - Documentation: https://thesage.dev/#mcp-server
 
 ## License

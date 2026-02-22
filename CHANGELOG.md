@@ -2,7 +2,50 @@
 
 All notable changes to this project will be documented in this file.
 
-**Last updated:** 2026-02-16, 4:00 PM PST
+**Last updated:** 2026-02-22
+
+---
+
+## 2026-02-22 — Node 24 Upgrade & CI/CD Docs Cleanup
+
+Upgraded CI from Node 20 to Node 24. Simplified CI/CD documentation to reflect that this repo is a consumer (not a publisher) — publishing happens in sage-design-engine.
+
+### Added
+- `.nvmrc` — Pins Node 24 for local development consistency
+
+### Updated
+- `.github/workflows/ci.yml` — Node 20 → 24
+- `docs/CICD-PIPELINE.md` — Simplified for consumer repo (removed stale Changesets/NPM_TOKEN/release workflow references, points to sage-design-engine for publishing)
+- `AGENTS.md` — Updated Node prerequisite (20+ → 24+), CI/CD section, and design system publishing section
+- `README.md` — Updated Node prerequisite
+- `CONTRIBUTING.md` — Updated Node prerequisite
+- `docs/SAGE_REPO_SPLIT_PLAN.md` — Added note that Trusted Publishing replaces NPM_TOKEN
+
+---
+
+## 2026-02-21 — Package Architecture: 8 → 3 Packages
+
+Strategic pruning of npm package inventory. Evaluated all 8 published `@thesage/*` packages for actual usage, dependency relationships, and scalability.
+
+### Deleted (zero usage across entire codebase)
+- `@thesage/utils` — Contained only a placeholder function. Removed.
+- `@thesage/core` — ThemeProvider + store duplicated identically in `@thesage/ui`. Removed.
+- `@thesage/hooks` — 5 generic hooks with zero imports anywhere. Removed.
+- `@thesage/charts` — Recharts re-export wrapper with zero imports. Removed.
+
+### Absorbed
+- `@thesage/config` — Tailwind CSS preset moved into `packages/ui/tailwind/index.js`. App `globals.css` paths updated. Package deleted.
+
+### Remaining (3 packages)
+- `@thesage/ui` — Components, hooks, providers, utils (the flagship)
+- `@thesage/tokens` — Design tokens, framework-agnostic (the DNA)
+- `@thesage/mcp` — MCP server for AI assistants (the intelligence layer)
+
+### Updated
+- Both app `globals.css` files point to `packages/ui/tailwind/index.js`
+- `@thesage/config` removed from all devDependencies
+- README.md, CLAUDE.md, AGENTS.md, ENTERPRISE-INTEGRATION-GUIDE.md updated
+- Lockfile regenerated. Both apps build successfully.
 
 ---
 
@@ -52,7 +95,7 @@ Audited every claim in `docs/plan-to-improve-sde-to-a-plus.md` against actual co
 
 ---
 
-## 2026-02-16T22:30:00Z — SB Fixes: 404 Redirects, Dynamic Sitemap, Data Consistency, llms-full.txt Completeness
+## 2026-02-16T12:30:00Z — SB Fixes: 404 Redirects, Dynamic Sitemap, Data Consistency, llms-full.txt Completeness
 
 Implements fixes SB-1 through SB-6 from Speedboat's A+ evaluation. These address the remaining gaps between SDE and shadcn/ui in the competitive analysis.
 
@@ -2842,7 +2885,7 @@ Migrated 15+ critical components from `@ecosystem/design-system` to `@thesage/ui
 **Claude Desktop Configuration:**
 - Added @thesage/mcp to Claude Desktop config
 - Configuration file: `~/Library/Application Support/Claude/claude_desktop_config.json`
-- Uses local path: `node /Users/shalomormsby/Developer/work/ecosystem/packages/sds-mcp-server/dist/index.js`
+- Uses local path: `node <repo-root>/packages/sds-mcp-server/dist/index.js`
 - Enables Claude Desktop to browse, search, and install all 48 Sage UI components via natural language
 
 #### Documentation Updates ✅

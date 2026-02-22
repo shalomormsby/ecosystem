@@ -11,7 +11,7 @@
 
 ```bash
 # Core (required)
-pnpm add @thesage/ui @thesage/config framer-motion
+pnpm add @thesage/ui framer-motion
 
 # Optional — install only what you use
 pnpm add react-hook-form @hookform/resolvers zod         # Forms
@@ -36,7 +36,8 @@ const config: Config = {
     // Include the design system source for Tailwind class scanning
     path.join(__dirname, './node_modules/@thesage/ui/src/**/*.{js,ts,jsx,tsx}'),
   ],
-  presets: [require('@thesage/config/tailwind')],
+  // The Tailwind preset is bundled within @thesage/ui
+  // See globals.css setup in documentation at thesage.dev
 }
 
 export default config

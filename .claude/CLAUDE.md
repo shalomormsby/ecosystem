@@ -2,7 +2,7 @@
 
 > **Context file for AI assistants (primarily Claude) working on this design ecosystem. Read this first, then [DESIGN-PHILOSOPHY.md](../DESIGN-PHILOSOPHY.md) and [AGENTS.md](../AGENTS.md).**
 
-Last updated: 2026-02-15
+Last updated: 2026-02-21
 
 ---
 
@@ -518,6 +518,6 @@ Every component should make users feel:
 
 ---
 
-**Last major update:** Phase 5 In Progress (Feb 2026) - 92 components across 11 categories, 156 tests, CI/CD with size checks, MCP server with full prop data, AI discovery endpoints.
+**Last major update:** Phase 5 In Progress (Feb 2026) - 99 components across 11 categories, 156 tests, CI/CD with size checks, MCP server with full prop data, AI discovery endpoints. Package architecture pruned to 3 packages: `@thesage/ui`, `@thesage/tokens`, `@thesage/mcp`.
 
 **Current focus:** A+ optimization - Eject mechanism, page-level blocks, MCP expansion, llms-full.txt enhancements.

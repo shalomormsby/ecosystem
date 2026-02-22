@@ -635,9 +635,8 @@ Fixed: `Tools (8): list_components, search_components, get_component, install_co
 
 ### Project Overview
 
-This is a monorepo at `/Users/shalomormsby/Developer/work/ecosystem` containing:
+This is a monorepo containing:
 - `apps/web/` — Sage Design Engine docs site (Next.js App Router), deployed at thesage.dev
-- `apps/portfolio/` — Portfolio site
 - `packages/ui/` — `@thesage/ui` component library (92→99 components)
 - `packages/mcp/` — `@thesage/mcp` MCP server for AI assistants
 - `packages/tokens/` — `@thesage/tokens` design tokens

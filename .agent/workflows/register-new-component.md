@@ -1,5 +1,5 @@
 ---
-description: Complete workflow for adding a new component to SDE and registering it across all surfaces
+description: Complete workflow for adding a new component to Sage Design Engine (SDE) and registering it across all surfaces
 last_updated: 2026-02-16
 ---
 
