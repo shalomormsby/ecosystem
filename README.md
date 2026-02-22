@@ -47,11 +47,11 @@ pnpm add @thesage/ui
 
 Available packages:
 
-| Package | Version |
-|---------|---------|
-| `@thesage/ui` | ^1.1.1 |
-| `@thesage/tokens` | ^0.0.3 |
-| `@thesage/config` | ^0.0.3 |
+| Package | Version | Purpose |
+|---------|---------|---------|
+| `@thesage/ui` | ^1.1.1 | Components, hooks, providers, utils |
+| `@thesage/tokens` | ^0.0.3 | Design tokens (colors, typography, motion) |
+| `@thesage/mcp` | ^0.8.2 | MCP server for AI assistants |
 
 Interactive documentation: [thesage.dev](https://thesage.dev/)
 
@@ -89,7 +89,7 @@ This ecosystem is built on four principles:
 
 ### Prerequisites
 
-- Node.js 20+
+- Node.js 24+ (see `.nvmrc`)
 - pnpm 8.15.0+
 
 ### Commands

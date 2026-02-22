@@ -62,7 +62,6 @@ pnpm add @dnd-kit/core @dnd-kit/sortable @dnd-kit/utilities
 ```js
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  presets: [require('@thesage/config/tailwind')],
   content: [
     "./src/**/*.{ts,tsx}",
     "./node_modules/@thesage/ui/dist/**/*.{js,ts,jsx,tsx}"

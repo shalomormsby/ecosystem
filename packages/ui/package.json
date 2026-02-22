@@ -242,7 +242,6 @@
         "@testing-library/jest-dom": "^6.9.1",
         "@testing-library/react": "^16.3.2",
         "@testing-library/user-event": "^14.6.1",
-        "@thesage/config": "workspace:*",
         "@types/react": "^19",
         "date-fns": "^4.1.0",
         "eslint": "^9.39.2",

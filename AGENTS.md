@@ -360,7 +360,7 @@ The answer that best serves the human wins.
 
 ### Prerequisites
 
-- **Node.js 20+** (LTS recommended)
+- **Node.js 24+** (required for npm Trusted Publishing; `.nvmrc` pins this)
 - **pnpm 8.15.0+** (not npm or yarn - install with `npm install -g pnpm`)
 - **Git**
 - **Terminal/Shell** with bash/zsh support
@@ -558,17 +558,17 @@ vercel --prod
 - Prefix with `NEXT_PUBLIC_` for client-side access
 - Currently: No environment variables needed for portfolio
 
-#### Design System (npm Publishing)
+#### Design System (npm Packages)
 
-**Status:** Not yet published to npm (prepared for future publishing)
+**Published from:** [sage-design-engine](https://github.com/shalomormsby/sage-design-engine) repo (not this repo)
 
-**When ready to publish:**
-1. Update version in `packages/ui/package.json`
-2. Build: `pnpm build --filter @thesage/ui`
-3. Publish: `cd packages/ui && npm publish`
-4. Update CHANGELOG.md with version and changes
+**To update packages here:**
+```bash
+pnpm update @thesage/ui @thesage/tokens
+pnpm build
+```
 
-**Package name:** `@thesage/ui` (or update before publishing)
+Packages consumed: `@thesage/ui`, `@thesage/tokens`, `@thesage/mcp`
 
 #### Other Apps
 
@@ -615,32 +615,12 @@ pnpm build
 
 ### CI/CD Pipeline
 
-**Status:** Not yet configured
+**Status:** Configured — see [docs/CICD-PIPELINE.md](docs/CICD-PIPELINE.md) for full reference.
 
-**Recommended setup (GitHub Actions):**
-```yaml
-# .github/workflows/ci.yml
-name: CI
-on: [push, pull_request]
+**Workflow:**
+- **CI (`ci.yml`)** — Runs on every PR and push to `main`. Builds all apps and lints.
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: pnpm/action-setup@v2
-        with:
-          version: 8.15.0
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 20
-          cache: 'pnpm'
-      - run: pnpm install
-      - run: pnpm build
-      - run: pnpm lint
-      # When tests are added:
-      # - run: pnpm test
-```
+**Note:** This repo is a consumer — it does not publish packages to npm. Publishing happens in the [sage-design-engine](https://github.com/shalomormsby/sage-design-engine) repo. To update packages here: `pnpm update @thesage/ui`
 
 ### Performance Monitoring
 
@@ -1378,7 +1358,7 @@ function AnimatedComponent() {
 
 // 1. Imports (external, then internal, then types)
 import { motion } from 'framer-motion'
-import { cn } from '@thesage/utils'
+import { cn } from '@thesage/ui/utils'
 import type { ComponentNameProps } from './ComponentName.types'
 
 // 2. Types (if not in separate file)

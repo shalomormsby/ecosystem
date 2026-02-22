@@ -333,8 +333,9 @@ These must be configured in **GitHub → Settings → Secrets and variables → 
 
 | Secret Name | Purpose | Used By |
 | :--- | :--- | :--- |
-| `NPM_TOKEN` | Publish packages to NPM registry | `release.yml` |
-| `GH_TOKEN_FOR_CI` | Create release PRs, auto-merge changeset PRs | `release.yml`, `auto-merge.yml` |
+| `GH_TOKEN_FOR_CI` | Create release PRs, approve PRs, enable auto-merge | `release.yml`, `auto-merge.yml` |
+
+> **Note (2026-02-22):** `NPM_TOKEN` is no longer needed. The ecosystem now uses npm Trusted Publishing via GitHub OIDC (`publish.yml` with `id-token: write`). See [CICD-PIPELINE.md](CICD-PIPELINE.md) for details. If the new `sage-design-engine` repo adopts the same approach, configure Trusted Publishers on npmjs.com instead of creating an npm token.
 
 **Important:** The workflow files reference `secrets.GH_TOKEN_FOR_CI` — not `GH_TOKEN` or `GITHUB_TOKEN`.
 

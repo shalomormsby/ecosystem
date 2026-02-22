@@ -2,7 +2,7 @@ const { join } = require('path');
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-    presets: [require('@thesage/config/tailwind')],
+    presets: [require('./tailwind/index.js')],
     content: [join(__dirname, 'src/**/*.{ts,tsx}')],
     theme: {
         extend: {},

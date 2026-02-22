@@ -17,7 +17,7 @@ pnpm build
 
 ### Prerequisites
 
-- Node.js 20+
+- Node.js 24+ (see `.nvmrc`)
 - pnpm 8.15.0+
 
 ## How to Contribute
