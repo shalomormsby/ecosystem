@@ -2,7 +2,7 @@
 
 > **Context file for AI assistants (primarily Claude) working on this design ecosystem. Read this first, then [DESIGN-PHILOSOPHY.md](../DESIGN-PHILOSOPHY.md) and [AGENTS.md](../AGENTS.md).**
 
-Last updated: 2026-02-21
+Last updated: 2026-03-01
 
 ---
 
@@ -37,6 +37,14 @@ You're working on **Shalom's Creative Ecosystem** - a monorepo demonstrating tha
    - **Portfolio** (production) - Proof of philosophy with Customizer integration
    - **Sage Design Engine** (production) - Interactive docs with LLM optimization, JSON-LD metadata
    - **Creative Powerup** (in development) - Experiment gallery and community platform
+
+4. **Sage AI (🚧 Work in Progress — Phase 1):**
+   - The shared intelligence layer for the entire ecosystem (`packages/sage-ai/`, published as `@thesage/ai`)
+   - Sovereign, solar-powered AI running on local hardware (Dell XPS 8950, RTX 3090, Marin County)
+   - Apertus foundation model (8B/70B), constitutional rules, sovereignty tiers, client router
+   - **Read [packages/sage-ai/INCEPTION.md](../packages/sage-ai/INCEPTION.md) before working on this package** — it is the founding technical blueprint
+   - Licensed under RAIL (Responsible AI License), unlike the ecosystem's MIT packages
+   - Current status: Phase 1a (hardware setup) + Phase 1b (package foundation) in parallel
 
 ### Architecture Patterns We've Established
 
@@ -74,9 +82,11 @@ You're working on **Shalom's Creative Ecosystem** - a monorepo demonstrating tha
 
 3. **[.agent/workflows/register-new-component.md](../.agent/workflows/register-new-component.md)** - Step-by-step workflow for adding components to @thesage/ui and registering them in Sage Studio. **Follow this workflow whenever creating a new component.**
 
-4. **[CHANGELOG.md](../CHANGELOG.md)** - Recent work history. Check this to understand what's been done before starting new work.
+4. **[packages/sage-ai/INCEPTION.md](../packages/sage-ai/INCEPTION.md)** - 🚧 Founding blueprint for Sage AI (the ecosystem's shared intelligence layer). **Read this before working on `@thesage/ai`.** Covers architecture, constitutional rules, sovereignty tiers, API surface, testing strategy, and roadmap.
 
-5. **[README.md](../README.md)** - Project overview, tech stack, quick start guide.
+5. **[CHANGELOG.md](../CHANGELOG.md)** - Recent work history. Check this to understand what's been done before starting new work.
+
+6. **[README.md](../README.md)** - Project overview, tech stack, quick start guide.
 
 ---
 
@@ -123,6 +133,7 @@ From [AGENTS.md - File Organization Rules](../AGENTS.md#file-organization-rules)
 | Design tokens | `packages/tokens/src/` |
 | Shared utility | `packages/ui/src/lib/` |
 | App-specific utility | `apps/<app>/lib/` |
+| AI capabilities (shared) | `packages/sage-ai/src/` (clients, prompts, rag) |
 
 **Functional Categories:**
 - **actions/** - Triggers behavior (Button, Toggle)
@@ -144,6 +155,14 @@ From [AGENTS.md - File Organization Rules](../AGENTS.md#file-organization-rules)
 ```typescript
 import { Button, Card, useTheme, CustomizerPanel } from '@thesage/ui'
 import { spacing, typography } from '@thesage/tokens'
+```
+
+**Sage AI (🚧 WIP — API shape finalizing in Phase 1b):**
+```typescript
+import { createSageClient } from '@thesage/ai'
+const sage = createSageClient({ /* config */ })
+const response = await sage.complete(prompt, opts)
+// See packages/sage-ai/INCEPTION.md Section 2 for full API surface
 ```
 
 **Subpath exports (for explicit paths):**
@@ -483,6 +502,7 @@ pnpm build --filter @thesage/ui  # Regenerate type definitions
 
 - **[DESIGN-PHILOSOPHY.md](../DESIGN-PHILOSOPHY.md)** - The North Star (read first)
 - **[AGENTS.md](../AGENTS.md)** - Comprehensive technical guide (read second)
+- **[packages/sage-ai/INCEPTION.md](../packages/sage-ai/INCEPTION.md)** - 🚧 Sage AI founding blueprint (read before working on `@thesage/ai`)
 - **[.agent/workflows/register-new-component.md](../.agent/workflows/register-new-component.md)** - Component registration workflow
 - **[README.md](../README.md)** - Project overview
 - **[CHANGELOG.md](../CHANGELOG.md)** - Work history
@@ -518,6 +538,6 @@ Every component should make users feel:
 
 ---
 
-**Last major update:** Phase 5 In Progress (Feb 2026) - 99 components across 11 categories, 156 tests, CI/CD with size checks, MCP server with full prop data, AI discovery endpoints. Package architecture pruned to 3 packages: `@thesage/ui`, `@thesage/tokens`, `@thesage/mcp`.
+**Last major update:** March 2026 - 99 components across 11 categories, 156 tests, CI/CD with size checks, MCP server with full prop data, AI discovery endpoints. Package architecture: `@thesage/ui`, `@thesage/tokens`, `@thesage/mcp`, and `@thesage/ai` (🚧 WIP).
 
-**Current focus:** A+ optimization - Eject mechanism, page-level blocks, MCP expansion, llms-full.txt enhancements.
+**Current focus:** Sage AI Phase 1 (sovereign AI intelligence layer) — hardware setup + package foundation in parallel. See [packages/sage-ai/INCEPTION.md](../packages/sage-ai/INCEPTION.md).
