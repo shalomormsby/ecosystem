@@ -2,7 +2,19 @@
 
 All notable changes to this project will be documented in this file.
 
-**Last updated:** 2026-02-22
+**Last updated:** 2026-03-01
+
+---
+
+## 2026-03-01 — Sage AI: Inception Document
+
+Founding record for Sage AI — the ecosystem's shared sovereign intelligence layer. This is the product vision and technical blueprint for a solar-powered, locally hosted AI built on the Apertus foundation model, designed to amplify human creativity and empower conscious creators.
+
+### Added
+- `packages/sage-ai/INCEPTION.md` — 13-section founding blueprint covering: two-layer architecture (monorepo package + physical sovereign node), constitutional rules mapped to the four design philosophy principles, sovereignty tiers (Full / Reduced / Cloud-Assisted) with failure modes, testing strategy with unified MockSageClient, RAIL license, RAG architecture decisions (deferred to Phase 3), monetization philosophy ("sell the experience, not the engine"), and phased roadmap with quantitative gates
+
+### Updated
+- `.claude/CLAUDE.md` — Added Sage AI as WIP package in Recent Achievements, Essential Files, File Organization Rules, Import Patterns, Related Documentation, and Current Focus sections. Timestamp updated to 2026-03-01.
 
 ---
 
