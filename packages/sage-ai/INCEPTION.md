@@ -4,7 +4,7 @@
 >
 > *Initiated: March 1, 2026 · Author: Shalom Ormsby · Status: Work in Progress*
 
-**Current Phase:** 1a (hardware) + 1b (package) | **Last Updated:** 2026-03-01 | **License:** [RAIL](https://www.licenses.ai/) (Responsible AI License)
+**Current Phase:** 1a (hardware) + 1b (package) | **Last Updated:** 2026-03-04 | **License:** [RAIL](https://www.licenses.ai/) (Responsible AI License)
 
 ---
 
@@ -394,24 +394,26 @@ The AI should feel like **sunlight** — abundant when it's here, gracefully red
 
 ## Must-Resolve Before Phase 1b
 
-> **⚠️ Apertus on Ollama is community-only (Phase 1a risk)**
+> **✅ Apertus on Ollama — RESOLVED (2026-03-03)**
 >
-> Apertus is available on Ollama as `MichelRosselli/apertus` (a community-published model), **not** as an official Ollama library model. There was an early architecture compatibility issue (`ApertusForCausalLM` unsupported). An [open issue (#12149)](https://github.com/ollama/ollama/issues/12149) requests native support.
+> Apertus is available on Ollama as `MichelRosselli/apertus` (a community-published model). Both the 8B (`apertus:latest`) and 70B Q4_K_M (`apertus-70b:latest`) models have been successfully pulled, installed, and verified on the Sovereign Node. Both models appear in Open WebUI's model selector and are available for inference.
 >
-> This means Phase 1a must include a verification step: pull the community model, confirm it runs inference on the RTX 3090 with CUDA acceleration, and benchmark both 8B and 70B before committing to the rest of the plan. If the community model doesn't work, the fallback is converting HuggingFace weights to GGUF format manually — doable but adds time.
+> Local aliases have been created for clean naming: `apertus:latest` (8B) and `apertus-70b:latest` (70B Q4_K_M).
 >
-> **Gate:** Phase 1b cannot begin package development against Apertus until this is verified. If Apertus fails on Ollama, evaluate alternative open models (Llama 3, Mistral, Qwen) before proceeding.
+> **Gate status: PASSED.** Phase 1b can proceed with package development against Apertus. The original risk (community model incompatibility) did not materialize.
 
 ## Phase 1a: The Sovereign Node 🔧
 
 *Target: March 2026 · Workstream: Hardware (hands-on, physical setup — AI-assisted but human-executed)*
 
-- [ ] Wipe Dell XPS 8950, install Ubuntu 24.04 LTS
-- [ ] Set BIOS to AHCI mode, install proprietary NVIDIA drivers, verify CUDA acceleration
-- [ ] Deploy Ollama + pull Apertus 8B model via `MichelRosselli/apertus`. **Verify inference runs with CUDA acceleration on RTX 3090.** If community model fails, convert from [HuggingFace GGUF weights](https://huggingface.co/collections/swiss-ai/apertus-llm). Benchmark both 8B and 70B before proceeding.
-- [ ] Deploy Open WebUI via Docker (use its built-in RAG — no custom pipeline yet)
+- [x] Wipe Dell XPS 8950, install Ubuntu 24.04 LTS
+- [x] Set BIOS to AHCI mode, install proprietary NVIDIA drivers, verify CUDA acceleration
+- [x] Deploy Ollama + pull Apertus 8B model via `MichelRosselli/apertus`. **Verify inference runs with CUDA acceleration on RTX 3090.** If community model fails, convert from [HuggingFace GGUF weights](https://huggingface.co/collections/swiss-ai/apertus-llm). Benchmark both 8B and 70B before proceeding.
+  - ✅ Both models pulled and aliased: `apertus:latest` (8B, 5.1GB) and `apertus-70b:latest` (70B Q4_K_M, 43.7GB)
+  - ✅ Both models appear in Open WebUI model selector and are available for inference
+- [x] Deploy Open WebUI via Docker (use its built-in RAG — no custom pipeline yet)
 - [ ] Upload initial documents to Open WebUI's RAG: CP Manifesto, Apertus Technical Report
-- [ ] Configure Tailscale mesh and SSH hardening
+- [x] Configure Tailscale mesh and SSH hardening
 - [ ] **Done when:** Sage AI responds to prompts locally via Open WebUI over Tailscale, with Open WebUI's built-in RAG indexing the CP Manifesto
 - [ ] **Quantitative gate:** Apertus 8B generates a coherent response in <5s on the RTX 3090; 70B (Q4_K_M) generates in <30s
 
@@ -482,7 +484,7 @@ Runs in parallel with Phase 1a. Different tools, different risks, different defi
 
 # 13. Open Questions
 
-- **Model selection:** Is Apertus the right long-term foundation, or should we evaluate other open models (Llama 3, Mistral, Qwen) as they evolve? **Note:** Apertus on Ollama is community-only (`MichelRosselli/apertus`) with a known architecture compatibility issue ([#12149](https://github.com/ollama/ollama/issues/12149)). Phase 1a verification is a hard gate — if Apertus doesn't run, this question gets answered immediately.
+- **Model selection:** Is Apertus the right long-term foundation, or should we evaluate other open models (Llama 3, Mistral, Qwen) as they evolve? **Note:** The Phase 1a verification gate has passed — both Apertus 8B and 70B run successfully on the Sovereign Node via Ollama. The community model (`MichelRosselli/apertus`) works. Long-term, monitor [#12149](https://github.com/ollama/ollama/issues/12149) for official Ollama library support.
 - **Cloud hybrid (resolved — Sovereignty Tiers):** Tier 3 is opt-in per-request, never automatic. Remaining question: should certain *categories* of requests (e.g., those containing personal data) be blocked from Tier 3 entirely, even if the user opts in?
 - **Monetization (resolved — see Section 11):** Sage AI is infrastructure that powers paid experiences. See the dedicated Monetization Philosophy section for the full framework. Remaining question: how is the infrastructure cost allocated across ventures for internal accounting?
 - **MCP scope & namespace:** The ecosystem already ships `@thesage/mcp` for SDE. Before building a separate Sage AI MCP, what are 3–5 use cases that *cannot* be handled by `@thesage/mcp` or the `clients/` module? Is the right move a single unified MCP, or two purpose-scoped servers?
