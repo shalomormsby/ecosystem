@@ -263,3 +263,19 @@ More importantly, the memory ceiling difference (36GB vs. 128GB) makes the 32-co
 - [M5 Max 32-core vs 40-core — AppleInsider](https://appleinsider.com/articles/26/03/03/how-m5-pro-and-m5-max-push-macbook-pro-into-high-bandwidth-ai-era)
 - [M5 Max specs deep dive — Apple M5 Wikipedia](https://en.wikipedia.org/wiki/Apple_M5)
 - [MacBook Pro M5 Pro & Max complete guide — Macworld](https://www.macworld.com/article/2942089/macbook-pro-m5-pro-max-release-specs-price.html)
+
+---
+
+## 2026-03-06 (at-a-glance comparison)
+
+### Dell XPS 8950 vs. M5 Max (40-Core) — 70B Inference Summary
+
+> One figure in the original table was corrected before adding: the Dell's "effective bandwidth" was listed as ~250–300 GB/s, which reflects the RTX 3090's VRAM bandwidth in isolation. For 70B inference specifically, ~16GB of the model spills to system RAM via PCIe (ceiling: ~32 GB/s unidirectional), bottlenecking the whole pipeline. Back-calculating from observed 2–3 t/s: `2.5 t/s × 40GB ≈ ~100 GB/s` effective. That's the accurate number for this workload.
+
+| Feature | Dell XPS 8950 (Current) | M5 Max (40-Core Tier) |
+|---|---|---|
+| Memory Architecture | Split (24GB VRAM / 64GB DDR5) | Unified (64GB–128GB) |
+| Effective Bandwidth (70B) | ~80–120 GB/s (PCIe-bottlenecked) | 614 GB/s (full unified path) |
+| Model Fit (70B Q4_K_M) | Spills to system RAM (high latency) | Fits entirely in high-speed memory |
+| Inference Speed | ~2–3 tokens/sec | ~12–15 tokens/sec (est.) |
+| Power Intensity | 450W–550W | ~40W–80W |
