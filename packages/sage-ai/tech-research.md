@@ -151,3 +151,115 @@ If Sage AI's sovereignty principle is primarily about *data privacy and independ
 - [LLM Inference — Consumer GPU Performance — Puget Systems](https://www.pugetsystems.com/labs/articles/llm-inference-consumer-gpu-performance/)
 - [Performance of llama.cpp on Apple Silicon — GitHub Discussion #4167](https://github.com/ggml-org/llama.cpp/discussions/4167)
 - [Apple M5 — Wikipedia](https://en.wikipedia.org/wiki/Apple_M5)
+
+---
+
+## 2026-03-06 (follow-up)
+
+### Question
+
+For the MacBook Pro M5 Max: how much difference does the 40-core GPU make vs. the 32-core GPU for serving the Apertus 70B model?
+
+---
+
+### Research Findings
+
+#### The Premise Gemini Used Is Wrong for M5 Max
+
+Gemini's analysis — that the 32-core and 40-core M5 Max share identical memory bandwidth — is accurate for the **M4 Max** (where both tiers ran at ~546 GB/s), but **does not hold for M5 Max**. Apple's M5 generation introduced a bandwidth split between the two GPU tiers:
+
+| M5 Max Variant | GPU Cores | Memory Bandwidth | Max Unified Memory |
+|---|---|---|---|
+| M5 Max (lower tier) | 32-core | **460 GB/s** | **36 GB** |
+| M5 Max (upper tier) | 40-core | **614 GB/s** | **128 GB** |
+
+That's a **154 GB/s gap — ~33% more bandwidth** on the 40-core, not parity. This fundamentally changes the analysis.
+
+---
+
+#### Two Separate Problems, Both Favor the 40-Core
+
+**Problem 1: Memory capacity**
+
+The Apertus 70B model at Q4_K_M quantization requires ~40–42GB. The 32-core M5 Max tops out at **36GB** of unified memory. It cannot fit the 70B model at Q4 quality — you'd be forced into Q3 (~28GB) or Q2 (~18GB) quantization, both of which meaningfully degrade output coherence and reasoning quality. For a sovereign AI meant to challenge assumptions and think deeply, running at Q2/Q3 is a real capability loss.
+
+The 40-core M5 Max starts at 48GB and goes to 128GB. At 64GB, the entire Q4_K_M 70B model loads comfortably with ~22GB to spare for context and KV cache.
+
+**Problem 2: Token generation speed (bandwidth-bound)**
+
+Text generation (the "decoding" phase) is bandwidth-bound: for every token generated, the GPU must read the entire model's weights from memory. The formula is roughly:
+
+```
+tokens/sec ≈ memory_bandwidth / model_size_in_bytes
+```
+
+At Q4_K_M (~40GB loaded):
+- 32-core M5 Max (460 GB/s): ~11–13 tokens/sec theoretical ceiling
+- 40-core M5 Max (614 GB/s): ~15–17 tokens/sec theoretical ceiling
+
+That's a real ~30–35% speed difference in generation — not negligible when you're waiting for a 500-word response.
+
+---
+
+#### Where Gemini's Analysis Still Holds: Prefill
+
+Gemini is correct that the 40-core GPU pulls ahead most visibly during the **prefill phase** (processing your prompt or a long document before generating a response). This phase is compute-bound — more GPU cores = faster. With ~25% more cores and better bandwidth, the 40-core finishes prefill noticeably faster on long inputs like a RAG document scan or a multi-page design brief. This is the most perceptible difference in interactive use.
+
+---
+
+#### Synthesized Verdict
+
+Gemini's conclusion ("for interactive conversation the 32-core is fine") was built on the assumption that both tiers share the same bandwidth. That assumption is false for M5 Max. The real picture:
+
+| Use Case | 32-Core M5 Max | 40-Core M5 Max |
+|---|---|---|
+| Load 70B Q4_K_M model | ❌ Doesn't fit (36GB max) | ✅ Fits with room to spare |
+| Token generation speed | ~11–13 t/s (460 GB/s) | ~15–17 t/s (614 GB/s) |
+| Prefill (long prompts) | Baseline | ~25–33% faster |
+| Max context capacity | Limited (no headroom) | Comfortable (22GB+ free) |
+| Energy efficiency | Slightly lower draw | Slightly higher draw |
+
+For Apertus 70B specifically: the 32-core M5 Max isn't just slower — it **can't run the model at full quality**. It's not a speed tradeoff, it's a capability ceiling. The 40-core M5 Max at 64GB is the minimum viable M5 Max configuration for the 70B model.
+
+The $400 premium for the upper-tier M5 Max isn't about speed alone. It's about whether the machine can actually run the model you need, at the quality level Sage AI's purpose demands.
+
+---
+
+### Gemini's Analysis (for reference)
+
+> For large language models like the Apertus 70B, the difference between a 32-core and 40-core GPU on a high-end "Max" series chip is surprisingly minimal for text generation. This is due to the fundamental way AI inference works and how Apple Silicon is architected.
+>
+> **1. The Memory Bandwidth Bottleneck**
+>
+> The primary bottleneck for generating text (the "decoding" phase) is not the number of GPU cores, but Memory Bandwidth. In an LLM, the model must read every single parameter from memory for every single word it generates.
+>
+> - The Architecture: In Apple's "Max" tier chips, both the "binned" (32-core) and "full" (40-core) variants typically share the same memory controller and bandwidth (e.g., 546 GB/s on the M4 Max).
+> - The Result: Because the bandwidth is the same, both chips can feed data to the GPU at the same maximum speed. Since even 32 cores are usually more than enough to handle the math once the data arrives, increasing to 40 cores does not speed up the "tokens per second" during output.
+>
+> **2. Where the 40-Core GPU Wins: "Prefill"**
+>
+> While the generation speed is nearly identical, the 40-core GPU will outperform the 32-core one in the "Prefill" phase. This phase is compute-bound, meaning the GPU cores are working at 100% to process all the text at once. The 40-core GPU has ~25% more raw compute power (TFLOPS).
+>
+> **Metric** | **32-Core GPU** | **40-Core GPU** | **Difference**
+> Token Generation Speed | ~8-10 tokens/sec | ~8-10 tokens/sec | Negligible
+> Prompt Processing (Prefill) | Baseline | ~20-25% Faster | Significant for long inputs
+> Model Capacity | 64GB (Shared) | 64GB (Shared) | None
+>
+> **The Verdict:** If your primary use case is interactive conversation, the 32-core GPU is the more efficient choice. However, if you plan to use the system for Deep Retrieval (RAG), the 40-core GPU provides a meaningful reduction in wait time before the AI starts responding.
+
+---
+
+### Claude's Note on Gemini's Analysis
+
+Gemini's reasoning about *why* bandwidth matters is solid, and its prefill analysis is correct. The error is one of hardware facts: the M5 Max does **not** give both GPU tiers the same bandwidth. That was true for M4 Max; it's not true here. The 33% bandwidth gap on M5 Max makes the 40-core meaningfully faster for generation, not just prefill.
+
+More importantly, the memory ceiling difference (36GB vs. 128GB) makes the 32-core M5 Max the wrong machine for the 70B Apertus model regardless of speed — it simply can't load the model at production quality. This is the stronger argument and it doesn't appear in Gemini's analysis at all.
+
+---
+
+### Additional Sources
+
+- [M5 Max bandwidth and memory specs — Apple Newsroom](https://www.apple.com/newsroom/2026/03/apple-debuts-m5-pro-and-m5-max-to-supercharge-the-most-demanding-pro-workflows/)
+- [M5 Max 32-core vs 40-core — AppleInsider](https://appleinsider.com/articles/26/03/03/how-m5-pro-and-m5-max-push-macbook-pro-into-high-bandwidth-ai-era)
+- [M5 Max specs deep dive — Apple M5 Wikipedia](https://en.wikipedia.org/wiki/Apple_M5)
+- [MacBook Pro M5 Pro & Max complete guide — Macworld](https://www.macworld.com/article/2942089/macbook-pro-m5-pro-max-release-specs-price.html)
