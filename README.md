@@ -33,8 +33,9 @@ ecosystem/
 │   ├── portfolio/             # Production portfolio site
 │   ├── creative-powerup/      # Experiment gallery (in development)
 │   ├── sage-stocks/           # AI investment intelligence
-│   ├── sageos/                # Future
-│   └── mobile/                # React Native / Expo app
+│   └── sageos/                # Future
+├── packages/
+│   └── sage-ai/               # @thesage/ai — Sovereign AI layer (WIP)
 ```
 
 ### Design System

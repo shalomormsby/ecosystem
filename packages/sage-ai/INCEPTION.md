@@ -392,107 +392,54 @@ The AI should feel like **sunlight** — abundant when it's here, gracefully red
 
 # 12. Roadmap
 
-## Must-Resolve Before Phase 1b
+> **📋 Active task tracking has moved to [sage-ai-todo.md](./sage-ai-todo.md).** This section preserves the phase structure and milestones for the architectural record. For current status, open questions, and next steps, see the todo doc.
 
-> **✅ Apertus on Ollama — RESOLVED (2026-03-03)**
->
-> Apertus is available on Ollama as `MichelRosselli/apertus` (a community-published model). Both the 8B (`apertus:latest`) and 70B Q4_K_M (`apertus-70b:latest`) models have been successfully pulled, installed, and verified on the Sovereign Node. Both models appear in Open WebUI's model selector and are available for inference.
->
-> Local aliases have been created for clean naming: `apertus:latest` (8B) and `apertus-70b:latest` (70B Q4_K_M).
->
-> **Gate status: PASSED.** Phase 1b can proceed with package development against Apertus. The original risk (community model incompatibility) did not materialize.
+## Phases Overview
 
-## Phase 1a: The Sovereign Node 🔧
+| Phase | Name | Target | Status |
+|---|---|---|---|
+| **1a** | The Sovereign Node | March 2026 | Nearly complete — hardware verified, RAG seeding remaining |
+| **1b** | The Package Foundation | March 2026 | Not started — blocked on API shape decision |
+| **2** | The Solar Nervous System | April 2026 | Planning — hardware research complete |
+| **3** | Ecosystem Integration | May–June 2026 | Future |
+| **4** | Community Access & MCP Evaluation | Q3 2026 | Future |
 
-*Target: March 2026 · Workstream: Hardware (hands-on, physical setup — AI-assisted but human-executed)*
+## Key Milestones Achieved
 
-- [x] Wipe Dell XPS 8950, install Ubuntu 24.04 LTS
-- [x] Set BIOS to AHCI mode, install proprietary NVIDIA drivers, verify CUDA acceleration
-- [x] Deploy Ollama + pull Apertus 8B model via `MichelRosselli/apertus`. **Verify inference runs with CUDA acceleration on RTX 3090.** If community model fails, convert from [HuggingFace GGUF weights](https://huggingface.co/collections/swiss-ai/apertus-llm). Benchmark both 8B and 70B before proceeding.
-  - ✅ Both models pulled and aliased: `apertus:latest` (8B, 5.1GB) and `apertus-70b:latest` (70B Q4_K_M, 43.7GB)
-  - ✅ Both models appear in Open WebUI model selector and are available for inference
-- [x] Deploy Open WebUI via Docker (use its built-in RAG — no custom pipeline yet)
-- [ ] Upload initial documents to Open WebUI's RAG: CP Manifesto, Apertus Technical Report
-- [x] Configure Tailscale mesh and SSH hardening
-- [ ] **Done when:** Sage AI responds to prompts locally via Open WebUI over Tailscale, with Open WebUI's built-in RAG indexing the CP Manifesto
-- [ ] **Quantitative gate:** Apertus 8B generates a coherent response in <5s on the RTX 3090; 70B (Q4_K_M) generates in <30s
+- **2026-03-03:** Apertus 8B and 70B models installed and verified on Sovereign Node. Both aliased (`apertus:latest`, `apertus-70b:latest`) and available in Open WebUI. Phase 1b gate **PASSED** — the original risk (Apertus community model incompatibility) did not materialize.
+- **2026-03-04:** sage-knowledge information architecture established. Five-category corpus structure (sources, commentary, reference, guides, collections) with domain taxonomy, format taxonomy, and YAML frontmatter schema.
 
-## Phase 1b: The Package Foundation 💻
+## Phase Definitions of Done
 
-*Target: March 2026 · Workstream: Software (monorepo package — built collaboratively with AI)*
-
-Runs in parallel with Phase 1a. Different tools, different risks, different definition of "done."
-
-> **🎯 Minimum Viable Package:** Phase 1b has multiple tasks alongside hardware setup in 1a — ambitious for one month. The MVP that *proves the architecture works* is: `createSageClient(config)` + `sage.complete()` + the Ollama local client + `MockSageClient` + one constitutional prompt (Epistemic Humility). If this chain sends a prompt from a consuming app through the package to the Sovereign Node and back with constitutional filtering applied, the architecture is validated. Everything else (cloud client, `sage.status()`, subpath exports) can follow in a 1b.1 / 1b.2 split if the month runs short.
-
-- [ ] **Resolve workspace configuration (⚠️ ecosystem-wide change):** `pnpm-workspace.yaml` currently only includes `apps/*`. The `packages/` directory is not in the workspace — packages are published to npm and consumed as versioned dependencies. Before initializing `@thesage/ai`, either add `packages/*` to the workspace config for local linking, or accept the publish-per-change workflow. `CLAUDE.md` claims packages are workspace-linked, but they aren't — fix the doc or fix the config. **Note:** Adding `packages/*` to the workspace config affects *all* existing packages — `@thesage/ui`, `@thesage/tokens`, and `@thesage/mcp` — not just `@thesage/ai`. Their current publish-and-install workflow would change to local linking. Verify that none of them depend on the npm-publish boundary (e.g., for version pinning or CI isolation) before making this change.
-- [ ] Initialize `ecosystem/packages/sage-ai` in the monorepo (TypeScript, tsup build config, exports)
-- [ ] **Decide package API shape (prerequisite — not an open question):** Are domain-specific methods (`generateTheme`, `analyze`) in the core package or subpaths? Does the package export a high-level client or low-level primitives that apps wrap? Do React hooks live in `@thesage/ai` or `@thesage/ai-react`? **Decide by writing consuming code first** — prototype the CP API route and SDE theme generation call, then let the package shape emerge from real usage (see Section 2: Package API Surface).
-- [ ] **Decide package publish strategy (prerequisite — not an open question):** The workspace config task above resolves the immediate `pnpm-workspace.yaml` issue, but the broader question remains: (a) workspace-link for local dev + npm publish for production, (b) workspace-link only (no npm publish until external consumers exist), or (c) full npm publish with changesets/CI from day one. **Recommendation:** Start with workspace-link only. Defer npm publish until there's an external consumer outside the monorepo. This is the simplest path and avoids premature process.
-- [ ] Implement `createSageClient(config)` factory with Sovereignty Tier awareness
-- [ ] Implement `clients/` module: Ollama local client + Tier 3 cloud client (gated by explicit consent) + `MockSageClient` (shared by tests and local dev — see Section 3: Testing Strategy)
-- [ ] Implement `prompts/` module: constitutional rules as system-level prompt templates
-- [ ] Wire `sage.status()` to report active tier, model, and server health
-- [ ] **Done when:** `@thesage/ai` builds, exports a working client, and can route a `complete()` call to the Sovereign Node (Phase 1a) over Tailscale — *or* to the `MockSageClient` for local development and testing
-- [ ] **Quantitative gate:** Client router unit tests and constitutional snapshot tests pass in CI; all exported API types resolve under TypeScript strict mode
-
-## Phase 2: The Solar Nervous System
-
-*Target: April 2026*
-
-- [ ] Configure Raspberry Pi 5 with Home Assistant + Powerwall API
-- [ ] Implement Sun-Grace Protocol (auto Wake-on-LAN)
-- [ ] Implement Lunar Protocol (fallback to 1.5B on Pi)
-- [ ] Design queue implementation details: persistence, TTL, depth limits, user notification (see Section 4 hard rules)
-- [ ] Deploy energy monitoring dashboard
-- [ ] **Done when:** Sage AI wakes and sleeps with the sun, and energy usage is visible in a dashboard
-- [ ] **Quantitative gate:** Sun-Grace triggers Wake-on-LAN within 5 minutes of solar/battery threshold being met; Lunar Protocol transitions to Pi model within 5 minutes of sunset conditions
-
-## Phase 3: Ecosystem Integration
-
-*Target: May–June 2026*
-
-- [ ] Integrate with Sage Design Engine (theme generation from intent)
-- [ ] Implement client router with Sovereignty Tiers (Ollama local → queue-for-sunrise → explicit-opt-in cloud). No silent fallback.
-- [ ] Seed RAG with [DESIGN-PHILOSOPHY.md](../DESIGN-PHILOSOPHY.md) + ecosystem docs
-- [ ] Migrate from Open WebUI's built-in RAG to custom RAG pipeline in `packages/sage-ai/src/rag/` (see Section 7)
-- [ ] **Evaluate Sage Stocks migration:** Audit existing direct SDK imports (`@anthropic-ai/sdk`, `openai`, `@google/generative-ai`). Determine which calls can route through `@thesage/ai` and which need to remain direct (e.g., structured output, fine-tuned prompts). Migration is optional — only proceed if `@thesage/ai` adds clear value over direct SDK calls.
-- [ ] **Done when:** SDE can call `@thesage/ai` to generate theme recommendations from a text prompt, custom RAG pipeline is serving retrieval, and Sage Stocks migration decision is documented
-- [ ] **Quantitative gate:** SDE theme generation returns valid theme tokens from a natural language prompt in <10s (Tier 1); custom RAG retrieves relevant chunks with >70% relevance on a test query set
-
-## Phase 4: Community Access & MCP Evaluation
-
-*Target: Q3 2026*
-
-- [ ] **Resolve community access path:** Tailscale requires each member to install a VPN client — a significant UX barrier for non-technical creators. Evaluate alternatives:
-    - **Option A (recommended):** Authenticated web proxy (e.g., Cloudflare Tunnel, Caddy reverse proxy with OAuth) running on the Sovereign Node. Members access Open WebUI via a standard browser URL with login. Tailscale remains admin/developer-only.
-    - **Option B:** Keep Tailscale but provide a guided onboarding flow with screenshots and support.
-    - **Option C:** Hybrid — web proxy for community, Tailscale for power users and admins.
-- [ ] **Estimate concurrent inference capacity:** A single RTX 3090 running Apertus 70B (Q4_K_M) is GPU-bound. Realistic throughput: ~1–2 concurrent inference requests before latency degrades significantly. With 5+ simultaneous users, contention is real. Mitigation options:
-    - Implement a **request queue** in Open WebUI or at the proxy layer (users see "Your request is #3 in line")
-    - Default community to the **8B model** (faster, supports more concurrency) with 70B reserved for complex/opted-in requests
-    - Set **per-user rate limits** to prevent any single user from monopolizing the GPU (fair-use limits for infrastructure health, not pricing-tier caps — see Section 11)
-    - Track queue depth and latency as part of the energy monitoring dashboard
-- [ ] Implement Living Memory protocol (community wisdom → RAG)
-- [ ] Implement Wisdom Feedback Loop (constitutional hardening from user corrections)
-- [ ] **Prerequisite for MCP:** Document 3–5 concrete technical use cases that *require* a dedicated Sage AI MCP server and *cannot* be served by `@thesage/mcp` (SDE's existing MCP) or the `clients/` module
-- [ ] If use cases are validated: define namespace boundary (`@thesage/mcp` vs. Sage AI MCP), then build in `packages/sage-ai/src/mcp/`
-- [ ] **Done when:** 5+ CP members are actively using Sage AI via browser (no VPN required), queue system handles concurrent requests gracefully, and MCP decision is documented (build or defer)
-- [ ] **Quantitative gate:** 5+ concurrent users served with <15s average response time on 8B model; queue system correctly prioritizes and delivers queued responses within 1 hour of Dell server wake
+- **Phase 1a:** Sage AI responds to prompts locally via Open WebUI over Tailscale, with built-in RAG indexing the initial knowledge base. Apertus 8B <5s response, 70B <30s.
+- **Phase 1b:** `@thesage/ai` builds, exports a working client, routes `complete()` to the Sovereign Node with constitutional filtering. Client router and snapshot tests pass in CI.
+- **Phase 2:** Sage AI wakes and sleeps with the sun. Energy usage visible in a dashboard. Sun-Grace triggers WoL within 5 minutes; Lunar Protocol transitions within 5 minutes of sunset.
+- **Phase 3:** SDE calls `@thesage/ai` for theme generation. Custom RAG pipeline operational. Sage Stocks migration decision documented.
+- **Phase 4:** 5+ CP members using Sage AI via browser (no VPN). Queue system handles concurrency. MCP decision documented.
 
 ---
 
 # 13. Open Questions
 
-- **Model selection:** Is Apertus the right long-term foundation, or should we evaluate other open models (Llama 3, Mistral, Qwen) as they evolve? **Note:** The Phase 1a verification gate has passed — both Apertus 8B and 70B run successfully on the Sovereign Node via Ollama. The community model (`MichelRosselli/apertus`) works. Long-term, monitor [#12149](https://github.com/ollama/ollama/issues/12149) for official Ollama library support.
-- **Cloud hybrid (resolved — Sovereignty Tiers):** Tier 3 is opt-in per-request, never automatic. Remaining question: should certain *categories* of requests (e.g., those containing personal data) be blocked from Tier 3 entirely, even if the user opts in?
-- **Monetization (resolved — see Section 11):** Sage AI is infrastructure that powers paid experiences. See the dedicated Monetization Philosophy section for the full framework. Remaining question: how is the infrastructure cost allocated across ventures for internal accounting?
-- **MCP scope & namespace:** The ecosystem already ships `@thesage/mcp` for SDE. Before building a separate Sage AI MCP, what are 3–5 use cases that *cannot* be handled by `@thesage/mcp` or the `clients/` module? Is the right move a single unified MCP, or two purpose-scoped servers?
-- **Package API shape (resolved — Phase 1b task):** Moved to Phase 1b as a prerequisite. Decide by writing consuming code first, before package initialization.
-- **Package publish strategy (resolved — Phase 1b task):** Moved to Phase 1b as a prerequisite. Decide workspace-link vs. npm publish before initializing the package.
-- **Community access architecture:** Web proxy vs. Tailscale for CP members is a Phase 4 decision, but the choice affects infrastructure planning now. If using a web proxy, the Sovereign Node needs a domain, TLS cert, and an auth provider. Does this compromise the "no public ports" security posture, or is an authenticated tunnel (e.g., Cloudflare Tunnel) an acceptable middle ground?
-- **Concurrent inference capacity:** With a single RTX 3090, how many community members can realistically use Sage AI simultaneously? Is the 8B model sufficient for most community use cases, reserving 70B for Shalom and advanced requests? At what community size does a second GPU (or a second node) become necessary?
-- **Sage Stocks availability:** Sage Stocks relies on commercial API source data that may restrict redistribution or multi-user access. Open question: will Sage Stocks be made available to other users, or does it remain a personal resource for Shalom only? If personal-only, its AI integration needs are simpler (no sovereignty tier UI, no community access considerations) and migration to `@thesage/ai` is lower priority.
+> **📋 Active open questions with current status are tracked in [sage-ai-todo.md](./sage-ai-todo.md).** This section preserves the original questions for the architectural record.
+
+### Resolved
+
+- **Apertus viability (resolved 2026-03-03):** Both 8B and 70B run on the Sovereign Node via Ollama. Gate passed.
+- **Cloud hybrid (resolved — Sovereignty Tiers):** Tier 3 is opt-in per-request, never automatic.
+- **Monetization (resolved — Section 11):** Sage AI is infrastructure that powers paid experiences.
+- **Package API shape (resolved — Phase 1b task):** Decide by writing consuming code first.
+- **Package publish strategy (resolved — Phase 1b task):** Start with workspace-link only.
+
+### Unresolved
+
+- **Tier 3 data restrictions:** Should certain categories of requests (e.g., containing personal data) be blocked from Tier 3 entirely, even with user opt-in?
+- **Infrastructure cost allocation:** How are costs allocated across ventures for internal accounting?
+- **MCP scope & namespace:** What use cases require a dedicated Sage AI MCP beyond `@thesage/mcp` and `clients/`?
+- **Community access architecture:** Web proxy vs. Tailscale for CP members. If web proxy, need domain, TLS cert, auth provider. Does an authenticated tunnel (Cloudflare Tunnel) compromise the "no public ports" posture?
+- **Concurrent inference capacity:** At what community size does a second GPU or node become necessary?
+- **Sage Stocks availability:** Personal-only or multi-user? Affects migration priority.
+- **Pi-based LLM viability:** AI HAT+ 2 benchmarks (~6.5-9.5 tok/s) are underwhelming. Evaluate Jetson Orin Nano Super ($249, ~40-55 tok/s) as alternative for Tier 2 nighttime inference.
 
 ---
 

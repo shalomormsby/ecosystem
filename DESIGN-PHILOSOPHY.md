@@ -150,27 +150,29 @@ What would delight the human, create joy, or expand their degrees of freedom?
 
 ## Technical Architecture
 
-### Monorepo Structure
+### Two Repos, One Philosophy
 
+The ecosystem is split across two repositories:
+
+**[sage-design-engine](https://github.com/shalomormsby/sage-design-engine)** — Source of truth for the design system:
+```
+sage-design-engine/
+├── packages/
+│   ├── ui/                   ← @thesage/ui - Component library (100 components)
+│   ├── tokens/               ← @thesage/tokens - Design tokens
+│   └── mcp/                  ← @thesage/mcp - AI assistant tools
+└── apps/web/                 ← Sage Studio (thesage.dev)
+```
+
+**ecosystem** (this repo) — Consumer applications:
 ```
 ecosystem/
 ├── apps/                     ← Portfolio, Sage Stocks, Creative Powerup, SageOS
-│   └── web/   ← Documentation & playground
 ├── packages/
-│   ├── ui/                   ← @thesage/ui - Component library
-│   │   └── src/
-│   │       ├── components/   ← Functionally organized (actions, forms, navigation, etc.)
-│   │       ├── lib/          ← Utilities, validation, animations
-│   │       ├── hooks/        ← useTheme, useMotionPreference, etc.
-│   │       └── providers/    ← ThemeProvider, etc.
-│   ├── tokens/               ← @thesage/tokens - Design system tokens
-│   └── config/               ← Shared config (Tailwind, etc.)
+│   └── sage-ai/              ← @thesage/ai - Sovereign AI layer (WIP)
 ```
 
-**Why monorepo?**
-- Single source of truth for design philosophy and tokens
-- Changes to components ripple across multiple products
-- "One mind, many expressions" made architecturally visible
+Apps consume `@thesage/ui` from npm. The design philosophy flows from tokens → components → products.
 
 **Why functional organization?**
 - **Developer clarity** — Components organized by what they *do*, not abstract hierarchy
@@ -207,9 +209,10 @@ This ecosystem demonstrates that:
 ## Related Files
 
 - `README.md` — Ecosystem overview and getting started
-- `AGENTS.md` — Technical setup and agent guidelines (read this second)
+- `AGENTS.md` — Technical guide for AI agents (read this second)
+- `packages/sage-ai/INCEPTION.md` — Sage AI founding blueprint
 - `apps/[app-name]/README.md` — App-specific setup instructions
-- `apps/web/docs/SAGE_DESIGN_SYSTEM_STRATEGY.md` — Design system strategy and usage
+- [Sage Design Engine](https://github.com/shalomormsby/sage-design-engine) — Design system source repo
 
 ---
 
