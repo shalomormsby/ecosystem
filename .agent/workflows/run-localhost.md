@@ -11,30 +11,27 @@ To run the local development server efficiently and avoid common pitfalls (like 
 1.  **Check for existing processes**:
     Before starting, ensure no orphaned processes are holding onto the ports (3000, 3001, 3002).
     ```bash
-    // turbo
     lsof -i :3000 -i :3001 -i :3002
     ```
     If processes are found, kill them:
     ```bash
-    // turbo
     kill -9 $(lsof -t -i :3000 -i :3001 -i :3002)
     ```
 
 2.  **Run with Filters (Recommended)**:
-    Instead of running the entire monorepo (which is heavy), run only the app you are working on and its dependencies.
-    
-    *   **For Sage Studio**:
+    Instead of running the entire monorepo, run only the app you are working on.
+
+    *   **For Portfolio**:
         ```bash
-        pnpm turbo run dev --filter=web...
+        pnpm dev --filter portfolio
         ```
-    
+
     *   **For Creative Powerup**:
         ```bash
-        pnpm turbo run dev --filter=creative-powerup...
+        pnpm dev --filter creative-powerup
         ```
 
 3.  **Run Everything (If needed)**:
-    If you truly need every app running, just use the root command (we've updated it to handle concurrency):
     ```bash
     pnpm dev
     ```
